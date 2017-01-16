@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_inicio"
+            android:checked="true"
+            android:icon="@drawable/ic_home1"
+            android:title="@string/inicio_item" />
+        <item
+            android:id="@+id/nav_cuadrillas"
+            android:icon="@drawable/ic_cuadrillas"
+            android:title="@string/cuadrillas_item" />
+        <item
+            android:id="@+id/nav_ordenes"
+            android:icon="@drawable/ic_orders"
+            android:title="@string/ordenes_item" />
+        <item
+            android:id="@+id/nav_novedades"
+            android:icon="@drawable/ic_notifications"
+            android:title="@string/novedades_item" />
+        <item
+            android:id="@+id/nav_sycronice"
+            android:icon="@drawable/ic_syncronice"
+            android:title="@string/syncronizar_item" />
+        <item
+            android:id="@+id/nav_log_out"
+            android:icon="@drawable/ic_log_out"
+            android:title="@string/log_out_item" />
+    </group>
+</menu>
+
+

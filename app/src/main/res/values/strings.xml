@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name">Corpico App</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_login"></string>
+    <!-- Strings related to navigation drawer -->
+    <string name="inicio_item">Inicio</string>
+    <string name="cuadrillas_item">Cuadrillas</string>
+    <string name="ordenes_item">Ordenes de Trabajo</string>
+    <string name="novedades_item">Novedades</string>
+    <string name="syncronizar_item">Syncronizar</string>
+    <string name="log_out_item">Cerrar Sesión</string>
+
+    <!-- Strings related to login -->
+    <string name="prompt_email">Código de usuario</string>
+    <string name="prompt_password">Contraseña</string>
+    <string name="action_sign_in">Iniciar sesión</string>
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email
+        completions."
+    </string>
+
+    <string name="title_activity_main">MainActivity</string>
+</resources>
