@@ -7,33 +7,41 @@
     <TextView
         android:text="Orden"
         android:layout_weight="1"
-        android:layout_width="fill_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:background="@color/colorAccent"
-        android:textColor="@android:color/white"/>
+        android:gravity="right"
+        android:paddingRight="56dp"
+        android:textColor="#8a000000"
+        android:fontFamily="Roboto Medium"
+        android:textSize="12sp"/>
     <TextView
         android:text="Titular"
         android:layout_weight="1"
-        android:layout_width="fill_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:background="@color/colorAccent"
-        android:textColor="@android:color/white"/>
+        android:paddingRight="56dp"
+        android:gravity="left"
+        android:textColor="#8a000000"
+        android:fontFamily="Roboto Medium"
+        android:textSize="12sp"/>
     <TextView
         android:text="Domicilio"
         android:layout_weight="1"
-        android:layout_width="fill_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:background="@color/colorAccent"
-        android:textColor="@android:color/white"/>
+        android:paddingRight="56dp"
+        android:gravity="left"
+        android:textColor="#8a000000"
+        android:fontFamily="Roboto Medium"
+        android:textSize="12sp"/>
     <TextView
         android:text="Tipo"
         android:layout_weight="1"
-        android:layout_width="fill_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:background="@color/colorAccent"
-        android:textColor="@android:color/white"/>
+        android:paddingRight="56dp"
+        android:gravity="left"
+        android:textColor="#8a000000"
+        android:fontFamily="Roboto Medium"
+        android:textSize="12sp"/>
 </LinearLayout>

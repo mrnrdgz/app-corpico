@@ -6,30 +6,42 @@
 
     <TextView
         android:layout_weight="1"
-        android:layout_width="fill_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:gravity="left"
-        android:layout_marginLeft="10dip"
+        android:gravity="right"
+        android:paddingRight="56dp"
+        android:textColor="#de000000"
+        android:fontFamily="Roboto Regular"
+        android:textSize="13sp"
         android:id="@+id/tv_numero" />
     <TextView
         android:layout_weight="1"
-        android:layout_width="fill_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:gravity="left"
-        android:layout_marginLeft="10dip"
+        android:paddingRight="56dp"
+        android:textColor="#de000000"
+        android:fontFamily="Roboto Regular"
+        android:textSize="13sp"
         android:id="@+id/tv_titular" />
     <TextView
         android:layout_weight="1"
-        android:layout_width="fill_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:gravity="left"
-        android:layout_marginLeft="10dip"
+        android:paddingRight="56dp"
+        android:textColor="#de000000"
+        android:fontFamily="Roboto Regular"
+        android:textSize="13sp"
         android:id="@+id/tv_domicilio" />
     <TextView
         android:layout_weight="1"
-        android:layout_width="fill_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:gravity="left"
-        android:layout_marginLeft="10dip"
+        android:paddingRight="56dp"
+        android:textColor="#de000000"
+        android:fontFamily="Roboto Regular"
+        android:textSize="13sp"
         android:id="@+id/tv_tipo" />
 </LinearLayout>
