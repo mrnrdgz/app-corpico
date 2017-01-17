@@ -1,6 +1,14 @@
 package ar.com.corpico.appcorpico.orders;
 
 import android.os.Bundle;
+import android.support.v4.view.MenuItemCompat;
+import android.support.v4.view.MenuItemCompat.OnActionExpandListener;
+import android.support.v7.widget.SearchView;
+import android.support.v7.widget.SearchView.OnQueryTextListener;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import ar.com.corpico.appcorpico.NavitationDrawerActivity;
 import ar.com.corpico.appcorpico.R;
@@ -11,12 +19,14 @@ import ar.com.corpico.appcorpico.orders.domain.usecase.GetOrders;
 import ar.com.corpico.appcorpico.orders.presentation.OrdersFragment;
 import ar.com.corpico.appcorpico.orders.presentation.OrdersPresenter;
 
-public class OrderActivity extends NavitationDrawerActivity {
+public class OrderActivity extends NavitationDrawerActivity  implements OnQueryTextListener, OnActionExpandListener {
+    private TextView mSearchView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order);
+
         OrdersFragment orderView;
         orderView = (OrdersFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.activity_orderCL);
@@ -29,7 +39,7 @@ public class OrderActivity extends NavitationDrawerActivity {
                     .add(R.id.activity_orderCL, orderView)
                     .commit();
         }
-
+        mSearchView = (TextView) findViewById(R.id.search);
         /**
          * <<create>> Almacénes
          */
@@ -52,5 +62,54 @@ public class OrderActivity extends NavitationDrawerActivity {
       OrdersPresenter orderPresenter = new OrdersPresenter(getOrders,orderView);
 
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_ot, menu);
+
+        MenuItem searchItem = menu.findItem(R.id.action_search);
+
+        SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
+        searchView.setOnQueryTextListener(this);
+
+        MenuItemCompat.setOnActionExpandListener(searchItem, this);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings) {
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public boolean onMenuItemActionExpand(MenuItem menuItem) {
+        Toast.makeText(getApplicationContext(), "Buscador activado", Toast.LENGTH_SHORT).show();
+        return true;
+    }
+
+    @Override
+    public boolean onMenuItemActionCollapse(MenuItem menuItem) {
+        Toast.makeText(getApplicationContext(), "Buscador desactivado", Toast.LENGTH_SHORT).show();
+        return true;
+    }
+
+    @Override
+    public boolean onQueryTextSubmit(String s) {
+        mSearchView.setText("Texto buscado\n\n" + s);
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String s) {
+        mSearchView.setText("Escribiendo texto buscado...\n\n" + s);
+        return false;
     }
 }

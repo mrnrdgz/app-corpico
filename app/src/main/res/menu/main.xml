@@ -2,24 +2,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".NavitationDrawerActivity">
-    <item
-        android:id="@+id/action_filtrar"
-        android:icon="@drawable/ic_filtrar"
-        android:orderInCategory="1"
-        android:title="@string/action_filtrar"
-        app:showAsAction="ifRoom" />
-    <item
-        android:id="@+id/action_map"
-        android:icon="@drawable/ic_map"
-        android:orderInCategory="2"
-        android:title="@string/action_map"
-        app:showAsAction="ifRoom" />
-    <item
-        android:id="@+id/action_search"
-        android:icon="@drawable/ic_search"
-        android:orderInCategory="3"
-        android:title="@string/action_buscar"
-        app:showAsAction="ifRoom" />
+
     <item
         android:id="@+id/action_settings"
         android:orderInCategory="100"
