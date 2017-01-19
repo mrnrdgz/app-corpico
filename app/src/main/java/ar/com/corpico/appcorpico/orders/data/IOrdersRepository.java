@@ -10,8 +10,8 @@ import ar.com.corpico.appcorpico.orders.domain.filter.Criteria;
  */
 
 public interface IOrdersRepository {
-    public void findOrder(FindCallback callback, Criteria filter);
-    interface FindCallback{
+    public void findOrder(OrdersRepositoryCallback callback, Criteria filter);
+    interface OrdersRepositoryCallback {
         void onSuccess(List<Order> orders);
 
         void onError(String error);

@@ -9,8 +9,6 @@ import ar.com.corpico.appcorpico.orders.data.IOrdersRepository;
 import ar.com.corpico.appcorpico.orders.domain.entity.Order;
 import ar.com.corpico.appcorpico.orders.domain.filter.Criteria;
 
-import static android.R.attr.filter;
-
 /**
  * Created by Administrador on 07/01/2017.
  */
@@ -24,7 +22,8 @@ public class GetOrders extends UseCase<GetOrders.RequestValues, GetOrders.Respon
 
     @Override
     public void execute(RequestValues requestValues, final UseCaseCallback callback) {
-        mOrdersRepository.findOrder(new IOrdersRepository.FindCallback() {
+
+        IOrdersRepository.OrdersRepositoryCallback findCallback = new IOrdersRepository.OrdersRepositoryCallback() {
             @Override
             public void onSuccess(List<Order> orders) {
                 ResponseValue responseValue = new ResponseValue(orders);
@@ -35,7 +34,10 @@ public class GetOrders extends UseCase<GetOrders.RequestValues, GetOrders.Respon
             public void onError(String error) {
                 callback.onError(error);
             }
-        }, requestValues.getFilter());
+        };
+
+
+        mOrdersRepository.findOrder(findCallback, requestValues.getFilter());
     }
 
     public static final class RequestValues implements UseCase.RequestValues {

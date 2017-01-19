@@ -32,34 +32,41 @@ public class OrdersPresenter implements Presenter {
         CriteriaState state = new CriteriaState("Pendiente");
         CriteriaSector sector = new CriteriaSector("Este");
 
-        AndCriteria andCriteria=new AndCriteria(state,sector);
+        AndCriteria andCriteria = new AndCriteria(state, sector);
 
-        mgetOrders.execute(new GetOrders.RequestValues(state),
-                new UseCase.UseCaseCallback() {
-                    @Override
-                    public void onSuccess(Object response) {
-                        // TODO: Ocultar indicador de progreso
+        // Parámetro #1
+        GetOrders.RequestValues requestValues = new GetOrders.RequestValues(state);
 
-                        // Se obtiene el valor de respuesta del caso de uso
-                        GetOrders.ResponseValue responseValue = (GetOrders.ResponseValue) response;
+        // Parámetro #2
+        UseCase.UseCaseCallback useCaseCallback = new UseCase.UseCaseCallback(){
+            @Override
+            public void onSuccess(Object response) {
+                // TODO: Ocultar indicador de progreso
 
-                        // ¿La lista tiene uno o más elementos?
-                        List<Order> orders = responseValue.getOrders();
-                        if (orders.size() >= 1){
-                            // Mostrar la lista en la vista
-                            mOrdersView.showOrderList(orders);
-                        }else {
-                            // TODO: Mostrar estado vacío
-                        }
+                // Se obtiene el valor de respuesta del caso de uso
+                GetOrders.ResponseValue responseValue = (GetOrders.ResponseValue) response;
+
+                // ¿La lista tiene uno o más elementos?
+                List<Order> orders = responseValue.getOrders();
+                if (orders.size() >= 1) {
+                    // Mostrar la lista en la vista
+                    mOrdersView.showOrderList(orders);
+                } else {
+                    // TODO: Mostrar estado vacío
+                }
 
 
-                    }
+            }
 
-                    @Override
-                    public void onError(String error) {
-                        // TODO : Ocultar indicador de progreso
-                        mOrdersView.showOrderError(error);
-                    }
-                });
+            @Override
+            public void onError(String error) {
+                // TODO : Ocultar indicador de progreso
+                mOrdersView.showOrderError(error);
+            }
+        };
+
+
+        mgetOrders.execute(requestValues, useCaseCallback);
+
     }
 }

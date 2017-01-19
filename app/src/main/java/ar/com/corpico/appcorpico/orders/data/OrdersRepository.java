@@ -17,7 +17,7 @@ public class OrdersRepository implements IOrdersRepository {
     // Relaciones de composición
     private OrdersRestStore mOrdersRestStore;
 
-    public OrdersRepository(OrdersRestStore ordersRestStore) {
+    private OrdersRepository(OrdersRestStore ordersRestStore) {
         mOrdersRestStore = Preconditions.checkNotNull(ordersRestStore,
                 "La fuente de datos rest de ordenes no puede ser null");
     }
@@ -30,7 +30,7 @@ public class OrdersRepository implements IOrdersRepository {
     }
 
     @Override
-    public void findOrder(final FindCallback callback, Criteria filter) {
+    public void findOrder(final OrdersRepositoryCallback callback, Criteria filter) {
         /**
          * Estrategia:
          * 1. Se consuta primero el servicio REST
@@ -38,7 +38,7 @@ public class OrdersRepository implements IOrdersRepository {
          * 3. Enviar los datos al invocador
          */
 
-        mOrdersRestStore.getOrders(new OrderStore.GetCallback() {
+        OrderStore.GetCallback callback1 = new OrderStore.GetCallback() {
             @Override
             public void onSuccess(List<Order> orders) {
                 // TODO: Guardar datos en SQLite. Posible método save()/insert()/add()
@@ -49,6 +49,8 @@ public class OrdersRepository implements IOrdersRepository {
             public void onError(String error) {
                 callback.onError(error);
             }
-        }, filter);
+        };
+
+        mOrdersRestStore.getOrders(callback1, filter);
     }
 }

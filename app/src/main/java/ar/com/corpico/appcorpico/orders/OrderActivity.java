@@ -49,7 +49,7 @@ public class OrderActivity extends NavitationDrawerActivity  implements OnQueryT
         /**
          * <<create>> SessionsRepository
          */
-        OrdersRepository repository = new OrdersRepository(restStore);
+        OrdersRepository repository = OrdersRepository.getInstance(restStore);
 
         /**
          * <<create>> LoginUser
