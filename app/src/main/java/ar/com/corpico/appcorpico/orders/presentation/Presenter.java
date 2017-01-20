@@ -6,4 +6,5 @@ package ar.com.corpico.appcorpico.orders.presentation;
 
 public interface Presenter {
     public void loadOrderList();
+    public void BtnMap();
 }

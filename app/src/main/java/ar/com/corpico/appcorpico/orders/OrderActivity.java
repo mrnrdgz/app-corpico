@@ -18,9 +18,11 @@ import ar.com.corpico.appcorpico.orders.data.OrdersSqliteStore;
 import ar.com.corpico.appcorpico.orders.domain.usecase.GetOrders;
 import ar.com.corpico.appcorpico.orders.presentation.OrdersFragment;
 import ar.com.corpico.appcorpico.orders.presentation.OrdersPresenter;
+import ar.com.corpico.appcorpico.orders.presentation.View;
 
 public class OrderActivity extends NavitationDrawerActivity  implements OnQueryTextListener, OnActionExpandListener {
     private TextView mSearchView;
+    private View mView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,6 +85,17 @@ public class OrderActivity extends NavitationDrawerActivity  implements OnQueryT
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            return true;
+        }
+        if (id == R.id.action_filtrar) {
+            return true;
+        }
+        if (id == R.id.action_map) {
+            OrdersFragment morderFragmen =(OrdersFragment) getSupportFragmentManager().findFragmentById(R.id.activity_orderCL);
+            morderFragmen.clickbtnMap();
+            return true;
+        }
+        if (id == R.id.action_search) {
             return true;
         }
 

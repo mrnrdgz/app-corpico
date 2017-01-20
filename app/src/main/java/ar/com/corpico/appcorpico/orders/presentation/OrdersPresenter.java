@@ -69,4 +69,8 @@ public class OrdersPresenter implements Presenter {
         mgetOrders.execute(requestValues, useCaseCallback);
 
     }
+    @Override
+    public void BtnMap() {
+        mOrdersView.showOrderMsgMap();
+    }
 }

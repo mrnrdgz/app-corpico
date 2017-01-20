@@ -2,7 +2,6 @@ package ar.com.corpico.appcorpico.orders.presentation;
 
 import java.util.List;
 
-import ar.com.corpico.appcorpico.orders.presentation.Presenter;
 import ar.com.corpico.appcorpico.orders.domain.entity.Order;
 
 /**
@@ -13,4 +12,6 @@ public interface View {
     public void showOrderList(List<Order> listorder);
     public void showOrderError(String error);
     public void setPresenter(Presenter presenter);
+    public void showOrderMsgMap();
+    public void clickbtnMap();
 }

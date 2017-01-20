@@ -2,20 +2,17 @@ package ar.com.corpico.appcorpico.orders.presentation;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.Toast;
-import android.support.v4.app.Fragment;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import ar.com.corpico.appcorpico.R;
-import ar.com.corpico.appcorpico.orders.data.OrdersRepository;
 import ar.com.corpico.appcorpico.orders.domain.entity.Order;
-import ar.com.corpico.appcorpico.orders.presentation.Presenter;
-
-import static android.R.attr.order;
 
 /**
  * Created by Administrador on 07/01/2017.
@@ -25,7 +22,6 @@ public class OrdersFragment extends Fragment implements ar.com.corpico.appcorpic
     private Presenter mOrdersPresenter;
     private ListView mOrderList;
     private OrdersAdapter mOrdersAdapter;
-
 
     public OrdersFragment() {
         // Required empty public constructor
@@ -83,5 +79,14 @@ public class OrdersFragment extends Fragment implements ar.com.corpico.appcorpic
     @Override
     public void setPresenter(Presenter presenter) {
         mOrdersPresenter = presenter;
+    }
+    @Override
+    public void showOrderMsgMap() {
+        Toast.makeText(getActivity(), "Bonton Map Presionado", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void clickbtnMap() {
+        mOrdersPresenter.BtnMap();
     }
 }
