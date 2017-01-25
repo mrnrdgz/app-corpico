@@ -41,8 +41,7 @@ public class OrdersFilterDialog extends DialogFragment {
         Button cancelar = (Button) v.findViewById(R.id.cancelar_boton);
 
         builder.setView(v);
-        builder.setTitle("Titulo")
-                .setMessage("El Mensaje para el usuario")
+        builder.setTitle("Filtro de búsqueda");
         aplicar.setOnClickListener(new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
                                 listener.onPossitiveButtonClick();
