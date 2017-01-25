@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:padding="@dimen/dialog_body">
+
+    <Spinner
+        android:id="@+id/estado_spinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:entries="@array/estados" />
+    <Spinner
+        android:id="@+id/tipo_spinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:entries="@array/tipos" />
+    <Spinner
+        android:id="@+id/sector_spinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:entries="@array/sectores" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+    <Button
+        android:id="@+id/filtrar_boton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingStart="52dp"
+        android:paddingEnd="52dp"
+        android:background="@android:color/white"
+        android:text="@string/cancelar_boton"
+        android:textStyle="bold"
+        android:textColor="@color/colorAccent" />
+    <Button
+            android:id="@+id/cancelar_boton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="52dp"
+            android:paddingEnd="52dp"
+            android:background="@android:color/white"
+            android:text="@string/filtrar_boton"
+            android:textStyle="bold"
+            android:textColor="@color/colorAccent" />
+    </LinearLayout>
+</LinearLayout>

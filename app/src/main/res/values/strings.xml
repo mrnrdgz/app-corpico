@@ -22,6 +22,8 @@
         completions."
     </string>
     <string name="action_filtrar">Filtrar</string>
+    <string name="filtrar_boton">Aplicar</string>
+    <string name="cancelar_boton">Cancelar</string>
     <string name="action_map">Mapa</string>
     <string name="action_buscar">Buscar</string>
     <string name="title_activity_main">MainActivity</string>

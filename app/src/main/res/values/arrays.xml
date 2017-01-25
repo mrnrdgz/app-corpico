@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="estados">
+        <item>Todos</item>
+        <item>Cerradas</item>
+        <item>Culminadas</item>
+        <item>No Culminadas</item>
+        <item>Pendientes</item>
+        <item>Asignadas a cuadrilla X</item>
+        <item>Asignadas a cuadrilla Y</item>
+    </string-array>
+    <string-array name="tipos">
+        <item>Todos</item>
+        <item>Retiro de Medidor</item>
+        <item>Cambio de Medidor</item>
+        <item>Rehabilitacion de Servicio</item>
+        <item>Verificación Lecturas</item>
+        <item>Colocacion de Medidor</item>
+        <item>Inspección - Verificacion</item>
+        <item>Reparacion alumbrado publico</item>
+        <item>Colocacion Med.E.Prepaga</item>
+        <item>Construcción Puesta Tierra</item>
+        <item>Reparación Centro de Calle AP</item>
+        <item>Reparación Columna AP</item>
+        <item>Solicitud Ext/Amp de Línea</item>
+    </string-array>
+    <string-array name="sectores">
+        <item>Todos</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+    </string-array>
+</resources>

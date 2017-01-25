@@ -16,13 +16,16 @@ import ar.com.corpico.appcorpico.orders.data.OrdersRepository;
 import ar.com.corpico.appcorpico.orders.data.OrdersRestStore;
 import ar.com.corpico.appcorpico.orders.data.OrdersSqliteStore;
 import ar.com.corpico.appcorpico.orders.domain.usecase.GetOrders;
+import ar.com.corpico.appcorpico.orders.presentation.OrdersFilterDialog;
 import ar.com.corpico.appcorpico.orders.presentation.OrdersFragment;
 import ar.com.corpico.appcorpico.orders.presentation.OrdersPresenter;
 import ar.com.corpico.appcorpico.orders.presentation.View;
+import android.support.v4.app.DialogFragment;
 
 public class OrderActivity extends NavitationDrawerActivity  implements OnQueryTextListener, OnActionExpandListener {
     private TextView mSearchView;
     private View mView;
+    private OrdersFilterDialog dialogOrdersFilter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,6 +91,7 @@ public class OrderActivity extends NavitationDrawerActivity  implements OnQueryT
             return true;
         }
         if (id == R.id.action_filtrar) {
+            new OrdersFilterDialog().show(getSupportFragmentManager(), "SimpleDialog");
             return true;
         }
         if (id == R.id.action_map) {
