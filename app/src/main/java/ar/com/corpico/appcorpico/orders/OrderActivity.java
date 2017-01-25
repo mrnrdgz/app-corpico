@@ -17,12 +17,12 @@ import ar.com.corpico.appcorpico.orders.data.OrdersRestStore;
 import ar.com.corpico.appcorpico.orders.data.OrdersSqliteStore;
 import ar.com.corpico.appcorpico.orders.domain.usecase.GetOrders;
 import ar.com.corpico.appcorpico.orders.presentation.OrdersFilterDialog;
+import ar.com.corpico.appcorpico.orders.presentation.OrdersFilterDialog.OnFilterDialogListener;
 import ar.com.corpico.appcorpico.orders.presentation.OrdersFragment;
 import ar.com.corpico.appcorpico.orders.presentation.OrdersPresenter;
 import ar.com.corpico.appcorpico.orders.presentation.View;
-import android.support.v4.app.DialogFragment;
 
-public class OrderActivity extends NavitationDrawerActivity  implements OnQueryTextListener, OnActionExpandListener {
+public class OrderActivity extends NavitationDrawerActivity  implements OnFilterDialogListener,OnQueryTextListener, OnActionExpandListener {
     private TextView mSearchView;
     private View mView;
     private OrdersFilterDialog dialogOrdersFilter;
@@ -128,5 +128,14 @@ public class OrderActivity extends NavitationDrawerActivity  implements OnQueryT
     public boolean onQueryTextChange(String s) {
         mSearchView.setText("Escribiendo texto buscado...\n\n" + s);
         return false;
+    }
+    @Override
+    public void onPossitiveButtonClick() {
+        Toast.makeText(this, "Hola", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onNegativeButtonClick() {
+        Toast.makeText(this, "CHAU", Toast.LENGTH_SHORT).show();
     }
 }
