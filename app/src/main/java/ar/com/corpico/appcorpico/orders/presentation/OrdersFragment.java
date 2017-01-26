@@ -90,4 +90,14 @@ public class OrdersFragment extends Fragment implements ar.com.corpico.appcorpic
     public void showOrderMsgMap() {
         Toast.makeText(getActivity(), "Bonton Map Presionado", Toast.LENGTH_SHORT).show();
     }
+
+    @Override
+    public void clickbtnFilter() {
+        mOrdersPresenter.btnFilter();
+    }
+    @Override
+    public void showOrderMsgFilter() {
+        Toast.makeText(getActivity(), "Bonton Aplicar Filtro", Toast.LENGTH_SHORT).show();
+    }
+
 }

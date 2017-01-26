@@ -14,4 +14,6 @@ public interface View {
     public void setPresenter(Presenter presenter);
     public void showOrderMsgMap();
     public void clickbtnMap();
+    public void clickbtnFilter();
+    public void showOrderMsgFilter();
 }

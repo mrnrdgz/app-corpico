@@ -73,4 +73,8 @@ public class OrdersPresenter implements Presenter {
     public void BtnMap() {
         mOrdersView.showOrderMsgMap();
     }
+    @Override
+    public void btnFilter() {
+        mOrdersView.showOrderMsgFilter();
+    }
 }

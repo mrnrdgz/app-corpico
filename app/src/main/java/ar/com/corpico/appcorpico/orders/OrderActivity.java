@@ -131,11 +131,13 @@ public class OrderActivity extends NavitationDrawerActivity  implements OnFilter
     }
     @Override
     public void onPossitiveButtonClick() {
-        Toast.makeText(this, "Hola", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getApplicationContext(), "Hola", Toast.LENGTH_SHORT).show();
+       OrdersFragment morderFragmen =(OrdersFragment) getSupportFragmentManager().findFragmentById(R.id.activity_orderCL);
+       morderFragmen.clickbtnFilter();
     }
 
     @Override
     public void onNegativeButtonClick() {
-        Toast.makeText(this, "CHAU", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), "CHAU", Toast.LENGTH_SHORT).show();
     }
 }
