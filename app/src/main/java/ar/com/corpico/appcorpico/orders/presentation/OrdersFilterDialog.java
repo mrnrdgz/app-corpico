@@ -2,6 +2,7 @@ package ar.com.corpico.appcorpico.orders.presentation;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -43,9 +44,12 @@ public class OrdersFilterDialog extends DialogFragment {
         Button mCancelarButton = (Button) v.findViewById(R.id.cancelar_boton);*/
 
         builder.setTitle("Filtar búsqueda")
-                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                .setPositiveButton("APLICAR", new DialogInterface.OnClickListener() {
                         @Override
                          public void onClick(DialogInterface dialog, int which) {
+                            /*ACA TENDRIA Q MANDAR LA CAPTURA DE LOS FILTROS ELEGIDOS
+                            Y PASARLOS X PARAMETROS AL METODO DE ABAJO
+                            PARA ARMAR LA LLAMADA AL METODO DE FILTRADO*/
                             listener.onPossitiveButtonClick();
                          }
                         })
@@ -78,15 +82,15 @@ public class OrdersFilterDialog extends DialogFragment {
         return builder.create();
     }
     @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
+    public void onAttach(Context context) {
+        super.onAttach(context);
 
         try {
-            listener = (OnFilterDialogListener) activity;
+            listener = (OnFilterDialogListener) context;
 
         } catch (ClassCastException e) {
             throw new ClassCastException(
-                    activity.toString() +
+                    context.toString() +
                             " no implementó OnSimpleDialogListener");
 
         }

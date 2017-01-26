@@ -85,7 +85,10 @@ public class OrderActivity extends NavitationDrawerActivity  implements OnFilter
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-
+        switch (id){
+            case R.id.action_map:
+                break;
+        }
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;

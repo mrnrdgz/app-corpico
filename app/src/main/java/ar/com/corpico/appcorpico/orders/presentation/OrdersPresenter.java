@@ -27,12 +27,14 @@ public class OrdersPresenter implements Presenter {
     }
 
     @Override
-    public void loadOrderList() {
+    public void loadOrderList(String stado, String tip, String sec) {
         // TODO: Se reciben valores de cada filtro
-        CriteriaState state = new CriteriaState("Pendiente");
-        CriteriaSector sector = new CriteriaSector("Este");
+        CriteriaState state = new CriteriaState(stado);
+        CriteriaSector criteriaSector = new CriteriaSector(sec);
+        CriteriaTipo criteriaTipo = new CriteriaTipo(tip);
 
-        AndCriteria andCriteria = new AndCriteria(state, sector);
+        AndCriteria andCriteria = new AndCriteria(state, new AndCriteria(criteriaSector, criteriaTipo));
+
         mOrdersView.showProgressIndicator(true);
         // Parámetro #1
         GetOrders.RequestValues requestValues = new GetOrders.RequestValues(state);
