@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -13,6 +14,8 @@ import java.util.List;
 
 import ar.com.corpico.appcorpico.R;
 import ar.com.corpico.appcorpico.orders.domain.entity.Order;
+
+import static android.view.View.GONE;
 
 /**
  * Created by Administrador on 07/01/2017.
@@ -22,6 +25,8 @@ public class OrdersFragment extends Fragment implements ar.com.corpico.appcorpic
     private Presenter mOrdersPresenter;
     private ListView mOrderList;
     private OrdersAdapter mOrdersAdapter;
+    private TextView mEmptyView;
+    private android.view.View mProgressView;
 
     public OrdersFragment() {
         // Required empty public constructor
@@ -48,6 +53,8 @@ public class OrdersFragment extends Fragment implements ar.com.corpico.appcorpic
 
         // Obtención de referencias UI
         mOrderList = (ListView) root.findViewById(R.id.orders_list);
+        mEmptyView = (TextView) root.findViewById(R.id.orders_empty);
+        mProgressView = root.findViewById(R.id.orders_progress);
 
         mOrdersAdapter = new OrdersAdapter(getActivity(), new ArrayList<Order>(0));
         mOrderList.setAdapter(mOrdersAdapter);
@@ -100,4 +107,13 @@ public class OrdersFragment extends Fragment implements ar.com.corpico.appcorpic
         Toast.makeText(getActivity(), "Bonton Aplicar Filtro", Toast.LENGTH_SHORT).show();
     }
 
+    @Override
+    public void showOrdesEmpty() {
+        mOrderList.setEmptyView(mEmptyView);
+    }
+
+    @Override
+    public void showProgressIndicator(boolean show) {
+        mProgressView.setVisibility(show ? android.view.View.VISIBLE : GONE);
+    }
 }

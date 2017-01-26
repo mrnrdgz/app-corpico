@@ -16,4 +16,6 @@ public interface View {
     public void clickbtnMap();
     public void clickbtnFilter();
     public void showOrderMsgFilter();
+    public void showOrdesEmpty();
+    public void showProgressIndicator(boolean show);
 }

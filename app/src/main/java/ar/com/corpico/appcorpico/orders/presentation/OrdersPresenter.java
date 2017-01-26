@@ -33,7 +33,7 @@ public class OrdersPresenter implements Presenter {
         CriteriaSector sector = new CriteriaSector("Este");
 
         AndCriteria andCriteria = new AndCriteria(state, sector);
-
+        mOrdersView.showProgressIndicator(true);
         // Parámetro #1
         GetOrders.RequestValues requestValues = new GetOrders.RequestValues(state);
 
@@ -42,7 +42,7 @@ public class OrdersPresenter implements Presenter {
             @Override
             public void onSuccess(Object response) {
                 // TODO: Ocultar indicador de progreso
-
+                mOrdersView.showProgressIndicator(false);
                 // Se obtiene el valor de respuesta del caso de uso
                 GetOrders.ResponseValue responseValue = (GetOrders.ResponseValue) response;
 
@@ -53,6 +53,7 @@ public class OrdersPresenter implements Presenter {
                     mOrdersView.showOrderList(orders);
                 } else {
                     // TODO: Mostrar estado vacío
+                    mOrdersView.showOrdesEmpty();
                 }
 
 
@@ -61,6 +62,7 @@ public class OrdersPresenter implements Presenter {
             @Override
             public void onError(String error) {
                 // TODO : Ocultar indicador de progreso
+                mOrdersView.showProgressIndicator(false);
                 mOrdersView.showOrderError(error);
             }
         };
