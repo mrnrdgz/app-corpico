@@ -13,6 +13,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import ar.com.corpico.appcorpico.home.HomeActivity;
+import ar.com.corpico.appcorpico.login.LoginActivity;
 import ar.com.corpico.appcorpico.orders.OrderActivity;
 
 public class NavitationDrawerActivity extends AppCompatActivity {
@@ -109,7 +110,8 @@ public class NavitationDrawerActivity extends AppCompatActivity {
             startActivity(intent);
         }
         if (opcion == R.id.nav_log_out){
-            finish();
+            Intent intent = new Intent(this, LoginActivity.class);
+            startActivity(intent);
         }
 
         drawerLayout.closeDrawers(); // Cerrar drawer

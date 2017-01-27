@@ -20,7 +20,7 @@ public class CriteriaTipo implements Criteria {
         List<Order> filteredOrders = new ArrayList<>();
 
         for (Order order : orders) {
-            if (order.getmEstado().equals(tipo)) {
+            if (order.getTipo().equals(tipo)) {
                 filteredOrders.add(order);
             }
         }

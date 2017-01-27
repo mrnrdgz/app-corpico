@@ -1,9 +1,7 @@
 package ar.com.corpico.appcorpico.orders;
 
 import android.os.Bundle;
-import android.support.v4.view.MenuItemCompat;
 import android.support.v4.view.MenuItemCompat.OnActionExpandListener;
-import android.support.v7.widget.SearchView;
 import android.support.v7.widget.SearchView.OnQueryTextListener;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -44,7 +42,7 @@ public class OrderActivity extends NavitationDrawerActivity  implements OnFilter
                     .add(R.id.activity_orderCL, orderView)
                     .commit();
         }
-        mSearchView = (TextView) findViewById(R.id.search);
+       // mSearchView = (TextView) findViewById(R.id.search);
         /**
          * <<create>> Almacénes
          */
@@ -72,12 +70,12 @@ public class OrderActivity extends NavitationDrawerActivity  implements OnFilter
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_ot, menu);
 
-        MenuItem searchItem = menu.findItem(R.id.action_search);
+        /*MenuItem searchItem = menu.findItem(R.id.action_search);
 
         SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
         searchView.setOnQueryTextListener(this);
 
-        MenuItemCompat.setOnActionExpandListener(searchItem, this);
+        MenuItemCompat.setOnActionExpandListener(searchItem, this);*/
         return super.onCreateOptionsMenu(menu);
     }
 

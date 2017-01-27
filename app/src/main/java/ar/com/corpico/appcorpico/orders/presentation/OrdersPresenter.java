@@ -64,7 +64,7 @@ public class OrdersPresenter implements Presenter {
 
             @Override
             public void onError(String error) {
-                // TODO : Ocultar indicador de progreso
+                // Ocultar indicador de progreso
                 mOrdersView.showProgressIndicator(false);
                 mOrdersView.showOrderError(error);
             }
