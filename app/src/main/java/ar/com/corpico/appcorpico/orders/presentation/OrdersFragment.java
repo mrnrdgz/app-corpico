@@ -65,7 +65,7 @@ public class OrdersFragment extends Fragment implements ar.com.corpico.appcorpic
         mOrderList.addHeaderView(headerView);
 
         //Llama al metodo del Presentador para que muestre
-        mOrdersPresenter.loadOrderList();
+        mOrdersPresenter.loadOrderList("Pendiente","Retiro de Medidor","4");
 
         return root;
     }

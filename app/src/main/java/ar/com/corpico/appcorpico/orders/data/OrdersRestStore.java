@@ -16,11 +16,11 @@ public class OrdersRestStore implements OrderStore {
     private  static final ArrayList<Order> mFakeRestData = new ArrayList<>();
 
     static {
-        mFakeRestData.add(new Order("1", "Malvinas", "Conexion", "Pendiente", "15514", "001", "Luisa Gonzalez", "Pasaje Rivero 957", "", "", "Nada"));
-        mFakeRestData.add(new Order("2", "Ranqueles", "Desconexion", "Cerrada", "", "", "Jorgelina Rodriguez", "Calle 531", "", "", "Algo"));
-        mFakeRestData.add(new Order("3", "Este", "Colocacion", "Culminada", "", "", "Gustavo Turienzo", "Calle 29", "", "", "Todo"));
-        mFakeRestData.add(new Order("4", "Este", "Alumbrado", "No Culminada", "", "", "Gonzalo Fernandez", "Calle 18", "", "", "Siempre"));
-        mFakeRestData.add(new Order("5", "Centro", "Medidor", "Pendiente", "", "", "Antonella Privitera", "Calle 28", "", "", "Nunca"));
+        mFakeRestData.add(new Order("1", "2", "Retiro de Medidor", "Pendiente", "15514", "001", "Luisa Gonzalez", "Pasaje Rivero 957", "", "", "Nada"));
+        mFakeRestData.add(new Order("2", "3", "Cambio de Medidor", "Cerrada", "", "", "Jorgelina Rodriguez", "Calle 531", "", "", "Algo"));
+        mFakeRestData.add(new Order("3", "4", "Colocacion de Medidor", "Culminada", "", "", "Gustavo Turienzo", "Calle 29", "", "", "Todo"));
+        mFakeRestData.add(new Order("4", "4", "Retiro de Medidor", "No Culminada", "", "", "Gonzalo Fernandez", "Calle 18", "", "", "Siempre"));
+        mFakeRestData.add(new Order("5", "1", "Reparación Columna AP", "Pendiente", "", "", "Antonella Privitera", "Calle 28", "", "", "Nunca"));
     }
 
     @Override

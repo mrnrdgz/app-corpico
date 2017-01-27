@@ -9,6 +9,7 @@ import ar.com.corpico.appcorpico.orders.domain.entity.Order;
 import ar.com.corpico.appcorpico.orders.domain.filter.AndCriteria;
 import ar.com.corpico.appcorpico.orders.domain.filter.CriteriaSector;
 import ar.com.corpico.appcorpico.orders.domain.filter.CriteriaState;
+import ar.com.corpico.appcorpico.orders.domain.filter.CriteriaTipo;
 import ar.com.corpico.appcorpico.orders.domain.usecase.GetOrders;
 
 /**
@@ -27,23 +28,23 @@ public class OrdersPresenter implements Presenter {
     }
 
     @Override
-    public void loadOrderList(String stado, String tip, String sec) {
-        // TODO: Se reciben valores de cada filtro
-        CriteriaState state = new CriteriaState(stado);
-        CriteriaSector criteriaSector = new CriteriaSector(sec);
-        CriteriaTipo criteriaTipo = new CriteriaTipo(tip);
+    public void loadOrderList(String estado, String tipo, String sector) {
+        // Se reciben valores de cada filtro
+        CriteriaState criteriaState = new CriteriaState(estado);
+        CriteriaSector criteriaSector = new CriteriaSector(sector);
+        CriteriaTipo criteriaTipo = new CriteriaTipo(tipo);
 
-        AndCriteria andCriteria = new AndCriteria(state, new AndCriteria(criteriaSector, criteriaTipo));
+        AndCriteria andCriteria = new AndCriteria(criteriaState, new AndCriteria(criteriaSector, criteriaTipo));
 
         mOrdersView.showProgressIndicator(true);
         // Parámetro #1
-        GetOrders.RequestValues requestValues = new GetOrders.RequestValues(state);
+        GetOrders.RequestValues requestValues = new GetOrders.RequestValues(andCriteria);
 
         // Parámetro #2
         UseCase.UseCaseCallback useCaseCallback = new UseCase.UseCaseCallback(){
             @Override
             public void onSuccess(Object response) {
-                // TODO: Ocultar indicador de progreso
+                // Ocultar indicador de progreso
                 mOrdersView.showProgressIndicator(false);
                 // Se obtiene el valor de respuesta del caso de uso
                 GetOrders.ResponseValue responseValue = (GetOrders.ResponseValue) response;
@@ -54,7 +55,7 @@ public class OrdersPresenter implements Presenter {
                     // Mostrar la lista en la vista
                     mOrdersView.showOrderList(orders);
                 } else {
-                    // TODO: Mostrar estado vacío
+                    // Mostrar estado vacío
                     mOrdersView.showOrdesEmpty();
                 }
 

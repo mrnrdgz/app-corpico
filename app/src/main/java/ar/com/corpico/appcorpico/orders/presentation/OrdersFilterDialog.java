@@ -33,51 +33,29 @@ public class OrdersFilterDialog extends DialogFragment {
         return onCreateOrdersFilterDialog();
     }
     public AlertDialog onCreateOrdersFilterDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = getActivity().getLayoutInflater();
 
         android.view.View v = inflater.inflate(R.layout.dialog_orders_filter, null);
 
         builder.setView(v);
-
-        /*Button mAplicarButton = (Button) v.findViewById(R.id.filtrar_boton);
-        Button mCancelarButton = (Button) v.findViewById(R.id.cancelar_boton);*/
-
         builder.setTitle("Filtar búsqueda")
                 .setPositiveButton("APLICAR", new DialogInterface.OnClickListener() {
                         @Override
                          public void onClick(DialogInterface dialog, int which) {
                             /*ACA TENDRIA Q MANDAR LA CAPTURA DE LOS FILTROS ELEGIDOS
                             Y PASARLOS X PARAMETROS AL METODO DE ABAJO
-                            PARA ARMAR LA LLAMADA AL METODO DE FILTRADO*/
+                            PARA ARMAR LA LLAMADA AL M<ETODO DE FILTRADO*/
                             listener.onPossitiveButtonClick();
                          }
                         })
                 .setNegativeButton("CANCELAR", new DialogInterface.OnClickListener() {
                             @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            listener.onNegativeButtonClick();
+                            //listener.onNegativeButtonClick();
+                                dialog.dismiss();
                             }
                         });
-
-        /*mAplicarButton.setOnClickListener(new android.view.View.OnClickListener() {
-                    @Override
-                    public void onClick(android.view.View v) {
-                        // Aplicar
-                        listener.onPossitiveButtonClick();
-                    }
-                }
-        );
-
-        mCancelarButton.setOnClickListener(new android.view.View.OnClickListener() {
-                    @Override
-                    public void onClick(android.view.View v) {
-                        // Cancelar
-                        listener.onNegativeButtonClick();
-                    }
-                }
-
-        );*/
 
         return builder.create();
     }

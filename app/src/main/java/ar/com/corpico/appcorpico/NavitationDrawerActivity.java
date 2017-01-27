@@ -79,7 +79,6 @@ public class NavitationDrawerActivity extends AppCompatActivity {
         );
     }
 
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         if (!drawerLayout.isDrawerOpen(GravityCompat.START)) {

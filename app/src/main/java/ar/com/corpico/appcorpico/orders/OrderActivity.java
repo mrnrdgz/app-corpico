@@ -66,7 +66,6 @@ public class OrderActivity extends NavitationDrawerActivity  implements OnFilter
          */
       OrdersPresenter orderPresenter = new OrdersPresenter(getOrders,orderView);
 
-
     }
 
     @Override
@@ -86,27 +85,20 @@ public class OrderActivity extends NavitationDrawerActivity  implements OnFilter
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         switch (id){
+            case R.id.action_search:
+                break;
+            case R.id.action_filtrar:
+                new OrdersFilterDialog().show(getSupportFragmentManager(), "FilterDialog");
+                break;
             case R.id.action_map:
+                OrdersFragment mOrderFragmen =(OrdersFragment) getSupportFragmentManager().findFragmentById(R.id.activity_orderCL);
+                mOrderFragmen.clickbtnMap();
+                break;
+            case R.id.action_settings:
                 break;
         }
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-        if (id == R.id.action_filtrar) {
-            new OrdersFilterDialog().show(getSupportFragmentManager(), "SimpleDialog");
-            return true;
-        }
-        if (id == R.id.action_map) {
-            OrdersFragment morderFragmen =(OrdersFragment) getSupportFragmentManager().findFragmentById(R.id.activity_orderCL);
-            morderFragmen.clickbtnMap();
-            return true;
-        }
-        if (id == R.id.action_search) {
-            return true;
-        }
 
-        return super.onOptionsItemSelected(item);
+        return true;
     }
 
     @Override
@@ -135,8 +127,8 @@ public class OrderActivity extends NavitationDrawerActivity  implements OnFilter
     @Override
     public void onPossitiveButtonClick() {
         //Toast.makeText(getApplicationContext(), "Hola", Toast.LENGTH_SHORT).show();
-       OrdersFragment morderFragmen =(OrdersFragment) getSupportFragmentManager().findFragmentById(R.id.activity_orderCL);
-       morderFragmen.clickbtnFilter();
+       OrdersFragment mOrderFragmen =(OrdersFragment) getSupportFragmentManager().findFragmentById(R.id.activity_orderCL);
+       mOrderFragmen.clickbtnFilter();
     }
 
     @Override
