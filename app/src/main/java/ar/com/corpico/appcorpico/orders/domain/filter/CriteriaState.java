@@ -20,13 +20,17 @@ public class CriteriaState implements Criteria {
     @Override
     public List<Order> match(List<Order> orders) {
         List<Order> filteredOrders = new ArrayList<>();
-
-        for (Order order : orders) {
-            if (order.getmEstado().equals(state)) {
+        if (!state.equals("Todos")) {
+            for (Order order : orders) {
+                if (order.getmEstado().equals(state)) {
+                    filteredOrders.add(order);
+                }
+            }
+        }else{
+            for (Order order : orders) {
                 filteredOrders.add(order);
             }
         }
-
         return filteredOrders;
     }
 

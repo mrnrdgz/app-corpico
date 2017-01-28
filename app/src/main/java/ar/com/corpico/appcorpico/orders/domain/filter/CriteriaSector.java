@@ -19,15 +19,19 @@ public class CriteriaSector implements Criteria {
     @Override
     public List<Order> match(List<Order> orders) {
         List<Order> filteredOrders = new ArrayList<>();
-
-        for (Order order : orders) {
-            if(order.getSector().equals(sector)){
+        if (!sector.equals("Todos")){
+            for (Order order : orders) {
+                if (order.getSector().equals(sector)) {
+                    filteredOrders.add(order);
+                }
+            }
+        }else{
+            for (Order order : orders) {
                 filteredOrders.add(order);
             }
         }
         return filteredOrders;
     }
-
     @Override
     public Object toSql() {
         return null;

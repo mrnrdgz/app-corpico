@@ -18,13 +18,17 @@ public class CriteriaTipo implements Criteria {
     @Override
     public List<Order> match(List<Order> orders) {
         List<Order> filteredOrders = new ArrayList<>();
-
-        for (Order order : orders) {
-            if (order.getTipo().equals(tipo)) {
+        if (!tipo.equals("Todos")) {
+            for (Order order : orders) {
+                if (order.getTipo().equals(tipo)) {
+                    filteredOrders.add(order);
+                }
+            }
+        }else {
+            for (Order order : orders) {
                 filteredOrders.add(order);
             }
         }
-
         return filteredOrders;
     }
 
