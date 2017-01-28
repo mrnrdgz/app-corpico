@@ -69,6 +69,7 @@ public class NavitationDrawerActivity extends AppCompatActivity {
 
                     @Override
                     public boolean onNavigationItemSelected(MenuItem menuItem) {
+                        //TODO: No me marca como presionado Ordenes Tecnicas
                         // Marcar item presionado
                         menuItem.setChecked(true);
 
