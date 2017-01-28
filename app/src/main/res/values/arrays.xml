@@ -2,10 +2,10 @@
 <resources>
     <string-array name="estados">
         <item>Todos</item>
-        <item>Cerradas</item>
-        <item>Culminadas</item>
-        <item>No Culminadas</item>
-        <item>Pendientes</item>
+        <item>Cerrada</item>
+        <item>Culminada</item>
+        <item>No Culminada</item>
+        <item>Pendiente</item>
         <item>Asignadas a cuadrilla X</item>
         <item>Asignadas a cuadrilla Y</item>
     </string-array>

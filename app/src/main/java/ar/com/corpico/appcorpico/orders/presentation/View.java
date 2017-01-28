@@ -12,10 +12,12 @@ public interface View {
     public void showOrderList(List<Order> listorder);
     public void showOrderError(String error);
     public void setPresenter(Presenter presenter);
-    public void showOrderMsgMap();
-    public void clickbtnMap();
-    public void clickbtnFilter();
     public void showOrderMsgFilter();
     public void showOrdesEmpty();
     public void showProgressIndicator(boolean show);
+    public void setOrderFilter(String estado, String tipo, String sector);
+
+    public void showOrderMsgMap();
+    public void clickbtnMap();
+    public void clickbtnFilter();
 }

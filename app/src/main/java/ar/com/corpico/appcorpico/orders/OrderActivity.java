@@ -123,10 +123,10 @@ public class OrderActivity extends NavitationDrawerActivity  implements OnFilter
         return false;
     }
     @Override
-    public void onPossitiveButtonClick() {
+    public void onPossitiveButtonClick(String estado, String tipo, String sector) {
         //Toast.makeText(getApplicationContext(), "Hola", Toast.LENGTH_SHORT).show();
        OrdersFragment mOrderFragmen =(OrdersFragment) getSupportFragmentManager().findFragmentById(R.id.activity_orderCL);
-       mOrderFragmen.clickbtnFilter();
+       mOrderFragmen.setOrderFilter(estado,tipo,sector);
     }
 
     @Override

@@ -56,10 +56,9 @@ public class OrdersPresenter implements Presenter {
                     mOrdersView.showOrderList(orders);
                 } else {
                     // Mostrar estado vacío
+                    mOrdersView.showOrderList(orders);
                     mOrdersView.showOrdesEmpty();
                 }
-
-
             }
 
             @Override

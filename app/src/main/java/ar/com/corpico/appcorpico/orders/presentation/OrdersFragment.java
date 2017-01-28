@@ -116,4 +116,9 @@ public class OrdersFragment extends Fragment implements ar.com.corpico.appcorpic
     public void showProgressIndicator(boolean show) {
         mProgressView.setVisibility(show ? android.view.View.VISIBLE : GONE);
     }
+
+    @Override
+    public void setOrderFilter(String estado, String tipo, String sector) {
+        mOrdersPresenter.loadOrderList(estado,tipo,sector);
+    }
 }

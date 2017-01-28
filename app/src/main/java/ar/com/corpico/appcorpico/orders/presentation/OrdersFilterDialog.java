@@ -10,6 +10,8 @@ import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.widget.Button;
+import android.widget.Spinner;
+
 import ar.com.corpico.appcorpico.R;
 
 
@@ -21,7 +23,7 @@ public class OrdersFilterDialog extends DialogFragment {
     public OrdersFilterDialog() {
     }
     public interface OnFilterDialogListener {
-        void onPossitiveButtonClick();// Eventos Botón Positivo
+        void onPossitiveButtonClick(String estado, String tipo, String sector);// Eventos Botón Positivo
         void onNegativeButtonClick();// Eventos Botón Negativo
     }
 
@@ -39,14 +41,16 @@ public class OrdersFilterDialog extends DialogFragment {
         android.view.View v = inflater.inflate(R.layout.dialog_orders_filter, null);
 
         builder.setView(v);
-        builder.setTitle("Filtar búsqueda")
+        final Spinner mStateSpinner = (Spinner)v.findViewById(R.id.estado_spinner);
+        final Spinner mTipoSpinner = (Spinner)v.findViewById(R.id.tipo_spinner);
+        final Spinner mSectorSpinner = (Spinner)v.findViewById(R.id.sector_spinner);
+
+        builder.setTitle("Filtro de búsqueda")
                 .setPositiveButton("APLICAR", new DialogInterface.OnClickListener() {
                         @Override
                          public void onClick(DialogInterface dialog, int which) {
-                            /*ACA TENDRIA Q MANDAR LA CAPTURA DE LOS FILTROS ELEGIDOS
-                            Y PASARLOS X PARAMETROS AL METODO DE ABAJO
-                            PARA ARMAR LA LLAMADA AL M<ETODO DE FILTRADO*/
-                            listener.onPossitiveButtonClick();
+                           // Filtrado con la selecciona de los Spinner
+                            listener.onPossitiveButtonClick(mStateSpinner.getItemAtPosition(mStateSpinner.getSelectedItemPosition()).toString(),mTipoSpinner.getItemAtPosition(mTipoSpinner.getSelectedItemPosition()).toString(),mSectorSpinner.getItemAtPosition(mSectorSpinner.getSelectedItemPosition()).toString());
                          }
                         })
                 .setNegativeButton("CANCELAR", new DialogInterface.OnClickListener() {
