@@ -9,6 +9,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.joda.time.DateTime;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -63,9 +65,10 @@ public class OrdersFragment extends Fragment implements ar.com.corpico.appcorpic
         LayoutInflater minflater = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         android.view.View headerView = minflater.inflate(R.layout.list_cabecera_order, null);
         mOrderList.addHeaderView(headerView);
-
+        final DateTime d = new DateTime("2017-01-23");
+        final DateTime h = new DateTime("2017-01-24");
         //Llama al metodo del Presentador para que muestre
-        mOrdersPresenter.loadOrderList("Pendiente","Todos","Todos");
+        mOrdersPresenter.loadOrderList("Pendiente","Todos","Todos",d.toString(),h.toString());
 
         return root;
     }
@@ -118,7 +121,7 @@ public class OrdersFragment extends Fragment implements ar.com.corpico.appcorpic
     }
 
     @Override
-    public void setOrderFilter(String estado, String tipo, String sector) {
-        mOrdersPresenter.loadOrderList(estado,tipo,sector);
+    public void setOrderFilter(String estado, String tipo, String sector, String desde, String hasta) {
+        mOrdersPresenter.loadOrderList(estado,tipo,sector,desde,hasta);
     }
 }

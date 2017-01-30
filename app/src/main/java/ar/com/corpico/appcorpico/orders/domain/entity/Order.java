@@ -1,11 +1,9 @@
 package ar.com.corpico.appcorpico.orders.domain.entity;
-
-import ar.com.corpico.appcorpico.orders.domain.filter.AndCriteria;
-
 /**
  * Created by Administrador on 07/01/2017.
  */
 public class Order {
+    private String mFecha;
     private String mNumero;
     private String mSector;
     private String mTipo;
@@ -18,8 +16,9 @@ public class Order {
     private String mLongitud;
     private String mObservacion;
 
-    public Order(String Numero, String Sector, String Tipo, String Estado, String Asociado,
+    public Order(String Fecha,String Numero, String Sector, String Tipo, String Estado, String Asociado,
                  String Suministro, String Titular, String Domicilio, String Latitud, String Longitud, String Observacion) {
+        this.mFecha= Fecha;
         this.mNumero = Numero;
         this.mSector = Sector;
         this.mTipo = Tipo;
@@ -114,12 +113,20 @@ public class Order {
     }
 
     public String getmEstado() {
-
         return mEstado;
+    }
+
+    public String getFecha() {
+        return mFecha;
+    }
+
+    public void setFecha(String Fecha) {
+        this.mFecha = Fecha;
     }
 
     public String toString(){
         return "Order={" +
+                "Fecha ='" + mFecha + '\'' +
                 "Numero = '" + mNumero + '\'' +
                 "Sector = '" + mSector + '\'' +
                 "Tipo = '" + mTipo + '\'' +

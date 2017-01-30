@@ -5,7 +5,38 @@
     android:layout_height="match_parent"
     android:background="@android:color/white"
     android:padding="@dimen/dialog_body">
-
+    <ScrollView
+        android:id="@+id/filter_dialog"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+     <LinearLayout
+         android:layout_width="match_parent"
+         android:layout_height="match_parent"
+         android:orientation="vertical">
+    <TextView
+        android:id="@+id/tv_desde"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/edit_text_padding"
+        android:text="Desde"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+    <DatePicker
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/desde_Picker"
+        android:calendarViewShown="false"/>
+    <TextView
+        android:id="@+id/tv_hasta"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/edit_text_padding"
+        android:text="Hasta"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+    <DatePicker
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/hasta_Picker"
+        android:calendarViewShown="false"/>
     <TextView
         android:id="@+id/tv_estado"
         android:layout_width="wrap_content"
@@ -42,4 +73,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:entries="@array/sectores" />
+     </LinearLayout>
+    </ScrollView>
 </LinearLayout>

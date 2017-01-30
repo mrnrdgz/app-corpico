@@ -7,6 +7,7 @@ import java.util.List;
 import ar.com.corpico.appcorpico.UseCase;
 import ar.com.corpico.appcorpico.orders.domain.entity.Order;
 import ar.com.corpico.appcorpico.orders.domain.filter.AndCriteria;
+import ar.com.corpico.appcorpico.orders.domain.filter.CriteriaFecha;
 import ar.com.corpico.appcorpico.orders.domain.filter.CriteriaSector;
 import ar.com.corpico.appcorpico.orders.domain.filter.CriteriaState;
 import ar.com.corpico.appcorpico.orders.domain.filter.CriteriaTipo;
@@ -28,13 +29,14 @@ public class OrdersPresenter implements Presenter {
     }
 
     @Override
-    public void loadOrderList(String estado, String tipo, String sector) {
+    public void loadOrderList(String estado, String tipo, String sector, String desde, String hasta) {
         // Se reciben valores de cada filtro
         CriteriaState criteriaState = new CriteriaState(estado);
         CriteriaSector criteriaSector = new CriteriaSector(sector);
         CriteriaTipo criteriaTipo = new CriteriaTipo(tipo);
+        CriteriaFecha criteriaFecha = new CriteriaFecha(desde,hasta);
 
-        AndCriteria andCriteria = new AndCriteria(criteriaState, new AndCriteria(criteriaSector, criteriaTipo));
+        AndCriteria andCriteria = new AndCriteria(criteriaState, new AndCriteria(criteriaSector, criteriaTipo),criteriaFecha);
 
         mOrdersView.showProgressIndicator(true);
         // Parámetro #1

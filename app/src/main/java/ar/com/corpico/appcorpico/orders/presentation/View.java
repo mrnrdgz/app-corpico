@@ -15,7 +15,7 @@ public interface View {
     public void showOrderMsgFilter();
     public void showOrdesEmpty();
     public void showProgressIndicator(boolean show);
-    public void setOrderFilter(String estado, String tipo, String sector);
+    public void setOrderFilter(String estado, String tipo, String sector, String desde, String hasta);
 
     public void showOrderMsgMap();
     public void clickbtnMap();

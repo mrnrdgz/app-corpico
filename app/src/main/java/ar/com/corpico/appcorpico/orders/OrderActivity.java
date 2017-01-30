@@ -1,12 +1,8 @@
 package ar.com.corpico.appcorpico.orders;
 
 import android.os.Bundle;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.view.MenuItemCompat.OnActionExpandListener;
-import android.support.v7.widget.SearchView.OnQueryTextListener;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import ar.com.corpico.appcorpico.NavitationDrawerActivity;
@@ -92,10 +88,10 @@ public class OrderActivity extends NavitationDrawerActivity  implements OnFilter
     }
 
     @Override
-    public void onPossitiveButtonClick(String estado, String tipo, String sector) {
+    public void onPossitiveButtonClick(String estado, String tipo, String sector,String desde, String hasta) {
         //Toast.makeText(getApplicationContext(), "Hola", Toast.LENGTH_SHORT).show();
        OrdersFragment mOrderFragmen =(OrdersFragment) getSupportFragmentManager().findFragmentById(R.id.activity_order);
-       mOrderFragmen.setOrderFilter(estado,tipo,sector);
+       mOrderFragmen.setOrderFilter(estado,tipo,sector,desde,hasta);
     }
 
     @Override
