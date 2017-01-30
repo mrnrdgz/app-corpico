@@ -12,18 +12,16 @@ public class AndCriteria implements Criteria {
 
     private Criteria firtCriteria;
     private Criteria secondCriteria;
-    private Criteria trhidCriteria;
 
-    public AndCriteria(Criteria firtCriteria, Criteria secondCriteria,Criteria trhidCriteria) {
+    public AndCriteria(Criteria firtCriteria, Criteria secondCriteria) {
         this.firtCriteria = firtCriteria;
         this.secondCriteria = secondCriteria;
-        this.trhidCriteria = trhidCriteria;
     }
 
     @Override
     public List<Order> match(List<Order> orders) {
         List<Order> filteredOrders = firtCriteria.match(orders);
-        return trhidCriteria.match(secondCriteria.match(filteredOrders));
+        return secondCriteria.match(filteredOrders);
     }
 
     @Override

@@ -36,7 +36,7 @@ public class OrdersPresenter implements Presenter {
         CriteriaTipo criteriaTipo = new CriteriaTipo(tipo);
         CriteriaFecha criteriaFecha = new CriteriaFecha(desde,hasta);
 
-        AndCriteria andCriteria = new AndCriteria(criteriaState, new AndCriteria(criteriaSector, criteriaTipo),criteriaFecha);
+        AndCriteria andCriteria = new AndCriteria(criteriaState, new AndCriteria(criteriaSector, new AndCriteria(criteriaTipo,criteriaFecha)));
 
         mOrdersView.showProgressIndicator(true);
         // Parámetro #1
