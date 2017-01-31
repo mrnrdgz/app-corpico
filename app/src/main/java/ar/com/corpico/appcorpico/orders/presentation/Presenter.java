@@ -8,6 +8,7 @@ import org.joda.time.DateTime;
 
 public interface Presenter {
     public void loadOrderList(String estado, String tipo, String sector, DateTime desde, DateTime hasta);
+
     public void BtnMap();
     public void btnFilter();
 }

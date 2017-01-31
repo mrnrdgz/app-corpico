@@ -28,4 +28,6 @@
     <string name="action_buscar">Buscar</string>
     <string name="title_activity_main">MainActivity</string>
     <string name="emptyList">No se han encontrado resultados</string>
+
+    <string name="search_hint">Buscar titular</string>
 </resources>

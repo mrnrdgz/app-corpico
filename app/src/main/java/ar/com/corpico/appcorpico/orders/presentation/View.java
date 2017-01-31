@@ -18,6 +18,8 @@ public interface View {
     public void showOrdesEmpty();
     public void showProgressIndicator(boolean show);
     public void setOrderFilter(String estado, String tipo, String sector, DateTime desde, DateTime hasta);
+    public void showOrderSearch(String newText);
+    public void clearOrderSearch();
 
     public void showOrderMsgMap();
     public void clickbtnMap();

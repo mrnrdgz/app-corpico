@@ -12,22 +12,8 @@ import android.widget.DatePicker;
 import android.widget.Spinner;
 
 import org.joda.time.DateTime;
-import org.joda.time.LocalDate;
-import org.joda.time.LocalDateTime;
-import org.joda.time.Years;
-import org.joda.time.format.DateTimeFormat;
-import org.joda.time.format.DateTimeFormatter;
-
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
 
 import ar.com.corpico.appcorpico.R;
-
-import static org.joda.time.format.DateTimeFormat.forPattern;
-import static org.joda.time.format.DateTimeFormat.longDate;
 
 
 /**
@@ -70,7 +56,6 @@ public class OrdersFilterDialog extends DialogFragment {
                            // Filtrado con la selecciona de los Spinner
                             final DateTime mDesde = new DateTime(mDesdePicker.getYear(),mDesdePicker.getMonth()+1,mDesdePicker.getDayOfMonth(),0,0,0);
                             final DateTime mHasta = new DateTime(mHastaPicker.getYear(),mHastaPicker.getMonth()+1,mHastaPicker.getDayOfMonth(),0,0,0);
-                            //DateTimeFormat format = new DateTimeFormat.forPattern();
                             listener.onPossitiveButtonClick(mStateSpinner.getItemAtPosition(mStateSpinner.getSelectedItemPosition()).toString(),
                                     mTipoSpinner.getItemAtPosition(mTipoSpinner.getSelectedItemPosition()).toString(),
                                     mSectorSpinner.getItemAtPosition(mSectorSpinner.getSelectedItemPosition()).toString(),

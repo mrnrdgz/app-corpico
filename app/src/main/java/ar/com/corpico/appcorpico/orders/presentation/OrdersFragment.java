@@ -65,6 +65,8 @@ public class OrdersFragment extends Fragment implements ar.com.corpico.appcorpic
         LayoutInflater minflater = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         android.view.View headerView = minflater.inflate(R.layout.list_cabecera_order, null);
         mOrderList.addHeaderView(headerView);
+        //TODO: PONER POR DEFECTO UNA FECHA (DIA ACTUAL...LA ULTIMA SEMANA...VER)
+        //TODO: VER EL TEMA DE LA ZONA HORARIA SI LO PUEDO SETEAR XQ EN CASA ME SALE -03 Y EN TRABAJO -05 (AL FINAL)
         final DateTime d = new DateTime("2017-01-23");
         final DateTime h = new DateTime("2017-01-24");
         //Llama al metodo del Presentador para que muestre
@@ -124,4 +126,15 @@ public class OrdersFragment extends Fragment implements ar.com.corpico.appcorpic
     public void setOrderFilter(String estado, String tipo, String sector, DateTime desde, DateTime hasta) {
         mOrdersPresenter.loadOrderList(estado,tipo,sector,desde,hasta);
     }
+
+    @Override
+    public void showOrderSearch(String newText) {
+       mOrdersAdapter.getFilter().filter(newText);
+    }
+
+    @Override
+    public void clearOrderSearch() {
+        mOrderList.clearTextFilter();
+    }
+
 }
