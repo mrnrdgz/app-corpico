@@ -12,10 +12,22 @@ import android.widget.DatePicker;
 import android.widget.Spinner;
 
 import org.joda.time.DateTime;
+import org.joda.time.LocalDate;
+import org.joda.time.LocalDateTime;
+import org.joda.time.Years;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 
 import ar.com.corpico.appcorpico.R;
+
+import static org.joda.time.format.DateTimeFormat.forPattern;
+import static org.joda.time.format.DateTimeFormat.longDate;
 
 
 /**
@@ -26,7 +38,7 @@ public class OrdersFilterDialog extends DialogFragment {
     public OrdersFilterDialog() {
     }
     public interface OnFilterDialogListener {
-        void onPossitiveButtonClick(String estado, String tipo, String sector, String desde, String hasta);// Eventos Botón Positivo
+        void onPossitiveButtonClick(String estado, String tipo, String sector, DateTime desde, DateTime hasta);// Eventos Botón Positivo
         void onNegativeButtonClick();// Eventos Botón Negativo
     }
 
@@ -56,13 +68,13 @@ public class OrdersFilterDialog extends DialogFragment {
                         @Override
                          public void onClick(DialogInterface dialog, int which) {
                            // Filtrado con la selecciona de los Spinner
-                            Calendar c = Calendar.getInstance();
-                            c.set(mDesdePicker.getYear(),mDesdePicker.getMonth(),mDesdePicker.getDayOfMonth());
-                            Calendar d = Calendar.getInstance() ;
-                            d.set(mHastaPicker.getYear(),mHastaPicker.getMonth(),mHastaPicker.getDayOfMonth());
-                            final DateTime mDesde = new DateTime(c);
-                            final DateTime mHasta = new DateTime(d);
-                            listener.onPossitiveButtonClick(mStateSpinner.getItemAtPosition(mStateSpinner.getSelectedItemPosition()).toString(),mTipoSpinner.getItemAtPosition(mTipoSpinner.getSelectedItemPosition()).toString(),mSectorSpinner.getItemAtPosition(mSectorSpinner.getSelectedItemPosition()).toString(),mDesde.toString(),mHasta.toString());
+                            final DateTime mDesde = new DateTime(mDesdePicker.getYear(),mDesdePicker.getMonth()+1,mDesdePicker.getDayOfMonth(),0,0,0);
+                            final DateTime mHasta = new DateTime(mHastaPicker.getYear(),mHastaPicker.getMonth()+1,mHastaPicker.getDayOfMonth(),0,0,0);
+                            //DateTimeFormat format = new DateTimeFormat.forPattern();
+                            listener.onPossitiveButtonClick(mStateSpinner.getItemAtPosition(mStateSpinner.getSelectedItemPosition()).toString(),
+                                    mTipoSpinner.getItemAtPosition(mTipoSpinner.getSelectedItemPosition()).toString(),
+                                    mSectorSpinner.getItemAtPosition(mSectorSpinner.getSelectedItemPosition()).toString(),
+                                    mDesde,mHasta);
                          }
                         })
                 .setNegativeButton("CANCELAR", new DialogInterface.OnClickListener() {

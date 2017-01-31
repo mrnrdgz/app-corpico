@@ -5,6 +5,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import org.joda.time.DateTime;
+
 import ar.com.corpico.appcorpico.NavitationDrawerActivity;
 import ar.com.corpico.appcorpico.R;
 import ar.com.corpico.appcorpico.orders.data.OrdersRepository;
@@ -88,8 +90,7 @@ public class OrderActivity extends NavitationDrawerActivity  implements OnFilter
     }
 
     @Override
-    public void onPossitiveButtonClick(String estado, String tipo, String sector,String desde, String hasta) {
-        //Toast.makeText(getApplicationContext(), "Hola", Toast.LENGTH_SHORT).show();
+    public void onPossitiveButtonClick(String estado, String tipo, String sector, DateTime desde, DateTime hasta) {
        OrdersFragment mOrderFragmen =(OrdersFragment) getSupportFragmentManager().findFragmentById(R.id.activity_order);
        mOrderFragmen.setOrderFilter(estado,tipo,sector,desde,hasta);
     }

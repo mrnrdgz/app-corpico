@@ -21,9 +21,10 @@
         android:text="Desde"
         android:textAppearance="?android:attr/textAppearanceMedium" />
     <DatePicker
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/desde_Picker"
+        android:layout_gravity="left"
         android:calendarViewShown="false"/>
     <TextView
         android:id="@+id/tv_hasta"
@@ -33,9 +34,10 @@
         android:text="Hasta"
         android:textAppearance="?android:attr/textAppearanceMedium" />
     <DatePicker
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/hasta_Picker"
+        android:layout_gravity="left"
         android:calendarViewShown="false"/>
     <TextView
         android:id="@+id/tv_estado"

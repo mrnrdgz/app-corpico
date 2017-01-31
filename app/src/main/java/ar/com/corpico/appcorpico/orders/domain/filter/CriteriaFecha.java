@@ -13,12 +13,12 @@ import ar.com.corpico.appcorpico.orders.domain.entity.Order;
  */
 
 public class CriteriaFecha implements Criteria {
-    private final String mdesde;
-    private final String mhasta;
+    private final DateTime mdesde;
+    private final DateTime mhasta;
 
-    public CriteriaFecha(String mdesde, String mhasta) {
-        this.mdesde = mdesde;
-        this.mhasta = mhasta;
+    public CriteriaFecha(DateTime desde, DateTime hasta) {
+        this.mdesde = desde;
+        this.mhasta = hasta;
     }
 
     @Override

@@ -2,6 +2,8 @@ package ar.com.corpico.appcorpico.orders.presentation;
 
 import com.google.common.base.Preconditions;
 
+import org.joda.time.DateTime;
+
 import java.util.List;
 
 import ar.com.corpico.appcorpico.UseCase;
@@ -29,7 +31,7 @@ public class OrdersPresenter implements Presenter {
     }
 
     @Override
-    public void loadOrderList(String estado, String tipo, String sector, String desde, String hasta) {
+    public void loadOrderList(String estado, String tipo, String sector, DateTime desde, DateTime hasta) {
         // Se reciben valores de cada filtro
         CriteriaState criteriaState = new CriteriaState(estado);
         CriteriaSector criteriaSector = new CriteriaSector(sector);

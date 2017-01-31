@@ -68,7 +68,7 @@ public class OrdersFragment extends Fragment implements ar.com.corpico.appcorpic
         final DateTime d = new DateTime("2017-01-23");
         final DateTime h = new DateTime("2017-01-24");
         //Llama al metodo del Presentador para que muestre
-        mOrdersPresenter.loadOrderList("Pendiente","Todos","Todos",d.toString(),h.toString());
+        mOrdersPresenter.loadOrderList("Pendiente","Todos","Todos",d,h);
 
         return root;
     }
@@ -121,7 +121,7 @@ public class OrdersFragment extends Fragment implements ar.com.corpico.appcorpic
     }
 
     @Override
-    public void setOrderFilter(String estado, String tipo, String sector, String desde, String hasta) {
+    public void setOrderFilter(String estado, String tipo, String sector, DateTime desde, DateTime hasta) {
         mOrdersPresenter.loadOrderList(estado,tipo,sector,desde,hasta);
     }
 }
