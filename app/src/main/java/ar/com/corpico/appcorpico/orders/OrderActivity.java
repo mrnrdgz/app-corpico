@@ -23,8 +23,8 @@ import ar.com.corpico.appcorpico.orders.presentation.OrdersFilterDialog.OnFilter
 import ar.com.corpico.appcorpico.orders.presentation.OrdersFragment;
 import ar.com.corpico.appcorpico.orders.presentation.OrdersPresenter;
 import ar.com.corpico.appcorpico.orders.presentation.View;
-
-public class OrderActivity extends NavitationDrawerActivity  implements OnFilterDialogListener, SearchView.OnQueryTextListener {
+//, SearchView.OnQueryTextListener
+public class OrderActivity extends NavitationDrawerActivity  implements OnFilterDialogListener{
     private View mView;
     private OrdersFilterDialog dialogOrdersFilter;
 
@@ -65,7 +65,6 @@ public class OrderActivity extends NavitationDrawerActivity  implements OnFilter
          * <<create>> LoginPresenter
          */
       OrdersPresenter orderPresenter = new OrdersPresenter(getOrders,orderView);
-      handleIntent(getIntent());
     }
 
     @Override
@@ -79,7 +78,23 @@ public class OrderActivity extends NavitationDrawerActivity  implements OnFilter
         searchView.setSearchableInfo(
                 searchManager.getSearchableInfo(getComponentName()));
         searchView.setSubmitButtonEnabled(true);
-        searchView.setOnQueryTextListener(this);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                if (TextUtils.isEmpty(s)) {
+                    mView.clearOrderSearch();
+                }
+                else {
+                    mView.showOrderSearch(s.toString());
+                }
+                return true;
+            }
+        });
         return true;
     }
 
@@ -87,8 +102,9 @@ public class OrderActivity extends NavitationDrawerActivity  implements OnFilter
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         switch (id){
-            /*case R.id.action_search:
-                break;*/
+            case R.id.action_search:
+                //TODO: Que hace aca? llama a algun intent?
+                break;
             case R.id.action_filtrar:
                 new OrdersFilterDialog().show(getSupportFragmentManager(), "FilterDialog");
                 break;
@@ -114,30 +130,4 @@ public class OrderActivity extends NavitationDrawerActivity  implements OnFilter
         Toast.makeText(getApplicationContext(), "CHAU", Toast.LENGTH_SHORT).show();
     }
 
-    @Override
-    public boolean onQueryTextSubmit(String s) {
-        return false;
-    }
-
-    @Override
-    public boolean onQueryTextChange(String s) {
-        if (TextUtils.isEmpty(s)) {
-            mView.clearOrderSearch();
-        }
-        else {
-            mView.showOrderSearch(s.toString());
-        }
-        return true;
-    }
-    @Override
-    protected void onNewIntent(Intent intent) {
-        handleIntent(intent);
-    }
-    private void handleIntent(Intent intent) {
-
-        if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
-            String query = intent.getStringExtra(SearchManager.QUERY);
-            //use the query to search your data somehow
-        }
-    }
 }
