@@ -47,7 +47,7 @@ public class OrdersAdapter extends ArrayAdapter<Order> {
         titular.setText(order.getTitular());
         domicilio.setText(order.getDomicilio());
         tipo.setText(order.getTipo());
-
+//***
         return convertView;
     }
 }
