@@ -58,13 +58,15 @@ public class OrdersFragment extends Fragment implements ar.com.corpico.appcorpic
         mEmptyView = (TextView) root.findViewById(R.id.orders_empty);
         mProgressView = root.findViewById(R.id.orders_progress);
 
-        mOrdersAdapter = new OrdersAdapter(getActivity(), new ArrayList<Order>(0));
+        mOrderList.setTextFilterEnabled(true);
+        mOrdersAdapter = new OrdersAdapter(getActivity(),0,new ArrayList<Order>(0));
         mOrderList.setAdapter(mOrdersAdapter);
 
         //Infla las cabeceras de OrderList
         LayoutInflater minflater = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         android.view.View headerView = minflater.inflate(R.layout.list_cabecera_order, null);
         mOrderList.addHeaderView(headerView);
+
         //TODO: PONER POR DEFECTO UNA FECHA (DIA ACTUAL...LA ULTIMA SEMANA...VER)
         //TODO: VER EL TEMA DE LA ZONA HORARIA SI LO PUEDO SETEAR XQ EN CASA ME SALE -03 Y EN TRABAJO -05 (AL FINAL)
         final DateTime d = new DateTime("2017-01-23");
@@ -129,7 +131,11 @@ public class OrdersFragment extends Fragment implements ar.com.corpico.appcorpic
 
     @Override
     public void showOrderSearch(String newText) {
-       mOrdersAdapter.getFilter().filter(newText);
+        mOrdersAdapter.getFilter().filter(newText);
+        //TODO; VER XQ TENGO Q HACER LO Q HACER LO QUE HACE showOrderList()
+        // data.clear();
+        //data.addAll((List<YourType>) results.values);
+        //mOrdersAdapter.notifyDataSetChanged();
     }
 
     @Override

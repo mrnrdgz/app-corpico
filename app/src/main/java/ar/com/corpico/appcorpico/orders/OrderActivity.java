@@ -2,7 +2,6 @@ package ar.com.corpico.appcorpico.orders;
 
 import android.app.SearchManager;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.Menu;
@@ -23,8 +22,8 @@ import ar.com.corpico.appcorpico.orders.presentation.OrdersFilterDialog.OnFilter
 import ar.com.corpico.appcorpico.orders.presentation.OrdersFragment;
 import ar.com.corpico.appcorpico.orders.presentation.OrdersPresenter;
 import ar.com.corpico.appcorpico.orders.presentation.View;
-//, SearchView.OnQueryTextListener
-public class OrderActivity extends NavitationDrawerActivity  implements OnFilterDialogListener{
+
+public class OrderActivity extends NavitationDrawerActivity  implements OnFilterDialogListener,SearchView.OnQueryTextListener{
     private View mView;
     private OrdersFilterDialog dialogOrdersFilter;
 
@@ -78,7 +77,7 @@ public class OrderActivity extends NavitationDrawerActivity  implements OnFilter
         searchView.setSearchableInfo(
                 searchManager.getSearchableInfo(getComponentName()));
         searchView.setSubmitButtonEnabled(true);
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+        searchView.setOnQueryTextListener(this);                /*(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
                 return false;
@@ -87,17 +86,37 @@ public class OrderActivity extends NavitationDrawerActivity  implements OnFilter
             @Override
             public boolean onQueryTextChange(String s) {
                 if (TextUtils.isEmpty(s)) {
-                    mView.clearOrderSearch();
+                    OrdersFragment mOrderFragmen =(OrdersFragment) getSupportFragmentManager().findFragmentById(R.id.activity_order);
+                    mOrderFragmen.clearOrderSearch();
                 }
                 else {
-                    mView.showOrderSearch(s.toString());
+                    OrdersFragment mOrderFragmen =(OrdersFragment) getSupportFragmentManager().findFragmentById(R.id.activity_order);
+                    mOrderFragmen.showOrderSearch(s.toString());
+                    //mView.showOrderSearch(s.toString());
                 }
                 return true;
             }
-        });
+        });*/
         return true;
     }
+    @Override
+    public boolean onQueryTextSubmit(String s) {
+        return false;
+    }
 
+    @Override
+    public boolean onQueryTextChange(String s) {
+        if (TextUtils.isEmpty(s)) {
+            OrdersFragment mOrderFragmen =(OrdersFragment) getSupportFragmentManager().findFragmentById(R.id.activity_order);
+            mOrderFragmen.clearOrderSearch();
+        }
+        else {
+            OrdersFragment mOrderFragmen =(OrdersFragment) getSupportFragmentManager().findFragmentById(R.id.activity_order);
+            mOrderFragmen.showOrderSearch(s.toString());
+            //mView.showOrderSearch(s.toString());
+        }
+        return true;
+    }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
