@@ -46,7 +46,8 @@ public class OrdersAdapter extends ArrayAdapter<Order> implements Filterable{
         TextView tipo = (TextView) convertView.findViewById(R.id.tv_tipo);
 
         // Lead actual.
-        Order order = getItem(position);
+        Order order =  getItem(position);
+
 
         // Setup.
         numero.setText(order.getNumero());

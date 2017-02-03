@@ -31,6 +31,7 @@
         <activity android:name=".NavitationDrawerActivity" />
         <activity android:name=".orders.OrderActivity"
             android:theme="@style/AppTheme.NoActionBar"
+            android:launchMode="singleTop"
             android:label="Ordenes Técnicas">
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />

@@ -23,7 +23,7 @@ import ar.com.corpico.appcorpico.orders.presentation.OrdersFragment;
 import ar.com.corpico.appcorpico.orders.presentation.OrdersPresenter;
 import ar.com.corpico.appcorpico.orders.presentation.View;
 
-public class OrderActivity extends NavitationDrawerActivity  implements OnFilterDialogListener,SearchView.OnQueryTextListener{
+public class OrderActivity extends NavitationDrawerActivity  implements OnFilterDialogListener{
     private View mView;
     private OrdersFilterDialog dialogOrdersFilter;
 
@@ -77,7 +77,7 @@ public class OrderActivity extends NavitationDrawerActivity  implements OnFilter
         searchView.setSearchableInfo(
                 searchManager.getSearchableInfo(getComponentName()));
         searchView.setSubmitButtonEnabled(true);
-        searchView.setOnQueryTextListener(this);                /*(new SearchView.OnQueryTextListener() {
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
                 return false;
@@ -92,29 +92,13 @@ public class OrderActivity extends NavitationDrawerActivity  implements OnFilter
                 else {
                     OrdersFragment mOrderFragmen =(OrdersFragment) getSupportFragmentManager().findFragmentById(R.id.activity_order);
                     mOrderFragmen.showOrderSearch(s.toString());
+
+
                     //mView.showOrderSearch(s.toString());
                 }
                 return true;
             }
-        });*/
-        return true;
-    }
-    @Override
-    public boolean onQueryTextSubmit(String s) {
-        return false;
-    }
-
-    @Override
-    public boolean onQueryTextChange(String s) {
-        if (TextUtils.isEmpty(s)) {
-            OrdersFragment mOrderFragmen =(OrdersFragment) getSupportFragmentManager().findFragmentById(R.id.activity_order);
-            mOrderFragmen.clearOrderSearch();
-        }
-        else {
-            OrdersFragment mOrderFragmen =(OrdersFragment) getSupportFragmentManager().findFragmentById(R.id.activity_order);
-            mOrderFragmen.showOrderSearch(s.toString());
-            //mView.showOrderSearch(s.toString());
-        }
+        });
         return true;
     }
     @Override
