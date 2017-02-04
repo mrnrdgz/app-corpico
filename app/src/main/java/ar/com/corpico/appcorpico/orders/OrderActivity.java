@@ -5,15 +5,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.MenuItemCompat;
-import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.support.v7.widget.SearchView;
 import android.widget.Toast;
-
 import org.joda.time.DateTime;
-import org.joda.time.LocalDate;
-
 import ar.com.corpico.appcorpico.NavitationDrawerActivity;
 import ar.com.corpico.appcorpico.R;
 import ar.com.corpico.appcorpico.orders.data.OrdersRepository;
@@ -24,7 +20,6 @@ import ar.com.corpico.appcorpico.orders.presentation.OrdersFilterDialog;
 import ar.com.corpico.appcorpico.orders.presentation.OrdersFilterDialog.OnFilterDialogListener;
 import ar.com.corpico.appcorpico.orders.presentation.OrdersFragment;
 import ar.com.corpico.appcorpico.orders.presentation.OrdersPresenter;
-import ar.com.corpico.appcorpico.orders.presentation.View;
 
 public class OrderActivity extends NavitationDrawerActivity implements OnFilterDialogListener {
     private OrdersFilterDialog dialogOrdersFilter;
@@ -128,7 +123,8 @@ public class OrderActivity extends NavitationDrawerActivity implements OnFilterD
     private void handleIntent(Intent intent) {
         if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
             String query = intent.getStringExtra(SearchManager.QUERY);
-            // TODO: Realizar busqueda
+            //TODO: VER EN LA BUSQUEDA LA FEHCA...SI PONGO NULL ESTA CONTROLADO...PERO EN EL TIEMPO...PUEDE TRAER.
+            //MUCHOS REGISTROS...COMO PODRIAMOS CONTROLAR ESO?
             OrdersFragment mOrderFragmen = (OrdersFragment) getSupportFragmentManager().findFragmentById(R.id.activity_order);
             mOrderFragmen.setOrderFilter("Todos", "Todos", "Todos", null, null, query);
         }
