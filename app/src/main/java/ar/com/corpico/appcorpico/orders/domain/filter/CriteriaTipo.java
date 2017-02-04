@@ -25,9 +25,7 @@ public class CriteriaTipo implements Criteria {
                 }
             }
         }else {
-            for (Order order : orders) {
-                filteredOrders.add(order);
-            }
+            filteredOrders = orders;
         }
         return filteredOrders;
     }

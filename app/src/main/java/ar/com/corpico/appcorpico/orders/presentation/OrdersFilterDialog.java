@@ -12,6 +12,7 @@ import android.widget.DatePicker;
 import android.widget.Spinner;
 
 import org.joda.time.DateTime;
+import org.joda.time.LocalDate;
 
 import ar.com.corpico.appcorpico.R;
 

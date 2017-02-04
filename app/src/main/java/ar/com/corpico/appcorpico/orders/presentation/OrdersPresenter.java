@@ -3,6 +3,7 @@ package ar.com.corpico.appcorpico.orders.presentation;
 import com.google.common.base.Preconditions;
 
 import org.joda.time.DateTime;
+import org.joda.time.LocalDate;
 
 import java.util.List;
 
@@ -10,6 +11,7 @@ import ar.com.corpico.appcorpico.UseCase;
 import ar.com.corpico.appcorpico.orders.domain.entity.Order;
 import ar.com.corpico.appcorpico.orders.domain.filter.AndCriteria;
 import ar.com.corpico.appcorpico.orders.domain.filter.CriteriaFecha;
+import ar.com.corpico.appcorpico.orders.domain.filter.CriteriaSearch;
 import ar.com.corpico.appcorpico.orders.domain.filter.CriteriaSector;
 import ar.com.corpico.appcorpico.orders.domain.filter.CriteriaState;
 import ar.com.corpico.appcorpico.orders.domain.filter.CriteriaTipo;
@@ -31,14 +33,16 @@ public class OrdersPresenter implements Presenter {
     }
 
     @Override
-    public void loadOrderList(String estado, String tipo, String sector, DateTime desde, DateTime hasta) {
+    public void loadOrderList(String estado, String tipo, String sector, DateTime desde, DateTime hasta, String search) {
         // Se reciben valores de cada filtro
         CriteriaState criteriaState = new CriteriaState(estado);
         CriteriaSector criteriaSector = new CriteriaSector(sector);
         CriteriaTipo criteriaTipo = new CriteriaTipo(tipo);
         CriteriaFecha criteriaFecha = new CriteriaFecha(desde,hasta);
+        CriteriaSearch criteriaSearch = new CriteriaSearch(search);
 
-        AndCriteria andCriteria = new AndCriteria(criteriaState, new AndCriteria(criteriaSector, new AndCriteria(criteriaTipo,criteriaFecha)));
+        AndCriteria andCriteria = new AndCriteria(criteriaState, new AndCriteria(criteriaSector,
+                new AndCriteria(criteriaTipo,new AndCriteria(criteriaFecha,criteriaSearch))));
 
         mOrdersView.showProgressIndicator(true);
         // Parámetro #1
@@ -77,13 +81,4 @@ public class OrdersPresenter implements Presenter {
         mgetOrders.execute(requestValues, useCaseCallback);
 
     }
-    @Override
-    public void BtnMap() {
-        mOrdersView.showOrderMsgMap();
-    }
-    @Override
-    public void btnFilter() {
-        mOrdersView.showOrderMsgFilter();
-    }
-
 }

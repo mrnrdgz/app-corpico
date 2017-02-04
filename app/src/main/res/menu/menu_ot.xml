@@ -21,7 +21,7 @@
         android:orderInCategory="3"
         android:title="@string/action_buscar"
         app:showAsAction="collapseActionView|ifRoom"
-        app:actionViewClass="android.widget.SearchView" />
+        app:actionViewClass="android.support.v7.widget.SearchView" />
     <item
         android:id="@+id/action_settings"
         android:orderInCategory="100"

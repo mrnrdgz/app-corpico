@@ -10,6 +10,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import org.joda.time.DateTime;
+import org.joda.time.LocalDate;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,7 +60,7 @@ public class OrdersFragment extends Fragment implements ar.com.corpico.appcorpic
         mProgressView = root.findViewById(R.id.orders_progress);
 
         mOrderList.setTextFilterEnabled(true);
-        mOrdersAdapter = new OrdersAdapter(getActivity(),0,new ArrayList<Order>(0));
+        mOrdersAdapter = new OrdersAdapter(getActivity(),new ArrayList<Order>(0));
         mOrderList.setAdapter(mOrdersAdapter);
 
         //Infla las cabeceras de OrderList
@@ -69,10 +70,11 @@ public class OrdersFragment extends Fragment implements ar.com.corpico.appcorpic
 
         //TODO: PONER POR DEFECTO UNA FECHA (DIA ACTUAL...LA ULTIMA SEMANA...VER)
         //TODO: VER EL TEMA DE LA ZONA HORARIA SI LO PUEDO SETEAR XQ EN CASA ME SALE -03 Y EN TRABAJO -05 (AL FINAL)
+        //LocalDate
         final DateTime d = new DateTime("2017-01-23");
         final DateTime h = new DateTime("2017-01-24");
         //Llama al metodo del Presentador para que muestre
-        mOrdersPresenter.loadOrderList("Pendiente","Todos","Todos",d,h);
+        mOrdersPresenter.loadOrderList("Pendiente","Todos","Todos",d.withTimeAtStartOfDay(),h.withTimeAtStartOfDay(),null);
 
         return root;
     }
@@ -96,25 +98,6 @@ public class OrdersFragment extends Fragment implements ar.com.corpico.appcorpic
     }
 
     @Override
-    public void clickbtnMap() {
-        mOrdersPresenter.BtnMap();
-    }
-
-    @Override
-    public void showOrderMsgMap() {
-        Toast.makeText(getActivity(), "Bonton Map Presionado", Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void clickbtnFilter() {
-        mOrdersPresenter.btnFilter();
-    }
-    @Override
-    public void showOrderMsgFilter() {
-        Toast.makeText(getActivity(), "Bonton Aplicar Filtro", Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
     public void showOrdesEmpty() {
         mOrderList.setEmptyView(mEmptyView);
     }
@@ -125,22 +108,8 @@ public class OrdersFragment extends Fragment implements ar.com.corpico.appcorpic
     }
 
     @Override
-    public void setOrderFilter(String estado, String tipo, String sector, DateTime desde, DateTime hasta) {
-        mOrdersPresenter.loadOrderList(estado,tipo,sector,desde,hasta);
-    }
-
-    @Override
-    public void showOrderSearch(String newText) {
-        mOrdersAdapter.getFilter().filter(newText);
-        //TODO; VER XQ TENGO Q HACER LO Q HACER LO QUE HACE showOrderList()
-        // data.clear();
-        //data.addAll((List<YourType>) results.values);
-        //mOrdersAdapter.notifyDataSetChanged();
-    }
-
-    @Override
-    public void clearOrderSearch() {
-        mOrderList.clearTextFilter();
+    public void setOrderFilter(String estado, String tipo, String sector, DateTime desde, DateTime hasta, String search) {
+        mOrdersPresenter.loadOrderList("Todos","Todos","Todos",desde,hasta,search);
     }
 
 }
