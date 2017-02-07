@@ -31,7 +31,7 @@
         <activity android:name=".NavitationDrawerActivity" />
         <activity
             android:name=".orders.OrderActivity"
-            android:label="Ordenes Técnicas"
+            android:label="Ordenes"
             android:launchMode="singleTop"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>

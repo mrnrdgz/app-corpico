@@ -5,7 +5,7 @@
     <!-- Strings related to navigation drawer -->
     <string name="inicio_item">Inicio</string>
     <string name="cuadrillas_item">Cuadrillas</string>
-    <string name="ordenes_item">Ordenes Técnicas</string>
+    <string name="ordenes_item">Ordenes</string>
     <string name="novedades_item">Novedades</string>
     <string name="syncronizar_item">Syncronizar</string>
     <string name="log_out_item">Cerrar Sesión</string>
