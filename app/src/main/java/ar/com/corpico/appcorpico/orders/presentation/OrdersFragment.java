@@ -72,8 +72,17 @@ public class OrdersFragment extends Fragment implements ar.com.corpico.appcorpic
         mOrderList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, android.view.View view, int i, long l) {
-                Order currentOrder = mOrdersAdapter.getItem(i);
+                //Order currentOrder = mOrdersAdapter.getItem(i);
                 Intent intent = new Intent(getActivity(), Detail_OT.class);
+
+                Order currentOrder = (Order)mOrderList.getAdapter().getItem(i);
+
+                intent.putExtra("Numero",currentOrder.getNumero().toString());
+                intent.putExtra("Fecha",currentOrder.getFecha().toString());
+                intent.putExtra("Estado",currentOrder.getmEstado().toString());
+                intent.putExtra("Tipo",currentOrder.getTipo().toString());
+                intent.putExtra("Sector",currentOrder.getSector().toString());
+                intent.putExtra("Observacion",currentOrder.getObservacion().toString());
                 startActivity(intent);
             }
         });

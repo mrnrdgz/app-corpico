@@ -45,7 +45,7 @@
         <activity
             android:name=".orders.presentation.Detail_OT"
             android:theme="@style/AppTheme.NoActionBar"
-            android:label="Detalle Ordenes Técnicas">
+            android:label="">
         </activity>
     </application>
 
