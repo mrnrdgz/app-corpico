@@ -1,16 +1,17 @@
 package ar.com.corpico.appcorpico.orders.presentation;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import org.joda.time.DateTime;
-import org.joda.time.LocalDate;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -67,6 +68,15 @@ public class OrdersFragment extends Fragment implements ar.com.corpico.appcorpic
         LayoutInflater minflater = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         android.view.View headerView = minflater.inflate(R.layout.list_cabecera_order, null);
         mOrderList.addHeaderView(headerView);
+
+        mOrderList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, android.view.View view, int i, long l) {
+                Order currentOrder = mOrdersAdapter.getItem(i);
+                Intent intent = new Intent(getActivity(), Detail_OT.class);
+                startActivity(intent);
+            }
+        });
 
         //TODO: PONER POR DEFECTO UNA FECHA (DIA ACTUAL...LA ULTIMA SEMANA...VER)
         //TODO: VER EL TEMA DE LA ZONA HORARIA SI LO PUEDO SETEAR XQ EN CASA ME SALE -03 Y EN TRABAJO -05 (AL FINAL)

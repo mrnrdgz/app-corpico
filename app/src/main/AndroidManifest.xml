@@ -11,9 +11,9 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:largeHeap="true"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme"
-        android:largeHeap="true">
+        android:theme="@style/AppTheme">
         <activity
             android:name=".home.HomeActivity"
             android:label="Home"
@@ -26,18 +26,26 @@
         </activity>
         <activity
             android:name=".login.LoginActivity"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:label="@string/app_name" />
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".NavitationDrawerActivity" />
-        <activity android:name=".orders.OrderActivity"
-            android:theme="@style/AppTheme.NoActionBar"
+        <activity
+            android:name=".orders.OrderActivity"
+            android:label="Ordenes Técnicas"
             android:launchMode="singleTop"
-            android:label="Ordenes Técnicas">
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
             </intent-filter>
-            <meta-data android:name="android.app.searchable"
-                android:resource="@xml/searchable"/>
+
+            <meta-data
+                android:name="android.app.searchable"
+                android:resource="@xml/searchable" />
+        </activity>
+        <activity
+            android:name=".orders.presentation.Detail_OT"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:label="Detalle Ordenes Técnicas">
         </activity>
     </application>
 

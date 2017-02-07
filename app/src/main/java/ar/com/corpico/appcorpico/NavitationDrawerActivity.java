@@ -105,22 +105,19 @@ public class NavitationDrawerActivity extends AppCompatActivity {
         if (opcion == R.id.nav_inicio){
             Intent intent = new Intent(this, HomeActivity.class);
             startActivity(intent);
-            finish();
         }
         if (opcion == R.id.nav_ordenes){
             Intent intent = new Intent(this, OrderActivity.class);
             startActivity(intent);
-            finish();
         }
         if (opcion == R.id.nav_log_out){
             Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
-            finish();
         }
 
         drawerLayout.closeDrawers(); // Cerrar drawer
 
-        setTitle(opcion); // Setear título actual
+        //setTitle(opcion); // Setear título actual
 
     }
 
