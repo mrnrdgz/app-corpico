@@ -5,7 +5,9 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
+
 import java.util.List;
+
 import ar.com.corpico.appcorpico.R;
 import ar.com.corpico.appcorpico.orders.domain.entity.Order;
 
@@ -33,19 +35,33 @@ public class OrdersAdapter extends ArrayAdapter<Order>{
         }
 
         // Referencias UI.
-        TextView numero = (TextView) convertView.findViewById(R.id.tv_numero);
-        TextView titular = (TextView) convertView.findViewById(R.id.tv_titular);
-        TextView domicilio = (TextView) convertView.findViewById(R.id.tv_domicilio);
-        TextView tipo = (TextView) convertView.findViewById(R.id.tv_tipo);
+        //TextView numero = (TextView) convertView.findViewById(R.id.tv_numero);
+        android.view.View indicator = convertView.findViewById(R.id.indicator);
+        TextView titular = (TextView) convertView.findViewById(R.id.titular_text);
+        TextView domicilio = (TextView) convertView.findViewById(R.id.domicilio_text);
+        TextView tipo = (TextView) convertView.findViewById(R.id.tipo_text);
 
         // Lead actual.
         Order order =  getItem(position);
 
         // Setup.
-        numero.setText(order.getNumero());
+        //numero.setText(order.getNumero());
         titular.setText(order.getTitular());
         domicilio.setText(order.getDomicilio());
         tipo.setText(order.getTipo());
+        String estado = order.getEstado();
+
+        switch (estado) {
+            case "Culminada":
+                indicator.setBackgroundResource(R.drawable.green_indicator);
+                break;
+            case "Asignadas a cuadrilla X":
+                indicator.setBackgroundResource(R.drawable.red_indicator);
+                break;
+            case "Pendiente":
+                indicator.setBackgroundResource(R.drawable.yellow_indicator);
+                break;
+        }
 
         return convertView;
     }

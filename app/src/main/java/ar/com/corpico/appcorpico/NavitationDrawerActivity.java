@@ -104,14 +104,17 @@ public class NavitationDrawerActivity extends AppCompatActivity {
 
         if (opcion == R.id.nav_inicio){
             Intent intent = new Intent(this, HomeActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
         }
         if (opcion == R.id.nav_ordenes){
             Intent intent = new Intent(this, OrderActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
         }
         if (opcion == R.id.nav_log_out){
             Intent intent = new Intent(this, LoginActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
         }
 

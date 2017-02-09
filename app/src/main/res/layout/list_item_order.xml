@@ -1,50 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="?android:attr/listPreferredItemHeight"
-    android:orientation="horizontal">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:minHeight="?android:attr/listPreferredItemHeight"
+    android:padding="@dimen/activity_horizontal_margin">
 
+    <!-- Indicador circular -->
+    <View android:layout_width="@dimen/indicator_size"
+        android:layout_height="@dimen/indicator_size"
+        android:id="@+id/indicator"
+        android:background="@drawable/green_indicator"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="28dp"
+        android:layout_marginLeft="12dp" />
+
+    <!-- Categoría de la actividad -->
     <TextView
-        android:layout_weight="0.5"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="right"
-        android:layout_gravity="center_vertical"
-        android:textColor="#de000000"
-        android:fontFamily="Roboto Regular"
-        android:textSize="13sp"
-        android:padding="5dp"
-        android:id="@+id/tv_numero" />
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Domicilio"
+        android:id="@+id/domicilio_text"
+        android:textColor="@android:color/black"
+        android:layout_toRightOf="@+id/indicator" />
+
+    <!-- Prioridad de la actividad -->
     <TextView
-        android:layout_weight="1.2"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="left"
-        android:layout_gravity="center_vertical"
-        android:fontFamily="Roboto Regular"
-        android:textSize="13sp"
-        android:padding="5dp"
-        android:id="@+id/tv_titular" />
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Tipo"
+        android:id="@+id/tipo_text"
+        android:layout_below="@+id/domicilio_text"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:textStyle="italic" />
+
+    <!-- Técnico que realizará la activida -->
     <TextView
-        android:layout_weight="1"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="left"
-        android:layout_gravity="center_vertical"
-        android:textColor="#de000000"
-        android:fontFamily="Roboto Regular"
-        android:textSize="13sp"
-        android:padding="5dp"
-        android:id="@+id/tv_domicilio" />
-    <TextView
-        android:layout_weight="1"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:gravity="left"
-        android:layout_gravity="center_vertical"
-        android:textColor="#de000000"
-        android:fontFamily="Roboto Regular"
-        android:textSize="13sp"
-        android:padding="5dp"
-        android:id="@+id/tv_tipo" />
-</LinearLayout>
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Titular"
+        android:id="@+id/titular_text"
+        android:layout_below="@+id/domicilio_text"
+        android:layout_toRightOf="@+id/indicator" />
+
+</RelativeLayout>

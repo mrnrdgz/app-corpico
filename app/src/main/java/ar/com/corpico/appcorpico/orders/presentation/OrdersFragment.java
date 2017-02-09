@@ -1,6 +1,5 @@
 package ar.com.corpico.appcorpico.orders.presentation;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -65,9 +64,9 @@ public class OrdersFragment extends Fragment implements ar.com.corpico.appcorpic
         mOrderList.setAdapter(mOrdersAdapter);
 
         //Infla las cabeceras de OrderList
-        LayoutInflater minflater = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        android.view.View headerView = minflater.inflate(R.layout.list_cabecera_order, null);
-        mOrderList.addHeaderView(headerView);
+        //LayoutInflater minflater = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        //android.view.View headerView = minflater.inflate(R.layout.list_cabecera_order, null);
+        //mOrderList.addHeaderView(headerView);
 
         mOrderList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -79,10 +78,10 @@ public class OrdersFragment extends Fragment implements ar.com.corpico.appcorpic
 
                 intent.putExtra("Numero",currentOrder.getNumero().toString());
                 intent.putExtra("Fecha",currentOrder.getFecha().toString());
-                intent.putExtra("Estado",currentOrder.getmEstado().toString());
+                intent.putExtra("Estado",currentOrder.getEstado().toString());
                 intent.putExtra("Tipo",currentOrder.getTipo().toString());
                 intent.putExtra("Sector",currentOrder.getSector().toString());
-                intent.putExtra("Observacion",currentOrder.getObservacion().toString());
+                intent.putExtra("Observacion",currentOrder.getObservacionAlOperario().toString());
                 startActivity(intent);
             }
         });

@@ -22,7 +22,7 @@ public class CriteriaState implements Criteria {
         List<Order> filteredOrders = new ArrayList<>();
         if (!state.equals("Todos")) {
             for (Order order : orders) {
-                if (order.getmEstado().equals(state)) {
+                if (order.getEstado().equals(state)) {
                     filteredOrders.add(order);
                 }
             }

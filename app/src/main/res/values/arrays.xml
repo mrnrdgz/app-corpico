@@ -3,6 +3,7 @@
     <string-array name="estados">
         <item>Todos</item>
         <item>Cerrada</item>
+        <item>Supervisada</item>
         <item>Culminada</item>
         <item>No Culminada</item>
         <item>Pendiente</item>

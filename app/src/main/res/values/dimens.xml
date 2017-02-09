@@ -19,4 +19,5 @@
 
     <dimen name="card_elevation">5dp</dimen>
     <dimen name="margin_top_between_cards">15dp</dimen>
+    <dimen name="indicator_size">12dp</dimen>
 </resources>
