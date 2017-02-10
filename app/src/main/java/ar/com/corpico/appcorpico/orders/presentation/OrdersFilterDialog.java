@@ -10,9 +10,9 @@ import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.widget.DatePicker;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import org.joda.time.DateTime;
-import org.joda.time.LocalDate;
 
 import ar.com.corpico.appcorpico.R;
 
@@ -22,6 +22,7 @@ import ar.com.corpico.appcorpico.R;
  */
 //TODO: ....
 public class OrdersFilterDialog extends DialogFragment {
+    private TextView textFecha;
     public OrdersFilterDialog() {
     }
     public interface OnFilterDialogListener {
@@ -41,13 +42,14 @@ public class OrdersFilterDialog extends DialogFragment {
         LayoutInflater inflater = getActivity().getLayoutInflater();
 
         android.view.View v = inflater.inflate(R.layout.dialog_orders_filter, null);
-
         builder.setView(v);
+
         final Spinner mStateSpinner = (Spinner)v.findViewById(R.id.estado_spinner);
         final Spinner mTipoSpinner = (Spinner)v.findViewById(R.id.tipo_spinner);
         final Spinner mSectorSpinner = (Spinner)v.findViewById(R.id.sector_spinner);
         final DatePicker mDesdePicker = (DatePicker)v.findViewById(R.id.desde_Picker);
         final DatePicker mHastaPicker = (DatePicker)v.findViewById(R.id.hasta_Picker);
+        final TextView textFecha = (TextView) v.findViewById(R.id.fecha_text);
 
 
         builder.setTitle("Filtro de búsqueda")
@@ -70,7 +72,7 @@ public class OrdersFilterDialog extends DialogFragment {
                                 dialog.dismiss();
                             }
                         });
-
+        //iniciarFecha(v);
         return builder.create();
     }
     @Override
@@ -87,4 +89,19 @@ public class OrdersFilterDialog extends DialogFragment {
 
         }
     }
+ /*   private void iniciarFecha(android.view.View view) {
+        textFecha = (TextView) view.findViewById(R.id.fecha_text);
+        Calendar c = Calendar.getInstance();
+        SimpleDateFormat format = new SimpleDateFormat("E MMM d yyyy");
+        textFecha.setText(format.format(c.getTime()));
+
+        textFecha.setOnClickListener(
+                new android.view.View.OnClickListener() {
+                    @Override
+                    public void onClick(android.view.View v) {
+                        new DateDialog().show(getFragmentManager(), "DatePickerInFull");
+                    }
+                }
+        );
+    }*/
 }
