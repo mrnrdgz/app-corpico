@@ -1,10 +1,9 @@
 package ar.com.corpico.appcorpico.orders.domain.filter;
 
-import com.google.common.base.Strings;
-
 import java.util.ArrayList;
 import java.util.List;
 
+import ar.com.corpico.appcorpico.orders.domain.entity.Etapa;
 import ar.com.corpico.appcorpico.orders.domain.entity.Order;
 
 /**
@@ -33,6 +32,11 @@ public class CriteriaSearch implements Criteria {
         }
 
         return filteredOrders;
+    }
+
+    @Override
+    public List<Etapa> matchDate(List<Etapa> etapa) {
+        return null;
     }
 
     @Override

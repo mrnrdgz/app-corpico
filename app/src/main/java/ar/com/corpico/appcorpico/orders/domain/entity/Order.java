@@ -1,15 +1,17 @@
 package ar.com.corpico.appcorpico.orders.domain.entity;
+
+import java.util.ArrayList;
+
 /**
  * Created by Administrador on 07/01/2017.
  */
 public class Order {
-    private String mFecha;
     private String mNumero;
     private String mServicio;
     private String mSector;
     private String mTipo;
     private String mMotivo;
-    private String mEstado;
+    private ArrayList<Etapa> mEtapa;
     private String mAsociado;
     private String mSuministro;
     private String mTitular;
@@ -18,19 +20,17 @@ public class Order {
     private String mAnexo;
     private String mLatitud;
     private String mLongitud;
-    private String mObservacionAlOperario;
-    private String mObservacionDelOperario;
+    private String mObservacion;
 
-    public Order(String Fecha,String Numero, String Servicio, String Sector, String Tipo, String Motivo, String Estado, String Asociado,
+    public Order(String Numero, String Servicio, String Sector, String Tipo, String Motivo, ArrayList<Etapa> Etapa, String Asociado,
                  String Suministro, String Titular, String Domicilio, String Localidad, String Anexo, String Latitud, String Longitud,
-                 String ObservacionAlOperario,String ObservacionDelOperario) {
-        this.mFecha= Fecha;
+                 String Observacion) {
         this.mNumero = Numero;
         this.mServicio= Servicio;
         this.mSector = Sector;
         this.mTipo = Tipo;
         this.mMotivo= Motivo;
-        this.mEstado = Estado;
+        this.mEtapa = Etapa;
         this.mAsociado = Asociado;
         this.mSuministro = Suministro;
         this.mTitular = Titular;
@@ -39,8 +39,7 @@ public class Order {
         this.mAnexo=Anexo;
         this.mLatitud = Latitud;
         this.mLongitud = Longitud;
-        this.mObservacionAlOperario = ObservacionAlOperario;
-        this.mObservacionAlOperario = ObservacionDelOperario;
+        this.mObservacion = Observacion;
     }
 
     public String getNumero() {
@@ -115,24 +114,16 @@ public class Order {
         this.mLongitud = Longitud;
     }
 
-    public String getObservacionAlOperario() {
-        return mObservacionAlOperario;
+    public String getObservacion() {
+        return mObservacion;
     }
 
-    public void setObservacionAlOpearrio(String ObservacionAlOperario) {
-        this.mObservacionAlOperario = ObservacionAlOperario;
+    public void setObservacion(String Observacion) {
+        this.mObservacion = Observacion;
     }
 
-    public String getEstado() {
-        return mEstado;
-    }
-
-    public String getFecha() {
-        return mFecha;
-    }
-
-    public void setFecha(String Fecha) {
-        this.mFecha = Fecha;
+    public ArrayList<Etapa> getEtapa() {
+        return mEtapa;
     }
 
     public String getServicio() {
@@ -167,23 +158,14 @@ public class Order {
         this.mAnexo = Anexo;
     }
 
-    public String getObservacionDelOperario() {
-        return mObservacionDelOperario;
-    }
-
-    public void setObservacionDelOperario(String ObservacionDelOperario) {
-        this.mObservacionDelOperario = ObservacionDelOperario;
-    }
-
     public String toString(){
         return "Order={" +
-                "Fecha ='" + mFecha + '\'' +
                 "Numero = '" + mNumero + '\'' +
                 "Servicio = '" + mServicio + '\'' +
                 "Sector = '" + mSector + '\'' +
                 "Tipo = '" + mTipo + '\'' +
                 "Motivo = '" + mMotivo + '\'' +
-                "Estado = '" + mEstado + '\'' +
+                "Estado = '" + mEtapa + '\'' +
                 "Asociado = '" + mAsociado + '\'' +
                 "Suministro = '" + mSuministro + '\'' +
                 "Titular = '" + mTitular + '\'' +
@@ -192,8 +174,7 @@ public class Order {
                 "Anexo = '" + mAnexo + '\'' +
                 "Latitud = '" + mLatitud + '\'' +
                 "Longitud = '" + mLongitud + '\'' +
-                "ObservacionAlOperario = '" + mObservacionAlOperario + '\'' +
-                "ObservacionDelOperario = '" + mObservacionDelOperario + '\'' +
+                "Observacion = '" + mObservacion + '\'' +
                 '}';
     }
 }

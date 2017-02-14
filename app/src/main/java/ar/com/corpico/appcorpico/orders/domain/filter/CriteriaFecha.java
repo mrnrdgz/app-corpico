@@ -1,16 +1,13 @@
 package ar.com.corpico.appcorpico.orders.domain.filter;
 
-import org.joda.time.DateMidnight;
 import org.joda.time.DateTime;
 import org.joda.time.Interval;
-import org.joda.time.LocalDate;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import ar.com.corpico.appcorpico.orders.domain.entity.Etapa;
 import ar.com.corpico.appcorpico.orders.domain.entity.Order;
-
-import static android.icu.lang.UCharacter.GraphemeClusterBreak.L;
 
 /**
  * Created by sistemas on 30/01/2017.
@@ -26,22 +23,27 @@ public class CriteriaFecha implements Criteria {
     }
 
     @Override
-    public List<Order> match(List<Order> orders) {
-        List<Order> filteredOrders = new ArrayList<>();
+    public List<Etapa> matchDate(List<Etapa> etapas) {
+        List<Etapa> filteredEtapas = new ArrayList<>();
         if(mdesde != null && mhasta != null) {
             final DateTime d = new DateTime(mdesde);
             final DateTime h = new DateTime(mhasta);
             Interval interval = new Interval(d.withTimeAtStartOfDay(), h.withTimeAtStartOfDay());
-            for (Order order : orders) {
-                if (interval.contains(new DateTime(order.getFecha()))) {
-                    filteredOrders.add(order);
+            for (Etapa etapa : etapas) {
+                if (interval.contains(new DateTime(etapa.getFecha()))) {
+                    filteredEtapas.add(etapa);
                 }
             }
         }else{
-            filteredOrders=orders;
+            filteredEtapas=etapas;
         }
 
-        return filteredOrders;
+        return filteredEtapas;
+    }
+
+    @Override
+    public List<Order> match(List<Order> orders) {
+        return null;
     }
 
     @Override

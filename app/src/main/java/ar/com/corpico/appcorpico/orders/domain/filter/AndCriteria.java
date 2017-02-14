@@ -2,6 +2,7 @@ package ar.com.corpico.appcorpico.orders.domain.filter;
 
 import java.util.List;
 
+import ar.com.corpico.appcorpico.orders.domain.entity.Etapa;
 import ar.com.corpico.appcorpico.orders.domain.entity.Order;
 
 /**
@@ -22,6 +23,11 @@ public class AndCriteria implements Criteria {
     public List<Order> match(List<Order> orders) {
         List<Order> filteredOrders = firtCriteria.match(orders);
         return secondCriteria.match(filteredOrders);
+    }
+
+    @Override
+    public List<Etapa> matchDate(List<Etapa> etapa) {
+        return null;
     }
 
     @Override

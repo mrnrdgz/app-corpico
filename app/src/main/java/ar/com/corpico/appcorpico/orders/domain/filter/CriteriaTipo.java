@@ -3,6 +3,7 @@ package ar.com.corpico.appcorpico.orders.domain.filter;
 import java.util.ArrayList;
 import java.util.List;
 
+import ar.com.corpico.appcorpico.orders.domain.entity.Etapa;
 import ar.com.corpico.appcorpico.orders.domain.entity.Order;
 
 /**
@@ -28,6 +29,11 @@ public class CriteriaTipo implements Criteria {
             filteredOrders = orders;
         }
         return filteredOrders;
+    }
+
+    @Override
+    public List<Etapa> matchDate(List<Etapa> etapas) {
+        return null;
     }
 
     @Override

@@ -3,6 +3,7 @@ package ar.com.corpico.appcorpico.orders.domain.filter;
 import java.util.ArrayList;
 import java.util.List;
 
+import ar.com.corpico.appcorpico.orders.domain.entity.Etapa;
 import ar.com.corpico.appcorpico.orders.domain.entity.Order;
 
 /**
@@ -19,7 +20,7 @@ public class CriteriaState implements Criteria {
 
     @Override
     public List<Order> match(List<Order> orders) {
-        List<Order> filteredOrders = new ArrayList<>();
+     /*   List<Order> filteredOrders = new ArrayList<>();
         if (!state.equals("Todos")) {
             for (Order order : orders) {
                 if (order.getEstado().equals(state)) {
@@ -30,7 +31,24 @@ public class CriteriaState implements Criteria {
             filteredOrders = orders;
 
         }
-        return filteredOrders;
+        return filteredOrders;*/
+        return null;
+    }
+
+    @Override
+    public List<Etapa> matchDate(List<Etapa> etapas) {
+        List<Etapa> filteredEtapas = new ArrayList<>();
+        if (!state.equals("Todos")) {
+            for (Etapa etapa : etapas) {
+                if (etapa.getEstado().equals(state)) {
+                    filteredEtapas.add(etapa);
+                }
+            }
+        }else{
+            filteredEtapas = etapas;
+
+        }
+        return filteredEtapas;
     }
 
     @Override

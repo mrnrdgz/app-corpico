@@ -49,7 +49,7 @@ public class OrdersAdapter extends ArrayAdapter<Order>{
         titular.setText(order.getTitular());
         domicilio.setText(order.getDomicilio());
         tipo.setText(order.getTipo());
-        String estado = order.getEstado();
+        /*String estado = order.getEstado();
 
         switch (estado) {
             case "Culminada":
@@ -61,7 +61,7 @@ public class OrdersAdapter extends ArrayAdapter<Order>{
             case "Pendiente":
                 indicator.setBackgroundResource(R.drawable.yellow_indicator);
                 break;
-        }
+        }*/
 
         return convertView;
     }
