@@ -9,7 +9,7 @@ import ar.com.corpico.appcorpico.orders.domain.entity.Order;
 /**
  * Created by Administrador on 04/02/2017.
  */
-
+//Todo: ver
 public class CriteriaSearch implements Criteria <Order>{
     private String search;
 

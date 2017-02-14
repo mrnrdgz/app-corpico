@@ -10,7 +10,6 @@ import static android.icu.lang.UCharacter.GraphemeClusterBreak.T;
 /**
  * Created by Administrador on 08/01/2017.
  */
-//TODO: CONTROLAR EL METODO matchDate
 public interface Criteria <T>{
     public List<T> match(List<T> itemsDeEntrada);
     public Object toSql();
