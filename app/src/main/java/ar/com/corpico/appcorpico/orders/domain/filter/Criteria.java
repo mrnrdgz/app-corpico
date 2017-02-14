@@ -8,7 +8,7 @@ import ar.com.corpico.appcorpico.orders.domain.entity.Order;
 /**
  * Created by Administrador on 08/01/2017.
  */
-
+//TODO: CONTROLAR EL METODO matchDate
 public interface Criteria {
     public List<Etapa> matchDate(List<Etapa> etapas);
     public List<Order> match(List<Order> orders);
