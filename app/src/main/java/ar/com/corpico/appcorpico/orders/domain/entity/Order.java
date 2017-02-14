@@ -122,7 +122,7 @@ public class Order {
         this.mObservacion = Observacion;
     }
 
-    public ArrayList<Etapa> getEtapa() {
+    public ArrayList<Etapa> getEtapas() {
         return mEtapa;
     }
 

@@ -35,7 +35,7 @@ public class Etapa {
         return mObservacion;
     }
 
-    public void setObservacionDelOperario(String Observacion) {
+    public void setObservacion(String Observacion) {
         this.mObservacion = Observacion;
     }
 }

@@ -9,7 +9,7 @@ import ar.com.corpico.appcorpico.orders.domain.entity.Order;
 /**
  * Created by Administrador on 26/01/2017.
  */
-public class CriteriaTipo implements Criteria {
+public class CriteriaTipo implements Criteria<Order> {
     private final String tipo;
 
     public CriteriaTipo(String tipo) {
@@ -31,10 +31,6 @@ public class CriteriaTipo implements Criteria {
         return filteredOrders;
     }
 
-    @Override
-    public List<Etapa> matchDate(List<Etapa> etapas) {
-        return null;
-    }
 
     @Override
     public Object toSql() {

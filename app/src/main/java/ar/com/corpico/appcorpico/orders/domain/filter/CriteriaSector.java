@@ -6,11 +6,13 @@ import java.util.List;
 import ar.com.corpico.appcorpico.orders.domain.entity.Etapa;
 import ar.com.corpico.appcorpico.orders.domain.entity.Order;
 
+import static android.R.attr.order;
+
 /**
  * Created by Administrador on 08/01/2017.
  */
 
-public class CriteriaSector implements Criteria {
+public class CriteriaSector implements Criteria<Order> {
     private final String sector;
 
     public CriteriaSector(String sector) {
@@ -32,10 +34,6 @@ public class CriteriaSector implements Criteria {
         return filteredOrders;
     }
 
-    @Override
-    public List<Etapa> matchDate(List<Etapa> etapa) {
-        return null;
-    }
 
     @Override
     public Object toSql() {

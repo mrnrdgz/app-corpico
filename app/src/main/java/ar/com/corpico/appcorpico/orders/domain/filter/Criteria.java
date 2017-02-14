@@ -5,12 +5,13 @@ import java.util.List;
 import ar.com.corpico.appcorpico.orders.domain.entity.Etapa;
 import ar.com.corpico.appcorpico.orders.domain.entity.Order;
 
+import static android.icu.lang.UCharacter.GraphemeClusterBreak.T;
+
 /**
  * Created by Administrador on 08/01/2017.
  */
 //TODO: CONTROLAR EL METODO matchDate
-public interface Criteria {
-    public List<Etapa> matchDate(List<Etapa> etapas);
-    public List<Order> match(List<Order> orders);
+public interface Criteria <T>{
+    public List<T> match(List<T> itemsDeEntrada);
     public Object toSql();
 }

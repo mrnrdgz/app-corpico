@@ -5,14 +5,20 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
-import android.view.LayoutInflater;
+import android.view.*;
+import android.view.View;
 import android.widget.DatePicker;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 import org.joda.time.DateTime;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Locale;
 
 import ar.com.corpico.appcorpico.R;
 
@@ -50,7 +56,7 @@ public class OrdersFilterDialog extends DialogFragment {
         final DatePicker mDesdePicker = (DatePicker)v.findViewById(R.id.desde_Picker);
         final DatePicker mHastaPicker = (DatePicker)v.findViewById(R.id.hasta_Picker);
         final TextView textFecha = (TextView) v.findViewById(R.id.fecha_text);
-
+        iniciarFecha(v);
 
         builder.setTitle("Filtro de búsqueda")
                 .setPositiveButton("APLICAR", new DialogInterface.OnClickListener() {
@@ -89,10 +95,17 @@ public class OrdersFilterDialog extends DialogFragment {
 
         }
     }
- /*   private void iniciarFecha(android.view.View view) {
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+    }
+
+     private void iniciarFecha(android.view.View view) {
         textFecha = (TextView) view.findViewById(R.id.fecha_text);
         Calendar c = Calendar.getInstance();
-        SimpleDateFormat format = new SimpleDateFormat("E MMM d yyyy");
+        SimpleDateFormat format = new SimpleDateFormat("E MMM d yyyy", Locale.getDefault());
         textFecha.setText(format.format(c.getTime()));
 
         textFecha.setOnClickListener(
@@ -100,8 +113,9 @@ public class OrdersFilterDialog extends DialogFragment {
                     @Override
                     public void onClick(android.view.View v) {
                         new DateDialog().show(getFragmentManager(), "DatePickerInFull");
+                        // TODO: Comunicarle a la actividad que inicie el diálogo de fecha
                     }
                 }
         );
-    }*/
+    }
 }

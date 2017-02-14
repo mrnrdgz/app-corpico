@@ -9,7 +9,7 @@ import ar.com.corpico.appcorpico.orders.domain.entity.Order;
  * Created by Administrador on 08/01/2017.
  */
 
-public class AndCriteria implements Criteria {
+public class AndCriteria implements Criteria <Order>{
 
     private Criteria firtCriteria;
     private Criteria secondCriteria;
@@ -23,11 +23,6 @@ public class AndCriteria implements Criteria {
     public List<Order> match(List<Order> orders) {
         List<Order> filteredOrders = firtCriteria.match(orders);
         return secondCriteria.match(filteredOrders);
-    }
-
-    @Override
-    public List<Etapa> matchDate(List<Etapa> etapa) {
-        return null;
     }
 
     @Override

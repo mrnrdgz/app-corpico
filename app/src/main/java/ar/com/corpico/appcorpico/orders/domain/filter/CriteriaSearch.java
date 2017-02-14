@@ -10,7 +10,7 @@ import ar.com.corpico.appcorpico.orders.domain.entity.Order;
  * Created by Administrador on 04/02/2017.
  */
 
-public class CriteriaSearch implements Criteria {
+public class CriteriaSearch implements Criteria <Order>{
     private String search;
 
     public CriteriaSearch(String search) {
@@ -32,11 +32,6 @@ public class CriteriaSearch implements Criteria {
         }
 
         return filteredOrders;
-    }
-
-    @Override
-    public List<Etapa> matchDate(List<Etapa> etapa) {
-        return null;
     }
 
     @Override

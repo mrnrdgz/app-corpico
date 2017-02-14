@@ -78,7 +78,7 @@ public class OrdersFragment extends Fragment implements ar.com.corpico.appcorpic
 
                 intent.putExtra("Numero",currentOrder.getNumero().toString());
                 //intent.putExtra("Fecha",currentOrder.getFecha().toString());
-                intent.putExtra("Etapa",currentOrder.getEtapa().toString());
+                intent.putExtra("Etapa",currentOrder.getEtapas().toString());
                 intent.putExtra("Tipo",currentOrder.getTipo().toString());
                 intent.putExtra("Sector",currentOrder.getSector().toString());
                 intent.putExtra("Observacion",currentOrder.getObservacion().toString());
