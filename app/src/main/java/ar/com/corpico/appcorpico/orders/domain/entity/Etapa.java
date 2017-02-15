@@ -1,5 +1,11 @@
 package ar.com.corpico.appcorpico.orders.domain.entity;
 
+import org.joda.time.DateTime;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+
 /**
  * Created by sistemas on 14/02/2017.
  */
@@ -10,9 +16,9 @@ public class Etapa {
     private String mObservacion;
 
     public Etapa(String Fecha, String Estado, String Observacion) {
-        this.mFecha = Fecha;
-        this.mEstado = Estado;
-        this.mObservacion = Observacion;
+        mFecha = Fecha;
+        mEstado = Estado;
+        mObservacion = Observacion;
     }
 
     public String getFecha() {
@@ -20,7 +26,7 @@ public class Etapa {
     }
 
     public void setFecha(String Fecha) {
-        this.mFecha = Fecha;
+        mFecha = Fecha;
     }
 
     public String getEstado() {
@@ -28,7 +34,7 @@ public class Etapa {
     }
 
     public void setEstado(String Estado) {
-        this.mEstado = Estado;
+        mEstado = Estado;
     }
 
     public String getObservacion() {
@@ -36,6 +42,15 @@ public class Etapa {
     }
 
     public void setObservacion(String Observacion) {
-        this.mObservacion = Observacion;
+        mObservacion = Observacion;
+    }
+    public static ArrayList<Etapa> sortEtapa(ArrayList etapas) {
+        Collections.sort(etapas, new Comparator<Etapa>() {
+            @Override
+            public int compare(Etapa p1, Etapa p2) {
+                return new DateTime(p1.getFecha()).compareTo(new DateTime(p2.getFecha()));
+            }
+        });
+        return etapas;
     }
 }

@@ -56,7 +56,7 @@ public class OrdersFilterDialog extends DialogFragment {
         final DatePicker mDesdePicker = (DatePicker)v.findViewById(R.id.desde_Picker);
         final DatePicker mHastaPicker = (DatePicker)v.findViewById(R.id.hasta_Picker);
         final TextView textFecha = (TextView) v.findViewById(R.id.fecha_text);
-        iniciarFecha(v);
+        //iniciarFecha(v);
 
         builder.setTitle("Filtro de búsqueda")
                 .setPositiveButton("APLICAR", new DialogInterface.OnClickListener() {

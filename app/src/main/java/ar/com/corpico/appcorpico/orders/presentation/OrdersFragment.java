@@ -89,7 +89,7 @@ public class OrdersFragment extends Fragment implements ar.com.corpico.appcorpic
         //TODO: PONER POR DEFECTO UNA FECHA (DIA ACTUAL...LA ULTIMA SEMANA...VER)
         //TODO: VER EL TEMA DE LA ZONA HORARIA SI LO PUEDO SETEAR XQ EN CASA ME SALE -03 Y EN TRABAJO -05 (AL FINAL)
         //LocalDate
-        final DateTime d = new DateTime("2017-01-23");
+        final DateTime d = new DateTime("2017-01-21");
         final DateTime h = new DateTime("2017-01-24");
         //Llama al metodo del Presentador para que muestre
         mOrdersPresenter.loadOrderList("Pendiente","Todos","Todos",d.withTimeAtStartOfDay(),h.withTimeAtStartOfDay(),null);

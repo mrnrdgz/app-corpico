@@ -6,9 +6,11 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import ar.com.corpico.appcorpico.R;
+import ar.com.corpico.appcorpico.orders.domain.entity.Etapa;
 import ar.com.corpico.appcorpico.orders.domain.entity.Order;
 
 
@@ -49,19 +51,25 @@ public class OrdersAdapter extends ArrayAdapter<Order>{
         titular.setText(order.getTitular());
         domicilio.setText(order.getDomicilio());
         tipo.setText(order.getTipo());
-        /*String estado = order.getEstado();
+        ArrayList<Etapa> etapaList = new ArrayList<>();
+        etapaList = Etapa.sortEtapa(order.getEtapas());
+        Etapa etapa = etapaList.get(etapaList.size()-1);
+        String estado = etapa.getEstado();
 
         switch (estado) {
             case "Culminada":
                 indicator.setBackgroundResource(R.drawable.green_indicator);
                 break;
-            case "Asignadas a cuadrilla X":
+            case "Cerrada":
                 indicator.setBackgroundResource(R.drawable.red_indicator);
                 break;
+            /*case "Asignadas a cuadrilla X":
+                indicator.setBackgroundResource(R.drawable.red_indicator);
+                break;*/
             case "Pendiente":
                 indicator.setBackgroundResource(R.drawable.yellow_indicator);
                 break;
-        }*/
+        }
 
         return convertView;
     }

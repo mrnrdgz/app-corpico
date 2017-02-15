@@ -60,16 +60,14 @@ public class OrderCriteriaFecha implements Criteria<Order> {
 
                 // ¿El estado de la etapa y la fecha coinciden con los parámetros de entrada?
                 for (Etapa etapa : etapasActuales) {
-                    if (mEstado.equals(etapa.getEstado())) {
-                        DateTime fechaActual = new DateTime(etapa.getFecha());
-
-                        if (interval.contains(fechaActual)) {
-                            filteredOrders.add(order);
-                        }
-                    }
+                     if (mEstado.equals(etapa.getEstado())|| mEstado.equals("Todos")) {
+                         DateTime fechaActual = new DateTime(etapa.getFecha());
+                         if (interval.contains(fechaActual)) {
+                             filteredOrders.add(order);
+                         }
+                     }
                 }
             }
-
 
         } else {
             filteredOrders = itemsDeEntrada;
