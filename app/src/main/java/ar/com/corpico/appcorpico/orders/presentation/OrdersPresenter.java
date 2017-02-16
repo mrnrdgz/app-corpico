@@ -9,11 +9,10 @@ import java.util.List;
 import ar.com.corpico.appcorpico.UseCase;
 import ar.com.corpico.appcorpico.orders.domain.entity.Order;
 import ar.com.corpico.appcorpico.orders.domain.filter.AndCriteria;
-import ar.com.corpico.appcorpico.orders.domain.filter.OrderCriteriaFecha;
 import ar.com.corpico.appcorpico.orders.domain.filter.CriteriaSearch;
 import ar.com.corpico.appcorpico.orders.domain.filter.CriteriaSector;
-import ar.com.corpico.appcorpico.orders.domain.filter.CriteriaState;
 import ar.com.corpico.appcorpico.orders.domain.filter.CriteriaTipo;
+import ar.com.corpico.appcorpico.orders.domain.filter.OrderCriteriaFecha;
 import ar.com.corpico.appcorpico.orders.domain.usecase.GetOrders;
 
 /**
@@ -32,12 +31,12 @@ public class OrdersPresenter implements Presenter {
     }
 
     @Override
-    public void loadOrderList(String estado, String tipo, String sector, DateTime desde, DateTime hasta, String search) {
+    public void loadOrderList(String estado, String tipo, String sector, DateTime desde, DateTime hasta, String search,Boolean estadoActual) {
         // Se reciben valores de cada filtro
         //CriteriaState criteriaState = new CriteriaState(estado);
         CriteriaSector criteriaSector = new CriteriaSector(sector);
         CriteriaTipo criteriaTipo = new CriteriaTipo(tipo);
-        OrderCriteriaFecha criteriaFecha = new OrderCriteriaFecha(estado,desde,hasta);
+        OrderCriteriaFecha criteriaFecha = new OrderCriteriaFecha(estado,desde,hasta,estadoActual);
         CriteriaSearch criteriaSearch = new CriteriaSearch(search);
 
         AndCriteria andCriteria = new AndCriteria(
