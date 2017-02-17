@@ -105,9 +105,9 @@ public class OrderActivity extends NavitationDrawerActivity implements OnFilterD
     }
 
     @Override
-    public void onPossitiveButtonClick(String estado, String tipo, String sector, DateTime desde, DateTime hasta) {
+    public void onPossitiveButtonClick(String estado, String tipo, String sector, DateTime desde, DateTime hasta,Boolean estadoActual) {
         OrdersFragment mOrderFragmen = (OrdersFragment) getSupportFragmentManager().findFragmentById(R.id.activity_order);
-        mOrderFragmen.setOrderFilter(estado, tipo, sector, desde, hasta, null);
+        mOrderFragmen.setOrderFilter(estado, tipo, sector, desde, hasta, null,estadoActual);
     }
 
     @Override
@@ -126,7 +126,7 @@ public class OrderActivity extends NavitationDrawerActivity implements OnFilterD
             //TODO: VER EN LA BUSQUEDA LA FEHCA...SI PONGO NULL ESTA CONTROLADO...PERO EN EL TIEMPO...PUEDE TRAER.
             //MUCHOS REGISTROS...COMO PODRIAMOS CONTROLAR ESO?
             OrdersFragment mOrderFragmen = (OrdersFragment) getSupportFragmentManager().findFragmentById(R.id.activity_order);
-            mOrderFragmen.setOrderFilter("Todos", "Todos", "Todos", null, null, query);
+            mOrderFragmen.setOrderFilter("Todos", "Todos", "Todos", null, null, query,false);
         }
     }
 }

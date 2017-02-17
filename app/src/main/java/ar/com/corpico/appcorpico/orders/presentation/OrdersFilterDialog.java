@@ -32,7 +32,7 @@ public class OrdersFilterDialog extends DialogFragment {
     public OrdersFilterDialog() {
     }
     public interface OnFilterDialogListener {
-        void onPossitiveButtonClick(String estado, String tipo, String sector, DateTime desde, DateTime hasta);// Eventos Botón Positivo
+        void onPossitiveButtonClick(String estado, String tipo, String sector, DateTime desde, DateTime hasta,Boolean estadoActual);// Eventos Botón Positivo
         void onNegativeButtonClick();// Eventos Botón Negativo
     }
 
@@ -68,7 +68,7 @@ public class OrdersFilterDialog extends DialogFragment {
                             listener.onPossitiveButtonClick(mStateSpinner.getItemAtPosition(mStateSpinner.getSelectedItemPosition()).toString(),
                                     mTipoSpinner.getItemAtPosition(mTipoSpinner.getSelectedItemPosition()).toString(),
                                     mSectorSpinner.getItemAtPosition(mSectorSpinner.getSelectedItemPosition()).toString(),
-                                    mDesde,mHasta);
+                                    mDesde,mHasta,false);
                          }
                         })
                 .setNegativeButton("CANCELAR", new DialogInterface.OnClickListener() {

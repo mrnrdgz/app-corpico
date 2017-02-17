@@ -51,12 +51,14 @@ public class OrdersAdapter extends ArrayAdapter<Order>{
         titular.setText(order.getTitular());
         domicilio.setText(order.getDomicilio());
         tipo.setText(order.getTipo());
+
+        //TODO: VER SI PUEDO HACER ESTO DE OTRA MANERA PARA NO TENER QUE ORDENAR DE NUEVO
         ArrayList<Etapa> etapaList = new ArrayList<>();
         etapaList = Etapa.sortEtapa(order.getEtapas());
-        Etapa etapa = etapaList.get(etapaList.size()-1);
-        String estado = etapa.getEstado();
+        Etapa etapaActual = etapaList.get(etapaList.size()-1);
+        String estadoActual = etapaActual.getEstado();
 
-        switch (estado) {
+        switch (estadoActual) {
             case "Culminada":
                 indicator.setBackgroundResource(R.drawable.green_indicator);
                 break;

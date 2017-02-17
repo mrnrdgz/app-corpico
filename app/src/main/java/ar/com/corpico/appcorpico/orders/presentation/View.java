@@ -1,7 +1,6 @@
 package ar.com.corpico.appcorpico.orders.presentation;
 
 import org.joda.time.DateTime;
-import org.joda.time.LocalDate;
 
 import java.util.List;
 
@@ -17,5 +16,5 @@ public interface View {
     public void setPresenter(Presenter presenter);
     public void showOrdesEmpty();
     public void showProgressIndicator(boolean show);
-    public void setOrderFilter(String estado, String tipo, String sector, DateTime desde, DateTime hasta, String search);
+    public void setOrderFilter(String estado, String tipo, String sector, DateTime desde, DateTime hasta, String search,Boolean estadoActual);
 }

@@ -165,7 +165,7 @@ public class Order {
                 "Sector = '" + mSector + '\'' +
                 "Tipo = '" + mTipo + '\'' +
                 "Motivo = '" + mMotivo + '\'' +
-                "Estado = '" + mEtapa + '\'' +
+                "Etapa = '" + mEtapa + '\'' +
                 "Asociado = '" + mAsociado + '\'' +
                 "Suministro = '" + mSuministro + '\'' +
                 "Titular = '" + mTitular + '\'' +
