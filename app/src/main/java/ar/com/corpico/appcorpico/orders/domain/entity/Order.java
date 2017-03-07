@@ -1,6 +1,13 @@
 package ar.com.corpico.appcorpico.orders.domain.entity;
 
+import org.joda.time.DateTime;
+
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+
+import static android.R.attr.order;
+
 
 /**
  * Created by Administrador on 07/01/2017.
@@ -11,7 +18,7 @@ public class Order {
     private String mSector;
     private String mTipo;
     private String mMotivo;
-    private ArrayList<Etapa> mEtapa;
+    private ArrayList<Etapa> mEtapas;
     private String mAsociado;
     private String mSuministro;
     private String mTitular;
@@ -21,8 +28,10 @@ public class Order {
     private String mLatitud;
     private String mLongitud;
     private String mObservacion;
+    private String mState;
+    private Etapa mCurrentEtapa;
 
-    public Order(String Numero, String Servicio, String Sector, String Tipo, String Motivo, ArrayList<Etapa> Etapa, String Asociado,
+    public Order(String Numero, String Servicio, String Sector, String Tipo, String Motivo, ArrayList<Etapa> Etapas, String Asociado,
                  String Suministro, String Titular, String Domicilio, String Localidad, String Anexo, String Latitud, String Longitud,
                  String Observacion) {
         this.mNumero = Numero;
@@ -30,7 +39,7 @@ public class Order {
         this.mSector = Sector;
         this.mTipo = Tipo;
         this.mMotivo= Motivo;
-        this.mEtapa = Etapa;
+        this.mEtapas = Etapas;
         this.mAsociado = Asociado;
         this.mSuministro = Suministro;
         this.mTitular = Titular;
@@ -123,7 +132,11 @@ public class Order {
     }
 
     public ArrayList<Etapa> getEtapas() {
-        return mEtapa;
+        return mEtapas;
+    }
+
+    public void setEtapas(ArrayList<Etapa> Etapas){
+        this.mEtapas =  Etapas;
     }
 
     public String getServicio() {
@@ -157,6 +170,25 @@ public class Order {
     public void setAnexo(String Anexo) {
         this.mAnexo = Anexo;
     }
+    public String getCurrentState(ArrayList etapas){
+        ArrayList<Etapa> etapasOrdenadas = sortEtapas(etapas);
+        mState= etapasOrdenadas.get(etapasOrdenadas.size()-1).getEstado();
+        return mState;
+    }
+    public Etapa getCurrentEtapa(ArrayList etapas){
+        ArrayList<Etapa> etapasOrdenadas = sortEtapas(etapas);
+        mCurrentEtapa = etapasOrdenadas.get(etapasOrdenadas.size()-1);
+        return  mCurrentEtapa;
+    }
+    public ArrayList<Etapa> sortEtapas(ArrayList etapas) {
+        Collections.sort(etapas, new Comparator<Etapa>() {
+            @Override
+            public int compare(Etapa p1, Etapa p2) {
+                return new DateTime(p1.getFecha()).compareTo(new DateTime(p2.getFecha()));
+            }
+        });
+        return etapas;
+    }
 
     public String toString(){
         return "Order={" +
@@ -165,7 +197,7 @@ public class Order {
                 "Sector = '" + mSector + '\'' +
                 "Tipo = '" + mTipo + '\'' +
                 "Motivo = '" + mMotivo + '\'' +
-                "Etapa = '" + mEtapa + '\'' +
+                "Estado = '" + mEtapas + '\'' +
                 "Asociado = '" + mAsociado + '\'' +
                 "Suministro = '" + mSuministro + '\'' +
                 "Titular = '" + mTitular + '\'' +

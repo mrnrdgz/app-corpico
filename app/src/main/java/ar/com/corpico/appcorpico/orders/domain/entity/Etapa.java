@@ -44,13 +44,4 @@ public class Etapa {
     public void setObservacion(String Observacion) {
         mObservacion = Observacion;
     }
-    public static ArrayList<Etapa> sortEtapa(ArrayList etapas) {
-        Collections.sort(etapas, new Comparator<Etapa>() {
-            @Override
-            public int compare(Etapa p1, Etapa p2) {
-                return new DateTime(p1.getFecha()).compareTo(new DateTime(p2.getFecha()));
-            }
-        });
-        return etapas;
-    }
 }

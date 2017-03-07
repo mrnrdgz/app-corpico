@@ -46,9 +46,12 @@ public class OrderCriteriaFecha implements Criteria<Order> {
                         }
                     }
                 }else{
-                    ArrayList<Etapa> etapasOrdenadas=  Etapa.sortEtapa(order.getEtapas());
+                    /*ArrayList<Etapa> etapasOrdenadas=  order.sortEtapas(order.getEtapas());
                     String estadoEtapa = etapasOrdenadas.get(etapasOrdenadas.size()-1).getEstado();
-                    DateTime fechaEtapa = new DateTime(etapasOrdenadas.get(etapasOrdenadas.size()-1).getFecha());
+                    DateTime fechaEtapa = new DateTime(etapasOrdenadas.get(etapasOrdenadas.size()-1).getFecha());*/
+                    Etapa currentEtapa = order.getCurrentEtapa(order.getEtapas());
+                    String estadoEtapa = currentEtapa.getEstado();
+                    DateTime fechaEtapa = new DateTime(currentEtapa.getFecha());
                     if (mEstado.equals(estadoEtapa)|| mEstado.equals("Todos")) {
                         if (interval.contains(fechaEtapa)) {
                             filteredOrders.add(order);
