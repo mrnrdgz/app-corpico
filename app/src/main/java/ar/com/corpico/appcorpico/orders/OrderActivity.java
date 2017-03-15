@@ -1,5 +1,7 @@
 package ar.com.corpico.appcorpico.orders;
 
+import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
@@ -8,20 +10,27 @@ import android.support.v4.view.MenuItemCompat;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.support.v7.widget.SearchView;
+import android.widget.DatePicker;
 import android.widget.Toast;
 import org.joda.time.DateTime;
+
+import java.util.Calendar;
+
 import ar.com.corpico.appcorpico.NavitationDrawerActivity;
 import ar.com.corpico.appcorpico.R;
 import ar.com.corpico.appcorpico.orders.data.OrdersRepository;
 import ar.com.corpico.appcorpico.orders.data.OrdersRestStore;
 import ar.com.corpico.appcorpico.orders.data.OrdersSqliteStore;
 import ar.com.corpico.appcorpico.orders.domain.usecase.GetOrders;
+import ar.com.corpico.appcorpico.orders.presentation.DateDialog;
 import ar.com.corpico.appcorpico.orders.presentation.OrdersFilterDialog;
 import ar.com.corpico.appcorpico.orders.presentation.OrdersFilterDialog.OnFilterDialogListener;
 import ar.com.corpico.appcorpico.orders.presentation.OrdersFragment;
 import ar.com.corpico.appcorpico.orders.presentation.OrdersPresenter;
 
-public class OrderActivity extends NavitationDrawerActivity implements OnFilterDialogListener {
+import static android.R.attr.y;
+
+public class OrderActivity extends NavitationDrawerActivity implements OnFilterDialogListener,DatePickerDialog.OnDateSetListener {
     private OrdersFilterDialog dialogOrdersFilter;
 
     @Override
@@ -105,6 +114,14 @@ public class OrderActivity extends NavitationDrawerActivity implements OnFilterD
     }
 
     @Override
+    public void onDesdeFechaTextClick() {
+        new DateDialog().show(getSupportFragmentManager(),"FilterDialog");
+        //return new DatePickerDialog(getSupportFragmentManager(), listener, 2017, 2, 15);
+
+        //new DatePickerDialog();
+    }
+
+    @Override
     public void onPossitiveButtonClick(String estado, String tipo, String sector, DateTime desde, DateTime hasta,Boolean estadoActual) {
         OrdersFragment mOrderFragmen = (OrdersFragment) getSupportFragmentManager().findFragmentById(R.id.activity_order);
         mOrderFragmen.setOrderFilter(estado, tipo, sector, desde, hasta, null,estadoActual);
@@ -128,5 +145,10 @@ public class OrderActivity extends NavitationDrawerActivity implements OnFilterD
             OrdersFragment mOrderFragmen = (OrdersFragment) getSupportFragmentManager().findFragmentById(R.id.activity_order);
             mOrderFragmen.setOrderFilter("Todos", "Todos", "Todos", null, null, query,false);
         }
+    }
+
+    @Override
+    public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
+        Toast.makeText(this, "i " + i + " i1 " + i1 + " i2 " + i2, Toast.LENGTH_SHORT).show();
     }
 }
