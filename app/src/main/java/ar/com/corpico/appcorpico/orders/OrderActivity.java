@@ -114,14 +114,6 @@ public class OrderActivity extends NavitationDrawerActivity implements OnFilterD
     }
 
     @Override
-    public void onDesdeFechaTextClick() {
-        new DateDialog().show(getSupportFragmentManager(),"FilterDialog");
-        //return new DatePickerDialog(getSupportFragmentManager(), listener, 2017, 2, 15);
-
-        //new DatePickerDialog();
-    }
-
-    @Override
     public void onPossitiveButtonClick(String estado, String tipo, String sector, DateTime desde, DateTime hasta,Boolean estadoActual) {
         OrdersFragment mOrderFragmen = (OrdersFragment) getSupportFragmentManager().findFragmentById(R.id.activity_order);
         mOrderFragmen.setOrderFilter(estado, tipo, sector, desde, hasta, null,estadoActual);
@@ -147,8 +139,11 @@ public class OrderActivity extends NavitationDrawerActivity implements OnFilterD
         }
     }
 
-    @Override
+   @Override
     public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
-        Toast.makeText(this, "i " + i + " i1 " + i1 + " i2 " + i2, Toast.LENGTH_SHORT).show();
+        OrdersFilterDialog fragment = (OrdersFilterDialog) getSupportFragmentManager().findFragmentByTag("FilterDialog");
+        if (fragment != null) {
+            fragment.setDateDesdeView(i, i1, i2);
+        }
     }
 }

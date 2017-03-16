@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.view.*;
 import android.view.View;
@@ -31,21 +32,15 @@ import ar.com.corpico.appcorpico.orders.OrderActivity;
  * Created by Administrador on 24/01/2017.
  */
 //TODO: ....
-public class OrdersFilterDialog extends DialogFragment implements DatePickerDialog.OnDateSetListener{
-    //private TextView textFecha;
+public class OrdersFilterDialog extends DialogFragment{
+    private TextView mDesdeFecha;
+    private TextView mHastaFecha;
     public OrdersFilterDialog() {
-    }
-
-    @Override
-    public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
-        //Toast.makeText(getContext(), "i " + i + " i1 " + i1 + " i2 " + i2, Toast.LENGTH_SHORT).show();
-
     }
 
     public interface OnFilterDialogListener {
         void onPossitiveButtonClick(String estado, String tipo, String sector, DateTime desde, DateTime hasta,Boolean estadoActual);// Eventos Botón Positivo
         void onNegativeButtonClick();// Eventos Botón Negativo
-        void onDesdeFechaTextClick();
     }
 
     OnFilterDialogListener listener;
@@ -65,58 +60,17 @@ public class OrdersFilterDialog extends DialogFragment implements DatePickerDial
         final Spinner mStateSpinner = (Spinner)v.findViewById(R.id.estado_spinner);
         final Spinner mTipoSpinner = (Spinner)v.findViewById(R.id.tipo_spinner);
         final Spinner mSectorSpinner = (Spinner)v.findViewById(R.id.sector_spinner);
-        final DatePicker mDesdePicker = (DatePicker)v.findViewById(R.id.desde_Picker);
-        final DatePicker mHastaPicker = (DatePicker)v.findViewById(R.id.hasta_Picker);
-        TextView mDesdeFecha = (TextView) v.findViewById(R.id.desde_text);
         Button aplicar = (Button) v.findViewById(R.id.aplicar_boton);
         Button cancelar = (Button) v.findViewById(R.id.cancelar_boton);
 
-        /*Calendar c = Calendar.getInstance();
-        SimpleDateFormat format = new SimpleDateFormat("E MMM d yyyy", Locale.getDefault());
-        textFecha.setText(format.format(c.getTime()));*/
-
-        //iniciarFecha(v);
-
-        /*builder.setTitle("Filtro de búsqueda")
-                .setPositiveButton("APLICAR", new DialogInterface.OnClickListener() {
-                        @Override
-                         public void onClick(DialogInterface dialog, int which) {
-                           // Filtrado con la selecciona de los Spinner
-                            final DateTime mDesde = new DateTime(mDesdePicker.getYear(),mDesdePicker.getMonth()+1,mDesdePicker.getDayOfMonth(),0,0,0);
-                            final DateTime mHasta = new DateTime(mHastaPicker.getYear(),mHastaPicker.getMonth()+1,mHastaPicker.getDayOfMonth(),0,0,0);
-                            listener.onPossitiveButtonClick(mStateSpinner.getItemAtPosition(mStateSpinner.getSelectedItemPosition()).toString(),
-                                    mTipoSpinner.getItemAtPosition(mTipoSpinner.getSelectedItemPosition()).toString(),
-                                    mSectorSpinner.getItemAtPosition(mSectorSpinner.getSelectedItemPosition()).toString(),
-                                    mDesde,mHasta,false);
-                         }
-                        })
-                .setNegativeButton("CANCELAR", new DialogInterface.OnClickListener() {
-                            @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            //listener.onNegativeButtonClick();
-                                dialog.dismiss();
-                            }
-                        });
-        //iniciarFecha(v);*/
-        mDesdeFecha.setOnClickListener(
-                new android.view.View.OnClickListener() {
-                    @Override
-                    public void onClick(android.view.View v) {
-                        // Retornar en nueva instancia del dialogo selector de fecha
-                        //new DateDialog().show(getFragmentManager(), "FilterDialog");
-                        //dismiss();
-                        //listener.onDesdeFechaTextClick();
-                        new DateDialog().show(getFragmentManager(),"FilterDialog");
-                    }
-                }
-
-        );
+        iniciarFechaDesde(v);
+        iniciarFechaHasta(v);
         aplicar.setOnClickListener(
                 new android.view.View.OnClickListener() {
                     @Override
                     public void onClick(android.view.View v) {
-                        final DateTime mDesde = new DateTime(mDesdePicker.getYear(),mDesdePicker.getMonth()+1,mDesdePicker.getDayOfMonth(),0,0,0);
-                        final DateTime mHasta = new DateTime(mHastaPicker.getYear(),mHastaPicker.getMonth()+1,mHastaPicker.getDayOfMonth(),0,0,0);
+                        final DateTime mDesde = new DateTime(mDesdeFecha.getText().toString());
+                        final DateTime mHasta = new DateTime(mHastaFecha.getText().toString());
                         listener.onPossitiveButtonClick(mStateSpinner.getItemAtPosition(mStateSpinner.getSelectedItemPosition()).toString(),
                                 mTipoSpinner.getItemAtPosition(mTipoSpinner.getSelectedItemPosition()).toString(),
                                 mSectorSpinner.getItemAtPosition(mSectorSpinner.getSelectedItemPosition()).toString(),
@@ -158,20 +112,46 @@ public class OrdersFilterDialog extends DialogFragment implements DatePickerDial
 
     }
 
-     private void iniciarFecha(android.view.View view) {
-        /*textFecha = (TextView) view.findViewById(R.id.fecha_text);
+     private void iniciarFechaDesde(android.view.View v) {
+        mDesdeFecha = (TextView) v.findViewById(R.id.desde_text);
         Calendar c = Calendar.getInstance();
-        SimpleDateFormat format = new SimpleDateFormat("E MMM d yyyy", Locale.getDefault());
-        textFecha.setText(format.format(c.getTime()));
-
-        textFecha.setOnClickListener(
+        SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
+        mDesdeFecha.setText(format.format(c.getTime()));
+        mDesdeFecha.setOnClickListener(
                 new android.view.View.OnClickListener() {
                     @Override
                     public void onClick(android.view.View v) {
-                        new DateDialog().show(getFragmentManager(), "DatePickerInFull");
+                        new DateDialog().show(getFragmentManager(), "DatePickerDesde");
                         // TODO: Comunicarle a la actividad que inicie el diálogo de fecha
                     }
                 }
-        );*/
+        );
+    }
+    private void iniciarFechaHasta(android.view.View v) {
+        mHastaFecha = (TextView) v.findViewById(R.id.hasta_text);
+        Calendar c = Calendar.getInstance();
+        SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
+        mHastaFecha.setText(format.format(c.getTime()));
+        mHastaFecha.setOnClickListener(
+                new android.view.View.OnClickListener() {
+                    @Override
+                    public void onClick(android.view.View v) {
+                        new DateDialog().show(getFragmentManager(), "DatePickerHasta");
+                        // TODO: Comunicarle a la actividad que inicie el diálogo de fecha
+                    }
+                }
+        );
+    }
+    public void setDateDesdeView(int year, int monthOfYear, int dayOfMonth) {
+        Calendar c = Calendar.getInstance();
+        c.set(year, monthOfYear, dayOfMonth);
+        SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
+        mDesdeFecha.setText(format.format(c.getTime()));
+    }
+    public void setDateHastaView(int year, int monthOfYear, int dayOfMonth) {
+        Calendar c = Calendar.getInstance();
+        c.set(year, monthOfYear, dayOfMonth);
+        SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
+        mHastaFecha.setText(format.format(c.getTime()));
     }
 }

@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white"
     android:padding="@dimen/dialog_body">
+
     <ScrollView
         android:id="@+id/filter_dialog"
         android:layout_width="match_parent"
@@ -13,6 +15,11 @@
          android:layout_width="match_parent"
          android:layout_height="match_parent"
          android:orientation="vertical">
+    <CheckBox
+         android:id="@+id/checkBox"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:text="CheckBox" />
     <TextView
         android:id="@+id/tv_desde"
         android:layout_width="wrap_content"
@@ -21,18 +28,13 @@
         android:text="Desde"
         android:textAppearance="?android:attr/textAppearanceMedium" />
     <TextView
-             android:id="@+id/desde_text"
-             style="@android:style/Widget.DeviceDefault.Light.Spinner"
-             android:layout_width="wrap_content"
-             android:layout_height="wrap_content"
-             android:text="Small Text"
-             android:textAppearance="?android:attr/textAppearanceSmall" />
-    <DatePicker
+        android:id="@+id/desde_text"
+        style="@android:style/Widget.DeviceDefault.Light.Spinner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/desde_Picker"
-        android:layout_gravity="left"
-        android:calendarViewShown="false"/>
+        android:text="Small Text"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        tools:clickable="true" />
     <TextView
         android:id="@+id/tv_hasta"
         android:layout_width="wrap_content"
@@ -40,12 +42,14 @@
         android:paddingTop="@dimen/edit_text_padding"
         android:text="Hasta"
         android:textAppearance="?android:attr/textAppearanceMedium" />
-    <DatePicker
+    <TextView
+        android:id="@+id/hasta_text"
+        style="@android:style/Widget.DeviceDefault.Light.Spinner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/hasta_Picker"
-        android:layout_gravity="left"
-        android:calendarViewShown="false"/>
+        android:text="Small Text"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        tools:clickable="true" />
     <TextView
         android:id="@+id/tv_estado"
         android:layout_width="wrap_content"
