@@ -16,10 +16,11 @@
          android:layout_height="match_parent"
          android:orientation="vertical">
     <CheckBox
-         android:id="@+id/checkBox"
+         android:id="@+id/chk_estado_actual"
          android:layout_width="match_parent"
          android:layout_height="wrap_content"
-         android:text="CheckBox" />
+         android:checked="true"
+         android:text="Estado Actual" />
     <TextView
         android:id="@+id/tv_desde"
         android:layout_width="wrap_content"
@@ -86,22 +87,29 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:entries="@array/sectores" />
+     <LinearLayout
+         android:layout_width="match_parent"
+         android:layout_height="match_parent"
+         android:orientation="horizontal">
     <Button
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
+        android:layout_weight="1"
         android:id="@+id/cancelar_boton"
         android:layout_height="wrap_content"
-        android:paddingBottom="@dimen/button_padding"
-        android:paddingTop="@dimen/button_padding"
+        android:textStyle="bold"
         android:text="CANCELAR"
-        android:textColor="@android:color/white" />
+        android:background="@android:color/transparent"
+        android:textColor="@color/colorAccent" />
     <Button
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
+        android:layout_weight="1"
         android:id="@+id/aplicar_boton"
         android:layout_height="wrap_content"
-        android:paddingBottom="@dimen/button_padding"
-        android:paddingTop="@dimen/button_padding"
+        android:textStyle="bold"
         android:text="APLICAR"
-        android:textColor="@android:color/white" />
+        android:background="@android:color/transparent"
+        android:textColor="@color/colorAccent" />
+     </LinearLayout>
      </LinearLayout>
     </ScrollView>
 </LinearLayout>

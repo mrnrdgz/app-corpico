@@ -125,6 +125,12 @@ public class OrderActivity extends NavitationDrawerActivity implements OnFilterD
     }
 
     @Override
+    public void onFechaTextViewClick() {
+        DateDialog fechaDialog = new DateDialog();
+        fechaDialog.show(getSupportFragmentManager(),"datePicker");
+    }
+
+    @Override
     protected void onNewIntent(Intent intent) {
         handleIntent(intent);
     }
