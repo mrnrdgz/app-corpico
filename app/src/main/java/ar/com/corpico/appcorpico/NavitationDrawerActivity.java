@@ -20,6 +20,7 @@ public class NavitationDrawerActivity extends AppCompatActivity {
     /**
      * Instancia del drawer
      */
+    static boolean mgroupOrdenes = false;
     private DrawerLayout drawerLayout;
 
     /**
@@ -91,6 +92,15 @@ public class NavitationDrawerActivity extends AppCompatActivity {
     }
 
     @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        if(mgroupOrdenes){
+            menu.setGroupVisible(R.id.group_ordenes,true);
+            return true;
+        }
+        return super.onPrepareOptionsMenu(menu);
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
@@ -107,11 +117,13 @@ public class NavitationDrawerActivity extends AppCompatActivity {
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
         }
-        if (opcion == R.id.nav_ordenes){
-            Intent intent = new Intent(this, OrderActivity.class);
+        /*if (opcion == R.id.nav_ordenes){
+            mgroupOrdenes=true;
+            //R.id.group_ordenes.setGroupVisible();
+            /*Intent intent = new Intent(this, OrderActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(intent);
-        }
+            startActivity(intent)
+        }*/
         if (opcion == R.id.nav_log_out){
             Intent intent = new Intent(this, LoginActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);

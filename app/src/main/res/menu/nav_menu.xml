@@ -11,10 +11,20 @@
             android:id="@+id/nav_cuadrillas"
             android:icon="@drawable/ic_cuadrillas"
             android:title="@string/cuadrillas_item" />
-        <item
+        <menu>
+            <item
             android:id="@+id/nav_ordenes"
             android:icon="@drawable/ic_orders"
-            android:title="@string/ordenes_item" />
+            android:title="@string/ordenes_item"/>
+
+                   <group android:checkableBehavior="single"
+                          android:id="@+id/group_ordenes">
+                          <item android:id="@+id/pendientes"
+                                android:title="Pendientes" />
+                          <item android:id="@+id/asignadas"
+                                android:title="Asignadas" />
+                   </group>
+            </menu>
         <item
             android:id="@+id/nav_novedades"
             android:icon="@drawable/ic_notifications"
