@@ -1,15 +1,12 @@
 package ar.com.corpico.appcorpico;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -18,8 +15,6 @@ import android.view.MenuItem;
 import ar.com.corpico.appcorpico.home.HomeActivity;
 import ar.com.corpico.appcorpico.login.LoginActivity;
 import ar.com.corpico.appcorpico.orders.OrderActivity;
-
-import static android.os.Build.VERSION_CODES.N;
 
 public class NavitationDrawerActivity extends AppCompatActivity {
     /**
@@ -69,7 +64,7 @@ public class NavitationDrawerActivity extends AppCompatActivity {
 
     }
 
-    private void setupDrawerContent(final NavigationView navigationView) {
+    private void setupDrawerContent(NavigationView navigationView) {
         navigationView.setNavigationItemSelectedListener(
                 new NavigationView.OnNavigationItemSelectedListener() {
 
@@ -78,12 +73,10 @@ public class NavitationDrawerActivity extends AppCompatActivity {
                         //TODO: No me marca como presionado Ordenes Tecnicas
                         // Marcar item presionado
                         menuItem.setChecked(true);
-                        if (menuItem.getTitle()==""){
-                            Menu m= navigationView.getMenu();
-                            m.setGroupVisible(R.id.group_ordenes,true);
-                            supportInvalidateOptionsMenu();
+                        if (menuItem.getTitle().equals("Ordenes")){
+                            mgroupOrdenes = true;
+                            invalidateOptionsMenu();
                         }
-
                         int opcion = menuItem.getItemId();
                         selectItem(opcion);
                         return true;
@@ -104,6 +97,7 @@ public class NavitationDrawerActivity extends AppCompatActivity {
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         if(mgroupOrdenes){
+            //Aca esta viendo solo el menuItem setting que supongo que es el de HomeActivity
            menu.setGroupVisible(R.id.group_ordenes,true);
             return true;
         }
@@ -128,9 +122,8 @@ public class NavitationDrawerActivity extends AppCompatActivity {
             startActivity(intent);
         }
         if (opcion == R.id.nav_ordenes){
-            //mgroupOrdenes=true;
-            //supportInvalidateOptionsMenu();
-
+            mgroupOrdenes=true;
+            invalidateOptionsMenu();
             //R.id.group_ordenes.setGroupVisible();
             /*Intent intent = new Intent(this, OrderActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
