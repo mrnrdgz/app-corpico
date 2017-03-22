@@ -1,12 +1,15 @@
 package ar.com.corpico.appcorpico;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -15,6 +18,8 @@ import android.view.MenuItem;
 import ar.com.corpico.appcorpico.home.HomeActivity;
 import ar.com.corpico.appcorpico.login.LoginActivity;
 import ar.com.corpico.appcorpico.orders.OrderActivity;
+
+import static android.os.Build.VERSION_CODES.N;
 
 public class NavitationDrawerActivity extends AppCompatActivity {
     /**
@@ -64,7 +69,7 @@ public class NavitationDrawerActivity extends AppCompatActivity {
 
     }
 
-    private void setupDrawerContent(NavigationView navigationView) {
+    private void setupDrawerContent(final NavigationView navigationView) {
         navigationView.setNavigationItemSelectedListener(
                 new NavigationView.OnNavigationItemSelectedListener() {
 
@@ -73,6 +78,11 @@ public class NavitationDrawerActivity extends AppCompatActivity {
                         //TODO: No me marca como presionado Ordenes Tecnicas
                         // Marcar item presionado
                         menuItem.setChecked(true);
+                        if (menuItem.getTitle()==""){
+                            Menu m= navigationView.getMenu();
+                            m.setGroupVisible(R.id.group_ordenes,true);
+                            supportInvalidateOptionsMenu();
+                        }
 
                         int opcion = menuItem.getItemId();
                         selectItem(opcion);
@@ -94,7 +104,7 @@ public class NavitationDrawerActivity extends AppCompatActivity {
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         if(mgroupOrdenes){
-            menu.setGroupVisible(R.id.group_ordenes,true);
+           menu.setGroupVisible(R.id.group_ordenes,true);
             return true;
         }
         return super.onPrepareOptionsMenu(menu);
@@ -117,20 +127,24 @@ public class NavitationDrawerActivity extends AppCompatActivity {
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
         }
-        /*if (opcion == R.id.nav_ordenes){
-            mgroupOrdenes=true;
+        if (opcion == R.id.nav_ordenes){
+            //mgroupOrdenes=true;
+            //supportInvalidateOptionsMenu();
+
             //R.id.group_ordenes.setGroupVisible();
             /*Intent intent = new Intent(this, OrderActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(intent)
-        }*/
+            startActivity(intent)*/
+        }
         if (opcion == R.id.nav_log_out){
             Intent intent = new Intent(this, LoginActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
         }
+        if (opcion != R.id.nav_ordenes){
+            drawerLayout.closeDrawers(); // Cerrar drawer
+        }
 
-        drawerLayout.closeDrawers(); // Cerrar drawer
 
         //setTitle(opcion); // Setear título actual
 

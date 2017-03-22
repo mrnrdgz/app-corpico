@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_inicio"
@@ -11,20 +10,16 @@
             android:id="@+id/nav_cuadrillas"
             android:icon="@drawable/ic_cuadrillas"
             android:title="@string/cuadrillas_item" />
-        <menu>
-            <item
+        <item
             android:id="@+id/nav_ordenes"
             android:icon="@drawable/ic_orders"
             android:title="@string/ordenes_item"/>
-
-                   <group android:checkableBehavior="single"
-                          android:id="@+id/group_ordenes">
-                          <item android:id="@+id/pendientes"
-                                android:title="Pendientes" />
-                          <item android:id="@+id/asignadas"
-                                android:title="Asignadas" />
-                   </group>
-            </menu>
+            <group android:checkableBehavior="single"
+                   android:id="@+id/group_ordenes"
+                   android:visible="false">
+                   <item android:id="@+id/nav_pendiente"
+                         android:title="Pendiente"/>
+            </group>
         <item
             android:id="@+id/nav_novedades"
             android:icon="@drawable/ic_notifications"
