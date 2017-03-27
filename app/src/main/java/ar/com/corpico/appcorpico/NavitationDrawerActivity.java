@@ -73,10 +73,7 @@ public class NavitationDrawerActivity extends AppCompatActivity {
                         //TODO: No me marca como presionado Ordenes Tecnicas
                         // Marcar item presionado
                         menuItem.setChecked(true);
-                        if (menuItem.getTitle().equals("Ordenes")){
-                            mgroupOrdenes = true;
-                            invalidateOptionsMenu();
-                        }
+
                         int opcion = menuItem.getItemId();
                         selectItem(opcion);
                         return true;
@@ -92,16 +89,6 @@ public class NavitationDrawerActivity extends AppCompatActivity {
             return true;
         }
         return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onPrepareOptionsMenu(Menu menu) {
-        if(mgroupOrdenes){
-            //Aca esta viendo solo el menuItem setting que supongo que es el de HomeActivity
-           menu.setGroupVisible(R.id.group_ordenes,true);
-            return true;
-        }
-        return super.onPrepareOptionsMenu(menu);
     }
 
     @Override
@@ -121,27 +108,21 @@ public class NavitationDrawerActivity extends AppCompatActivity {
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
         }
-        if (opcion == R.id.nav_ordenes){
-            mgroupOrdenes=true;
-            invalidateOptionsMenu();
-            //R.id.group_ordenes.setGroupVisible();
-            /*Intent intent = new Intent(this, OrderActivity.class);
+        if (opcion == R.id.nav_Todas){
+            Intent intent = new Intent(this, OrderActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(intent)*/
+            startActivity(intent);
         }
         if (opcion == R.id.nav_log_out){
             Intent intent = new Intent(this, LoginActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
         }
-        if (opcion != R.id.nav_ordenes){
-            drawerLayout.closeDrawers(); // Cerrar drawer
-        }
 
+        drawerLayout.closeDrawers(); // Cerrar drawer
 
         //setTitle(opcion); // Setear título actual
 
     }
-
 
 }

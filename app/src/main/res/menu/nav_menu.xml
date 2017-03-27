@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:id="@+id/group_init"
+        android:checkableBehavior="single">
         <item
             android:id="@+id/nav_inicio"
             android:checked="true"
@@ -9,18 +11,17 @@
             android:id="@+id/nav_cuadrillas"
             android:icon="@drawable/ic_cuadrillas"
             android:title="@string/cuadrillas_item" />
+    </group>
         <item
             android:id="@+id/nav_ordenes"
-
             android:title="@string/ordenes_item">
             <menu>
                 <group
                     android:id="@+id/group_ordenes"
-                    android:checkableBehavior="single"
-                    android:visible="true">
+                    android:checkableBehavior="single">
                     <item
                         android:id="@+id/nav_pendientes"
-                        android:icon="@drawable/ic_orders"
+                        android:icon="@drawable/ic_opendientes"
                         android:title="Pendientes" />
                     <item
                         android:id="@+id/nav_asignadas"
@@ -28,27 +29,30 @@
                         android:title="Asignadas" />
                     <item
                         android:id="@+id/nav_culminadas"
-                        android:icon="@drawable/ic_orders"
-                        android:title="Culminadas/No Culminadas" />
+                        android:icon="@drawable/ic_oculminadas"
+                        android:title="Culminadas" />
                     <item
                         android:id="@+id/nav_Todas"
-                        android:icon="@drawable/ic_orders"
+                        android:icon="@drawable/ic_otodas"
                         android:title="Todas" />
                 </group>
             </menu>
         </item>
-        <item
-            android:id="@+id/nav_novedades"
-            android:icon="@drawable/ic_notifications"
-            android:title="@string/novedades_item" />
-        <item
-            android:id="@+id/nav_sycronice"
-            android:icon="@drawable/ic_syncronice"
-            android:title="@string/syncronizar_item" />
-        <item
-            android:id="@+id/nav_log_out"
-            android:icon="@drawable/ic_log_out"
-            android:title="@string/log_out_item" />
+        <group android:id="@+id/group_other"
+               android:checkableBehavior="single">
+                <item
+                    android:id="@+id/nav_novedades"
+                    android:icon="@drawable/ic_notifications"
+                    android:title="@string/novedades_item" />
+                <item
+                    android:id="@+id/nav_sycronice"
+                    android:icon="@drawable/ic_syncronice"
+                    android:title="@string/syncronizar_item" />
+                <item
+                    android:id="@+id/nav_log_out"
+                    android:icon="@drawable/ic_log_out"
+                    android:title="@string/log_out_item" />
+        </group>
 </menu>
 
 
