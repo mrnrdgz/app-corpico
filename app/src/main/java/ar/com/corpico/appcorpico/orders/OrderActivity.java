@@ -43,7 +43,7 @@ public class OrderActivity extends NavitationDrawerActivity implements OnFilterD
                 .findFragmentById(R.id.activity_order);
 
         if (orderView == null) {
-            orderView = OrdersFragment.newInstance();
+            orderView = OrdersFragment.newInstance("Todos");
 
             getSupportFragmentManager()
                     .beginTransaction()

@@ -30,14 +30,18 @@ public class OrdersFragment extends Fragment implements ar.com.corpico.appcorpic
     private OrdersAdapter mOrdersAdapter;
     private TextView mEmptyView;
     private android.view.View mProgressView;
+    private String tipo;
 
     public OrdersFragment() {
         // Required empty public constructor
     }
 
     //Aca va sin parametros o que parametros irian?
-    public static OrdersFragment newInstance() {
+    public static OrdersFragment newInstance(String tipo) {
         OrdersFragment fragment = new OrdersFragment();
+        Bundle args = new Bundle();
+        args.putString("tipo", tipo);
+        fragment.setArguments(args);
         return fragment;
     }
 
@@ -46,6 +50,7 @@ public class OrdersFragment extends Fragment implements ar.com.corpico.appcorpic
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             // Toman parámetros
+            tipo = getArguments().getString("tipo");
         }
     }
 
