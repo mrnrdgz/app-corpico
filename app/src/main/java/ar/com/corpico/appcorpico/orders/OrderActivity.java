@@ -32,7 +32,7 @@ import static android.R.attr.y;
 
 public class OrderActivity extends NavitationDrawerActivity implements OnFilterDialogListener,DatePickerDialog.OnDateSetListener {
     private OrdersFilterDialog dialogOrdersFilter;
-    private String mEstado;
+    private String mOrderState;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,10 +43,11 @@ public class OrderActivity extends NavitationDrawerActivity implements OnFilterD
         orderView = (OrdersFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.activity_order);
 
-        mEstado = getIntent().getStringExtra("Estado");
+        //LLamo a la vista con el parametro "Estado" para que sepa que mostrar y que ocultar del Layout "Activity Order"
+        mOrderState = getIntent().getStringExtra("Estado");
 
         if (orderView == null) {
-            orderView = OrdersFragment.newInstance(mEstado);
+            orderView = OrdersFragment.newInstance(mOrderState);
 
             getSupportFragmentManager()
                     .beginTransaction()
@@ -80,8 +81,13 @@ public class OrderActivity extends NavitationDrawerActivity implements OnFilterD
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_ot, menu);
-        // Associate searchable configuration with the SearchView
+        //TODO: VER DE DONDE LLAMO "mOrderState" para mostrar o esconder botones del menu
+        if (mOrderState.equals("Pendientes")){
+            //Escondo el Spinner
+            menu.getItem(5).setVisible(true);
+        }
 
+        // Associate searchable configuratio with the SearchView
         MenuItem menuItem = menu.findItem(R.id.action_search);
         SearchView searchView =
                 (SearchView) MenuItemCompat.getActionView(menuItem);
@@ -109,6 +115,8 @@ public class OrderActivity extends NavitationDrawerActivity implements OnFilterD
                 OrdersFragment mOrderFragmen = (OrdersFragment) getSupportFragmentManager().findFragmentById(R.id.activity_order);
                 //mOrderFragmen.clickbtnMap();
                 break;
+            case R.id.action_tipo:
+                //llamo al fragmento con el parametro tipo mOrderType
             case R.id.action_settings:
                 break;
         }

@@ -114,6 +114,24 @@ public class NavitationDrawerActivity extends AppCompatActivity {
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
         }
+        if (opcion == R.id.nav_pendientes){
+            Intent intent = new Intent(this, OrderActivity.class);
+            intent.putExtra("Estado","Pendientes");
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+        }
+        if (opcion == R.id.nav_asignadas){
+            Intent intent = new Intent(this, OrderActivity.class);
+            intent.putExtra("Estado","Asignadas");
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+        }
+        if (opcion == R.id.nav_culminadas){
+            Intent intent = new Intent(this, OrderActivity.class);
+            intent.putExtra("Estado","Culminadas");
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+        }
         if (opcion == R.id.nav_log_out){
             Intent intent = new Intent(this, LoginActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
