@@ -110,6 +110,7 @@ public class NavitationDrawerActivity extends AppCompatActivity {
         }
         if (opcion == R.id.nav_Todas){
             Intent intent = new Intent(this, OrderActivity.class);
+            intent.putExtra("Estado","Todas");
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
         }

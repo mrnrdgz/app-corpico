@@ -32,6 +32,7 @@ import static android.R.attr.y;
 
 public class OrderActivity extends NavitationDrawerActivity implements OnFilterDialogListener,DatePickerDialog.OnDateSetListener {
     private OrdersFilterDialog dialogOrdersFilter;
+    private String mEstado;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,8 +43,10 @@ public class OrderActivity extends NavitationDrawerActivity implements OnFilterD
         orderView = (OrdersFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.activity_order);
 
+        mEstado = getIntent().getStringExtra("Estado");
+
         if (orderView == null) {
-            orderView = OrdersFragment.newInstance("Todos");
+            orderView = OrdersFragment.newInstance(mEstado);
 
             getSupportFragmentManager()
                     .beginTransaction()

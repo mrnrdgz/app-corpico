@@ -30,7 +30,7 @@ public class OrdersFragment extends Fragment implements ar.com.corpico.appcorpic
     private OrdersAdapter mOrdersAdapter;
     private TextView mEmptyView;
     private android.view.View mProgressView;
-    private String tipo;
+    private String mOrderType;
 
     public OrdersFragment() {
         // Required empty public constructor
@@ -50,7 +50,7 @@ public class OrdersFragment extends Fragment implements ar.com.corpico.appcorpic
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             // Toman parámetros
-            tipo = getArguments().getString("tipo");
+            mOrderType = getArguments().getString("tipo");
         }
     }
 
