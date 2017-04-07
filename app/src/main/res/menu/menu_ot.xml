@@ -6,7 +6,6 @@
     <item
         android:id="@+id/action_tipo"
         android:title="This"
-        android:orderInCategory="5"
         android:visible="false"
         app:actionViewClass="android.widget.Spinner"
         app:showAsAction="always" />
@@ -15,13 +14,13 @@
         android:icon="@drawable/ic_filtrar"
         android:orderInCategory="2"
         android:title="@string/action_filtrar"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="always" />
     <item
         android:id="@+id/action_map"
         android:icon="@drawable/ic_map"
         android:orderInCategory="3"
         android:title="@string/action_map"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="always" />
     <item
         android:id="@+id/action_search"
         android:icon="@drawable/ic_search"

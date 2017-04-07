@@ -10,7 +10,9 @@ import android.support.v4.view.MenuItemCompat;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.support.v7.widget.SearchView;
+import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
+import android.widget.Spinner;
 import android.widget.Toast;
 import org.joda.time.DateTime;
 
@@ -79,13 +81,51 @@ public class OrderActivity extends NavitationDrawerActivity implements OnFilterD
     }
 
     @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        if (mOrderState.equals("Pendientes")) {
+            //Escondo el Spinner
+            MenuItem menuSpinner = menu.findItem(R.id.action_tipo);
+            Spinner spinner = (Spinner) MenuItemCompat.getActionView(menuSpinner);
+            menuSpinner.setVisible(true);
+
+            ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                    R.array.pendientes_tipos, android.R.layout.simple_spinner_item);
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+            spinner.setAdapter(adapter);
+            adapter.notifyDataSetChanged();
+        }
+        if (mOrderState.equals("Asignadas")) {
+            MenuItem menuSpinner = menu.findItem(R.id.action_tipo);
+            Spinner spinner = (Spinner) MenuItemCompat.getActionView(menuSpinner);
+            menuSpinner.setVisible(true);
+
+            ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                    R.array.asignadas_tipos, android.R.layout.simple_spinner_item);
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+            spinner.setAdapter(adapter);
+            adapter.notifyDataSetChanged();
+        }
+        if (mOrderState.equals("Culminadas")) {
+            MenuItem menuSpinner = menu.findItem(R.id.action_tipo);
+            Spinner spinner = (Spinner) MenuItemCompat.getActionView(menuSpinner);
+            menuSpinner.setVisible(true);
+
+            ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                    R.array.culminadas_tipos, android.R.layout.simple_spinner_item);
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+            spinner.setAdapter(adapter);
+            adapter.notifyDataSetChanged();
+        }
+        return super.onPrepareOptionsMenu(menu);
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_ot, menu);
         //TODO: VER DE DONDE LLAMO "mOrderState" para mostrar o esconder botones del menu
-        if (mOrderState.equals("Pendientes")){
-            //Escondo el Spinner
-            menu.getItem(5).setVisible(true);
-        }
 
         // Associate searchable configuratio with the SearchView
         MenuItem menuItem = menu.findItem(R.id.action_search);
