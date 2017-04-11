@@ -1,22 +1,20 @@
 package ar.com.corpico.appcorpico.orders;
 
 import android.app.DatePickerDialog;
-import android.app.Dialog;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.MenuItemCompat;
+import android.support.v7.widget.SearchView;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.support.v7.widget.SearchView;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.Spinner;
 import android.widget.Toast;
-import org.joda.time.DateTime;
 
-import java.util.Calendar;
+import org.joda.time.DateTime;
 
 import ar.com.corpico.appcorpico.NavitationDrawerActivity;
 import ar.com.corpico.appcorpico.R;
@@ -26,19 +24,28 @@ import ar.com.corpico.appcorpico.orders.data.OrdersSqliteStore;
 import ar.com.corpico.appcorpico.orders.domain.usecase.GetOrders;
 import ar.com.corpico.appcorpico.orders.presentation.DateDialog;
 import ar.com.corpico.appcorpico.orders.presentation.OrdersFilterDialog;
-import ar.com.corpico.appcorpico.orders.presentation.OrdersFilterDialog.OnFilterDialogListener;
 import ar.com.corpico.appcorpico.orders.presentation.OrdersFragment;
 import ar.com.corpico.appcorpico.orders.presentation.OrdersPresenter;
 
-import static android.R.attr.y;
+/**
+ * Created by sistemas on 11/04/2017.
+ */
 
-public class OrderActivity extends NavitationDrawerActivity implements OnFilterDialogListener,DatePickerDialog.OnDateSetListener {
-    private OrdersFilterDialog dialogOrdersFilter;
-
+public class OrderPendienteActivity extends NavitationDrawerActivity implements OrdersFilterDialog.OnFilterDialogListener,DatePickerDialog.OnDateSetListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order);
+
+        Spinner spinner = (Spinner) findViewById(R.id.spinner_toolBar);
+        //final Spinner spinner = (Spinner) MenuItemCompat.getActionView(spinnerMenuItem);
+
+        // set Spinner Adapter
+
+
+        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,getResources().getStringArray(R.array.pendientes_tipos));
+        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(spinnerAdapter);
 
         OrdersFragment orderView;
         orderView = (OrdersFragment) getSupportFragmentManager()
@@ -78,7 +85,16 @@ public class OrderActivity extends NavitationDrawerActivity implements OnFilterD
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_ot, menu);
+        getMenuInflater().inflate(R.menu.menu_otpendientes, menu);
+        /*MenuItem spinnerMenuItem = menu.findItem(R.id.action_tipo);
+        final Spinner spinner = (Spinner) MenuItemCompat.getActionView(spinnerMenuItem);
+
+        // set Spinner Adapter
+
+
+        final ArrayAdapter<CharSequence> spinnerAdapter = ArrayAdapter.createFromResource(this, R.array.pendientes_tipos, android.R.layout.simple_spinner_dropdown_item);
+        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(spinnerAdapter);*/
 
         // Associate searchable configuratio with the SearchView
         MenuItem menuItem = menu.findItem(R.id.action_search);
@@ -118,7 +134,7 @@ public class OrderActivity extends NavitationDrawerActivity implements OnFilterD
     }
 
     @Override
-    public void onPossitiveButtonClick(String estado, String tipo, String sector, DateTime desde, DateTime hasta,Boolean estadoActual) {
+    public void onPossitiveButtonClick(String estado, String tipo, String sector, DateTime desde, DateTime hasta, Boolean estadoActual) {
         OrdersFragment mOrderFragmen = (OrdersFragment) getSupportFragmentManager().findFragmentById(R.id.activity_order);
         mOrderFragmen.setOrderFilter(estado, tipo, sector, desde, hasta, null,estadoActual);
     }
@@ -149,11 +165,12 @@ public class OrderActivity extends NavitationDrawerActivity implements OnFilterD
         }
     }
 
-   @Override
+    @Override
     public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
         OrdersFilterDialog fragment = (OrdersFilterDialog) getSupportFragmentManager().findFragmentByTag("FilterDialog");
         if (fragment != null) {
             fragment.setDateDesdeView(i, i1, i2);
         }
     }
+
 }

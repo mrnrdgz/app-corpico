@@ -5,16 +5,20 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 
 import ar.com.corpico.appcorpico.home.HomeActivity;
 import ar.com.corpico.appcorpico.login.LoginActivity;
 import ar.com.corpico.appcorpico.orders.OrderActivity;
+import ar.com.corpico.appcorpico.orders.OrderPendienteActivity;
 
 public class NavitationDrawerActivity extends AppCompatActivity {
     /**
@@ -110,25 +114,21 @@ public class NavitationDrawerActivity extends AppCompatActivity {
         }
         if (opcion == R.id.nav_Todas){
             Intent intent = new Intent(this, OrderActivity.class);
-            intent.putExtra("Estado","Todas");
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
         }
         if (opcion == R.id.nav_pendientes){
-            Intent intent = new Intent(this, OrderActivity.class);
-            intent.putExtra("Estado","Pendientes");
+            Intent intent = new Intent(this, OrderPendienteActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
         }
         if (opcion == R.id.nav_asignadas){
             Intent intent = new Intent(this, OrderActivity.class);
-            intent.putExtra("Estado","Asignadas");
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
         }
         if (opcion == R.id.nav_culminadas){
             Intent intent = new Intent(this, OrderActivity.class);
-            intent.putExtra("Estado","Culminadas");
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
         }

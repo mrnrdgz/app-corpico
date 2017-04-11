@@ -37,11 +37,11 @@ public class OrdersFragment extends Fragment implements ar.com.corpico.appcorpic
     }
 
     //Aca va sin parametros o que parametros irian?
-    public static OrdersFragment newInstance(String tipo) {
+    public static OrdersFragment newInstance() {
         OrdersFragment fragment = new OrdersFragment();
-        Bundle args = new Bundle();
+        /*Bundle args = new Bundle();
         args.putString("tipo", tipo);
-        fragment.setArguments(args);
+        fragment.setArguments(args);*/
         return fragment;
     }
 
@@ -50,7 +50,7 @@ public class OrdersFragment extends Fragment implements ar.com.corpico.appcorpic
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             // Toman parámetros
-            mOrderType = getArguments().getString("tipo");
+           // mOrderType = getArguments().getString("tipo");
         }
     }
 

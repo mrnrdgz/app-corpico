@@ -32,7 +32,19 @@
         <activity android:name=".NavitationDrawerActivity" />
         <activity
             android:name=".orders.OrderActivity"
-            android:label="Ordenes"
+            android:label="Todas"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH" />
+            </intent-filter>
+            <meta-data
+                android:name="android.app.searchable"
+                android:resource="@xml/searchable" />
+        </activity>
+        <activity
+            android:name=".orders.OrderPendienteActivity"
+            android:label="Pendientes"
             android:launchMode="singleTop"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
