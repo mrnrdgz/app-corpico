@@ -52,6 +52,20 @@ public class OrdersFragment extends Fragment implements ar.com.corpico.appcorpic
         if (getArguments() != null) {
             // Toman parámetros
            mOrderType = getArguments().getString("tipo");
+           setLoadOrderList(mOrderType);
+        }
+    }
+
+    @Override
+    public void setLoadOrderList(String tipo) {
+        if (tipo.equals("Conexiones")){
+            mOrdersPresenter.loadOrderList("Pendiente","Colocacion de Medidor","Todos",null,null,null,true);
+        }
+        if (tipo.equals("Desconexiones")){
+            mOrdersPresenter.loadOrderList("Pendiente","Retiro de Medidor","Todos",null,null,null,true);
+        }
+        if (tipo.equals("Todas")){
+            mOrdersPresenter.loadOrderList("Pendiente","Todos","Todos",new DateTime("2017-01-21"),new DateTime("2017-01-24"),null,true);
         }
     }
 
@@ -96,7 +110,7 @@ public class OrdersFragment extends Fragment implements ar.com.corpico.appcorpic
         //TODO: VER EL TEMA DE LA ZONA HORARIA SI LO PUEDO SETEAR XQ EN CASA ME SALE -03 Y EN TRABAJO -05 (AL FINAL)
         //LocalDate
         //Llama al metodo del Presentador para que muestre
-        if (mOrderType.equals("Conexiones")){
+        /*if (mOrderType.equals("Conexiones")){
             mOrdersPresenter.loadOrderList("Pendiente","Colocacion de Medidor","Todos",null,null,null,true);
         }
         if (mOrderType.equals("Desconexiones")){
@@ -104,7 +118,7 @@ public class OrdersFragment extends Fragment implements ar.com.corpico.appcorpic
         }
         if (mOrderType.equals("Todas")){
             mOrdersPresenter.loadOrderList("Pendiente","Todos","Todos",new DateTime("2017-01-21"),new DateTime("2017-01-24"),null,true);
-        }
+        }*/
 
 
         return root;
