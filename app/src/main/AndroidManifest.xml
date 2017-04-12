@@ -44,7 +44,7 @@
         </activity>
         <activity
             android:name=".orders.OrderPendienteActivity"
-            android:label="Pendientes"
+            android:label=""
             android:launchMode="singleTop"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>

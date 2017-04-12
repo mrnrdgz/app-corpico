@@ -9,6 +9,8 @@ import java.util.List;
 import ar.com.corpico.appcorpico.orders.domain.entity.Etapa;
 import ar.com.corpico.appcorpico.orders.domain.entity.Order;
 
+import static android.R.attr.order;
+
 /**
  * Created by sistemas on 30/01/2017.
  */
@@ -60,8 +62,15 @@ public class OrderCriteriaFecha implements Criteria<Order> {
                 }
             }
 
-        }else {
-            filteredOrders = itemsDeEntrada;
+        }if (mDesde == null && mHasta == null && mEstadoActual) {
+            for (Order order : itemsDeEntrada) {
+                Etapa currentEtapa = order.getCurrentEtapa(order.getEtapas());
+                String estadoEtapa = currentEtapa.getEstado();
+                if (mEstado.equals(estadoEtapa) || mEstado.equals("Todos")) {
+                    filteredOrders.add(order);
+                }
+            }
+            //filteredOrders = itemsDeEntrada;
         }
 
         return filteredOrders;

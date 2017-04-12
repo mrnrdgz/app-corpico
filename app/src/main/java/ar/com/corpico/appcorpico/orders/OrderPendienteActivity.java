@@ -9,6 +9,8 @@ import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.SearchView;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.Spinner;
@@ -37,22 +39,32 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order);
 
-        Spinner spinner = (Spinner) findViewById(R.id.spinner_toolBar);
-        //final Spinner spinner = (Spinner) MenuItemCompat.getActionView(spinnerMenuItem);
+        final Spinner spinner = (Spinner) findViewById(R.id.spinner_toolBar);
 
-        // set Spinner Adapter
-
-
-        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,getResources().getStringArray(R.array.pendientes_tipos));
+        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(this, R.layout.custom_spinner_item,getResources().getStringArray(R.array.pendientes_tipos));
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(spinnerAdapter);
 
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                OrdersFragment orderView;
+                orderView = (OrdersFragment) getSupportFragmentManager()
+                        .findFragmentById(R.id.activity_order);
+                orderView=OrdersFragment.newInstance(spinner.getSelectedItem().toString());
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
         OrdersFragment orderView;
         orderView = (OrdersFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.activity_order);
 
         if (orderView == null) {
-            orderView = OrdersFragment.newInstance();
+            orderView = OrdersFragment.newInstance("Conexiones");
 
             getSupportFragmentManager()
                     .beginTransaction()
