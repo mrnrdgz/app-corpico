@@ -80,6 +80,9 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements 
                     .commit();
         }
 
+        //SETEA LA LLAMADA PARA TENER COMUNICACION CON ORDERADAPTER
+        mOrderView.setListener(this);
+
         /**
          * <<create>> Almacénes
          */
@@ -185,6 +188,8 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements 
 
     @Override
     public void onButtonClickListner(int position) {
-       mOrderView.showMensage();
+        //TODO: HACER EL DIALOG PARA ASIGNAR EL TRABAJO A LA CUADRILLA ESTO DE ABAJO ES UNA Prueba
+        //mOrderView.showMensage();
+        new OrdersFilterDialog().show(getSupportFragmentManager(), "FilterDialog");
     }
 }

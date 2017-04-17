@@ -34,8 +34,14 @@ public class OrdersFragment extends Fragment implements ar.com.corpico.appcorpic
     private android.view.View mProgressView;
     private String mOrderType;
 
+    private OrdersAdapter.OnAsignarListener listener;
+
     public OrdersFragment() {
         // Required empty public constructor
+    }
+
+    public void setListener(OrdersAdapter.OnAsignarListener listener) {
+        this.listener=listener;
     }
 
     //Aca va sin parametros o que parametros irian?
@@ -82,6 +88,10 @@ public class OrdersFragment extends Fragment implements ar.com.corpico.appcorpic
         mOrderList.setTextFilterEnabled(true);
         mOrdersAdapter = new OrdersAdapter(getActivity(),new ArrayList<Order>(0));
         mOrderList.setAdapter(mOrdersAdapter);
+
+        //SETEA LA ESCUCHA PARA EL BOTON ASIGNAR A CUADRILLA
+        mOrdersAdapter.setCustomButtonListner(listener);
+
         mOrderList.setFocusable(false);
 
         //mOrderList.setChoiceMode(ListView.CHOICE_MODE_SINGLE);

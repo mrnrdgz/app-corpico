@@ -19,6 +19,7 @@ import ar.com.corpico.appcorpico.orders.domain.entity.Order;
 
 import static android.R.attr.onClick;
 import static android.R.attr.order;
+import static android.R.attr.targetActivity;
 import static ar.com.corpico.appcorpico.R.drawable.ic_orders;
 import android.graphics.drawable.RippleDrawable;
 import android.widget.Toast;
@@ -29,19 +30,19 @@ import android.widget.Toast;
  */
 
 public class OrdersAdapter extends ArrayAdapter<Order> {
+    OnAsignarListener listenerAdapter;
 
     public OrdersAdapter(Context context, List<Order> objects) {
         super(context,0,objects);
     }
 
-
     public interface OnAsignarListener {
-        public void onButtonClickListner(int position);
+        void onButtonClickListner(int position);
     }
+
     public void setCustomButtonListner(OnAsignarListener listener) {
         this.listenerAdapter = listener;
     }
-    OnAsignarListener listenerAdapter;
 
     @Override
     public android.view.View getView(final int position, android.view.View convertView, ViewGroup parent) {
@@ -75,12 +76,9 @@ public class OrdersAdapter extends ArrayAdapter<Order> {
         imageButton.setOnClickListener(new android.view.View.OnClickListener() {
             @Override
             public void onClick(android.view.View view) {
-                //listenerAdapter.onAsignarClick(position);
-                if (listenerAdapter != null) {
-                    listenerAdapter.onButtonClickListner(position);
-                }
-                //Toast.makeText(getContext(), "HOLA " + position, Toast.LENGTH_SHORT).show();
-
+               if (listenerAdapter != null) {
+                listenerAdapter.onButtonClickListner(position);
+               }
             }
         });
 
