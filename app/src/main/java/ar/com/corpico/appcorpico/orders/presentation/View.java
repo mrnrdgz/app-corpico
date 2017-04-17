@@ -18,4 +18,5 @@ public interface View {
     public void showProgressIndicator(boolean show);
     public void setOrderFilter(String estado, String tipo, String sector, DateTime desde, DateTime hasta, String search,Boolean estadoActual);
     public void setLoadOrderList(String tipo);
+    public void showMensage();
 }

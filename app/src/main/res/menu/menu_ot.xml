@@ -4,12 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="ar.com.corpico.appcorpico.orders.OrderActivity">
     <item
-        android:id="@+id/action_tipo"
-        android:title="This"
-        android:visible="false"
-        app:actionViewClass="android.widget.Spinner"
-        app:showAsAction="always" />
-    <item
         android:id="@+id/action_filtrar"
         android:icon="@drawable/ic_filtrar"
         android:orderInCategory="2"

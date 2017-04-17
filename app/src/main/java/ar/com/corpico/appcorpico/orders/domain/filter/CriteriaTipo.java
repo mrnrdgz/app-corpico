@@ -19,13 +19,20 @@ public class CriteriaTipo implements Criteria<Order> {
     @Override
     public List<Order> match(List<Order> orders) {
         List<Order> filteredOrders = new ArrayList<>();
-        if (!tipo.equals("Todos")) {
+        if (!tipo.equals("Todos") && !tipo.equals("Varios")) {
             for (Order order : orders) {
                 if (order.getTipo().equals(tipo)) {
                     filteredOrders.add(order);
                 }
             }
-        }else {
+        }
+        if (tipo.equals("Varios")) {
+            for (Order order : orders) {
+                if (order.getTipo() != "Colocacion de Medidor" && order.getTipo() != "Retiro de Medidor") {
+                    filteredOrders.add(order);
+                }
+            }
+        }if (tipo.equals("Todos")) {
             filteredOrders = orders;
         }
         return filteredOrders;

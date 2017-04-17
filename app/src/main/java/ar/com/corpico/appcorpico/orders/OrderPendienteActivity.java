@@ -1,13 +1,12 @@
 package ar.com.corpico.appcorpico.orders;
 
 import android.app.DatePickerDialog;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.SearchView;
 import android.view.Menu;
@@ -28,17 +27,22 @@ import ar.com.corpico.appcorpico.orders.data.OrdersRestStore;
 import ar.com.corpico.appcorpico.orders.data.OrdersSqliteStore;
 import ar.com.corpico.appcorpico.orders.domain.usecase.GetOrders;
 import ar.com.corpico.appcorpico.orders.presentation.DateDialog;
+import ar.com.corpico.appcorpico.orders.presentation.OrdersAdapter;
 import ar.com.corpico.appcorpico.orders.presentation.OrdersFilterDialog;
 import ar.com.corpico.appcorpico.orders.presentation.OrdersFragment;
 import ar.com.corpico.appcorpico.orders.presentation.OrdersPresenter;
+
+import static java.security.AccessController.getContext;
 
 
 /**
  * Created by sistemas on 11/04/2017.
  */
 
-public class OrderPendienteActivity extends NavitationDrawerActivity implements OrdersFilterDialog.OnFilterDialogListener,DatePickerDialog.OnDateSetListener {
+public class OrderPendienteActivity extends NavitationDrawerActivity implements OrdersAdapter.OnAsignarListener, OrdersFilterDialog.OnFilterDialogListener,DatePickerDialog.OnDateSetListener {
     private String mOrderType;
+    private OrdersFragment mOrderView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,14 +57,10 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements 
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                mOrderType=spinner.getSelectedItem().toString();
-                /*Bundle arguments = new Bundle();
-                arguments.putString("tipo", mOrderType);*/
-                OrdersFragment mOrderFragmen = OrdersFragment.newInstance(mOrderType);
-                /*FragmentTransaction ft = getFragmentManager().beginTransaction();
-                ft.replace(R.id.activity_order, mOrderFragmen,OrdersFragment.TAG);
-                ft.commit();*/
-                mOrderFragmen.setLoadOrderList(mOrderType);
+                mOrderType= spinner.getSelectedItem().toString();
+                if (mOrderType != null && mOrderView != null){
+                    mOrderView.setLoadOrderList(mOrderType);
+                }
             }
 
             @Override
@@ -68,16 +68,15 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements 
 
             }
         });
-        OrdersFragment orderView;
-        orderView = (OrdersFragment) getSupportFragmentManager()
+        mOrderView = (OrdersFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.activity_order);
 
-        if (orderView == null) {
-            orderView = OrdersFragment.newInstance(mOrderType);
+        if (mOrderView == null) {
+            mOrderView = OrdersFragment.newInstance(mOrderType);
 
             getSupportFragmentManager()
                     .beginTransaction()
-                    .add(R.id.activity_order, orderView,"OrderView")
+                    .add(R.id.activity_order, mOrderView,"OrderView")
                     .commit();
         }
 
@@ -100,7 +99,7 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements 
         /**
          * <<create>> LoginPresenter
          */
-        OrdersPresenter orderPresenter = new OrdersPresenter(getOrders, orderView);
+        OrdersPresenter orderPresenter = new OrdersPresenter(getOrders, mOrderView);
 
         handleIntent(getIntent());
     }
@@ -108,15 +107,6 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_otpendientes, menu);
-        /*MenuItem spinnerMenuItem = menu.findItem(R.id.action_tipo);
-        final Spinner spinner = (Spinner) MenuItemCompat.getActionView(spinnerMenuItem);
-
-        // set Spinner Adapter
-
-
-        final ArrayAdapter<CharSequence> spinnerAdapter = ArrayAdapter.createFromResource(this, R.array.pendientes_tipos, android.R.layout.simple_spinner_dropdown_item);
-        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(spinnerAdapter);*/
 
         // Associate searchable configuratio with the SearchView
         MenuItem menuItem = menu.findItem(R.id.action_search);
@@ -146,8 +136,6 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements 
                 OrdersFragment mOrderFragmen = (OrdersFragment) getSupportFragmentManager().findFragmentById(R.id.activity_order);
                 //mOrderFragmen.clickbtnMap();
                 break;
-            case R.id.action_tipo:
-                //llamo al fragmento con el parametro tipo mOrderType
             case R.id.action_settings:
                 break;
         }
@@ -195,4 +183,8 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements 
         }
     }
 
+    @Override
+    public void onButtonClickListner(int position) {
+       mOrderView.showMensage();
+    }
 }

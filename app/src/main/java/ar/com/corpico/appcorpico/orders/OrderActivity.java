@@ -108,8 +108,6 @@ public class OrderActivity extends NavitationDrawerActivity implements OnFilterD
                 OrdersFragment mOrderFragmen = (OrdersFragment) getSupportFragmentManager().findFragmentById(R.id.activity_order);
                 //mOrderFragmen.clickbtnMap();
                 break;
-            case R.id.action_tipo:
-                //llamo al fragmento con el parametro tipo mOrderType
             case R.id.action_settings:
                 break;
         }

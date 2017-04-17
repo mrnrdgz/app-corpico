@@ -1,10 +1,14 @@
 package ar.com.corpico.appcorpico.orders.presentation;
 
 import android.content.Context;
-import android.view.LayoutInflater;
-import android.view.ViewGroup;
+import android.content.DialogInterface;
+import android.view.*;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
 import android.widget.TextView;
+
+import org.joda.time.DateTime;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,17 +17,34 @@ import ar.com.corpico.appcorpico.R;
 import ar.com.corpico.appcorpico.orders.domain.entity.Etapa;
 import ar.com.corpico.appcorpico.orders.domain.entity.Order;
 
+import static android.R.attr.onClick;
+import static android.R.attr.order;
+import static ar.com.corpico.appcorpico.R.drawable.ic_orders;
+import android.graphics.drawable.RippleDrawable;
+import android.widget.Toast;
+
 
 /**
  * Created by Administrador on 07/01/2017.
  */
 
-public class OrdersAdapter extends ArrayAdapter<Order>{
+public class OrdersAdapter extends ArrayAdapter<Order> {
+
     public OrdersAdapter(Context context, List<Order> objects) {
         super(context,0,objects);
     }
+
+
+    public interface OnAsignarListener {
+        public void onButtonClickListner(int position);
+    }
+    public void setCustomButtonListner(OnAsignarListener listener) {
+        this.listenerAdapter = listener;
+    }
+    OnAsignarListener listenerAdapter;
+
     @Override
-    public android.view.View getView(int position, android.view.View convertView, ViewGroup parent) {
+    public android.view.View getView(final int position, android.view.View convertView, ViewGroup parent) {
         // Obtener inflater.
         LayoutInflater inflater = (LayoutInflater) getContext()
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -42,8 +63,28 @@ public class OrdersAdapter extends ArrayAdapter<Order>{
         TextView titular = (TextView) convertView.findViewById(R.id.titular_text);
         TextView domicilio = (TextView) convertView.findViewById(R.id.domicilio_text);
         TextView tipo = (TextView) convertView.findViewById(R.id.tipo_text);
+        ImageButton imageButton = (ImageButton) convertView.findViewById(R.id.button);
 
-        // Lead actual.
+        indicator.setFocusable(false);
+        titular.setFocusable(false);
+        domicilio.setFocusable(false);
+        tipo.setFocusable(false);
+        imageButton.setFocusable(true);
+
+
+        imageButton.setOnClickListener(new android.view.View.OnClickListener() {
+            @Override
+            public void onClick(android.view.View view) {
+                //listenerAdapter.onAsignarClick(position);
+                if (listenerAdapter != null) {
+                    listenerAdapter.onButtonClickListner(position);
+                }
+                //Toast.makeText(getContext(), "HOLA " + position, Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
+        // Lead actual..
         Order order =  getItem(position);
 
         // Setup.
@@ -66,9 +107,11 @@ public class OrdersAdapter extends ArrayAdapter<Order>{
                 break;*/
             case "Pendiente":
                 indicator.setBackgroundResource(R.drawable.yellow_indicator);
+                //imageButton.setBackgroundResource(R.drawable.ic_orders);
                 break;
         }
 
         return convertView;
     }
+
 }

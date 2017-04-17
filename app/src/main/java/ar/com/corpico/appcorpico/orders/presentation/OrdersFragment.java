@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ar.com.corpico.appcorpico.R;
+import ar.com.corpico.appcorpico.orders.OrderPendienteActivity;
 import ar.com.corpico.appcorpico.orders.domain.entity.Order;
 
 import static android.R.attr.x;
@@ -52,7 +53,6 @@ public class OrdersFragment extends Fragment implements ar.com.corpico.appcorpic
         if (getArguments() != null) {
             // Toman parámetros
            mOrderType = getArguments().getString("tipo");
-           setLoadOrderList(mOrderType);
         }
     }
 
@@ -64,8 +64,8 @@ public class OrdersFragment extends Fragment implements ar.com.corpico.appcorpic
         if (tipo.equals("Desconexiones")){
             mOrdersPresenter.loadOrderList("Pendiente","Retiro de Medidor","Todos",null,null,null,true);
         }
-        if (tipo.equals("Todas")){
-            mOrdersPresenter.loadOrderList("Pendiente","Todos","Todos",new DateTime("2017-01-21"),new DateTime("2017-01-24"),null,true);
+        if (tipo.equals("Varios")){
+            mOrdersPresenter.loadOrderList("Pendiente","Varios","Todos",null,null,null,true);
         }
     }
 
@@ -82,13 +82,16 @@ public class OrdersFragment extends Fragment implements ar.com.corpico.appcorpic
         mOrderList.setTextFilterEnabled(true);
         mOrdersAdapter = new OrdersAdapter(getActivity(),new ArrayList<Order>(0));
         mOrderList.setAdapter(mOrdersAdapter);
+        mOrderList.setFocusable(false);
 
+        //mOrderList.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
         //Infla las cabeceras de OrderList
         //LayoutInflater minflater = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         //android.view.View headerView = minflater.inflate(R.layout.list_cabecera_order, null);
         //mOrderList.addHeaderView(headerView);
 
-        mOrderList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        /*mOrderList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            //mOrderList.setOnItemClickLister()(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, android.view.View view, int i, long l) {
                 //Order currentOrder = mOrdersAdapter.getItem(i);
@@ -104,24 +107,15 @@ public class OrdersFragment extends Fragment implements ar.com.corpico.appcorpic
                 intent.putExtra("Observacion",currentOrder.getObservacion().toString());
                 startActivity(intent);
             }
-        });
+        });*/
 
-        //TODO: PONER POR DEFECTO UNA FECHA (DIA ACTUAL...LA ULTIMA SEMANA...VER)
-        //TODO: VER EL TEMA DE LA ZONA HORARIA SI LO PUEDO SETEAR XQ EN CASA ME SALE -03 Y EN TRABAJO -05 (AL FINAL)
-        //LocalDate
-        //Llama al metodo del Presentador para que muestre
-        /*if (mOrderType.equals("Conexiones")){
-            mOrdersPresenter.loadOrderList("Pendiente","Colocacion de Medidor","Todos",null,null,null,true);
-        }
-        if (mOrderType.equals("Desconexiones")){
-            mOrdersPresenter.loadOrderList("Pendiente","Retiro de Medidor","Todos",null,null,null,true);
-        }
-        if (mOrderType.equals("Todas")){
-            mOrdersPresenter.loadOrderList("Pendiente","Todos","Todos",new DateTime("2017-01-21"),new DateTime("2017-01-24"),null,true);
-        }*/
-
-
+        setLoadOrderList(mOrderType);
         return root;
+    }
+
+    @Override
+    public void showMensage() {
+        Toast.makeText(getActivity(), "ESTO ES UNA PRUEBA", Toast.LENGTH_SHORT).show();
     }
 
     @Override
