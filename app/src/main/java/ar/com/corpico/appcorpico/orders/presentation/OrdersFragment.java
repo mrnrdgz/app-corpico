@@ -26,7 +26,7 @@ import static android.view.View.GONE;
  * Created by Administrador on 07/01/2017.
  */
 
-public class OrdersFragment extends Fragment implements ar.com.corpico.appcorpico.orders.presentation.View {
+public class OrdersFragment extends Fragment implements ar.com.corpico.appcorpico.orders.presentation.View,AsignarAConexiones.OnAsignarAConexionesListener{
     private Presenter mOrdersPresenter;
     private ListView mOrderList;
     private OrdersAdapter mOrdersAdapter;
@@ -125,7 +125,8 @@ public class OrdersFragment extends Fragment implements ar.com.corpico.appcorpic
 
     @Override
     public void showMensage() {
-        Toast.makeText(getActivity(), "ESTO ES UNA PRUEBA", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getActivity(), "ESTO ES UNA PRUEBA", Toast.LENGTH_SHORT).show();
+        new AsignarAConexiones().show(getFragmentManager(), "FilterDialog");
     }
 
     @Override
@@ -159,6 +160,14 @@ public class OrdersFragment extends Fragment implements ar.com.corpico.appcorpic
     @Override
     public void setOrderFilter(String estado, String tipo, String sector, DateTime desde, DateTime hasta, String search,Boolean estadoActual) {
         mOrdersPresenter.loadOrderList(estado,tipo,sector,desde,hasta,search,estadoActual);
+    }
+    @Override
+    public void onPossitiveButtonAsignarClick() {
+        Toast.makeText(getActivity(), "BOTON POSITIVO", Toast.LENGTH_SHORT).show();
+    }
+    @Override
+    public void onNegativeButtonAsignarClick() {
+        Toast.makeText(getActivity(), "BOTON POSITIVO", Toast.LENGTH_SHORT).show();
     }
 
 }

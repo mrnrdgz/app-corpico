@@ -78,6 +78,7 @@ public class OrdersAdapter extends ArrayAdapter<Order> {
             public void onClick(android.view.View view) {
                if (listenerAdapter != null) {
                 listenerAdapter.onButtonClickListner(position);
+
                }
             }
         });

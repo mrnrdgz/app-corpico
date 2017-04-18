@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:padding="@dimen/dialog_body">
+
+    <ScrollView
+        android:id="@+id/filter_dialog"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <RadioButton
+                android:id="@+id/radioButtonCoonesiones"
+                android:checked ="true"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Conexiones" />
+            <RadioButton
+                android:id="@+id/radioButtonAuxliar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Auxiliar" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+                <Button
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:id="@+id/cancelar_boton"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:text="CANCELAR"
+                    android:background="@android:color/transparent"
+                    android:textColor="@color/colorAccent" />
+                <Button
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:id="@+id/aplicar_boton"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:text="ASIGNAR"
+                    android:background="@android:color/transparent"
+                    android:textColor="@color/colorAccent" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>
