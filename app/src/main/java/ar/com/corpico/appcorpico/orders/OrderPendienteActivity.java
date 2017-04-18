@@ -40,7 +40,7 @@ import static java.security.AccessController.getContext;
  * Created by sistemas on 11/04/2017.
  */
 
-public class OrderPendienteActivity extends NavitationDrawerActivity implements OrdersAdapter.OnAsignarListener, OrdersFilterDialog.OnFilterDialogListener,DatePickerDialog.OnDateSetListener  {
+public class OrderPendienteActivity extends NavitationDrawerActivity implements OrdersAdapter.OnAsignarListener, OrdersFilterDialog.OnFilterDialogListener,DatePickerDialog.OnDateSetListener,AsignarAConexiones.OnAsignarAConexionesListener {
     private String mOrderType;
     private OrdersFragment mOrderView;
 
@@ -192,5 +192,13 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements 
         //mOrderView.showMensage();
         new AsignarAConexiones().show(getSupportFragmentManager(), "AsignarconexionDialog");
     }
-
+    @Override
+    public void onPossitiveButtonAsignarClick() {
+        //TODO: HACER LA LLAMADA A LA VISTA PARA LLAMAR AL PRESENTARODOR Y EL CASO DE USO PARA ASIGNARACUADRILLA
+        Toast.makeText(this, "BOTON POSITIVO", Toast.LENGTH_SHORT).show();
+    }
+    @Override
+    public void onNegativeButtonAsignarClick() {
+        Toast.makeText(this, "BOTON POSITIVO", Toast.LENGTH_SHORT).show();
+    }
 }

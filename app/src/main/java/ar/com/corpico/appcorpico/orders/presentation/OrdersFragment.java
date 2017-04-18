@@ -26,7 +26,7 @@ import static android.view.View.GONE;
  * Created by Administrador on 07/01/2017.
  */
 
-public class OrdersFragment extends Fragment implements ar.com.corpico.appcorpico.orders.presentation.View,AsignarAConexiones.OnAsignarAConexionesListener{
+public class OrdersFragment extends Fragment implements ar.com.corpico.appcorpico.orders.presentation.View{
     private Presenter mOrdersPresenter;
     private ListView mOrderList;
     private OrdersAdapter mOrdersAdapter;
@@ -160,14 +160,6 @@ public class OrdersFragment extends Fragment implements ar.com.corpico.appcorpic
     @Override
     public void setOrderFilter(String estado, String tipo, String sector, DateTime desde, DateTime hasta, String search,Boolean estadoActual) {
         mOrdersPresenter.loadOrderList(estado,tipo,sector,desde,hasta,search,estadoActual);
-    }
-    @Override
-    public void onPossitiveButtonAsignarClick() {
-        Toast.makeText(getActivity(), "BOTON POSITIVO", Toast.LENGTH_SHORT).show();
-    }
-    @Override
-    public void onNegativeButtonAsignarClick() {
-        Toast.makeText(getActivity(), "BOTON POSITIVO", Toast.LENGTH_SHORT).show();
     }
 
 }

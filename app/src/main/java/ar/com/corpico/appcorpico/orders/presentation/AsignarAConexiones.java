@@ -56,15 +56,13 @@ public class AsignarAConexiones extends DialogFragment {
         final CheckBox mEstadoActual = (CheckBox) v.findViewById(R.id.chk_estado_actual);
         final RadioButton mConexiones  = (RadioButton) v.findViewById(R.id.radioButtonCoonesiones);
         final RadioButton mAuxiliar  = (RadioButton) v.findViewById(R.id.radioButtonAuxliar);
-        Button aplicar = (Button) v.findViewById(R.id.aplicar_boton);
+        Button asignar = (Button) v.findViewById(R.id.aplicar_boton);
         Button cancelar = (Button) v.findViewById(R.id.cancelar_boton);
 
-        aplicar.setOnClickListener(
+        asignar.setOnClickListener(
                 new android.view.View.OnClickListener() {
                     @Override
                     public void onClick(android.view.View v) {
-                        //final DateTime mDesde = new DateTime(mDesdeFecha.getYear(),mDesdeFecha.getMonth()+1,mDesdeFecha.getDayOfMonth(),0,0,0);
-
                         listener.onPossitiveButtonAsignarClick();
                         dismiss();
                     }
@@ -115,7 +113,7 @@ public class AsignarAConexiones extends DialogFragment {
 
         return builder.create();*/
     }
-    /*
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -127,6 +125,6 @@ public class AsignarAConexiones extends DialogFragment {
                             " no implementó OnSimpleDialogListener");
 
         }
-    }*/
+    }
 }
 
