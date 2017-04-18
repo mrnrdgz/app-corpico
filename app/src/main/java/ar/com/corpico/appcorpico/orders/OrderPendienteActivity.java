@@ -26,6 +26,7 @@ import ar.com.corpico.appcorpico.orders.data.OrdersRepository;
 import ar.com.corpico.appcorpico.orders.data.OrdersRestStore;
 import ar.com.corpico.appcorpico.orders.data.OrdersSqliteStore;
 import ar.com.corpico.appcorpico.orders.domain.usecase.GetOrders;
+import ar.com.corpico.appcorpico.orders.presentation.AsignarAConexiones;
 import ar.com.corpico.appcorpico.orders.presentation.DateDialog;
 import ar.com.corpico.appcorpico.orders.presentation.OrdersAdapter;
 import ar.com.corpico.appcorpico.orders.presentation.OrdersFilterDialog;
@@ -39,7 +40,7 @@ import static java.security.AccessController.getContext;
  * Created by sistemas on 11/04/2017.
  */
 
-public class OrderPendienteActivity extends NavitationDrawerActivity implements OrdersAdapter.OnAsignarListener, OrdersFilterDialog.OnFilterDialogListener,DatePickerDialog.OnDateSetListener {
+public class OrderPendienteActivity extends NavitationDrawerActivity implements OrdersAdapter.OnAsignarListener, OrdersFilterDialog.OnFilterDialogListener,DatePickerDialog.OnDateSetListener, AsignarAConexiones.OnAsignarAConexionesListener {
     private String mOrderType;
     private OrdersFragment mOrderView;
 
@@ -153,6 +154,11 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements 
     }
 
     @Override
+    public void onPossitiveButtonClick() {
+        Toast.makeText(this, "BOTON POSITIVO", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
     public void onNegativeButtonClick() {
         Toast.makeText(getApplicationContext(), "CHAU", Toast.LENGTH_SHORT).show();
     }
@@ -190,6 +196,6 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements 
     public void onButtonClickListner(int position) {
         //TODO: HACER EL DIALOG PARA ASIGNAR EL TRABAJO A LA CUADRILLA ESTO DE ABAJO ES UNA Prueba
         //mOrderView.showMensage();
-        new OrdersFilterDialog().show(getSupportFragmentManager(), "FilterDialog");
+        new AsignarAConexiones().show(getSupportFragmentManager(), "FilterDialog");
     }
 }
