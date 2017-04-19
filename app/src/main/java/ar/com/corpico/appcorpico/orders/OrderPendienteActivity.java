@@ -82,7 +82,7 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements 
                     .commit();
         }
 
-        //SETEA LA LLAMADA PARA TENER COMUNICACION CON ORDERADAPTER
+        //SETEA LA LLAMADA PARA QUE LA ACTIVIDAD TENGA COMUNICACION CON ORDERADAPTER
         mOrderView.setListener(this);
 
         /**
@@ -97,13 +97,15 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements 
         OrdersRepository repository = OrdersRepository.getInstance(restStore);
 
         /**
-         * <<create>> LoginUser
+         * <<create>> CaseUser
          */
+        //TODO: ACA DEBERIA USAR UNA VARIABLE PARA PONER EL CASO DE USO?
         GetOrders getOrders = new GetOrders(repository);
 
         /**
-         * <<create>> LoginPresenter
+         * <<create>> Caso de uso Presenter
          */
+        //TODO: ACA DEBERIA USAR UNA VARIABLE PARA PONER EL CASO DE USO?
         OrdersPresenter orderPresenter = new OrdersPresenter(getOrders, mOrderView);
 
         handleIntent(getIntent());

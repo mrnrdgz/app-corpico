@@ -15,7 +15,6 @@ public interface OrderStore {
 
     interface GetCallback{
         void onSuccess(List<Order> orders);
-
         void onError(String error);
     }
 }

@@ -13,7 +13,6 @@ public interface IOrdersRepository {
     public void findOrder(OrdersRepositoryCallback callback, Criteria filter);
     interface OrdersRepositoryCallback {
         void onSuccess(List<Order> orders);
-
         void onError(String error);
     }
 }

@@ -24,6 +24,8 @@ public class OrdersPresenter implements Presenter {
     private GetOrders mgetOrders;
     private View mOrdersView;
 
+    //TODO: COMO MANEJO ACA EL CASO DE USO? SI ESTA MACHEADO EL CASO DE USO...TENGO QUE HACER UN CONSTRUCTOR POR CADA UNO?
+    //O LO PUEDO PONER COMO VARIABLE AL TIPO?
     public OrdersPresenter(GetOrders getOrders, View ordersView) {
         mgetOrders = Preconditions.checkNotNull(getOrders, "El presentador no puede ser null");
         mOrdersView = Preconditions.checkNotNull(ordersView, "La vista no puede ser null");
