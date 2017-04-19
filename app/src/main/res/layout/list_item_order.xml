@@ -9,7 +9,7 @@
     <View android:layout_width="@dimen/indicator_size"
         android:layout_height="@dimen/indicator_size"
         android:id="@+id/indicator"
-        android:background="@drawable/green_indicator"
+        android:background="@drawable/asignadas_indicator"
         android:layout_centerVertical="true"
         android:layout_marginRight="28dp"
         android:focusable="false"

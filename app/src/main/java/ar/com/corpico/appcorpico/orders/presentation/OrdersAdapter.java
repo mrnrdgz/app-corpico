@@ -1,28 +1,15 @@
 package ar.com.corpico.appcorpico.orders.presentation;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.view.*;
-import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import org.joda.time.DateTime;
-
-import java.util.ArrayList;
 import java.util.List;
 
 import ar.com.corpico.appcorpico.R;
-import ar.com.corpico.appcorpico.orders.domain.entity.Etapa;
 import ar.com.corpico.appcorpico.orders.domain.entity.Order;
-
-import static android.R.attr.onClick;
-import static android.R.attr.order;
-import static android.R.attr.targetActivity;
-import static ar.com.corpico.appcorpico.R.drawable.ic_orders;
-import android.graphics.drawable.RippleDrawable;
-import android.widget.Toast;
 
 
 /**
@@ -31,13 +18,15 @@ import android.widget.Toast;
 
 public class OrdersAdapter extends ArrayAdapter<Order> {
     OnAsignarListener listenerAdapter;
+    //TODO ESTA BIEN QUE DEBLARE ORDER ACA? XQ SINO NO LO VEIA DENTRO DEL ONCLICK DEL IMAGEBUTTON
+    private Order order;
 
     public OrdersAdapter(Context context, List<Order> objects) {
         super(context,0,objects);
     }
 
     public interface OnAsignarListener {
-        void onButtonClickListner(int position);
+        void onButtonClickListner(String numero);
     }
 
     public void setCustomButtonListner(OnAsignarListener listener) {
@@ -61,7 +50,7 @@ public class OrdersAdapter extends ArrayAdapter<Order> {
         // Referencias UI.
         //TextView numero = (TextView) convertView.findViewById(R.id.tv_numero);
         android.view.View indicator = convertView.findViewById(R.id.indicator);
-        TextView titular = (TextView) convertView.findViewById(R.id.titular_text);
+        final TextView titular = (TextView) convertView.findViewById(R.id.titular_text);
         TextView domicilio = (TextView) convertView.findViewById(R.id.domicilio_text);
         TextView tipo = (TextView) convertView.findViewById(R.id.tipo_text);
         ImageButton imageButton = (ImageButton) convertView.findViewById(R.id.button);
@@ -76,17 +65,15 @@ public class OrdersAdapter extends ArrayAdapter<Order> {
         imageButton.setOnClickListener(new android.view.View.OnClickListener() {
             @Override
             public void onClick(android.view.View view) {
-               if (listenerAdapter != null) {
-                listenerAdapter.onButtonClickListner(position);
-
-               }
+            if (listenerAdapter != null) {
+                listenerAdapter.onButtonClickListner(getItem(position).getNumero());
+            }
             }
         });
 
-        // Lead actual..
-        Order order =  getItem(position);
+        // Orden actual..
+        order =  getItem(position);
 
-        // Setup.
         //numero.setText(order.getNumero());
         titular.setText(order.getTitular());
         domicilio.setText(order.getDomicilio());
@@ -95,18 +82,21 @@ public class OrdersAdapter extends ArrayAdapter<Order> {
         String estado = order.getCurrentState(order.getEtapas());
 
         switch (estado) {
-            case "Culminada":
-                indicator.setBackgroundResource(R.drawable.green_indicator);
-                break;
-            case "Cerrada":
-                indicator.setBackgroundResource(R.drawable.red_indicator);
-                break;
-            /*case "Asignadas a cuadrilla X":
-                indicator.setBackgroundResource(R.drawable.red_indicator);
-                break;*/
             case "Pendiente":
-                indicator.setBackgroundResource(R.drawable.yellow_indicator);
+                indicator.setBackgroundResource(R.drawable.pendientes_indicator);
                 //imageButton.setBackgroundResource(R.drawable.ic_orders);
+                break;
+            case "Asignada":
+                indicator.setBackgroundResource(R.drawable.asignadas_indicator);
+                break;
+            case "Culminada":
+                indicator.setBackgroundResource(R.drawable.culminadas_indicator);
+                break;
+            case "No Culminada":
+                indicator.setBackgroundResource(R.drawable.noculminadas_indicator);
+                break;
+            case "Supervisadas":
+                indicator.setBackgroundResource(R.drawable.supervisadas_indicator);
                 break;
         }
 

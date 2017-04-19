@@ -80,4 +80,9 @@ public class OrdersPresenter implements Presenter {
         mgetOrders.execute(requestValues, useCaseCallback);
 
     }
+
+    @Override
+    public void asignarOrder(String cuadrilla, String numero) {
+
+    }
 }

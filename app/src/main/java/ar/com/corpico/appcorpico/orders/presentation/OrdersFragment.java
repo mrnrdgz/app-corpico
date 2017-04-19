@@ -124,9 +124,8 @@ public class OrdersFragment extends Fragment implements ar.com.corpico.appcorpic
     }
 
     @Override
-    public void showMensage() {
-        //Toast.makeText(getActivity(), "ESTO ES UNA PRUEBA", Toast.LENGTH_SHORT).show();
-        new AsignarAConexiones().show(getFragmentManager(), "FilterDialog");
+    public void setAsignarOrder(String cuadrilla, String numero) {
+        mOrdersPresenter.asignarOrder(cuadrilla,numero);
     }
 
     @Override

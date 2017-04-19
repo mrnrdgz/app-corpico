@@ -79,7 +79,6 @@ public class OrdersFilterDialog extends DialogFragment{
                 new android.view.View.OnClickListener() {
                     @Override
                     public void onClick(android.view.View v) {
-                        //final DateTime mDesde = new DateTime(mDesdeFecha.getYear(),mDesdeFecha.getMonth()+1,mDesdeFecha.getDayOfMonth(),0,0,0);
                         String mDesdeString = mDesdeFecha.getText().toString();
                         String mHastaString = mHastaFecha.getText().toString();
                         DateTime mDesde = DateTime.parse(mDesdeString, DateTimeFormat.forPattern("dd-MM-yyyy"));
@@ -115,7 +114,6 @@ public class OrdersFilterDialog extends DialogFragment{
             throw new ClassCastException(
                     context.toString() +
                             " no implementó OnSimpleDialogListener");
-
         }
     }
 

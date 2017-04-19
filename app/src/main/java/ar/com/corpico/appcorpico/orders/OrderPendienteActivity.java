@@ -5,6 +5,7 @@ import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.MenuItemCompat;
@@ -187,15 +188,33 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements 
         }
     }
     @Override
-    public void onButtonClickListner(int position) {
+    public void onButtonClickListner(String numero) {
         //TODO: HACER EL DIALOG PARA ASIGNAR EL TRABAJO A LA CUADRILLA ESTO DE ABAJO ES UNA Prueba
         //mOrderView.showMensage();
-        new AsignarAConexiones().show(getSupportFragmentManager(), "AsignarconexionDialog");
+        if (mOrderType.equals("Conexiones")) {
+            //new AsignarAConexiones().show(getSupportFragmentManager(), "AsignarconexionDialog");
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            Fragment prev = getSupportFragmentManager().findFragmentByTag("AsignarconexionDialog");
+            if (prev != null) {
+                ft.remove(prev);
+            }
+            ft.addToBackStack(null);
+
+            DialogFragment newFragment = AsignarAConexiones.newInstance(numero);
+            newFragment.show(ft, "AsignarconexionDialog");
+        }
+        if (mOrderType.equals("Desconexiones")) {
+            Toast.makeText(this, "DESCONEXIONES TODAVIA NO ESTA CONFIGURADO " + numero, Toast.LENGTH_SHORT).show();
+        }
+        if (mOrderType.equals("Varios")) {
+            Toast.makeText(this, "VARIOS TODAVIA NO ESTA CONFIGURADO " + numero, Toast.LENGTH_SHORT).show();
+        }
     }
+
     @Override
-    public void onPossitiveButtonAsignarClick() {
+    public void onPossitiveButtonAsignarClick(String cuadrilla,String numero) {
         //TODO: HACER LA LLAMADA A LA VISTA PARA LLAMAR AL PRESENTARODOR Y EL CASO DE USO PARA ASIGNARACUADRILLA
-        Toast.makeText(this, "BOTON POSITIVO", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "BOTON POSITIVO " + cuadrilla + " NUMERO " + numero, Toast.LENGTH_SHORT).show();
     }
     @Override
     public void onNegativeButtonAsignarClick() {

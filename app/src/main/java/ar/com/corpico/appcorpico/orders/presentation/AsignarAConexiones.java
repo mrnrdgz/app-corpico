@@ -24,8 +24,10 @@ import ar.com.corpico.appcorpico.R;
  */
 
 public class AsignarAConexiones extends DialogFragment {
+    private String mNumeroOT;
     public interface OnAsignarAConexionesListener {
-        void onPossitiveButtonAsignarClick();// Eventos Botón Positivo
+        void onPossitiveButtonAsignarClick(String cuadrilla,String numero);// Eventos Botón Positivo
+        //LO DEJO X SI MAS ADELANTE LO TENGO QUE DEFINIR
         void onNegativeButtonAsignarClick();// Eventos Botón Negativo
     }
 
@@ -33,11 +35,22 @@ public class AsignarAConexiones extends DialogFragment {
 
     public AsignarAConexiones() {
     }
+    //TODO: HAGO CON ESTE ARGUNTO PARA PROBAR...LUEGO EL ARGUMENTO CREO Q
+    // DEBERIA SER ORDER PARA CUANDO USE MAS DE UNA SELLECCION
+    public static AsignarAConexiones newInstance(String numero) {
+        AsignarAConexiones f = new AsignarAConexiones();
 
+        Bundle args = new Bundle();
+        args.putString("NUMERO", numero);
+        f.setArguments(args);
+
+        return f;
+    }
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         return createAsignarAConexiones();
+
     }
 
     /**
@@ -48,12 +61,12 @@ public class AsignarAConexiones extends DialogFragment {
     public AlertDialog createAsignarAConexiones() {
         final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = getActivity().getLayoutInflater();
+        mNumeroOT = getArguments().getString("NUMERO");
 
         android.view.View v = inflater.inflate(R.layout.dialog_asignar_conexiones, null);
         builder.setView(v);
         builder.setTitle("Asignar a cuadrilla");
 
-        final CheckBox mEstadoActual = (CheckBox) v.findViewById(R.id.chk_estado_actual);
         final RadioButton mConexiones  = (RadioButton) v.findViewById(R.id.radioButtonCoonesiones);
         final RadioButton mAuxiliar  = (RadioButton) v.findViewById(R.id.radioButtonAuxliar);
         Button asignar = (Button) v.findViewById(R.id.aplicar_boton);
@@ -63,8 +76,13 @@ public class AsignarAConexiones extends DialogFragment {
                 new android.view.View.OnClickListener() {
                     @Override
                     public void onClick(android.view.View v) {
-                        listener.onPossitiveButtonAsignarClick();
-                        dismiss();
+                        if (mConexiones.isChecked()){
+                            listener.onPossitiveButtonAsignarClick(mConexiones.getText().toString(),mNumeroOT);
+                            dismiss();
+                        }else {
+                            listener.onPossitiveButtonAsignarClick(mAuxiliar.getText().toString(),mNumeroOT);
+                            dismiss();
+                        }
                     }
                 }
         );
@@ -75,43 +93,8 @@ public class AsignarAConexiones extends DialogFragment {
                         dismiss();
                     }
                 }
-
         );
-
         return builder.create();
-        /*final CharSequence[] items = new CharSequence[3];
-
-        items[0] = "Conexiones";
-        items[1] = "Auxiliar";
-
-        builder.setTitle("Asignar a Cuadrilla")
-                   .setSingleChoiceItems(items, 0, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        Toast.makeText(
-                                getActivity(),
-                                "Seleccionaste: " + items[which],
-                                Toast.LENGTH_SHORT)
-                                .show();
-                    }
-                })
-                .setPositiveButton("ASIGNAR",
-                        new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            listener.onPossitiveButtonAsignarClick();
-                            dismiss();
-                        }
-                    })
-                .setNegativeButton("CANCELAR",
-                        new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dismiss();
-                        }
-                });
-
-        return builder.create();*/
     }
 
     @Override
