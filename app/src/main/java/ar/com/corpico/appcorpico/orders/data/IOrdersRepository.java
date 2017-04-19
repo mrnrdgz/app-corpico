@@ -15,4 +15,5 @@ public interface IOrdersRepository {
         void onSuccess(List<Order> orders);
         void onError(String error);
     }
+    public void addOrderState(String numero, String estado);
 }

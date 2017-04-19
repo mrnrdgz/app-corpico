@@ -3,6 +3,7 @@ package ar.com.corpico.appcorpico.orders.data;
 import android.os.Handler;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import ar.com.corpico.appcorpico.orders.domain.entity.Etapa;
 import ar.com.corpico.appcorpico.orders.domain.entity.Order;
@@ -67,5 +68,16 @@ public class OrdersRestStore implements OrderStore {
             }
         }, 2000);
 
+    }
+
+    @Override
+    public void addOrderEtape(String numero, String estado) {
+       final Calendar c = Calendar.getInstance();
+       for (Order order: mFakeRestOrder){
+           if(order.getNumero().equals(numero)){
+               Etapa etapa = new Etapa(c.toString(),estado,"");
+               order.addEtapas(etapa);
+           }
+       }
     }
 }

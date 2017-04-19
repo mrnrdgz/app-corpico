@@ -13,6 +13,7 @@ import ar.com.corpico.appcorpico.orders.domain.filter.CriteriaSearch;
 import ar.com.corpico.appcorpico.orders.domain.filter.CriteriaSector;
 import ar.com.corpico.appcorpico.orders.domain.filter.CriteriaTipo;
 import ar.com.corpico.appcorpico.orders.domain.filter.OrderCriteriaFecha;
+import ar.com.corpico.appcorpico.orders.domain.usecase.AddOrdersState;
 import ar.com.corpico.appcorpico.orders.domain.usecase.GetOrders;
 
 /**
@@ -20,13 +21,14 @@ import ar.com.corpico.appcorpico.orders.domain.usecase.GetOrders;
  */
 
 public class OrdersPresenter implements Presenter {
-
+    private AddOrdersState maddOrdersState;
     private GetOrders mgetOrders;
     private View mOrdersView;
 
     //TODO: COMO MANEJO ACA EL CASO DE USO? SI ESTA MACHEADO EL CASO DE USO...TENGO QUE HACER UN CONSTRUCTOR POR CADA UNO?
     //O LO PUEDO PONER COMO VARIABLE AL TIPO?
-    public OrdersPresenter(GetOrders getOrders, View ordersView) {
+    public OrdersPresenter(GetOrders getOrders, AddOrdersState addOrdersState, View ordersView) {
+        maddOrdersState = Preconditions.checkNotNull(addOrdersState, "El presentador no puede ser null");
         mgetOrders = Preconditions.checkNotNull(getOrders, "El presentador no puede ser null");
         mOrdersView = Preconditions.checkNotNull(ordersView, "La vista no puede ser null");
         mOrdersView.setPresenter(this);
@@ -85,6 +87,8 @@ public class OrdersPresenter implements Presenter {
 
     @Override
     public void asignarOrder(String cuadrilla, String numero) {
-
+        AddOrdersState.RequestValues requestValues = new AddOrdersState.RequestValues(cuadrilla,numero);
+        AddOrdersState.RequestValues responseValues =
+        maddOrdersState.execute(requestValues, useCaseCallback);
     }
 }

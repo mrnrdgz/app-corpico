@@ -26,6 +26,7 @@ import ar.com.corpico.appcorpico.R;
 import ar.com.corpico.appcorpico.orders.data.OrdersRepository;
 import ar.com.corpico.appcorpico.orders.data.OrdersRestStore;
 import ar.com.corpico.appcorpico.orders.data.OrdersSqliteStore;
+import ar.com.corpico.appcorpico.orders.domain.usecase.AddOrdersState;
 import ar.com.corpico.appcorpico.orders.domain.usecase.GetOrders;
 import ar.com.corpico.appcorpico.orders.presentation.AsignarAConexiones;
 import ar.com.corpico.appcorpico.orders.presentation.DateDialog;
@@ -101,12 +102,13 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements 
          */
         //TODO: ACA DEBERIA USAR UNA VARIABLE PARA PONER EL CASO DE USO?
         GetOrders getOrders = new GetOrders(repository);
+        AddOrdersState addOrdersState = new AddOrdersState(repository);
 
         /**
          * <<create>> Caso de uso Presenter
          */
         //TODO: ACA DEBERIA USAR UNA VARIABLE PARA PONER EL CASO DE USO?
-        OrdersPresenter orderPresenter = new OrdersPresenter(getOrders, mOrderView);
+        OrdersPresenter orderPresenter = new OrdersPresenter(getOrders, addOrdersState, mOrderView);
 
         handleIntent(getIntent());
     }
@@ -192,7 +194,6 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements 
     @Override
     public void onButtonClickListner(String numero) {
         //TODO: HACER EL DIALOG PARA ASIGNAR EL TRABAJO A LA CUADRILLA ESTO DE ABAJO ES UNA Prueba
-        //mOrderView.showMensage();
         if (mOrderType.equals("Conexiones")) {
             //new AsignarAConexiones().show(getSupportFragmentManager(), "AsignarconexionDialog");
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();

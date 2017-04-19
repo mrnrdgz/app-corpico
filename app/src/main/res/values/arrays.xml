@@ -26,8 +26,11 @@
         <item>Culminada</item>
         <item>No Culminada</item>
         <item>Pendiente</item>
-        <item>Asignadas a cuadrilla X</item>
-        <item>Asignadas a cuadrilla Y</item>
+        <item>Asignadas a cuadrilla Conexiones</item>
+        <item>Asignadas a cuadrilla Desconexiones</item>
+        <item>Asignadas a cuadrilla Auxiliar</item>
+        <item>Asignadas a cuadrilla Varios Mañana</item>
+        <item>Asignadas a cuadrilla Varios Tarde</item>
     </string-array>
     <string-array name="tipos">
         <item>Todos</item>

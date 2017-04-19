@@ -139,6 +139,11 @@ public class Order {
         this.mEtapas =  Etapas;
     }
 
+    public void addEtapas(Etapa etapa) {
+        // Validar contenido
+        mEtapas.add(etapa);
+    }
+
     public String getServicio() {
         return mServicio;
     }

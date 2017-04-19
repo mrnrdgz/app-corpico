@@ -17,4 +17,5 @@ public interface OrderStore {
         void onSuccess(List<Order> orders);
         void onError(String error);
     }
+    public void addOrderEtape(String numero, String estado);
 }

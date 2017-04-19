@@ -53,4 +53,9 @@ public class OrdersRepository implements IOrdersRepository {
 
         mOrdersRestStore.getOrders(callback1, filter);
     }
+
+    @Override
+    public void addOrderState(String numero, String estado) {
+        mOrdersRestStore.addOrderEtape(numero, estado);
+    }
 }
