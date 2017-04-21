@@ -55,7 +55,7 @@ public class OrdersRepository implements IOrdersRepository {
     }
 
     @Override
-    public void addOrderState(String numero, String estado) {
-        mOrdersRestStore.addOrderEtape(numero, estado);
+    public void addOrderState(String estado, String numero) {
+        mOrdersRestStore.addOrderEtape(estado, numero);
     }
 }

@@ -11,4 +11,9 @@ public class OrdersSqliteStore implements OrderStore {
     public void getOrders(GetCallback callback, Criteria filter) {
 
     }
+
+    @Override
+    public void addOrderEtape(String numero, String estado) {
+
+    }
 }

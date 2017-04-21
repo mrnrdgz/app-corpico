@@ -52,7 +52,7 @@ public class OrdersRestStore implements OrderStore {
         mFakeRestOrder.add(new Order("839131", "Eléctrico", "1", "Retiro de Medidor", "Por Morosidad", mFakeRestEtapa, "40462", "2", "Antonella Privitera", "Calle 28", "General Pico","","35.6538S", "63.7528W", "Nunca"));
         mFakeRestOrder.add(new Order("839132", "Eléctrico", "2", "Retiro de Medidor", "Por Morosidad",mFakeRestEtapa3, "17495", "1", "Juan Perez", "Pasaje Rivero 957", "General Pico","","35.6629S", "63.7476W", "Nada"));
         mFakeRestOrder.add(new Order("839133", "Eléctrico", "3", "Cambio de Medidor", "Solic. Energia Prepaga",mFakeRestEtapa4, "6377", "1", "Rodrigo Nieto", "Calle 531", "General Pico","","35.6788S", "63.7530W", "Algo"));
-        mFakeRestOrder.add(new Order("839134", "Eléctrico", "4", "Colocacion de Medidor", "Regularizacion de Deuda", mFakeRestEtapa4, "44345", "1", "Jose Ferrando", "Calle 29", "General Pico","","35.6678S", "63.7555W", "Todo"));
+        mFakeRestOrder.add(new Order("839134", "Eléctrico", "4", "Colocacion de Medidor", "Regularizacion de Deuda", mFakeRestEtapa, "44345", "1", "Jose Ferrando", "Calle 29", "General Pico","","35.6678S", "63.7555W", "Todo"));
         mFakeRestOrder.add(new Order("839135", "Eléctrico", "4", "Retiro de Medidor", "Solicitud del Cliente",mFakeRestEtapa5, "42352", "1", "Fabio Gomez", "Calle 18", "General Pico","","35.6810S", "63.7491W", "Siempre"));
         mFakeRestOrder.add(new Order("839136", "Eléctrico","1", "Retiro de Medidor", "Por Morosidad",mFakeRestEtapa3, "20484", "1", "Maria Gallo", "Calle 28", "General Pico","","35.6598S", "63.7498W", "Nunca"));
     }
@@ -71,11 +71,13 @@ public class OrdersRestStore implements OrderStore {
     }
 
     @Override
-    public void addOrderEtape(String numero, String estado) {
+    public void addOrderEtape(String estado,String numero) {
        final Calendar c = Calendar.getInstance();
        for (Order order: mFakeRestOrder){
            if(order.getNumero().equals(numero)){
-               Etapa etapa = new Etapa(c.toString(),estado,"");
+               //TODO: VER LO DE LA ASIGNACION DE FECHA
+               //Etapa etapa = new Etapa(c.toString(),estado,"");
+               Etapa etapa = new Etapa("2017-04-21T00:10:00.000-03:00",estado,"");
                order.addEtapas(etapa);
            }
        }

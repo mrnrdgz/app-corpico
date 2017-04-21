@@ -23,6 +23,7 @@ import ar.com.corpico.appcorpico.R;
 import ar.com.corpico.appcorpico.orders.data.OrdersRepository;
 import ar.com.corpico.appcorpico.orders.data.OrdersRestStore;
 import ar.com.corpico.appcorpico.orders.data.OrdersSqliteStore;
+import ar.com.corpico.appcorpico.orders.domain.usecase.AddOrdersState;
 import ar.com.corpico.appcorpico.orders.domain.usecase.GetOrders;
 import ar.com.corpico.appcorpico.orders.presentation.DateDialog;
 import ar.com.corpico.appcorpico.orders.presentation.OrdersFilterDialog;
@@ -67,11 +68,12 @@ public class OrderActivity extends NavitationDrawerActivity implements OnFilterD
          * <<create>> LoginUser
          */
         GetOrders getOrders = new GetOrders(repository);
+        AddOrdersState addOrderState = new AddOrdersState(repository);
 
         /**
          * <<create>> LoginPresenter
          */
-        OrdersPresenter orderPresenter = new OrdersPresenter(getOrders, orderView);
+        OrdersPresenter orderPresenter = new OrdersPresenter(getOrders,addOrderState, orderView);
 
         handleIntent(getIntent());
     }

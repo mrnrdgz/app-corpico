@@ -217,7 +217,8 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements 
     @Override
     public void onPossitiveButtonAsignarClick(String cuadrilla,String numero) {
         //TODO: HACER LA LLAMADA A LA VISTA PARA LLAMAR AL PRESENTARODOR Y EL CASO DE USO PARA ASIGNARACUADRILLA
-        Toast.makeText(this, "BOTON POSITIVO " + cuadrilla + " NUMERO " + numero, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, "BOTON POSITIVO " + cuadrilla + " NUMERO " + numero, Toast.LENGTH_SHORT).show();
+        mOrderView.setAsignarOrder(cuadrilla,numero);
     }
     @Override
     public void onNegativeButtonAsignarClick() {

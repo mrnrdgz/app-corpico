@@ -24,6 +24,7 @@ public class OrdersPresenter implements Presenter {
     private AddOrdersState maddOrdersState;
     private GetOrders mgetOrders;
     private View mOrdersView;
+    private String mCuadrilla;
 
     //TODO: COMO MANEJO ACA EL CASO DE USO? SI ESTA MACHEADO EL CASO DE USO...TENGO QUE HACER UN CONSTRUCTOR POR CADA UNO?
     //O LO PUEDO PONER COMO VARIABLE AL TIPO?
@@ -87,8 +88,37 @@ public class OrdersPresenter implements Presenter {
 
     @Override
     public void asignarOrder(String cuadrilla, String numero) {
+        mCuadrilla = cuadrilla;
+
         AddOrdersState.RequestValues requestValues = new AddOrdersState.RequestValues(cuadrilla,numero);
-        AddOrdersState.RequestValues responseValues =
-        maddOrdersState.execute(requestValues, useCaseCallback);
+        UseCase.UseCaseCallback useCaseCallback = new UseCase.UseCaseCallback(){
+            @Override
+            public void onSuccess(Object response) {
+                // Ocultar indicador de progreso
+                mOrdersView.showProgressIndicator(false);
+                // Se obtiene el valor de respuesta del caso de uso
+                AddOrdersState.ResponseValue responseValue = (AddOrdersState.ResponseValue) response;
+
+                // ¿La lista tiene uno o más elementos?
+                //List<Order> orders = responseValue.add();
+                /*if (orders.size() >= 1) {
+                    // Mostrar la lista en la vista*/
+                    mOrdersView.setLoadOrderList(mCuadrilla);
+                /*} else {
+                    // Mostrar estado vacío
+                    mOrdersView.showOrderList(orders);
+                    mOrdersView.showOrdesEmpty();
+                }*/
+            }
+
+            @Override
+            public void onError(String error) {
+                // Ocultar indicador de progreso
+                mOrdersView.showProgressIndicator(false);
+                mOrdersView.showOrderError(error);
+            }
+        };
+
+        maddOrdersState.execute(requestValues,useCaseCallback);
     }
 }
