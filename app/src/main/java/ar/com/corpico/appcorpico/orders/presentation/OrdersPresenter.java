@@ -98,17 +98,8 @@ public class OrdersPresenter implements Presenter {
                 mOrdersView.showProgressIndicator(false);
                 // Se obtiene el valor de respuesta del caso de uso
                 AddOrdersState.ResponseValue responseValue = (AddOrdersState.ResponseValue) response;
-
-                // ¿La lista tiene uno o más elementos?
-                //List<Order> orders = responseValue.add();
-                /*if (orders.size() >= 1) {
-                    // Mostrar la lista en la vista*/
-                    mOrdersView.setLoadOrderList(mCuadrilla);
-                /*} else {
-                    // Mostrar estado vacío
-                    mOrdersView.showOrderList(orders);
-                    mOrdersView.showOrdesEmpty();
-                }*/
+                // Actualiza la lista luego de hacer el cambio
+                mOrdersView.setLoadOrderList(mCuadrilla);
             }
 
             @Override

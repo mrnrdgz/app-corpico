@@ -16,13 +16,35 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
             <RadioButton
-                android:id="@+id/radioButtonCoonesiones"
+                android:id="@+id/radioButtonConexiones"
                 android:checked ="true"
+                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Conexiones" />
             <RadioButton
+                android:id="@+id/radioButtonDesconexiones"
+                android:checked ="true"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Desconexiones" />
+            <RadioButton
+                android:id="@+id/radioButtonMañana"
+                android:checked ="true"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Varios Mañana" />
+            <RadioButton
+                android:id="@+id/radioButtonTarde"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Varios Tarde" />
+            <RadioButton
                 android:id="@+id/radioButtonAuxliar"
+                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Auxiliar" />

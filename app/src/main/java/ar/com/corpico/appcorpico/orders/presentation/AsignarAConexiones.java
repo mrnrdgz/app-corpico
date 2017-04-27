@@ -25,6 +25,7 @@ import ar.com.corpico.appcorpico.R;
 
 public class AsignarAConexiones extends DialogFragment {
     private String mNumeroOT;
+    private String mCuadrilla;
     public interface OnAsignarAConexionesListener {
         void onPossitiveButtonAsignarClick(String cuadrilla,String numero);// Eventos Botón Positivo
         //LO DEJO X SI MAS ADELANTE LO TENGO QUE DEFINIR
@@ -37,11 +38,12 @@ public class AsignarAConexiones extends DialogFragment {
     }
     //TODO: HAGO CON ESTE ARGUNTO PARA PROBAR...LUEGO EL ARGUMENTO CREO Q
     // DEBERIA SER ORDER PARA CUANDO USE MAS DE UNA SELLECCION
-    public static AsignarAConexiones newInstance(String numero) {
+    public static AsignarAConexiones newInstance(String cuadrilla, String numero) {
         AsignarAConexiones f = new AsignarAConexiones();
 
         Bundle args = new Bundle();
         args.putString("NUMERO", numero);
+        args.putString("CUADRILLA",cuadrilla);
         f.setArguments(args);
 
         return f;
@@ -62,13 +64,32 @@ public class AsignarAConexiones extends DialogFragment {
         final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = getActivity().getLayoutInflater();
         mNumeroOT = getArguments().getString("NUMERO");
+        mCuadrilla = getArguments().getString("CUADRILLA");
+
 
         android.view.View v = inflater.inflate(R.layout.dialog_asignar_conexiones, null);
         builder.setView(v);
         builder.setTitle("Asignar a cuadrilla");
 
-        final RadioButton mConexiones  = (RadioButton) v.findViewById(R.id.radioButtonCoonesiones);
+        final RadioButton mConexiones  = (RadioButton) v.findViewById(R.id.radioButtonConexiones);
+        final RadioButton mDesconexiones  = (RadioButton) v.findViewById(R.id.radioButtonDesconexiones);
+        final RadioButton mVariosMañana  = (RadioButton) v.findViewById(R.id.radioButtonMañana);
+        final RadioButton mVariosTarde  = (RadioButton) v.findViewById(R.id.radioButtonTarde);
         final RadioButton mAuxiliar  = (RadioButton) v.findViewById(R.id.radioButtonAuxliar);
+        if (mCuadrilla.equals("Conexiones")){
+            mConexiones.setVisibility(v.VISIBLE);
+            mAuxiliar.setVisibility(v.VISIBLE);
+        }
+        if (mCuadrilla.equals("Desconexiones")){
+            mDesconexiones.setVisibility(v.VISIBLE);
+            mAuxiliar.setVisibility(v.VISIBLE);
+        }
+
+        if (mCuadrilla.equals("Varios")){
+            mVariosMañana.setVisibility(v.VISIBLE);
+            mVariosTarde.setVisibility(v.VISIBLE);
+            mAuxiliar.setVisibility(v.VISIBLE);
+        }
         Button asignar = (Button) v.findViewById(R.id.aplicar_boton);
         Button cancelar = (Button) v.findViewById(R.id.cancelar_boton);
 
@@ -76,13 +97,8 @@ public class AsignarAConexiones extends DialogFragment {
                 new android.view.View.OnClickListener() {
                     @Override
                     public void onClick(android.view.View v) {
-                        if (mConexiones.isChecked()){
-                            listener.onPossitiveButtonAsignarClick(mConexiones.getText().toString(),mNumeroOT);
-                            dismiss();
-                        }else {
-                            listener.onPossitiveButtonAsignarClick(mAuxiliar.getText().toString(),mNumeroOT);
-                            dismiss();
-                        }
+                        listener.onPossitiveButtonAsignarClick(mCuadrilla,mNumeroOT);
+                        dismiss();
                     }
                 }
         );

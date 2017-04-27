@@ -21,10 +21,10 @@ public class AddOrdersState extends UseCase<AddOrdersState.RequestValues, AddOrd
     }
 
     @Override
-    public void execute(RequestValues requestValues, final UseCaseCallback callback) {
+    public void execute(RequestValues requestValues, final UseCaseCallback callb) {
 
         mOrdersRepository.addOrderState(requestValues.getStateName(),requestValues.getOrderNumber());
-        callback.onSuccess(new ResponseValue());
+        callb.onSuccess(new ResponseValue());
     }
 
     public static final class RequestValues implements UseCase.RequestValues {
