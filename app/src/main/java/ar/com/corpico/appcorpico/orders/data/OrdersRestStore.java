@@ -2,6 +2,8 @@ package ar.com.corpico.appcorpico.orders.data;
 
 import android.os.Handler;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -83,11 +85,12 @@ public class OrdersRestStore implements OrderStore {
     @Override
     public void addOrderEtape(String estado,String numero) {
        final Calendar c = Calendar.getInstance();
+       DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ");
+       String date = df.format(Calendar.getInstance().getTime());
        for (Order order: mFakeRestOrder){
            if(order.getNumero().equals(numero)){
                //TODO: VER LO DE LA ASIGNACION DE FECHA
-               //Etapa etapa = new Etapa(c.toString(),estado,"");
-               Etapa etapa = new Etapa("2017-04-21T00:10:00.000-03:00",estado,"");
+               Etapa etapa = new Etapa(date,estado,"");
                order.addEtapas(etapa);
            }
        }

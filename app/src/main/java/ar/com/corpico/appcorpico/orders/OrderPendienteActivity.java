@@ -194,8 +194,6 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements 
     @Override
     public void onButtonClickListner(String numero) {
         //TODO: HACER EL DIALOG PARA ASIGNAR EL TRABAJO A LA CUADRILLA ESTO DE ABAJO ES UNA Prueba
-        //if (mOrderType.equals("Conexiones")) {
-            //new AsignarAConexiones().show(getSupportFragmentManager(), "AsignarconexionDialog");
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
             Fragment prev = getSupportFragmentManager().findFragmentByTag("AsignarconexionDialog");
             if (prev != null) {
@@ -205,23 +203,15 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements 
 
             DialogFragment newFragment = AsignarAConexiones.newInstance(mOrderType,numero);
             newFragment.show(ft, "AsignarconexionDialog");
-       // }
-        /*if (mOrderType.equals("Desconexiones")) {
-            Toast.makeText(this, "DESCONEXIONES TODAVIA NO ESTA CONFIGURADO " + numero, Toast.LENGTH_SHORT).show();
-        }
-        if (mOrderType.equals("Varios")) {
-            Toast.makeText(this, "VARIOS TODAVIA NO ESTA CONFIGURADO " + numero, Toast.LENGTH_SHORT).show();
-        }*/
     }
 
     @Override
     public void onPossitiveButtonAsignarClick(String cuadrilla,String numero) {
         //TODO: HACER LA LLAMADA A LA VISTA PARA LLAMAR AL PRESENTARODOR Y EL CASO DE USO PARA ASIGNARACUADRILLA
-        //Toast.makeText(this, "BOTON POSITIVO " + cuadrilla + " NUMERO " + numero, Toast.LENGTH_SHORT).show();
         mOrderView.setAsignarOrder(cuadrilla,numero);
     }
     @Override
     public void onNegativeButtonAsignarClick() {
-        Toast.makeText(this, "BOTON POSITIVO", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "BOTON NEGATIVO", Toast.LENGTH_SHORT).show();
     }
 }

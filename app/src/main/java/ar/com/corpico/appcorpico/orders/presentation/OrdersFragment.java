@@ -94,13 +94,13 @@ public class OrdersFragment extends Fragment implements ar.com.corpico.appcorpic
 
         mOrderList.setFocusable(false);
 
-        //mOrderList.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+        mOrderList.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
         //Infla las cabeceras de OrderList
         //LayoutInflater minflater = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         //android.view.View headerView = minflater.inflate(R.layout.list_cabecera_order, null);
         //mOrderList.addHeaderView(headerView);
 
-        /*mOrderList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        mOrderList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             //mOrderList.setOnItemClickLister()(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, android.view.View view, int i, long l) {
@@ -117,7 +117,7 @@ public class OrdersFragment extends Fragment implements ar.com.corpico.appcorpic
                 intent.putExtra("Observacion",currentOrder.getObservacion().toString());
                 startActivity(intent);
             }
-        });*/
+        });
 
         setLoadOrderList(mOrderType);
         return root;
