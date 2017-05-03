@@ -23,6 +23,8 @@ import android.widget.Toast;
 
 import org.joda.time.DateTime;
 
+import java.util.ArrayList;
+
 import ar.com.corpico.appcorpico.NavitationDrawerActivity;
 import ar.com.corpico.appcorpico.R;
 import ar.com.corpico.appcorpico.orders.data.OrdersRepository;
@@ -193,25 +195,9 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements 
             fragment.setDateDesdeView(i, i1, i2);
         }
     }
-    @Override
-    public void onCreateContextMenu(ContextMenu menu, View v,
-                                    ContextMenu.ContextMenuInfo menuInfo) {
-        super.onCreateContextMenu(menu, v, menuInfo);
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.context_menu_opendientes, menu);
-    }
-    @Override
-    public boolean onContextItemSelected(MenuItem item) {
-        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
-        switch (item.getItemId()) {
-            case R.id.select_all:
 
-            default:
-                return super.onContextItemSelected(item);
-        }
-    }
     @Override
-    public void onButtonClickListner(String numero) {
+    public void onButtonClickListner(ArrayList<String> numero) {
         //TODO: HACER EL DIALOG PARA ASIGNAR EL TRABAJO A LA CUADRILLA ESTO DE ABAJO ES UNA Prueba
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
             Fragment prev = getSupportFragmentManager().findFragmentByTag("AsignarconexionDialog");
@@ -225,7 +211,7 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements 
     }
 
     @Override
-    public void onPossitiveButtonAsignarClick(String cuadrilla,String numero) {
+    public void onPossitiveButtonAsignarClick(String cuadrilla, ArrayList<String> numero) {
         //TODO: HACER LA LLAMADA A LA VISTA PARA LLAMAR AL PRESENTARODOR Y EL CASO DE USO PARA ASIGNARACUADRILLA
         mOrderView.setAsignarOrder(cuadrilla,numero);
     }

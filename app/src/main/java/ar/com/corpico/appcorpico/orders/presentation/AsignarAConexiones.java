@@ -17,6 +17,8 @@ import android.widget.Toast;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 
+import java.util.ArrayList;
+
 import ar.com.corpico.appcorpico.R;
 
 /**
@@ -24,10 +26,10 @@ import ar.com.corpico.appcorpico.R;
  */
 
 public class AsignarAConexiones extends DialogFragment {
-    private String mNumeroOT;
+    private ArrayList<String> mNumeroOT = new ArrayList<>();
     private String mCuadrilla;
     public interface OnAsignarAConexionesListener {
-        void onPossitiveButtonAsignarClick(String cuadrilla,String numero);// Eventos Botón Positivo
+        void onPossitiveButtonAsignarClick(String cuadrilla, ArrayList<String> numero);// Eventos Botón Positivo
         //LO DEJO X SI MAS ADELANTE LO TENGO QUE DEFINIR
         void onNegativeButtonAsignarClick();// Eventos Botón Negativo
     }
@@ -38,11 +40,11 @@ public class AsignarAConexiones extends DialogFragment {
     }
     //TODO: HAGO CON ESTE ARGUNTO PARA PROBAR...LUEGO EL ARGUMENTO CREO Q
     // DEBERIA SER ORDER PARA CUANDO USE MAS DE UNA SELLECCION
-    public static AsignarAConexiones newInstance(String cuadrilla, String numero) {
+    public static AsignarAConexiones newInstance(String cuadrilla, ArrayList<String> numero) {
         AsignarAConexiones f = new AsignarAConexiones();
 
         Bundle args = new Bundle();
-        args.putString("NUMERO", numero);
+        args.putString("NUMERO", numero.get(0));
         args.putString("CUADRILLA",cuadrilla);
         f.setArguments(args);
 
@@ -63,7 +65,7 @@ public class AsignarAConexiones extends DialogFragment {
     public AlertDialog createAsignarAConexiones() {
         final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = getActivity().getLayoutInflater();
-        mNumeroOT = getArguments().getString("NUMERO");
+        mNumeroOT.add(getArguments().getString("NUMERO"));
         mCuadrilla = getArguments().getString("CUADRILLA");
 
 

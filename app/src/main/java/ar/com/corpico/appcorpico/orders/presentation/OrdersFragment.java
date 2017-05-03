@@ -3,8 +3,13 @@ package ar.com.corpico.appcorpico.orders.presentation;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.view.ActionMode;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -33,6 +38,9 @@ public class OrdersFragment extends Fragment implements ar.com.corpico.appcorpic
     private TextView mEmptyView;
     private android.view.View mProgressView;
     private String mOrderType;
+    private ArrayList<String> list_items = new ArrayList<>();
+    private int count =0;
+    private String mcuadrilla;
 
     private OrdersAdapter.OnAsignarListener listener;
 
@@ -94,7 +102,60 @@ public class OrdersFragment extends Fragment implements ar.com.corpico.appcorpic
 
         mOrderList.setFocusable(false);
 
-        mOrderList.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+        mOrderList.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
+        mOrderList.setMultiChoiceModeListener(new AbsListView.MultiChoiceModeListener() {
+            @Override
+            public void onItemCheckedStateChanged(ActionMode mode, int position,
+                                                  long id, boolean checked) {
+                count++;
+                mode.setTitle(count+"Items Selected");
+                Order item= (Order) mOrderList.getAdapter().getItem(position);
+                String numero = item.getNumero();
+                list_items.add(numero);
+            }
+
+            @Override
+            public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+                MenuInflater inflater = mode.getMenuInflater();
+                inflater.inflate(R.menu.context_menu_opendientes, menu);
+                return true;
+            }
+
+            @Override
+            public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+                return false;
+            }
+
+            @Override
+            public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+                ArrayList<String> mNumeroList = new ArrayList<String>();
+                switch(item.getItemId())
+                {
+                    case R.id.select_all:
+                      //mNumeroList.add(order.getNumero());
+                      for ( int i=0; i < mOrderList.getAdapter().getCount(); i++) {
+                          mOrderList.setItemChecked(i, true);
+                      }
+                      //Toast.makeText(getActivity(),count+" Ordenes Asignadas a Cuadrilla",Toast.LENGTH_LONG).show();
+                        count=0;
+                        list_items.clear();
+                        return true;
+                    case R.id.action_asignaracuadrilla:
+                        mOrdersPresenter.asignarOrder(mOrderType,list_items);
+                        count=0;
+                        mode.finish();
+                        return true;
+                    default:
+                        return false;
+                }
+            }
+
+            @Override
+            public void onDestroyActionMode(ActionMode mode) {
+
+            }
+        });
+
         //Infla las cabeceras de OrderList
         //LayoutInflater minflater = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         //android.view.View headerView = minflater.inflate(R.layout.list_cabecera_order, null);
@@ -124,8 +185,8 @@ public class OrdersFragment extends Fragment implements ar.com.corpico.appcorpic
     }
 
     @Override
-    public void setAsignarOrder(String cuadrilla, String numero) {
-        mOrdersPresenter.asignarOrder(cuadrilla,numero);
+    public void setAsignarOrder(String cuadrilla, List<String> listorder) {
+        mOrdersPresenter.asignarOrder(cuadrilla,listorder);
     }
 
     @Override

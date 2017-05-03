@@ -1,5 +1,6 @@
 package ar.com.corpico.appcorpico.orders.data;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import ar.com.corpico.appcorpico.login.domain.entity.Session;
@@ -17,5 +18,5 @@ public interface OrderStore {
         void onSuccess(List<Order> orders);
         void onError(String error);
     }
-    public void addOrderEtape(String numero, String estado);
+    public void addOrderEtape(String estado,ArrayList<String> numero);
 }

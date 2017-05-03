@@ -1,5 +1,7 @@
 package ar.com.corpico.appcorpico.orders.data;
 
+import java.util.ArrayList;
+
 import ar.com.corpico.appcorpico.orders.domain.filter.Criteria;
 
 /**
@@ -13,7 +15,7 @@ public class OrdersSqliteStore implements OrderStore {
     }
 
     @Override
-    public void addOrderEtape(String numero, String estado) {
+    public void addOrderEtape( String estado,ArrayList<String> numero) {
 
     }
 }

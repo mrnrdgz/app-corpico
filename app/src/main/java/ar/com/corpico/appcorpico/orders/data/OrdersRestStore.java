@@ -83,16 +83,18 @@ public class OrdersRestStore implements OrderStore {
     }
 
     @Override
-    public void addOrderEtape(String estado,String numero) {
+    public void addOrderEtape(String estado,ArrayList<String> numero ) {
+       int i = 0;
        final Calendar c = Calendar.getInstance();
        DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ");
        String date = df.format(Calendar.getInstance().getTime());
        for (Order order: mFakeRestOrder){
-           if(order.getNumero().equals(numero)){
+           if(order.getNumero().equals(numero.get(i))){
                //TODO: VER LO DE LA ASIGNACION DE FECHA
                Etapa etapa = new Etapa(date,estado,"");
                order.addEtapas(etapa);
            }
+           i=i++;
        }
     }
 }

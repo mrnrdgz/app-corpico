@@ -87,10 +87,10 @@ public class OrdersPresenter implements Presenter {
     }
 
     @Override
-    public void asignarOrder(String cuadrilla, String numero) {
+    public void asignarOrder(String cuadrilla, List<String> listorder) {
         mCuadrilla = cuadrilla;
 
-        AddOrdersState.RequestValues requestValues = new AddOrdersState.RequestValues(cuadrilla,numero);
+        AddOrdersState.RequestValues requestValues = new AddOrdersState.RequestValues(cuadrilla,listorder);
         UseCase.UseCaseCallback useCaseCallback = new UseCase.UseCaseCallback(){
             @Override
             public void onSuccess(Object response) {

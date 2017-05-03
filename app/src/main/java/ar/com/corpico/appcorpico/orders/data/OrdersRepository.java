@@ -2,6 +2,7 @@ package ar.com.corpico.appcorpico.orders.data;
 
 import com.google.common.base.Preconditions;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import ar.com.corpico.appcorpico.orders.domain.entity.Order;
@@ -55,7 +56,7 @@ public class OrdersRepository implements IOrdersRepository {
     }
 
     @Override
-    public void addOrderState(String estado, String numero) {
+    public void addOrderState(String estado, ArrayList<String> numero) {
         mOrdersRestStore.addOrderEtape(estado, numero);
     }
 }

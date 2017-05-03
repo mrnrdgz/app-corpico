@@ -6,6 +6,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import ar.com.corpico.appcorpico.R;
@@ -26,7 +27,7 @@ public class OrdersAdapter extends ArrayAdapter<Order> {
     }
 
     public interface OnAsignarListener {
-        void onButtonClickListner(String numero);
+        void onButtonClickListner(ArrayList<String> numero);
     }
 
     public void setCustomButtonListner(OnAsignarListener listener) {
@@ -66,7 +67,9 @@ public class OrdersAdapter extends ArrayAdapter<Order> {
             @Override
             public void onClick(android.view.View view) {
             if (listenerAdapter != null) {
-                listenerAdapter.onButtonClickListner(getItem(position).getNumero());
+                ArrayList<String> aux = new ArrayList();
+                aux.add(0,getItem(position).getNumero());
+                listenerAdapter.onButtonClickListner(aux);
             }
             }
         });

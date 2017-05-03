@@ -19,5 +19,6 @@ public interface View {
     public void setOrderFilter(String estado, String tipo, String sector, DateTime desde, DateTime hasta, String search,Boolean estadoActual);
     public void setLoadOrderList(String tipo);
     // TODO: el parametro "numero" luego lo reemplazare por List<Order>?
-    public void setAsignarOrder(String cuadrilla, String numero);
+    //public void setAsignarOrder(String cuadrilla, String numero);
+    public void setAsignarOrder(String cuadrilla, List<String> listorder);
 }

@@ -2,6 +2,7 @@ package ar.com.corpico.appcorpico.orders.domain.usecase;
 
 import com.google.common.base.Preconditions;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import ar.com.corpico.appcorpico.UseCase;
@@ -23,25 +24,25 @@ public class AddOrdersState extends UseCase<AddOrdersState.RequestValues, AddOrd
     @Override
     public void execute(RequestValues requestValues, final UseCaseCallback callb) {
 
-        mOrdersRepository.addOrderState(requestValues.getStateName(),requestValues.getOrderNumber());
+        mOrdersRepository.addOrderState(requestValues.getStateName(), (ArrayList<String>) requestValues.getOrderNumber());
         callb.onSuccess(new ResponseValue());
     }
 
     public static final class RequestValues implements UseCase.RequestValues {
-        private String orderNumber;
+        private List<String> orderNumber;
         private String stateName;
 
 
         public RequestValues() {
         }
 
-        public RequestValues(String stateName,String orderNumber) {
+        public RequestValues(String stateName,List<String> orderNumber) {
             this.orderNumber = orderNumber;
             this.stateName = stateName;
             // Validar lógica
         }
 
-        public String getOrderNumber() {
+        public List<String> getOrderNumber() {
             return orderNumber;
         }
 
