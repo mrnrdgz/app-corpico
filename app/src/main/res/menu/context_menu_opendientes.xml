@@ -4,6 +4,6 @@
         android:icon="@drawable/ic_select_all"
         android:title="Seleccionar Todo" />
     <item android:id="@+id/action_asignaracuadrilla"
-        android:icon="@drawable/ic_opendientes"
+        android:icon="@drawable/ic_asignarorder"
         android:title="Asignar a Cuadrilla" />
 </menu>
