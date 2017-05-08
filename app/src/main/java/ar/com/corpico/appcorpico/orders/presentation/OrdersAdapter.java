@@ -1,7 +1,9 @@
 package ar.com.corpico.appcorpico.orders.presentation;
 
 import android.content.Context;
+import android.support.v4.content.ContextCompat;
 import android.view.*;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -21,6 +23,8 @@ public class OrdersAdapter extends ArrayAdapter<Order> {
     OnAsignarListener listenerAdapter;
     //TODO ESTA BIEN QUE DEBLARE ORDER ACA? XQ SINO NO LO VEIA DENTRO DEL ONCLICK DEL IMAGEBUTTON
     private Order order;
+    private ArrayList<Integer> mSelection = new ArrayList<Integer>();
+    private boolean hideAsignarButton = false;
 
     public OrdersAdapter(Context context, List<Order> objects) {
         super(context,0,objects);
@@ -34,6 +38,33 @@ public class OrdersAdapter extends ArrayAdapter<Order> {
         this.listenerAdapter = listener;
     }
 
+    public void setNewSelection(int position) {
+        mSelection.add(position);
+        notifyDataSetChanged();
+    }
+    public ArrayList<Integer> getCurrentCheckedPosition() {
+        return mSelection;
+    }
+    public void removeSelection(int position) {
+        mSelection.remove(Integer.valueOf(position));
+        notifyDataSetChanged();
+    }
+    public void clearSelection() {
+        mSelection = new ArrayList<Integer>();
+        notifyDataSetChanged();
+    }
+    public int getSelectionCount() {
+        return mSelection.size();
+    }
+
+    public boolean hideAsignarButton(){
+        hideAsignarButton=true;
+        return hideAsignarButton;
+    }
+    public boolean showAsignarButton(){
+        hideAsignarButton=false;
+        return hideAsignarButton;
+    }
     @Override
     public android.view.View getView(final int position, android.view.View convertView, ViewGroup parent) {
         // Obtener inflater.
@@ -62,7 +93,11 @@ public class OrdersAdapter extends ArrayAdapter<Order> {
         tipo.setFocusable(false);
         imageButton.setFocusable(true);
 
-
+        if (hideAsignarButton){
+            imageButton.setVisibility(View.INVISIBLE);
+        }else{
+            imageButton.setVisibility(View.VISIBLE);
+        }
         imageButton.setOnClickListener(new android.view.View.OnClickListener() {
             @Override
             public void onClick(android.view.View view) {
@@ -101,6 +136,13 @@ public class OrdersAdapter extends ArrayAdapter<Order> {
             case "Supervisadas":
                 indicator.setBackgroundResource(R.drawable.supervisadas_indicator);
                 break;
+        }
+
+        convertView.setBackgroundColor(ContextCompat.getColor(getContext(), android.R.color.transparent));
+
+
+        if (mSelection.contains(position)) {
+            convertView.setBackgroundColor(ContextCompat.getColor(getContext(),  R.color.colorAccent));
         }
 
         return convertView;

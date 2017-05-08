@@ -42,6 +42,7 @@ public class OrdersFragment extends Fragment implements ar.com.corpico.appcorpic
     private String mOrderType;
     private ArrayList<String> list_items = new ArrayList<>();
     private int count;
+    private boolean hideAsignarButton;
 
     private OrdersAdapter.OnAsignarListener listener;
 
@@ -121,23 +122,28 @@ public class OrdersFragment extends Fragment implements ar.com.corpico.appcorpic
 
         mOrderList.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
         mOrderList.setMultiChoiceModeListener(new AbsListView.MultiChoiceModeListener() {
-            //activityToolbar.setVisibility(View.GONE);
             @Override
             public void onItemCheckedStateChanged(ActionMode mode, int position,
                                                   long id, boolean checked) {
                 if (checked){
                     count++;
-                    mode.setTitle(count+" Seleccionadas");
+                    mOrdersAdapter.setNewSelection(position);
+                   // mode.setTitle(count+" Seleccionadas");
                     Order item= (Order) mOrderList.getAdapter().getItem(position);
                     String numero = item.getNumero();
                     list_items.add(numero);
                 }else{
                     count--;
-                    mode.setTitle(count+" Seleccionadas");
+                    /*if (count==0){
+
+                    }*/
+                    mOrdersAdapter.removeSelection(position);
+                    //mode.setTitle(count+" Seleccionadas");
                     Order item= (Order) mOrderList.getAdapter().getItem(position);
                     String numero = item.getNumero();
                     list_items.remove(numero);
                 }
+                mode.setTitle(mOrdersAdapter.getSelectionCount() + " Seleccionadas");
 
             }
 
@@ -146,11 +152,13 @@ public class OrdersFragment extends Fragment implements ar.com.corpico.appcorpic
                 count = 0;
                 MenuInflater inflater = mode.getMenuInflater();
                 inflater.inflate(R.menu.context_menu_opendientes, menu);
+                mOrdersAdapter.hideAsignarButton();
                 return true;
             }
 
             @Override
             public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+                //mOrdersAdapter.hideAsignarButton();
                 return false;
             }
 
@@ -160,15 +168,16 @@ public class OrdersFragment extends Fragment implements ar.com.corpico.appcorpic
                 {
                     case R.id.select_all:
                         count=0;
+                        mOrdersAdapter.clearSelection();
                         list_items.clear();
                         for ( int i=0; i < mOrderList.getAdapter().getCount(); i++) {
-                          mOrderList.setItemChecked(i, true);
-                      }
-                      //Toast.makeText(getActivity(),count+" Ordenes Asignadas a Cuadrilla",Toast.LENGTH_LONG).show();
+                            mOrderList.setItemChecked(i, true);
+                        }
                         return true;
                     case R.id.action_asignaracuadrilla:
                         mOrdersPresenter.asignarOrder(mOrderType,list_items);
                         count=0;
+                        mOrdersAdapter.clearSelection();
                         mode.finish();
                         return true;
                     default:
@@ -178,6 +187,8 @@ public class OrdersFragment extends Fragment implements ar.com.corpico.appcorpic
 
             @Override
             public void onDestroyActionMode(ActionMode mode) {
+                mOrdersAdapter.clearSelection();
+                mOrdersAdapter.showAsignarButton();
 
             }
         });
