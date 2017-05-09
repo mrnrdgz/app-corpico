@@ -29,6 +29,18 @@ public class CriteriaSearch implements Criteria <Order>{
             if (order.getTitular().toUpperCase().contains(search.toUpperCase())) {
                 filteredOrders.add(order);
             }
+            if (order.getNumero().toUpperCase().contains(search.toUpperCase())) {
+                filteredOrders.add(order);
+            }
+            if (order.getObservacion().toUpperCase().contains(search.toUpperCase())) {
+                filteredOrders.add(order);
+            }
+            if (order.getAsociado().toUpperCase().contains(search.toUpperCase())) {
+                filteredOrders.add(order);
+            }
+            if (order.getDomicilio().toUpperCase().contains(search.toUpperCase())) {
+                filteredOrders.add(order);
+            }
         }
 
         return filteredOrders;

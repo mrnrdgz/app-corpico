@@ -11,10 +11,12 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.SearchView;
 import android.view.ContextMenu;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
@@ -39,6 +41,7 @@ import ar.com.corpico.appcorpico.orders.presentation.OrdersFilterDialog;
 import ar.com.corpico.appcorpico.orders.presentation.OrdersFragment;
 import ar.com.corpico.appcorpico.orders.presentation.OrdersPresenter;
 
+import static android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP;
 import static java.security.AccessController.getContext;
 
 
@@ -155,6 +158,11 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements 
 
         return super.onOptionsItemSelected(item);
     }
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return false;
+    }
 
     @Override
     public void onPossitiveButtonClick(String estado, String tipo, String sector, DateTime desde, DateTime hasta, Boolean estadoActual) {
@@ -178,13 +186,18 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements 
         handleIntent(intent);
     }
 
+    @Override
+    public void onBackPressed() {
+        Toast.makeText(this, "VUELVE PARA ATRAS", Toast.LENGTH_SHORT).show();
+    }
     private void handleIntent(Intent intent) {
         if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
             String query = intent.getStringExtra(SearchManager.QUERY);
             //TODO: VER EN LA BUSQUEDA LA FEHCA...SI PONGO NULL ESTA CONTROLADO...PERO EN EL TIEMPO...PUEDE TRAER.
             //MUCHOS REGISTROS...COMO PODRIAMOS CONTROLAR ESO?
             OrdersFragment mOrderFragmen = (OrdersFragment) getSupportFragmentManager().findFragmentById(R.id.activity_order);
-            mOrderFragmen.setOrderFilter("Todos", "Todos", "Todos", null, null, query,false);
+            //mOrderFragmen.setOrderFilter("Todos", "Todos", "Todos", null, null, query,false);
+            mOrderFragmen.setOrderFilter("Pendiente", "Todos", "Todos", null, null, query,true);
         }
     }
 
