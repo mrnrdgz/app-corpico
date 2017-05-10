@@ -9,15 +9,10 @@ import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.MenuItemCompat;
-import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.SearchView;
-import android.view.ContextMenu;
-import android.view.KeyEvent;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
@@ -44,10 +39,6 @@ import ar.com.corpico.appcorpico.orders.presentation.OrdersAdapter;
 import ar.com.corpico.appcorpico.orders.presentation.OrdersFilterDialog;
 import ar.com.corpico.appcorpico.orders.presentation.OrdersFragment;
 import ar.com.corpico.appcorpico.orders.presentation.OrdersPresenter;
-import ar.com.corpico.appcorpico.orders.presentation.PendientesMapsFragment;
-
-import static android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP;
-import static java.security.AccessController.getContext;
 
 
 /**
@@ -98,12 +89,6 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements 
 
         //SETEA LA LLAMADA PARA QUE LA ACTIVIDAD TENGA COMUNICACION CON ORDERADAPTER
         mOrderView.setListener(this);
-        //SETEA LA LLAMADA AL FRAGMENTO MAPS
-        mPendientesMapsFragment = PendientesMapsFragment.newInstance();
-        getSupportFragmentManager()
-                .beginTransaction()
-                .add(R.layout.pendiente_maps, mPendientesMapsFragment)
-                .commit();
 
         /**
          * <<create>> Almacénes
@@ -161,8 +146,8 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements 
                 new OrdersFilterDialog().show(getSupportFragmentManager(), "FilterDialog");
                 break;
             case R.id.action_map:
-                PendientesMapsFragment mMapsFragmen = (PendientesMapsFragment) getSupportFragmentManager().findFragmentById(R.id.map);
-
+                Intent intent = new Intent(this, PendientesMapsActivity.class);
+                startActivity(intent);
                 break;
             case R.id.action_settings:
                 break;

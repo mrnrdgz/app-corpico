@@ -1,4 +1,4 @@
-package ar.com.corpico.appcorpico.orders.presentation;
+package ar.com.corpico.appcorpico.orders;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
