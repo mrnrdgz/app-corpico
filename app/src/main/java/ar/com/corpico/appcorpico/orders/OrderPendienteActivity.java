@@ -24,6 +24,9 @@ import android.widget.DatePicker;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+
 import org.joda.time.DateTime;
 
 import java.util.ArrayList;
@@ -41,6 +44,7 @@ import ar.com.corpico.appcorpico.orders.presentation.OrdersAdapter;
 import ar.com.corpico.appcorpico.orders.presentation.OrdersFilterDialog;
 import ar.com.corpico.appcorpico.orders.presentation.OrdersFragment;
 import ar.com.corpico.appcorpico.orders.presentation.OrdersPresenter;
+import ar.com.corpico.appcorpico.orders.presentation.PendientesMapsFragment;
 
 import static android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP;
 import static java.security.AccessController.getContext;
@@ -50,9 +54,10 @@ import static java.security.AccessController.getContext;
  * Created by sistemas on 11/04/2017.
  */
 
-public class OrderPendienteActivity extends NavitationDrawerActivity implements OrdersAdapter.OnAsignarListener, OrdersFilterDialog.OnFilterDialogListener,DatePickerDialog.OnDateSetListener,AsignarAConexiones.OnAsignarAConexionesListener {
+public class OrderPendienteActivity extends NavitationDrawerActivity implements OrdersAdapter.OnAsignarListener, OrdersFilterDialog.OnFilterDialogListener,DatePickerDialog.OnDateSetListener,AsignarAConexiones.OnAsignarAConexionesListener, OnMapReadyCallback {
     private String mOrderType;
     private OrdersFragment mOrderView;
+    private PendientesMapsFragment mPendientesMapsFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,6 +98,12 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements 
 
         //SETEA LA LLAMADA PARA QUE LA ACTIVIDAD TENGA COMUNICACION CON ORDERADAPTER
         mOrderView.setListener(this);
+        //SETEA LA LLAMADA AL FRAGMENTO MAPS
+        mPendientesMapsFragment = PendientesMapsFragment.newInstance();
+        getSupportFragmentManager()
+                .beginTransaction()
+                .add(R.layout.pendiente_maps, mPendientesMapsFragment)
+                .commit();
 
         /**
          * <<create>> Almacénes
@@ -150,8 +161,8 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements 
                 new OrdersFilterDialog().show(getSupportFragmentManager(), "FilterDialog");
                 break;
             case R.id.action_map:
-                OrdersFragment mOrderFragmen = (OrdersFragment) getSupportFragmentManager().findFragmentById(R.id.activity_order);
-                //mOrderFragmen.clickbtnMap();
+                PendientesMapsFragment mMapsFragmen = (PendientesMapsFragment) getSupportFragmentManager().findFragmentById(R.id.map);
+
                 break;
             case R.id.action_settings:
                 break;
@@ -232,5 +243,10 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements 
     @Override
     public void onNegativeButtonAsignarClick() {
         Toast.makeText(this, "BOTON NEGATIVO", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+
     }
 }

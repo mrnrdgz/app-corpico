@@ -60,6 +60,9 @@
             android:theme="@style/AppTheme.NoActionBar"
             android:label="">
         </activity>
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyBqlx4Abvi_9u8OAOhCTwhBTnmnyculJ3I" />
     </application>
 
 </manifest>
