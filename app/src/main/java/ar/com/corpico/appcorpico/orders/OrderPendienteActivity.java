@@ -9,7 +9,10 @@ import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.MenuItemCompat;
+
+
 import android.support.v7.widget.SearchView;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -39,6 +42,8 @@ import ar.com.corpico.appcorpico.orders.presentation.OrdersAdapter;
 import ar.com.corpico.appcorpico.orders.presentation.OrdersFilterDialog;
 import ar.com.corpico.appcorpico.orders.presentation.OrdersFragment;
 import ar.com.corpico.appcorpico.orders.presentation.OrdersPresenter;
+import ar.com.corpico.appcorpico.ordersmaps.OrdersMapsActivity;
+import ar.com.corpico.appcorpico.ordersmaps.OrdersMapsFragment;
 
 
 /**
@@ -48,7 +53,7 @@ import ar.com.corpico.appcorpico.orders.presentation.OrdersPresenter;
 public class OrderPendienteActivity extends NavitationDrawerActivity implements OrdersAdapter.OnAsignarListener, OrdersFilterDialog.OnFilterDialogListener,DatePickerDialog.OnDateSetListener,AsignarAConexiones.OnAsignarAConexionesListener, OnMapReadyCallback {
     private String mOrderType;
     private OrdersFragment mOrderView;
-    private PendientesMapsFragment mPendientesMapsFragment;
+    private OrdersMapsFragment mPendientesMapsFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -134,9 +139,32 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements 
 
         // Personalización del SearchView
         searchView.setSubmitButtonEnabled(true);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                if (newText.length() > 0) {
+                    // Search
+                } else {
+                    // Do something when there's no input
+                    mOrderView.setLoadOrderList(mOrderType);
+                }
+                return false;
+            }
+            @Override
+            public boolean onQueryTextSubmit(String query) { return false; }
+        });
+        searchView.setOnCloseListener(new SearchView.OnCloseListener() {
+            @Override
+            public boolean onClose() {
+                //Toast.makeText(this(), "BOTON NEGATIVO", Toast.LENGTH_SHORT).show();
+                mOrderView.setLoadOrderList(mOrderType);
+                return false;
+            }
+        });
 
         return true;
     }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -146,7 +174,7 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements 
                 new OrdersFilterDialog().show(getSupportFragmentManager(), "FilterDialog");
                 break;
             case R.id.action_map:
-                Intent intent = new Intent(this, PendientesMapsActivity.class);
+                Intent intent = new Intent(this, OrdersMapsActivity.class);
                 startActivity(intent);
                 break;
             case R.id.action_settings:
@@ -183,10 +211,6 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements 
         handleIntent(intent);
     }
 
-    @Override
-    public void onBackPressed() {
-        Toast.makeText(this, "VUELVE PARA ATRAS", Toast.LENGTH_SHORT).show();
-    }
     private void handleIntent(Intent intent) {
         if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
             String query = intent.getStringExtra(SearchManager.QUERY);

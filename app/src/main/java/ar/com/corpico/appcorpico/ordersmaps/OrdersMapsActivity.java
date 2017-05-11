@@ -1,4 +1,4 @@
-package ar.com.corpico.appcorpico.orders;
+package ar.com.corpico.appcorpico.ordersmaps;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -17,10 +17,10 @@ import ar.com.corpico.appcorpico.R;
  */
 
 
-public class PendientesMapsActivity extends AppCompatActivity
+public class OrdersMapsActivity extends AppCompatActivity
             implements OnMapReadyCallback {
 
-        private PendientesMapsFragment mPendientesMapsFragment;
+        private OrdersMapsFragment mPendientesMapsFragment;
 
         @Override
         protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +47,7 @@ public class PendientesMapsActivity extends AppCompatActivity
 
             CameraPosition cameraPosition = CameraPosition.builder()
                     .target(micasa)
-                    .zoom(10)
+                    .zoom(2)
                     .build();
 
             googleMap.moveCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));

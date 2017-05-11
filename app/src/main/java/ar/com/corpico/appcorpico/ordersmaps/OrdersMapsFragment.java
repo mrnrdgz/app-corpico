@@ -1,4 +1,4 @@
-package ar.com.corpico.appcorpico.orders;
+package ar.com.corpico.appcorpico.ordersmaps;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -11,13 +11,13 @@ import com.google.android.gms.maps.SupportMapFragment;
 /**
  * Muestra el mapa
  */
-public class PendientesMapsFragment extends SupportMapFragment {
+public class OrdersMapsFragment extends SupportMapFragment {
 
-    public PendientesMapsFragment() {
+    public OrdersMapsFragment() {
     }
 
-    public static PendientesMapsFragment newInstance() {
-        return new PendientesMapsFragment();
+    public static OrdersMapsFragment newInstance() {
+        return new OrdersMapsFragment();
     }
 
     @Override
