@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.MenuItemCompat;
 
@@ -53,7 +54,9 @@ import ar.com.corpico.appcorpico.ordersmaps.OrdersMapsFragment;
 public class OrderPendienteActivity extends NavitationDrawerActivity implements OrdersAdapter.OnAsignarListener, OrdersFilterDialog.OnFilterDialogListener,DatePickerDialog.OnDateSetListener,AsignarAConexiones.OnAsignarAConexionesListener, OnMapReadyCallback {
     private String mOrderType;
     private OrdersFragment mOrderView;
-    private OrdersMapsFragment mPendientesMapsFragment;
+    private OrdersMapsFragment mOrderMapView;
+    private FragmentTransaction fragmentTransaction;
+    private FragmentManager fragmentManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,16 +83,16 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements 
 
             }
         });
+
         mOrderView = (OrdersFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.activity_order);
 
         if (mOrderView == null) {
             mOrderView = OrdersFragment.newInstance(mOrderType);
 
-            getSupportFragmentManager()
-                    .beginTransaction()
-                    .add(R.id.activity_order, mOrderView,"OrderView")
-                    .commit();
+            getSupportFragmentManager().beginTransaction()
+            .add(R.id.activity_order, mOrderView,"OrderView")
+            .commit();
         }
 
         //SETEA LA LLAMADA PARA QUE LA ACTIVIDAD TENGA COMUNICACION CON ORDERADAPTER
@@ -174,9 +177,23 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements 
                 new OrdersFilterDialog().show(getSupportFragmentManager(), "FilterDialog");
                 break;
             case R.id.action_map:
-                Intent intent = new Intent(this, OrdersMapsActivity.class);
-                startActivity(intent);
-                break;
+                /*Intent intent = new Intent(this, OrdersMapsActivity.class);
+                startActivity(intent);*/
+                //mOrderMapView = (OrdersMapsFragment) getSupportFragmentManager()
+                //        .findFragmentById(R.id.map_container);
+
+                if (mOrderMapView == null) {
+                    mOrderMapView = OrdersMapsFragment.newInstance();
+                    FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                    transaction.replace(R.id.activity_order, mOrderMapView);
+                    transaction.addToBackStack(null);
+                    transaction.commit();
+                    /*getSupportFragmentManager()
+                            .beginTransaction()
+                            .replace(R.id.activity_order, mOrderMapView)
+                            .commit();*/
+                }
+                break;º
             case R.id.action_settings:
                 break;
         }

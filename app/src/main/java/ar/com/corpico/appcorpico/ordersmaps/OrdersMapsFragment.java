@@ -7,6 +7,8 @@ import android.view.ViewGroup;
 
 import com.google.android.gms.maps.SupportMapFragment;
 
+import ar.com.corpico.appcorpico.R;
+
 
 /**
  * Muestra el mapa
@@ -23,8 +25,7 @@ public class OrdersMapsFragment extends SupportMapFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View root = super.onCreateView(inflater, container, savedInstanceState);
-
+        android.view.View root = inflater.inflate(R.layout.activity_pendientes_maps, container, false);
         return root;
     }
 
