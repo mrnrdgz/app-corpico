@@ -33,7 +33,7 @@ public class OrdersMapsActivity extends AppCompatActivity implements OnMapReadyC
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_pendientes_maps);
+        setContentView(R.layout.map_container);
 
         mPendientesMapsFragment = mPendientesMapsFragment.newInstance();
         getSupportFragmentManager()
