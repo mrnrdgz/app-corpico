@@ -30,7 +30,6 @@ import android.widget.Toast;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.UiSettings;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
@@ -60,14 +59,13 @@ import ar.com.corpico.appcorpico.ordersmaps.OrdersMapsFragment;
  * Created by sistemas on 11/04/2017.
  */
 
-public class OrderPendienteActivity extends NavitationDrawerActivity implements OrdersAdapter.OnAsignarListener, OrdersFilterDialog.OnFilterDialogListener,DatePickerDialog.OnDateSetListener,AsignarAConexiones.OnAsignarAConexionesListener,OnMapReadyCallback {
+public class OrderPendienteActivity extends NavitationDrawerActivity implements OrdersAdapter.OnAsignarListener, OrdersFilterDialog.OnFilterDialogListener,DatePickerDialog.OnDateSetListener,AsignarAConexiones.OnAsignarAConexionesListener {
     private String mOrderType;
     private OrdersFragment mOrderView;
     private OrdersMapsFragment mOrderMapView;
-    private FragmentTransaction fragmentTransaction;
-    private FragmentManager fragmentManager;
     private GoogleMap mMap;
     private static final int LOCATION_REQUEST_CODE = 1;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -192,24 +190,22 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements 
             case R.id.action_map:
                 /*Intent intent = new Intent(this, OrdersMapsActivity.class);
                 startActivity(intent);*/
-                /*mOrderMapView = (OrdersMapsFragment) getSupportFragmentManager()
-                        .findFragmentById(R.id.map_container);*/
-                //mMap = ((SupportMapFragment) getFragmentManager().findFragmentById(R.id.map_container)).getMap();
-                SupportMapFragment mapFrag = (SupportMapFragment)getSupportFragmentManager().
-                        findFragmentById(R.id.map_container);
+                mOrderMapView = (OrdersMapsFragment) getSupportFragmentManager()
+                        .findFragmentById(R.id.map_container);
+                /*SupportMapFragment mapFrag = (SupportMapFragment)getSupportFragmentManager().
+                        findFragmentById(R.id.map_container);*/
 
 
 
 
-                /*if (mOrderMapView == null) {
+                if (mOrderMapView == null) {
                     mOrderMapView = OrdersMapsFragment.newInstance();
                     getSupportFragmentManager().beginTransaction()
                     .replace(R.id.activity_order, mOrderMapView,"OrderViewMap")
                     .addToBackStack(null)
                     .commit();
-                    //mOrderMapView.getMapAsync();
-                }*/
-               if (mapFrag==null){
+                }
+               /*if (mapFrag==null){
                    //mapFrag = SupportMapFragment.newInstance();
                    mapFrag = OrdersMapsFragment.newInstance();
                    getSupportFragmentManager().beginTransaction()
@@ -217,7 +213,7 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements 
                            .addToBackStack(null)
                            .commit();
                    mapFrag.getMapAsync(this);
-               }
+               }*/
                 break;
             case R.id.action_settings:
                 break;
@@ -289,70 +285,5 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements 
     @Override
     public void onNegativeButtonAsignarClick() {
         Toast.makeText(this, "BOTON NEGATIVO", Toast.LENGTH_SHORT).show();
-    }
-    @Override
-    public void onMapReady(GoogleMap googleMap) {
-        mMap = googleMap;
-        UiSettings uiSettings = mMap.getUiSettings();
-        uiSettings.setScrollGesturesEnabled(false);
-        uiSettings.setTiltGesturesEnabled(false);
-
-        mMap.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
-                == PackageManager.PERMISSION_GRANTED) {
-            mMap.setMyLocationEnabled(true);
-        } else {
-            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
-                    Manifest.permission.ACCESS_FINE_LOCATION)) {
-                // Mostrar diálogo explicativo
-            } else {
-                // Solicitar permiso
-                ActivityCompat.requestPermissions(
-                        this,
-                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
-                        LOCATION_REQUEST_CODE);
-            }
-        }
-        mMap.getUiSettings().setZoomControlsEnabled(true);
-
-        //LatLng cali = new LatLng(3.4383, -76.5161);
-        LatLng micasa = new LatLng(-36.120556, -64.298056);
-
-        googleMap.addMarker(new MarkerOptions()
-                .position(micasa)
-                .title("mi casa la Sucursal del cielo"));
-
-        CameraPosition cameraPosition = CameraPosition.builder()
-                .target(micasa)
-                .zoom(2)
-                .build();
-
-        googleMap.moveCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
-                                           @NonNull int[] grantResults) {
-        if (requestCode == LOCATION_REQUEST_CODE) {
-            // ¿Permisos asignados?
-            if (permissions.length > 0 &&
-                    permissions[0].equals(Manifest.permission.ACCESS_FINE_LOCATION) &&
-                    grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                    // TODO: Consider calling
-                    //    ActivityCompat#requestPermissions
-                    // here to request the missing permissions, and then overriding
-                    //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                    //                                          int[] grantResults)
-                    // to handle the case where the user grants the permission. See the documentation
-                    // for ActivityCompat#requestPermissions for more details.
-                    return;
-                }
-                mMap.setMyLocationEnabled(true);
-            } else {
-                Toast.makeText(this, "Error de permisos", Toast.LENGTH_LONG).show();
-            }
-
-        }
     }
 }
