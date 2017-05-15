@@ -18,6 +18,7 @@ import android.support.v4.view.MenuItemCompat;
 
 
 import android.support.v7.widget.SearchView;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -30,6 +31,7 @@ import android.widget.Toast;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.UiSettings;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
@@ -59,11 +61,12 @@ import ar.com.corpico.appcorpico.ordersmaps.OrdersMapsFragment;
  * Created by sistemas on 11/04/2017.
  */
 
-public class OrderPendienteActivity extends NavitationDrawerActivity implements OrdersAdapter.OnAsignarListener, OrdersFilterDialog.OnFilterDialogListener,DatePickerDialog.OnDateSetListener,AsignarAConexiones.OnAsignarAConexionesListener {
+public class OrderPendienteActivity extends NavitationDrawerActivity implements OrdersAdapter.OnAsignarListener, OrdersFilterDialog.OnFilterDialogListener,DatePickerDialog.OnDateSetListener,AsignarAConexiones.OnAsignarAConexionesListener,OnMapReadyCallback{
     private String mOrderType;
     private OrdersFragment mOrderView;
     private OrdersMapsFragment mOrderMapView;
     private GoogleMap mMap;
+
     private static final int LOCATION_REQUEST_CODE = 1;
 
 
@@ -134,6 +137,7 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements 
         OrdersPresenter orderPresenter = new OrdersPresenter(getOrders, addOrdersState, mOrderView);
 
         handleIntent(getIntent());
+
     }
 
     @Override
@@ -190,30 +194,18 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements 
             case R.id.action_map:
                 /*Intent intent = new Intent(this, OrdersMapsActivity.class);
                 startActivity(intent);*/
+
                 mOrderMapView = (OrdersMapsFragment) getSupportFragmentManager()
                         .findFragmentById(R.id.map_container);
-                /*SupportMapFragment mapFrag = (SupportMapFragment)getSupportFragmentManager().
-                        findFragmentById(R.id.map_container);*/
-
-
-
-
                 if (mOrderMapView == null) {
                     mOrderMapView = OrdersMapsFragment.newInstance();
                     getSupportFragmentManager().beginTransaction()
                     .replace(R.id.activity_order, mOrderMapView,"OrderViewMap")
                     .addToBackStack(null)
                     .commit();
+                    //mOrderMapView.getMapAsync(this);
                 }
-               /*if (mapFrag==null){
-                   //mapFrag = SupportMapFragment.newInstance();
-                   mapFrag = OrdersMapsFragment.newInstance();
-                   getSupportFragmentManager().beginTransaction()
-                           .replace(R.id.activity_order, mapFrag,"OrderViewMap")
-                           .addToBackStack(null)
-                           .commit();
-                   mapFrag.getMapAsync(this);
-               }*/
+
                 break;
             case R.id.action_settings:
                 break;
@@ -285,5 +277,19 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements 
     @Override
     public void onNegativeButtonAsignarClick() {
         Toast.makeText(this, "BOTON NEGATIVO", Toast.LENGTH_SHORT).show();
+    }
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        LatLng cali = new LatLng(3.4383, -76.5161);
+        googleMap.addMarker(new MarkerOptions()
+                .position(cali)
+                .title("Cali la Sucursal del cielo"));
+
+        CameraPosition cameraPosition = CameraPosition.builder()
+                .target(cali)
+                .zoom(10)
+                .build();
+
+        googleMap.moveCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
     }
 }

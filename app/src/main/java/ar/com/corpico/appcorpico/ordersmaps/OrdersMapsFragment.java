@@ -4,15 +4,19 @@ import android.Manifest;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.UiSettings;
@@ -27,10 +31,13 @@ import ar.com.corpico.appcorpico.R;
  * Muestra el mapa
  */
 public class OrdersMapsFragment extends SupportMapFragment implements OnMapReadyCallback  {
+    private SupportMapFragment mMapFragment;
     private GoogleMap mMap;
+
     private static final int LOCATION_REQUEST_CODE = 1;
 
     public OrdersMapsFragment() {
+
     }
 
     public static OrdersMapsFragment newInstance() {
@@ -40,11 +47,14 @@ public class OrdersMapsFragment extends SupportMapFragment implements OnMapReady
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mMapFragment.getMapAsync(this);
     }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         android.view.View root = inflater.inflate(R.layout.map_container, container, false);
+        //android.view.View root = super.onCreateView(inflater, container, savedInstanceState);
 
         return root;
     }
@@ -73,6 +83,7 @@ public class OrdersMapsFragment extends SupportMapFragment implements OnMapReady
 
         }
     }
+
     @Override
     public void onMapReady(GoogleMap googleMap) {
             mMap = googleMap;
@@ -112,4 +123,5 @@ public class OrdersMapsFragment extends SupportMapFragment implements OnMapReady
 
             googleMap.moveCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
     }
+
 }
