@@ -16,6 +16,13 @@
         android:title="@string/action_map"
         app:showAsAction="always" />
     <item
+        android:id="@+id/action_list"
+        android:icon="@drawable/ic_view_list"
+        android:orderInCategory="3"
+        android:visible="false"
+        android:title="@string/action_map"
+        app:showAsAction="always" />
+    <item
         android:id="@+id/action_search"
         android:icon="@drawable/ic_search"
         android:orderInCategory="1"

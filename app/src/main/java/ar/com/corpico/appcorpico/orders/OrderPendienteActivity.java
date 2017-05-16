@@ -17,6 +17,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.view.MenuItemCompat;
 
 
+import android.support.v7.view.menu.MenuAdapter;
 import android.support.v7.widget.SearchView;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -65,9 +66,7 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements 
     private String mOrderType;
     private OrdersFragment mOrderView;
     private OrdersMapsFragment mOrderMapView;
-    private GoogleMap mMap;
-    private static final int LOCATION_REQUEST_CODE = 1;
-
+    private boolean mViewMap = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -136,8 +135,6 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements 
         OrdersPresenter orderPresenter = new OrdersPresenter(getOrders, addOrdersState, mOrderView);
 
         handleIntent(getIntent());
-        /*mOrderMapView = (OrdersMapsFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.activity_order);*/
     }
 
     @Override
@@ -192,19 +189,43 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements 
                 new OrdersFilterDialog().show(getSupportFragmentManager(), "FilterDialog");
                 break;
             case R.id.action_map:
-                /*Intent intent = new Intent(this, OrdersMapsActivity.class);
-                startActivity(intent);*/
-                mOrderMapView = (OrdersMapsFragment) getSupportFragmentManager()
-                        .findFragmentById(R.id.map_container);
+                mViewMap=false;
+                invalidateOptionsMenu();
+                FragmentManager fm = getSupportFragmentManager();
+                FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+                mOrderMapView = (OrdersMapsFragment) fm.findFragmentById(R.id.map_container);
 
                 if (mOrderMapView == null) {
-                    mOrderMapView = OrdersMapsFragment.newInstance();
-                    getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.activity_order, mOrderMapView,"OrderViewMap")
-                    .addToBackStack(null)
+                    mOrderMapView = new OrdersMapsFragment();
+                    ft.replace(R.id.list_order, mOrderMapView,"OrderViewMap")
+                    .addToBackStack("OrderViewMap")
                     .commit();
+                }else{
+                    /*ft.replace(R.id.list_order, mOrderMapView,"OrderViewMap")
+                            .addToBackStack(null)
+                            .commit();*/
+                    fm.popBackStack();
                 }
                 break;
+            case R.id.action_list:
+                mViewMap=true;
+                invalidateOptionsMenu();
+                fm = getSupportFragmentManager();
+                ft = getSupportFragmentManager().beginTransaction();
+                mOrderView = (OrdersFragment) fm.findFragmentById(R.id.activity_order);
+
+                if (mOrderView == null) {
+                    mOrderView = OrdersFragment.newInstance(mOrderType);
+                    ft.replace(R.id.map_container, mOrderView,"OrderView")
+                            .addToBackStack("OrderView")
+                            .commit();
+                }else{
+                        /*ft.replace(R.id.map_container, mOrderView,"OrderView")
+                                .addToBackStack(null)
+                                .commit();*/
+                                fm.popBackStack();
+                }
+
             case R.id.action_settings:
                 break;
         }
@@ -275,5 +296,21 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements 
     @Override
     public void onNegativeButtonAsignarClick() {
         Toast.makeText(this, "BOTON NEGATIVO", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        if(mViewMap) {
+            MenuItem item = menu.findItem(R.id.action_list);
+            item.setVisible(false);
+            item = menu.findItem(R.id.action_map);
+            item.setVisible(true);
+        }else{
+            MenuItem item = menu.findItem(R.id.action_list);
+            item.setVisible(true);
+            item = menu.findItem(R.id.action_map);
+            item.setVisible(false);
+        }
+        return super.onPrepareOptionsMenu(menu);
     }
 }
