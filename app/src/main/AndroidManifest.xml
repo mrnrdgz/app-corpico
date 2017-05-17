@@ -71,11 +71,6 @@
         <!--casa AIzaSyBqlx4Abvi_9u8OAOhCTwhBTnmnyculJ3I
        // trabajo AIzaSyC1VqZmzzXuSEWvCyDnoFkBhqhPJKHZRFA-->
 
-        <activity android:name=".ordersmaps.OrdersMapsActivity"
-            android:label="@string/app_name"
-            android:launchMode="singleTop"
-            android:theme="@style/AppTheme.NoActionBar">
-        </activity>
     </application>
 
 </manifest>

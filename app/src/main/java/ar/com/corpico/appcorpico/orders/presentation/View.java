@@ -21,4 +21,5 @@ public interface View {
     // TODO: el parametro "numero" luego lo reemplazare por List<Order>?
     //public void setAsignarOrder(String cuadrilla, String numero);
     public void setAsignarOrder(String cuadrilla, List<String> listorder);
+    public List<Order> putOrderList();
 }

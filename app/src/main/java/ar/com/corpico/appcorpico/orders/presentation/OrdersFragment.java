@@ -24,6 +24,7 @@ import java.util.List;
 
 import ar.com.corpico.appcorpico.R;
 import ar.com.corpico.appcorpico.orders.OrderPendienteActivity;
+import ar.com.corpico.appcorpico.orders.domain.entity.Etapa;
 import ar.com.corpico.appcorpico.orders.domain.entity.Order;
 
 import static android.R.attr.x;
@@ -79,21 +80,6 @@ public class OrdersFragment extends Fragment implements ar.com.corpico.appcorpic
            if (mOrderType.equals("Varios")){
                activitySpinner.setSelection(2);
            }
-        }
-    }
-
-    @Override
-    public void setLoadOrderList(String tipo) {
-        mOrderType=tipo;
-        if (tipo.equals("Conexiones")){
-            mOrdersPresenter.loadOrderList("Pendiente","Colocacion de Medidor","Todos",null,null,null,true);
-
-        }
-        if (tipo.equals("Desconexiones")){
-            mOrdersPresenter.loadOrderList("Pendiente","Retiro de Medidor","Todos",null,null,null,true);
-        }
-        if (tipo.equals("Varios")){
-            mOrdersPresenter.loadOrderList("Pendiente","Varios","Todos",null,null,null,true);
         }
     }
 
@@ -222,8 +208,36 @@ public class OrdersFragment extends Fragment implements ar.com.corpico.appcorpic
     }
 
     @Override
+    public void setLoadOrderList(String tipo) {
+        mOrderType=tipo;
+        if (tipo.equals("Conexiones")){
+            mOrdersPresenter.loadOrderList("Pendiente","Colocacion de Medidor","Todos",null,null,null,true);
+
+        }
+        if (tipo.equals("Desconexiones")){
+            mOrdersPresenter.loadOrderList("Pendiente","Retiro de Medidor","Todos",null,null,null,true);
+        }
+        if (tipo.equals("Varios")){
+            mOrdersPresenter.loadOrderList("Pendiente","Varios","Todos",null,null,null,true);
+        }
+    }
+    @Override
     public void setAsignarOrder(String cuadrilla, List<String> listorder) {
         mOrdersPresenter.asignarOrder(cuadrilla,listorder);
+    }
+
+    @Override
+    public List<Order> putOrderList() {
+        ArrayList<Order> mFakeRestOrder = new ArrayList<>();
+        for(int i=0; i <= mOrdersAdapter.getCount();i++){
+            mFakeRestOrder.add(new Order(mOrdersAdapter.getItem(i).getNumero(), mOrdersAdapter.getItem(i).getServicio(),mOrdersAdapter.getItem(i).getSector(),
+                    mOrdersAdapter.getItem(i).getTipo(),mOrdersAdapter.getItem(i).getMotivo(),mOrdersAdapter.getItem(i).getEtapas(),
+                    mOrdersAdapter.getItem(i).getAsociado(),mOrdersAdapter.getItem(i).getSuministro(),mOrdersAdapter.getItem(i).getTitular(),
+                    mOrdersAdapter.getItem(i).getDomicilio(),mOrdersAdapter.getItem(i).getLocalidad(),mOrdersAdapter.getItem(i).getAnexo(),
+                    mOrdersAdapter.getItem(i).getLatitud(),mOrdersAdapter.getItem(i).getLongitud(),mOrdersAdapter.getItem(i).getObservacion()) );
+        }
+        Toast.makeText(getActivity(), "Cantidad: " + mOrdersAdapter.getCount() , Toast.LENGTH_SHORT).show();
+        return mFakeRestOrder;
     }
 
     @Override

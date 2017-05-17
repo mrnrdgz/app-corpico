@@ -46,6 +46,7 @@ import ar.com.corpico.appcorpico.R;
 import ar.com.corpico.appcorpico.orders.data.OrdersRepository;
 import ar.com.corpico.appcorpico.orders.data.OrdersRestStore;
 import ar.com.corpico.appcorpico.orders.data.OrdersSqliteStore;
+import ar.com.corpico.appcorpico.orders.domain.entity.Order;
 import ar.com.corpico.appcorpico.orders.domain.usecase.AddOrdersState;
 import ar.com.corpico.appcorpico.orders.domain.usecase.GetOrders;
 import ar.com.corpico.appcorpico.orders.presentation.AsignarAConexiones;
@@ -67,6 +68,7 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements 
     private OrdersFragment mOrderView;
     private OrdersMapsFragment mOrderMapView;
     private boolean mViewMap = true;
+    private ArrayList mmOrderList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -200,6 +202,8 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements 
                     ft.replace(R.id.list_order, mOrderMapView,"OrderViewMap")
                     .addToBackStack("OrderViewMap")
                     .commit();
+                    /*mOrderView.putOrderList();
+                    mOrderMapView.setOrderMap(mmOrderList);*/
                 }else{
                     /*ft.replace(R.id.list_order, mOrderMapView,"OrderViewMap")
                             .addToBackStack(null)

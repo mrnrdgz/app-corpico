@@ -33,8 +33,9 @@ import ar.com.corpico.appcorpico.orders.domain.entity.Order;
  */
 public class OrdersMapsFragment extends SupportMapFragment implements OnMapReadyCallback {
     private GoogleMap mMap;
-
+    private ArrayList<Order> ordersMap = new ArrayList<Order>();
     private static final int LOCATION_REQUEST_CODE = 1;
+    private List<Order> mListMap;
 
     public OrdersMapsFragment() {
     }
@@ -46,7 +47,7 @@ public class OrdersMapsFragment extends SupportMapFragment implements OnMapReady
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ArrayList<Order> ordersMap = new ArrayList<Order>();
+
         ordersMap.add(new Order("839127", "Eléctrico", "2", "Retiro de Medidor", "Por Morosidad", null, "15514", "1", "Luisa Gonzalez", "Pasaje Rivero 957", "General Pico", "", "35.6630S", "63.7608W", "Nada"));
         ordersMap.add(new Order("839128", "Eléctrico", "3", "Cambio de Medidor", "Trabado", null, "22814", "1", "Jorgelina Rodriguez", "Calle 531", "General Pico", "", "35.6562S", "63.7537W", "Algo"));
         ordersMap.add(new Order("839129", "Eléctrico", "4", "Colocacion de Medidor", "Suministro Nuevo", null, "24429", "7", "Gustavo Turienzo", "Calle 29", "General Pico", "", "35.6657S", "63.7494W", "Todo"));
@@ -57,13 +58,14 @@ public class OrdersMapsFragment extends SupportMapFragment implements OnMapReady
         ordersMap.add(new Order("839134", "Eléctrico", "4", "Colocacion de Medidor", "Regularizacion de Deuda", null, "44345", "1", "Jose Ferrando", "Calle 29", "General Pico", "", "35.6678S", "63.7555W", "Todo"));
         ordersMap.add(new Order("839135", "Eléctrico", "4", "Retiro de Medidor", "Solicitud del Cliente", null, "42352", "1", "Fabio Gomez", "Calle 18", "General Pico", "", "35.6810S", "63.7491W", "Siempre"));
         getMapAsync(this);
-        setOrderMap(ordersMap);
+
     }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         //android.view.View root = inflater.inflate(R.layout.map_container, container, false);
         View root = super.onCreateView(inflater, container, savedInstanceState);
+
         return root;
     }
     @Override
@@ -115,23 +117,24 @@ public class OrdersMapsFragment extends SupportMapFragment implements OnMapReady
                 }
             }
             mMap.getUiSettings().setZoomControlsEnabled(true);
-
+            LoadOrderMap(ordersMap);
 
     }
     public void setOrderMap(List<Order> orders){
-
+        mListMap = orders;
+    }
+    public void LoadOrderMap(List<Order> orders){
         for (Order order : orders) {
-            //LatLng cali = new LatLng(3.4383, -76.5161);
             Double mLat,mLng;
-            mLat=new Double(order.getLatitud()).doubleValue();
-            mLng=new Double(order.getLongitud()).doubleValue();
 
-            //LatLng mLatLng = new LatLng(-36.120556, -64.298056);
-            LatLng mLatLng = new LatLng(mLat, mLng);
+            mLat = new Double((order.getLatitud().substring(0,7))).doubleValue()*-1;
+            mLng = new Double((order.getLongitud().substring(0,7))).doubleValue()*-1;
+
+            LatLng mLatLng = new LatLng(mLat,mLng);
 
             mMap.addMarker(new MarkerOptions()
                     .position(mLatLng)
-                    .title("mi casa la Sucursal del cielo"));
+                    .title(order.getTitular() + " - " + order.getDomicilio()));
 
             CameraPosition cameraPosition = CameraPosition.builder()
                     .target(mLatLng)
@@ -145,13 +148,11 @@ public class OrdersMapsFragment extends SupportMapFragment implements OnMapReady
         Double grados;
         Double minutos;
         Double segundos;
-        Double mdsm;
 
-        mdsm= new Double(dsm).doubleValue();
 
-        grados = new Double((dsm.substring(0,1))).doubleValue();
-        minutos = (mdsm-grados)/60;
-        segundos = mdsm;
+        grados = new Double((dsm.substring(0,2))).doubleValue()*-1;
+        minutos = new Double((dsm.substring(3,5))).doubleValue()/-60;
+        segundos = new Double((dsm.substring(5,7))).doubleValue()/-3600;
         return grados + minutos + segundos;
     }
 
