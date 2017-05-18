@@ -5,6 +5,6 @@ package ar.com.corpico.appcorpico.login.presentation;
  */
 
 public interface Presenter {
-    public void onClickedSignButton(String userCode, String password);
+    void onClickedSignButton(String userCode, String password);
 
 }

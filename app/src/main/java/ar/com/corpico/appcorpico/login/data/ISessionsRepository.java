@@ -8,13 +8,13 @@ import ar.com.corpico.appcorpico.login.domain.entity.Session;
 
 public interface ISessionsRepository {
 
-    public void login(String userCode, String password, SessionsRepositoryCallback callback);
+    void login(String userCode, String password, SessionsRepositoryCallback callback);
 
     void saveSession(Session session);
 
     interface SessionsRepositoryCallback{
-        public void onSucess(Session session);
+        void onSucess(Session session);
 
-        public void onDataNotAvailable(String error);
+        void onDataNotAvailable(String error);
     }
 }

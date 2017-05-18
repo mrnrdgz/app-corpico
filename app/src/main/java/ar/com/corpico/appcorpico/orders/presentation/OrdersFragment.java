@@ -23,11 +23,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ar.com.corpico.appcorpico.R;
-import ar.com.corpico.appcorpico.orders.OrderPendienteActivity;
-import ar.com.corpico.appcorpico.orders.domain.entity.Etapa;
 import ar.com.corpico.appcorpico.orders.domain.entity.Order;
 
-import static android.R.attr.x;
 import static android.view.View.GONE;
 
 /**
@@ -59,6 +56,7 @@ public class OrdersFragment extends Fragment implements ar.com.corpico.appcorpic
     public static OrdersFragment newInstance(String tipo) {
         OrdersFragment fragment = new OrdersFragment();
         Bundle args = new Bundle();
+        // TODO: Pasar los demás parámetros de la Action Bar
         args.putString("tipo", tipo);
         fragment.setArguments(args);
         return fragment;
@@ -86,7 +84,7 @@ public class OrdersFragment extends Fragment implements ar.com.corpico.appcorpic
     @Override
     public android.view.View onCreateView(LayoutInflater inflater, ViewGroup container,
                                           Bundle savedInstanceState) {
-        android.view.View root = inflater.inflate(R.layout.list_order, container, false);
+        android.view.View root = inflater.inflate(R.layout.orders_list_frag, container, false);
 
         // Obtención de referencias UI
         mOrderList = (ListView) root.findViewById(R.id.orders_list);

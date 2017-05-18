@@ -21,17 +21,21 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import org.joda.time.DateTime;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import ar.com.corpico.appcorpico.R;
 import ar.com.corpico.appcorpico.orders.domain.entity.Order;
+import ar.com.corpico.appcorpico.orders.presentation.*;
+import ar.com.corpico.appcorpico.orders.presentation.Presenter;
 
 
 /**
  * Muestra el mapa
  */
-public class OrdersMapsFragment extends SupportMapFragment implements OnMapReadyCallback {
+public class OrdersMapsFragment extends SupportMapFragment implements OnMapReadyCallback, ar.com.corpico.appcorpico.orders.presentation.View {
     private GoogleMap mMap;
     private ArrayList<Order> ordersMap = new ArrayList<Order>();
     private static final int LOCATION_REQUEST_CODE = 1;
@@ -63,9 +67,7 @@ public class OrdersMapsFragment extends SupportMapFragment implements OnMapReady
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        //android.view.View root = inflater.inflate(R.layout.map_container, container, false);
         View root = super.onCreateView(inflater, container, savedInstanceState);
-
         return root;
     }
     @Override
@@ -156,4 +158,48 @@ public class OrdersMapsFragment extends SupportMapFragment implements OnMapReady
         return grados + minutos + segundos;
     }
 
+    @Override
+    public void showOrderList(List<Order> listorder) {
+
+    }
+
+    @Override
+    public void showOrderError(String error) {
+
+    }
+
+    @Override
+    public void setPresenter(Presenter presenter) {
+
+    }
+
+    @Override
+    public void showOrdesEmpty() {
+
+    }
+
+    @Override
+    public void showProgressIndicator(boolean show) {
+
+    }
+
+    @Override
+    public void setOrderFilter(String estado, String tipo, String sector, DateTime desde, DateTime hasta, String search, Boolean estadoActual) {
+
+    }
+
+    @Override
+    public void setLoadOrderList(String tipo) {
+
+    }
+
+    @Override
+    public void setAsignarOrder(String cuadrilla, List<String> listorder) {
+
+    }
+
+    @Override
+    public List<Order> putOrderList() {
+        return null;
+    }
 }

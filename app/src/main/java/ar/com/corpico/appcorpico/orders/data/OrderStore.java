@@ -12,11 +12,11 @@ import ar.com.corpico.appcorpico.orders.domain.filter.Criteria;
  */
 
 public interface OrderStore {
-    public void getOrders(GetCallback callback, Criteria filter);
+    void getOrders(GetCallback callback, Criteria filter);
 
     interface GetCallback{
         void onSuccess(List<Order> orders);
         void onError(String error);
     }
-    public void addOrderEtape(String estado,ArrayList<String> numero);
+    void addOrderEtape(String estado, ArrayList<String> numero);
 }

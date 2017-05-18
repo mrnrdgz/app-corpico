@@ -10,11 +10,11 @@
     <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/activity_order"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fitsSystemWindows="true">
 
+        <!-- App Bar -->
         <android.support.design.widget.AppBarLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -37,7 +37,11 @@
             </android.support.v7.widget.Toolbar>
 
         </android.support.design.widget.AppBarLayout>
+
+        <!-- Fragmento -->
+        <include layout="@layout/orders_list_act_main_content" />
     </android.support.design.widget.CoordinatorLayout>
+
     <!-- Menú Deslizante -->
     <android.support.design.widget.NavigationView
         android:id="@+id/nav_view"

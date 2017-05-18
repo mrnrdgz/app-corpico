@@ -1,7 +1,6 @@
 package ar.com.corpico.appcorpico.orders;
 
 import android.app.DatePickerDialog;
-import android.app.Dialog;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
@@ -10,13 +9,9 @@ import android.support.v4.view.MenuItemCompat;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.support.v7.widget.SearchView;
-import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
-import android.widget.Spinner;
 import android.widget.Toast;
 import org.joda.time.DateTime;
-
-import java.util.Calendar;
 
 import ar.com.corpico.appcorpico.NavitationDrawerActivity;
 import ar.com.corpico.appcorpico.R;
@@ -31,26 +26,24 @@ import ar.com.corpico.appcorpico.orders.presentation.OrdersFilterDialog.OnFilter
 import ar.com.corpico.appcorpico.orders.presentation.OrdersFragment;
 import ar.com.corpico.appcorpico.orders.presentation.OrdersPresenter;
 
-import static android.R.attr.y;
-
 public class OrderActivity extends NavitationDrawerActivity implements OnFilterDialogListener,DatePickerDialog.OnDateSetListener {
     private OrdersFilterDialog dialogOrdersFilter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_order);
+        setContentView(R.layout.orders_list_act);
 
         OrdersFragment orderView;
         orderView = (OrdersFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.activity_order);
+                .findFragmentById(R.id.orders_view_container);
 
         if (orderView == null) {
             orderView = OrdersFragment.newInstance("Todas");
 
             getSupportFragmentManager()
                     .beginTransaction()
-                    .add(R.id.activity_order, orderView)
+                    .add(R.id.orders_view_container, orderView)
                     .commit();
         }
         /**
@@ -107,7 +100,7 @@ public class OrderActivity extends NavitationDrawerActivity implements OnFilterD
                 new OrdersFilterDialog().show(getSupportFragmentManager(), "FilterDialog");
                 break;
             case R.id.action_map:
-                OrdersFragment mOrderFragmen = (OrdersFragment) getSupportFragmentManager().findFragmentById(R.id.activity_order);
+                OrdersFragment mOrderFragmen = (OrdersFragment) getSupportFragmentManager().findFragmentById(R.id.orders_view_container);
                 //mOrderFragmen.clickbtnMap();
                 break;
             case R.id.action_settings:
@@ -119,7 +112,7 @@ public class OrderActivity extends NavitationDrawerActivity implements OnFilterD
 
     @Override
     public void onPossitiveButtonClick(String estado, String tipo, String sector, DateTime desde, DateTime hasta,Boolean estadoActual) {
-        OrdersFragment mOrderFragmen = (OrdersFragment) getSupportFragmentManager().findFragmentById(R.id.activity_order);
+        OrdersFragment mOrderFragmen = (OrdersFragment) getSupportFragmentManager().findFragmentById(R.id.orders_view_container);
         mOrderFragmen.setOrderFilter(estado, tipo, sector, desde, hasta, null,estadoActual);
     }
 
@@ -144,7 +137,7 @@ public class OrderActivity extends NavitationDrawerActivity implements OnFilterD
             String query = intent.getStringExtra(SearchManager.QUERY);
             //TODO: VER EN LA BUSQUEDA LA FEHCA...SI PONGO NULL ESTA CONTROLADO...PERO EN EL TIEMPO...PUEDE TRAER.
             //MUCHOS REGISTROS...COMO PODRIAMOS CONTROLAR ESO?
-            OrdersFragment mOrderFragmen = (OrdersFragment) getSupportFragmentManager().findFragmentById(R.id.activity_order);
+            OrdersFragment mOrderFragmen = (OrdersFragment) getSupportFragmentManager().findFragmentById(R.id.orders_view_container);
             mOrderFragmen.setOrderFilter("Todos", "Todos", "Todos", null, null, query,false);
         }
     }

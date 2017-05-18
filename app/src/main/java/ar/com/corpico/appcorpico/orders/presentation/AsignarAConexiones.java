@@ -7,7 +7,8 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
-import android.view.LayoutInflater;
+import android.view.*;
+import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.RadioButton;
@@ -79,18 +80,18 @@ public class AsignarAConexiones extends DialogFragment {
         final RadioButton mVariosTarde  = (RadioButton) v.findViewById(R.id.radioButtonTarde);
         final RadioButton mAuxiliar  = (RadioButton) v.findViewById(R.id.radioButtonAuxliar);
         if (mCuadrilla.equals("Conexiones")){
-            mConexiones.setVisibility(v.VISIBLE);
-            mAuxiliar.setVisibility(v.VISIBLE);
+            mConexiones.setVisibility(View.VISIBLE);
+            mAuxiliar.setVisibility(View.VISIBLE);
         }
         if (mCuadrilla.equals("Desconexiones")){
-            mDesconexiones.setVisibility(v.VISIBLE);
-            mAuxiliar.setVisibility(v.VISIBLE);
+            mDesconexiones.setVisibility(View.VISIBLE);
+            mAuxiliar.setVisibility(View.VISIBLE);
         }
 
         if (mCuadrilla.equals("Varios")){
-            mVariosMañana.setVisibility(v.VISIBLE);
-            mVariosTarde.setVisibility(v.VISIBLE);
-            mAuxiliar.setVisibility(v.VISIBLE);
+            mVariosMañana.setVisibility(View.VISIBLE);
+            mVariosTarde.setVisibility(View.VISIBLE);
+            mAuxiliar.setVisibility(android.view.View.VISIBLE);
         }
         Button asignar = (Button) v.findViewById(R.id.aplicar_boton);
         Button cancelar = (Button) v.findViewById(R.id.cancelar_boton);

@@ -11,15 +11,15 @@ import ar.com.corpico.appcorpico.orders.domain.entity.Order;
  */
 
 public interface View {
-    public void showOrderList(List<Order> listorder);
-    public void showOrderError(String error);
-    public void setPresenter(Presenter presenter);
-    public void showOrdesEmpty();
-    public void showProgressIndicator(boolean show);
-    public void setOrderFilter(String estado, String tipo, String sector, DateTime desde, DateTime hasta, String search,Boolean estadoActual);
-    public void setLoadOrderList(String tipo);
+    void showOrderList(List<Order> listorder);
+    void showOrderError(String error);
+    void setPresenter(Presenter presenter);
+    void showOrdesEmpty();
+    void showProgressIndicator(boolean show);
+    void setOrderFilter(String estado, String tipo, String sector, DateTime desde, DateTime hasta, String search, Boolean estadoActual);
+    void setLoadOrderList(String tipo);
     // TODO: el parametro "numero" luego lo reemplazare por List<Order>?
     //public void setAsignarOrder(String cuadrilla, String numero);
-    public void setAsignarOrder(String cuadrilla, List<String> listorder);
-    public List<Order> putOrderList();
+    void setAsignarOrder(String cuadrilla, List<String> listorder);
+    List<Order> putOrderList();
 }

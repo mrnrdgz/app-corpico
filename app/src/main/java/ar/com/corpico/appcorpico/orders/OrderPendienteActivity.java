@@ -1,23 +1,17 @@
 package ar.com.corpico.appcorpico.orders;
 
-import android.Manifest;
 import android.app.DatePickerDialog;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.view.MenuItemCompat;
 
 
-import android.support.v7.view.menu.MenuAdapter;
 import android.support.v7.widget.SearchView;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -28,15 +22,6 @@ import android.widget.DatePicker;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.UiSettings;
-import com.google.android.gms.maps.model.CameraPosition;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
-
 import org.joda.time.DateTime;
 
 import java.util.ArrayList;
@@ -46,7 +31,6 @@ import ar.com.corpico.appcorpico.R;
 import ar.com.corpico.appcorpico.orders.data.OrdersRepository;
 import ar.com.corpico.appcorpico.orders.data.OrdersRestStore;
 import ar.com.corpico.appcorpico.orders.data.OrdersSqliteStore;
-import ar.com.corpico.appcorpico.orders.domain.entity.Order;
 import ar.com.corpico.appcorpico.orders.domain.usecase.AddOrdersState;
 import ar.com.corpico.appcorpico.orders.domain.usecase.GetOrders;
 import ar.com.corpico.appcorpico.orders.presentation.AsignarAConexiones;
@@ -73,7 +57,7 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_order);
+        setContentView(R.layout.orders_list_act);
         mOrderType="Conexiones";
         final Spinner spinner = (Spinner) findViewById(R.id.spinner_toolBar);
 
@@ -97,13 +81,13 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements 
         });
 
         mOrderView = (OrdersFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.activity_order);
+                .findFragmentById(R.id.orders_view_container);
 
         if (mOrderView == null) {
             mOrderView = OrdersFragment.newInstance(mOrderType);
 
             getSupportFragmentManager().beginTransaction()
-            .add(R.id.activity_order, mOrderView,"OrderView")
+            .add(R.id.orders_view_container, mOrderView,"OrderView")
             .addToBackStack(null)
             .commit();
 
@@ -156,6 +140,24 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements 
 
         // Personalización del SearchView
         searchView.setSubmitButtonEnabled(true);
+
+        // TODO: Entender y probar este código
+       /* MenuItem searchItem = menu.findItem(R.id.action_search);
+        MenuItemCompat.setOnActionExpandListener(searchItem,
+                new MenuItemCompat.OnActionExpandListener() {
+                    @Override
+                    public boolean onMenuItemActionExpand(MenuItem item) {
+                        return false;
+                    }
+
+                    @Override
+                    public boolean onMenuItemActionCollapse(MenuItem item) {
+                        mOrderView.setLoadOrderList(mOrderType);
+                        return false;
+                    }
+                }
+                    );*/
+
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextChange(String newText) {
@@ -169,14 +171,6 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements 
             }
             @Override
             public boolean onQueryTextSubmit(String query) { return false; }
-        });
-        searchView.setOnCloseListener(new SearchView.OnCloseListener() {
-            @Override
-            public boolean onClose() {
-                //Toast.makeText(this(), "BOTON NEGATIVO", Toast.LENGTH_SHORT).show();
-                mOrderView.setLoadOrderList(mOrderType);
-                return false;
-            }
         });
 
         return true;
@@ -195,20 +189,15 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements 
                 invalidateOptionsMenu();
                 FragmentManager fm = getSupportFragmentManager();
                 FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-                mOrderMapView = (OrdersMapsFragment) fm.findFragmentById(R.id.map_container);
+                mOrderMapView = (OrdersMapsFragment) fm.findFragmentById(R.id.list_order);
 
                 if (mOrderMapView == null) {
                     mOrderMapView = new OrdersMapsFragment();
-                    ft.replace(R.id.list_order, mOrderMapView,"OrderViewMap")
+                    ft.replace(R.id.orders_view_container, mOrderMapView,"OrderViewMap")
                     .addToBackStack("OrderViewMap")
                     .commit();
                     /*mOrderView.putOrderList();
                     mOrderMapView.setOrderMap(mmOrderList);*/
-                }else{
-                    /*ft.replace(R.id.list_order, mOrderMapView,"OrderViewMap")
-                            .addToBackStack(null)
-                            .commit();*/
-                    fm.popBackStack();
                 }
                 break;
             case R.id.action_list:
@@ -216,20 +205,14 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements 
                 invalidateOptionsMenu();
                 fm = getSupportFragmentManager();
                 ft = getSupportFragmentManager().beginTransaction();
-                mOrderView = (OrdersFragment) fm.findFragmentById(R.id.activity_order);
+                mOrderView = (OrdersFragment) fm.findFragmentById(R.id.orders_view_container);
 
                 if (mOrderView == null) {
                     mOrderView = OrdersFragment.newInstance(mOrderType);
-                    ft.replace(R.id.map_container, mOrderView,"OrderView")
+                    ft.replace(R.id.orders_view_container, mOrderView,"OrderView")
                             .addToBackStack("OrderView")
                             .commit();
-                }else{
-                        /*ft.replace(R.id.map_container, mOrderView,"OrderView")
-                                .addToBackStack(null)
-                                .commit();*/
-                                fm.popBackStack();
                 }
-
             case R.id.action_settings:
                 break;
         }
@@ -239,7 +222,7 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements 
 
     @Override
     public void onPossitiveButtonClick(String estado, String tipo, String sector, DateTime desde, DateTime hasta, Boolean estadoActual) {
-        OrdersFragment mOrderFragmen = (OrdersFragment) getSupportFragmentManager().findFragmentById(R.id.activity_order);
+        OrdersFragment mOrderFragmen = (OrdersFragment) getSupportFragmentManager().findFragmentById(R.id.orders_view_container);
         mOrderFragmen.setOrderFilter(estado, tipo, sector, desde, hasta, null,estadoActual);
     }
 
@@ -264,7 +247,7 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements 
             String query = intent.getStringExtra(SearchManager.QUERY);
             //TODO: VER EN LA BUSQUEDA LA FEHCA...SI PONGO NULL ESTA CONTROLADO...PERO EN EL TIEMPO...PUEDE TRAER.
             //MUCHOS REGISTROS...COMO PODRIAMOS CONTROLAR ESO?
-            OrdersFragment mOrderFragmen = (OrdersFragment) getSupportFragmentManager().findFragmentById(R.id.activity_order);
+            OrdersFragment mOrderFragmen = (OrdersFragment) getSupportFragmentManager().findFragmentById(R.id.orders_view_container);
             //mOrderFragmen.setOrderFilter("Todos", "Todos", "Todos", null, null, query,false);
             mOrderFragmen.setOrderFilter("Pendiente", "Todos", "Todos", null, null, query,true);
         }
