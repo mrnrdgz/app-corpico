@@ -24,7 +24,9 @@ public class OrdersPresenter implements Presenter {
     private AddOrdersState maddOrdersState;
     private GetOrders mgetOrders;
     private View mOrdersView;
+    private ar.com.corpico.appcorpico.ordersmaps.View mOrdersMapView;
     private String mCuadrilla;
+    private Boolean mList;
 
     //TODO: COMO MANEJO ACA EL CASO DE USO? SI ESTA MACHEADO EL CASO DE USO...TENGO QUE HACER UN CONSTRUCTOR POR CADA UNO?
     //O LO PUEDO PONER COMO VARIABLE AL TIPO?
@@ -33,11 +35,15 @@ public class OrdersPresenter implements Presenter {
         mgetOrders = Preconditions.checkNotNull(getOrders, "El presentador no puede ser null");
         mOrdersView = Preconditions.checkNotNull(ordersView, "La vista no puede ser null");
         mOrdersView.setPresenter(this);
+        /*mOrdersMapView = OrdersMapView;
+        mOrdersMapView.setPresenter(this);*/
+
     }
 
     @Override
-    public void loadOrderList(String estado, String tipo, String sector, DateTime desde, DateTime hasta, String search,Boolean estadoActual) {
+    public void loadOrderList(String estado, String tipo, String sector, DateTime desde, DateTime hasta, String search,Boolean estadoActual,Boolean list) {
         // Se reciben valores de cada filtro
+        mList=list;
         //CriteriaState criteriaState = new CriteriaState(estado);
         CriteriaSector criteriaSector = new CriteriaSector(sector);
         CriteriaTipo criteriaTipo = new CriteriaTipo(tipo);
@@ -65,7 +71,12 @@ public class OrdersPresenter implements Presenter {
                 List<Order> orders = responseValue.getOrders();
                 if (orders.size() >= 1) {
                     // Mostrar la lista en la vista
-                    mOrdersView.showOrderList(orders);
+                    if(mList==true){
+                        mOrdersView.showOrderList(orders);
+                    }else{
+                        mOrdersMapView.showOrderMap(orders);
+                    }
+
                 } else {
                     // Mostrar estado vacío
                     mOrdersView.showOrderList(orders);

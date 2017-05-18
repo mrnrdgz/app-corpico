@@ -9,6 +9,7 @@ import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -17,6 +18,7 @@ import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.UiSettings;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -35,8 +37,10 @@ import ar.com.corpico.appcorpico.orders.presentation.Presenter;
 /**
  * Muestra el mapa
  */
-public class OrdersMapsFragment extends SupportMapFragment implements OnMapReadyCallback, ar.com.corpico.appcorpico.orders.presentation.View {
+public class OrdersMapsFragment extends SupportMapFragment implements OnMapReadyCallback, ar.com.corpico.appcorpico.orders.presentation.View, ar.com.corpico.appcorpico.ordersmaps.View {
     private GoogleMap mMap;
+    private String mOrderType;
+    private Presenter mOrdersPresenter;
     private ArrayList<Order> ordersMap = new ArrayList<Order>();
     private static final int LOCATION_REQUEST_CODE = 1;
     private List<Order> mListMap;
@@ -44,15 +48,20 @@ public class OrdersMapsFragment extends SupportMapFragment implements OnMapReady
     public OrdersMapsFragment() {
     }
 
-    public static OrdersMapsFragment newInstance() {
-        return new OrdersMapsFragment();
+    public static OrdersMapsFragment newInstance(String tipo) {
+        OrdersMapsFragment fragment = new OrdersMapsFragment();
+        Bundle args = new Bundle();
+        // TODO: Pasar los demás parámetros de la Action Bar
+        args.putString("tipo", tipo);
+        fragment.setArguments(args);
+        return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        ordersMap.add(new Order("839127", "Eléctrico", "2", "Retiro de Medidor", "Por Morosidad", null, "15514", "1", "Luisa Gonzalez", "Pasaje Rivero 957", "General Pico", "", "35.6630S", "63.7608W", "Nada"));
+        /*ordersMap.add(new Order("839127", "Eléctrico", "2", "Retiro de Medidor", "Por Morosidad", null, "15514", "1", "Luisa Gonzalez", "Pasaje Rivero 957", "General Pico", "", "35.6630S", "63.7608W", "Nada"));
         ordersMap.add(new Order("839128", "Eléctrico", "3", "Cambio de Medidor", "Trabado", null, "22814", "1", "Jorgelina Rodriguez", "Calle 531", "General Pico", "", "35.6562S", "63.7537W", "Algo"));
         ordersMap.add(new Order("839129", "Eléctrico", "4", "Colocacion de Medidor", "Suministro Nuevo", null, "24429", "7", "Gustavo Turienzo", "Calle 29", "General Pico", "", "35.6657S", "63.7494W", "Todo"));
         ordersMap.add(new Order("839130", "Eléctrico", "4", "Retiro de Medidor", "Solicitud del Cliente", null, "55472", "1", "Gonzalo Fernandez", "Calle 18", "General Pico", "", "35.6601S", "63.7690W", "Siempre"));
@@ -60,7 +69,21 @@ public class OrdersMapsFragment extends SupportMapFragment implements OnMapReady
         ordersMap.add(new Order("839132", "Eléctrico", "2", "Retiro de Medidor", "Por Morosidad", null, "17495", "1", "Juan Perez", "Pasaje Rivero 957", "General Pico", "", "35.6629S", "63.7476W", "Nada"));
         ordersMap.add(new Order("839133", "Eléctrico", "3", "Cambio de Medidor", "Solic. Energia Prepaga", null, "6377", "1", "Rodrigo Nieto", "Calle 531", "General Pico", "", "35.6788S", "63.7530W", "Algo"));
         ordersMap.add(new Order("839134", "Eléctrico", "4", "Colocacion de Medidor", "Regularizacion de Deuda", null, "44345", "1", "Jose Ferrando", "Calle 29", "General Pico", "", "35.6678S", "63.7555W", "Todo"));
-        ordersMap.add(new Order("839135", "Eléctrico", "4", "Retiro de Medidor", "Solicitud del Cliente", null, "42352", "1", "Fabio Gomez", "Calle 18", "General Pico", "", "35.6810S", "63.7491W", "Siempre"));
+        ordersMap.add(new Order("839135", "Eléctrico", "4", "Retiro de Medidor", "Solicitud del Cliente", null, "42352", "1", "Fabio Gomez", "Calle 18", "General Pico", "", "35.6810S", "63.7491W", "Siempre"));*/
+        if (getArguments() != null) {
+            // Toman parámetros
+            mOrderType = getArguments().getString("tipo");
+            Spinner activitySpinner = (Spinner) getActivity().findViewById(R.id.spinner_toolBar);
+            if (mOrderType.equals("Conexiones")){
+                activitySpinner.setSelection(0);
+            }
+            if (mOrderType.equals("Desconexiones")){
+                activitySpinner.setSelection(1);
+            }
+            if (mOrderType.equals("Varios")){
+                activitySpinner.setSelection(2);
+            }
+        }
         getMapAsync(this);
 
     }
@@ -68,6 +91,7 @@ public class OrdersMapsFragment extends SupportMapFragment implements OnMapReady
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View root = super.onCreateView(inflater, container, savedInstanceState);
+        this.setLoadOrderList(mOrderType);
         return root;
     }
     @Override
@@ -119,7 +143,7 @@ public class OrdersMapsFragment extends SupportMapFragment implements OnMapReady
                 }
             }
             mMap.getUiSettings().setZoomControlsEnabled(true);
-            LoadOrderMap(ordersMap);
+            //this.LoadOrderMap(ordersMap);
 
     }
     public void setOrderMap(List<Order> orders){
@@ -136,6 +160,7 @@ public class OrdersMapsFragment extends SupportMapFragment implements OnMapReady
 
             mMap.addMarker(new MarkerOptions()
                     .position(mLatLng)
+                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW))
                     .title(order.getTitular() + " - " + order.getDomicilio()));
 
             CameraPosition cameraPosition = CameraPosition.builder()
@@ -162,6 +187,10 @@ public class OrdersMapsFragment extends SupportMapFragment implements OnMapReady
     public void showOrderList(List<Order> listorder) {
 
     }
+    public void showOrderMap(List<Order> listorder) {
+        //mMap.clear();
+        this.LoadOrderMap(listorder);
+    }
 
     @Override
     public void showOrderError(String error) {
@@ -170,7 +199,7 @@ public class OrdersMapsFragment extends SupportMapFragment implements OnMapReady
 
     @Override
     public void setPresenter(Presenter presenter) {
-
+        mOrdersPresenter = presenter;
     }
 
     @Override
@@ -190,7 +219,17 @@ public class OrdersMapsFragment extends SupportMapFragment implements OnMapReady
 
     @Override
     public void setLoadOrderList(String tipo) {
+        mOrderType=tipo;
+        if (tipo.equals("Conexiones")){
+            mOrdersPresenter.loadOrderList("Pendiente","Colocacion de Medidor","Todos",null,null,null,true,false);
 
+        }
+        if (tipo.equals("Desconexiones")){
+            mOrdersPresenter.loadOrderList("Pendiente","Retiro de Medidor","Todos",null,null,null,true,false);
+        }
+        if (tipo.equals("Varios")){
+            mOrdersPresenter.loadOrderList("Pendiente","Varios","Todos",null,null,null,true,false);
+        }
     }
 
     @Override

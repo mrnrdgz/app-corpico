@@ -93,6 +93,10 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements 
 
         }
 
+        mOrderMapView = OrdersMapsFragment.newInstance(mOrderType);
+
+
+
         //SETEA LA LLAMADA PARA QUE LA ACTIVIDAD TENGA COMUNICACION CON ORDERADAPTER
         mOrderView.setListener(this);
 
@@ -192,7 +196,7 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements 
                 mOrderMapView = (OrdersMapsFragment) fm.findFragmentById(R.id.list_order);
 
                 if (mOrderMapView == null) {
-                    mOrderMapView = new OrdersMapsFragment();
+                    mOrderMapView = OrdersMapsFragment.newInstance(mOrderType);
                     ft.replace(R.id.orders_view_container, mOrderMapView,"OrderViewMap")
                     .addToBackStack("OrderViewMap")
                     .commit();

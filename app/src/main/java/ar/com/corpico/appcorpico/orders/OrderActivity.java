@@ -25,6 +25,7 @@ import ar.com.corpico.appcorpico.orders.presentation.OrdersFilterDialog;
 import ar.com.corpico.appcorpico.orders.presentation.OrdersFilterDialog.OnFilterDialogListener;
 import ar.com.corpico.appcorpico.orders.presentation.OrdersFragment;
 import ar.com.corpico.appcorpico.orders.presentation.OrdersPresenter;
+import ar.com.corpico.appcorpico.ordersmaps.OrdersMapsFragment;
 
 public class OrderActivity extends NavitationDrawerActivity implements OnFilterDialogListener,DatePickerDialog.OnDateSetListener {
     private OrdersFilterDialog dialogOrdersFilter;
@@ -35,6 +36,7 @@ public class OrderActivity extends NavitationDrawerActivity implements OnFilterD
         setContentView(R.layout.orders_list_act);
 
         OrdersFragment orderView;
+
         orderView = (OrdersFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.orders_view_container);
 

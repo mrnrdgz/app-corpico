@@ -209,14 +209,14 @@ public class OrdersFragment extends Fragment implements ar.com.corpico.appcorpic
     public void setLoadOrderList(String tipo) {
         mOrderType=tipo;
         if (tipo.equals("Conexiones")){
-            mOrdersPresenter.loadOrderList("Pendiente","Colocacion de Medidor","Todos",null,null,null,true);
+            mOrdersPresenter.loadOrderList("Pendiente","Colocacion de Medidor","Todos",null,null,null,true,true);
 
         }
         if (tipo.equals("Desconexiones")){
-            mOrdersPresenter.loadOrderList("Pendiente","Retiro de Medidor","Todos",null,null,null,true);
+            mOrdersPresenter.loadOrderList("Pendiente","Retiro de Medidor","Todos",null,null,null,true,true);
         }
         if (tipo.equals("Varios")){
-            mOrdersPresenter.loadOrderList("Pendiente","Varios","Todos",null,null,null,true);
+            mOrdersPresenter.loadOrderList("Pendiente","Varios","Todos",null,null,null,true,true);
         }
     }
     @Override
@@ -268,7 +268,7 @@ public class OrdersFragment extends Fragment implements ar.com.corpico.appcorpic
 
     @Override
     public void setOrderFilter(String estado, String tipo, String sector, DateTime desde, DateTime hasta, String search,Boolean estadoActual) {
-        mOrdersPresenter.loadOrderList(estado,tipo,sector,desde,hasta,search,estadoActual);
+        mOrdersPresenter.loadOrderList(estado,tipo,sector,desde,hasta,search,estadoActual,true);
     }
 
 }
