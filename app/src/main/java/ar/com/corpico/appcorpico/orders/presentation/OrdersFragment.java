@@ -239,6 +239,21 @@ public class OrdersFragment extends Fragment implements ar.com.corpico.appcorpic
     }
 
     @Override
+    public void LoadOrderMap(List<Order> listorder) {
+
+    }
+
+    @Override
+    public void showOrderMap(List<Order> listorder) {
+
+    }
+
+    @Override
+    public Presenter getPresenter() {
+        return mOrdersPresenter;
+    }
+
+    @Override
     public void showOrderList(List<Order> orders) {
         mOrdersAdapter.clear();
         mOrdersAdapter.addAll(orders);

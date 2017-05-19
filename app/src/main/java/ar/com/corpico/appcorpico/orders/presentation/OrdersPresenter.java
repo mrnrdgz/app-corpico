@@ -24,19 +24,19 @@ public class OrdersPresenter implements Presenter {
     private AddOrdersState maddOrdersState;
     private GetOrders mgetOrders;
     private View mOrdersView;
-    private ar.com.corpico.appcorpico.ordersmaps.View mOrdersMapView;
+    private View mOrdersMapView;
     private String mCuadrilla;
     private Boolean mList;
 
     //TODO: COMO MANEJO ACA EL CASO DE USO? SI ESTA MACHEADO EL CASO DE USO...TENGO QUE HACER UN CONSTRUCTOR POR CADA UNO?
     //O LO PUEDO PONER COMO VARIABLE AL TIPO?
-    public OrdersPresenter(GetOrders getOrders, AddOrdersState addOrdersState, View ordersView) {
+    public OrdersPresenter(GetOrders getOrders, AddOrdersState addOrdersState, View ordersView,View ordersMapView) {
         maddOrdersState = Preconditions.checkNotNull(addOrdersState, "El presentador no puede ser null");
         mgetOrders = Preconditions.checkNotNull(getOrders, "El presentador no puede ser null");
         mOrdersView = Preconditions.checkNotNull(ordersView, "La vista no puede ser null");
         mOrdersView.setPresenter(this);
-        /*mOrdersMapView = OrdersMapView;
-        mOrdersMapView.setPresenter(this);*/
+        mOrdersMapView = ordersMapView;
+        mOrdersMapView.setPresenter(this);
 
     }
 

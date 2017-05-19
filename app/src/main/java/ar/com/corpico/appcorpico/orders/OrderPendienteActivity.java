@@ -122,7 +122,7 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements 
          * <<create>> Caso de uso Presenter
          */
         //TODO: ACA DEBERIA USAR UNA VARIABLE PARA PONER EL CASO DE USO?
-        OrdersPresenter orderPresenter = new OrdersPresenter(getOrders, addOrdersState, mOrderView);
+        OrdersPresenter orderPresenter = new OrdersPresenter(getOrders, addOrdersState, mOrderView,mOrderMapView);
 
         handleIntent(getIntent());
     }

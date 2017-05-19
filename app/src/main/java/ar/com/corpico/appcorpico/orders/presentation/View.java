@@ -22,4 +22,8 @@ public interface View {
     //public void setAsignarOrder(String cuadrilla, String numero);
     void setAsignarOrder(String cuadrilla, List<String> listorder);
     List<Order> putOrderList();
+    // SON FUNCIONES DE MAP
+    void LoadOrderMap(List<Order> listorder);
+    void showOrderMap(List<Order> listorder);
+    Presenter getPresenter();
 }

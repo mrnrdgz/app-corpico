@@ -37,10 +37,10 @@ import ar.com.corpico.appcorpico.orders.presentation.Presenter;
 /**
  * Muestra el mapa
  */
-public class OrdersMapsFragment extends SupportMapFragment implements OnMapReadyCallback, ar.com.corpico.appcorpico.orders.presentation.View, ar.com.corpico.appcorpico.ordersmaps.View {
+public class OrdersMapsFragment extends SupportMapFragment implements OnMapReadyCallback, ar.com.corpico.appcorpico.orders.presentation.View {
     private GoogleMap mMap;
     private String mOrderType;
-    private Presenter mOrdersPresenter;
+    private Presenter mOrdersMapPresenter;
     private ArrayList<Order> ordersMap = new ArrayList<Order>();
     private static final int LOCATION_REQUEST_CODE = 1;
     private List<Order> mListMap;
@@ -91,7 +91,7 @@ public class OrdersMapsFragment extends SupportMapFragment implements OnMapReady
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View root = super.onCreateView(inflater, container, savedInstanceState);
-        this.setLoadOrderList(mOrderType);
+        setLoadOrderList(mOrderType);
         return root;
     }
     @Override
@@ -143,7 +143,7 @@ public class OrdersMapsFragment extends SupportMapFragment implements OnMapReady
                 }
             }
             mMap.getUiSettings().setZoomControlsEnabled(true);
-            //this.LoadOrderMap(ordersMap);
+            this.LoadOrderMap(ordersMap);
 
     }
     public void setOrderMap(List<Order> orders){
@@ -188,8 +188,13 @@ public class OrdersMapsFragment extends SupportMapFragment implements OnMapReady
 
     }
     public void showOrderMap(List<Order> listorder) {
-        //mMap.clear();
+        mMap.clear();
         this.LoadOrderMap(listorder);
+    }
+
+    @Override
+    public Presenter getPresenter() {
+        return null;
     }
 
     @Override
@@ -199,7 +204,7 @@ public class OrdersMapsFragment extends SupportMapFragment implements OnMapReady
 
     @Override
     public void setPresenter(Presenter presenter) {
-        mOrdersPresenter = presenter;
+        mOrdersMapPresenter=presenter;
     }
 
     @Override
@@ -221,14 +226,13 @@ public class OrdersMapsFragment extends SupportMapFragment implements OnMapReady
     public void setLoadOrderList(String tipo) {
         mOrderType=tipo;
         if (tipo.equals("Conexiones")){
-            mOrdersPresenter.loadOrderList("Pendiente","Colocacion de Medidor","Todos",null,null,null,true,false);
-
+            mOrdersMapPresenter.loadOrderList("Pendiente","Colocacion de Medidor","Todos",null,null,null,true,false);
         }
         if (tipo.equals("Desconexiones")){
-            mOrdersPresenter.loadOrderList("Pendiente","Retiro de Medidor","Todos",null,null,null,true,false);
+            mOrdersMapPresenter.loadOrderList("Pendiente","Retiro de Medidor","Todos",null,null,null,true,false);
         }
         if (tipo.equals("Varios")){
-            mOrdersPresenter.loadOrderList("Pendiente","Varios","Todos",null,null,null,true,false);
+            mOrdersMapPresenter.loadOrderList("Pendiente","Varios","Todos",null,null,null,true,false);
         }
     }
 

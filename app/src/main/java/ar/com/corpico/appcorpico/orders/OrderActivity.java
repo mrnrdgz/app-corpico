@@ -68,7 +68,7 @@ public class OrderActivity extends NavitationDrawerActivity implements OnFilterD
         /**
          * <<create>> LoginPresenter
          */
-        OrdersPresenter orderPresenter = new OrdersPresenter(getOrders,addOrderState, orderView);
+        OrdersPresenter orderPresenter = new OrdersPresenter(getOrders,addOrderState, orderView,null);
 
         handleIntent(getIntent());
     }
