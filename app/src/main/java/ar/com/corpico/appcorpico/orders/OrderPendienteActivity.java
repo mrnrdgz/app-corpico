@@ -51,6 +51,8 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements 
     private String mOrderType;
     private OrdersFragment mOrderView;
     private OrdersMapsFragment mOrderMapView;
+    private GetOrders mGetOrders;
+    private AddOrdersState mAddOrdersState;
     private boolean mViewMap = true;
     private ArrayList mmOrderList = new ArrayList<>();
 
@@ -69,8 +71,11 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements 
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 mOrderType= spinner.getSelectedItem().toString();
-                if (mOrderType != null && mOrderView != null){
+                if (mOrderType != null && mOrderView != null && mViewMap ){
                     mOrderView.setLoadOrderList(mOrderType);
+                }
+                if (mOrderType != null && mOrderMapView != null && mViewMap==false ){
+                    mOrderMapView.setLoadOrderList(mOrderType);
                 }
             }
 
@@ -81,19 +86,19 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements 
         });
 
         mOrderView = (OrdersFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.orders_view_container);
+                .findFragmentById(R.id.list_order);
 
         if (mOrderView == null) {
             mOrderView = OrdersFragment.newInstance(mOrderType);
 
             getSupportFragmentManager().beginTransaction()
             .add(R.id.orders_view_container, mOrderView,"OrderView")
-            .addToBackStack(null)
+            //.addToBackStack(null)
             .commit();
 
         }
 
-        mOrderMapView = OrdersMapsFragment.newInstance(mOrderType);
+       // mOrderMapView = OrdersMapsFragment.newInstance(mOrderType);
 
 
 
@@ -115,14 +120,17 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements 
          * <<create>> CaseUser
          */
         //TODO: ACA DEBERIA USAR UNA VARIABLE PARA PONER EL CASO DE USO?
-        GetOrders getOrders = new GetOrders(repository);
-        AddOrdersState addOrdersState = new AddOrdersState(repository);
+        //GetOrders getOrders = new GetOrders(repository);
+        mGetOrders = new GetOrders(repository);
+        //AddOrdersState addOrdersState = new AddOrdersState(repository);
+        mAddOrdersState = new AddOrdersState(repository);
 
         /**
          * <<create>> Caso de uso Presenter
          */
         //TODO: ACA DEBERIA USAR UNA VARIABLE PARA PONER EL CASO DE USO?
-        OrdersPresenter orderPresenter = new OrdersPresenter(getOrders, addOrdersState, mOrderView,mOrderMapView);
+        OrdersPresenter orderPresenter = new OrdersPresenter(mGetOrders, mAddOrdersState, mOrderView);
+        //OrdersPresenter orderMapPresenter = new OrdersPresenter(getOrders, addOrdersState,mOrderMapView);
 
         handleIntent(getIntent());
     }
@@ -193,15 +201,16 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements 
                 invalidateOptionsMenu();
                 FragmentManager fm = getSupportFragmentManager();
                 FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-                mOrderMapView = (OrdersMapsFragment) fm.findFragmentById(R.id.list_order);
+                mOrderMapView = (OrdersMapsFragment) fm.findFragmentByTag("OrderViewMap");
 
                 if (mOrderMapView == null) {
                     mOrderMapView = OrdersMapsFragment.newInstance(mOrderType);
                     ft.replace(R.id.orders_view_container, mOrderMapView,"OrderViewMap")
-                    .addToBackStack("OrderViewMap")
+                    //.addToBackStack("OrderViewMap")
                     .commit();
                     /*mOrderView.putOrderList();
                     mOrderMapView.setOrderMap(mmOrderList);*/
+                    OrdersPresenter orderPresenter = new OrdersPresenter(mGetOrders, mAddOrdersState, mOrderMapView);
                 }
                 break;
             case R.id.action_list:
@@ -209,13 +218,14 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements 
                 invalidateOptionsMenu();
                 fm = getSupportFragmentManager();
                 ft = getSupportFragmentManager().beginTransaction();
-                mOrderView = (OrdersFragment) fm.findFragmentById(R.id.orders_view_container);
+                mOrderView = (OrdersFragment) fm.findFragmentById(R.id.list_order);
 
                 if (mOrderView == null) {
                     mOrderView = OrdersFragment.newInstance(mOrderType);
                     ft.replace(R.id.orders_view_container, mOrderView,"OrderView")
-                            .addToBackStack("OrderView")
+                            //.addToBackStack("OrderView")
                             .commit();
+                    OrdersPresenter orderPresenter = new OrdersPresenter(mGetOrders, mAddOrdersState, mOrderView);
                 }
             case R.id.action_settings:
                 break;

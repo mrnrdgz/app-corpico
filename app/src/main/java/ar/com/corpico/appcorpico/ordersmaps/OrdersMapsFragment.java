@@ -41,9 +41,7 @@ public class OrdersMapsFragment extends SupportMapFragment implements OnMapReady
     private GoogleMap mMap;
     private String mOrderType;
     private Presenter mOrdersMapPresenter;
-    private ArrayList<Order> ordersMap = new ArrayList<Order>();
     private static final int LOCATION_REQUEST_CODE = 1;
-    private List<Order> mListMap;
 
     public OrdersMapsFragment() {
     }
@@ -61,15 +59,6 @@ public class OrdersMapsFragment extends SupportMapFragment implements OnMapReady
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        /*ordersMap.add(new Order("839127", "Eléctrico", "2", "Retiro de Medidor", "Por Morosidad", null, "15514", "1", "Luisa Gonzalez", "Pasaje Rivero 957", "General Pico", "", "35.6630S", "63.7608W", "Nada"));
-        ordersMap.add(new Order("839128", "Eléctrico", "3", "Cambio de Medidor", "Trabado", null, "22814", "1", "Jorgelina Rodriguez", "Calle 531", "General Pico", "", "35.6562S", "63.7537W", "Algo"));
-        ordersMap.add(new Order("839129", "Eléctrico", "4", "Colocacion de Medidor", "Suministro Nuevo", null, "24429", "7", "Gustavo Turienzo", "Calle 29", "General Pico", "", "35.6657S", "63.7494W", "Todo"));
-        ordersMap.add(new Order("839130", "Eléctrico", "4", "Retiro de Medidor", "Solicitud del Cliente", null, "55472", "1", "Gonzalo Fernandez", "Calle 18", "General Pico", "", "35.6601S", "63.7690W", "Siempre"));
-        ordersMap.add(new Order("839131", "Eléctrico", "1", "Retiro de Medidor", "Por Morosidad", null, "40462", "2", "Antonella Privitera", "Calle 28", "General Pico", "", "35.6538S", "63.7528W", "Nunca"));
-        ordersMap.add(new Order("839132", "Eléctrico", "2", "Retiro de Medidor", "Por Morosidad", null, "17495", "1", "Juan Perez", "Pasaje Rivero 957", "General Pico", "", "35.6629S", "63.7476W", "Nada"));
-        ordersMap.add(new Order("839133", "Eléctrico", "3", "Cambio de Medidor", "Solic. Energia Prepaga", null, "6377", "1", "Rodrigo Nieto", "Calle 531", "General Pico", "", "35.6788S", "63.7530W", "Algo"));
-        ordersMap.add(new Order("839134", "Eléctrico", "4", "Colocacion de Medidor", "Regularizacion de Deuda", null, "44345", "1", "Jose Ferrando", "Calle 29", "General Pico", "", "35.6678S", "63.7555W", "Todo"));
-        ordersMap.add(new Order("839135", "Eléctrico", "4", "Retiro de Medidor", "Solicitud del Cliente", null, "42352", "1", "Fabio Gomez", "Calle 18", "General Pico", "", "35.6810S", "63.7491W", "Siempre"));*/
         if (getArguments() != null) {
             // Toman parámetros
             mOrderType = getArguments().getString("tipo");
@@ -91,7 +80,7 @@ public class OrdersMapsFragment extends SupportMapFragment implements OnMapReady
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View root = super.onCreateView(inflater, container, savedInstanceState);
-        setLoadOrderList(mOrderType);
+        this.setLoadOrderList(mOrderType);
         return root;
     }
     @Override
@@ -123,8 +112,8 @@ public class OrdersMapsFragment extends SupportMapFragment implements OnMapReady
     public void onMapReady(GoogleMap googleMap) {
             mMap = googleMap;
             UiSettings uiSettings = mMap.getUiSettings();
-            uiSettings.setScrollGesturesEnabled(false);
-            uiSettings.setTiltGesturesEnabled(false);
+            uiSettings.setScrollGesturesEnabled(true);
+            uiSettings.setTiltGesturesEnabled(true);
 
             mMap.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
             if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION)
@@ -143,12 +132,16 @@ public class OrdersMapsFragment extends SupportMapFragment implements OnMapReady
                 }
             }
             mMap.getUiSettings().setZoomControlsEnabled(true);
-            this.LoadOrderMap(ordersMap);
+
+           LatLng pico = new LatLng(-35.666667, -63.733333);
+           CameraPosition cameraPosition = new CameraPosition.Builder()
+                   .target(pico)
+                   //.zoom(20)
+                   .build();
+           mMap.moveCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
 
     }
-    public void setOrderMap(List<Order> orders){
-        mListMap = orders;
-    }
+
     public void LoadOrderMap(List<Order> orders){
         for (Order order : orders) {
             Double mLat,mLng;
@@ -165,22 +158,11 @@ public class OrdersMapsFragment extends SupportMapFragment implements OnMapReady
 
             CameraPosition cameraPosition = CameraPosition.builder()
                     .target(mLatLng)
-                    .zoom(2)
+                    .zoom(14)
                     .build();
 
             mMap.moveCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
         }
-    }
-    public Double Convert_Decimal(String dsm) {
-        Double grados;
-        Double minutos;
-        Double segundos;
-
-
-        grados = new Double((dsm.substring(0,2))).doubleValue()*-1;
-        minutos = new Double((dsm.substring(3,5))).doubleValue()/-60;
-        segundos = new Double((dsm.substring(5,7))).doubleValue()/-3600;
-        return grados + minutos + segundos;
     }
 
     @Override
@@ -190,11 +172,6 @@ public class OrdersMapsFragment extends SupportMapFragment implements OnMapReady
     public void showOrderMap(List<Order> listorder) {
         mMap.clear();
         this.LoadOrderMap(listorder);
-    }
-
-    @Override
-    public Presenter getPresenter() {
-        return null;
     }
 
     @Override
@@ -239,10 +216,5 @@ public class OrdersMapsFragment extends SupportMapFragment implements OnMapReady
     @Override
     public void setAsignarOrder(String cuadrilla, List<String> listorder) {
 
-    }
-
-    @Override
-    public List<Order> putOrderList() {
-        return null;
     }
 }

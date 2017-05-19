@@ -30,13 +30,13 @@ public class OrdersPresenter implements Presenter {
 
     //TODO: COMO MANEJO ACA EL CASO DE USO? SI ESTA MACHEADO EL CASO DE USO...TENGO QUE HACER UN CONSTRUCTOR POR CADA UNO?
     //O LO PUEDO PONER COMO VARIABLE AL TIPO?
-    public OrdersPresenter(GetOrders getOrders, AddOrdersState addOrdersState, View ordersView,View ordersMapView) {
+    public OrdersPresenter(GetOrders getOrders, AddOrdersState addOrdersState, View ordersView) {
         maddOrdersState = Preconditions.checkNotNull(addOrdersState, "El presentador no puede ser null");
         mgetOrders = Preconditions.checkNotNull(getOrders, "El presentador no puede ser null");
         mOrdersView = Preconditions.checkNotNull(ordersView, "La vista no puede ser null");
         mOrdersView.setPresenter(this);
-        mOrdersMapView = ordersMapView;
-        mOrdersMapView.setPresenter(this);
+        /*mOrdersMapView = ordersMapView;
+        mOrdersMapView.setPresenter(this);*/
 
     }
 
@@ -74,7 +74,7 @@ public class OrdersPresenter implements Presenter {
                     if(mList==true){
                         mOrdersView.showOrderList(orders);
                     }else{
-                        mOrdersMapView.showOrderMap(orders);
+                        mOrdersView.showOrderMap(orders);
                     }
 
                 } else {

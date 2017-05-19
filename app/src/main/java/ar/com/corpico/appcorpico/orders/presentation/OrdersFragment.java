@@ -225,20 +225,6 @@ public class OrdersFragment extends Fragment implements ar.com.corpico.appcorpic
     }
 
     @Override
-    public List<Order> putOrderList() {
-        ArrayList<Order> mFakeRestOrder = new ArrayList<>();
-        for(int i=0; i <= mOrdersAdapter.getCount();i++){
-            mFakeRestOrder.add(new Order(mOrdersAdapter.getItem(i).getNumero(), mOrdersAdapter.getItem(i).getServicio(),mOrdersAdapter.getItem(i).getSector(),
-                    mOrdersAdapter.getItem(i).getTipo(),mOrdersAdapter.getItem(i).getMotivo(),mOrdersAdapter.getItem(i).getEtapas(),
-                    mOrdersAdapter.getItem(i).getAsociado(),mOrdersAdapter.getItem(i).getSuministro(),mOrdersAdapter.getItem(i).getTitular(),
-                    mOrdersAdapter.getItem(i).getDomicilio(),mOrdersAdapter.getItem(i).getLocalidad(),mOrdersAdapter.getItem(i).getAnexo(),
-                    mOrdersAdapter.getItem(i).getLatitud(),mOrdersAdapter.getItem(i).getLongitud(),mOrdersAdapter.getItem(i).getObservacion()) );
-        }
-        Toast.makeText(getActivity(), "Cantidad: " + mOrdersAdapter.getCount() , Toast.LENGTH_SHORT).show();
-        return mFakeRestOrder;
-    }
-
-    @Override
     public void LoadOrderMap(List<Order> listorder) {
 
     }
@@ -246,11 +232,6 @@ public class OrdersFragment extends Fragment implements ar.com.corpico.appcorpic
     @Override
     public void showOrderMap(List<Order> listorder) {
 
-    }
-
-    @Override
-    public Presenter getPresenter() {
-        return mOrdersPresenter;
     }
 
     @Override
