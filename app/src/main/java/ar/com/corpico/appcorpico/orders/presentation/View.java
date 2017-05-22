@@ -1,9 +1,12 @@
 package ar.com.corpico.appcorpico.orders.presentation;
 
+import android.app.Activity;
+
 import org.joda.time.DateTime;
 
 import java.util.List;
 
+import ar.com.corpico.appcorpico.orders.domain.entity.Cuadrilla;
 import ar.com.corpico.appcorpico.orders.domain.entity.Order;
 
 /**
@@ -12,6 +15,7 @@ import ar.com.corpico.appcorpico.orders.domain.entity.Order;
 
 public interface View {
     void showOrderList(List<Order> listorder);
+    void showCuadrillasList(List<Cuadrilla> listorder);
     void showOrderError(String error);
     void setPresenter(Presenter presenter);
     void showOrdesEmpty();
@@ -22,6 +26,4 @@ public interface View {
     //public void setAsignarOrder(String cuadrilla, String numero);
     void setAsignarOrder(String cuadrilla, List<String> listorder);
     // SON FUNCIONES DE MAP
-    void LoadOrderMap(List<Order> listorder);
-    void showOrderMap(List<Order> listorder);
 }

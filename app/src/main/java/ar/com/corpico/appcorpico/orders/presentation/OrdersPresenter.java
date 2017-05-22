@@ -1,5 +1,7 @@
 package ar.com.corpico.appcorpico.orders.presentation;
 
+import android.app.Activity;
+
 import com.google.common.base.Preconditions;
 
 import org.joda.time.DateTime;
@@ -7,13 +9,16 @@ import org.joda.time.DateTime;
 import java.util.List;
 
 import ar.com.corpico.appcorpico.UseCase;
+import ar.com.corpico.appcorpico.orders.domain.entity.Cuadrilla;
 import ar.com.corpico.appcorpico.orders.domain.entity.Order;
 import ar.com.corpico.appcorpico.orders.domain.filter.AndCriteria;
+import ar.com.corpico.appcorpico.orders.domain.filter.CriteriaCuadrilla;
 import ar.com.corpico.appcorpico.orders.domain.filter.CriteriaSearch;
 import ar.com.corpico.appcorpico.orders.domain.filter.CriteriaSector;
 import ar.com.corpico.appcorpico.orders.domain.filter.CriteriaTipo;
 import ar.com.corpico.appcorpico.orders.domain.filter.OrderCriteriaFecha;
 import ar.com.corpico.appcorpico.orders.domain.usecase.AddOrdersState;
+import ar.com.corpico.appcorpico.orders.domain.usecase.GetCuadrillas;
 import ar.com.corpico.appcorpico.orders.domain.usecase.GetOrders;
 
 /**
@@ -23,30 +28,30 @@ import ar.com.corpico.appcorpico.orders.domain.usecase.GetOrders;
 public class OrdersPresenter implements Presenter {
     private AddOrdersState maddOrdersState;
     private GetOrders mgetOrders;
+    private GetCuadrillas mgetCuadrillas;
     private View mOrdersView;
-    private View mOrdersMapView;
     private String mCuadrilla;
-    private Boolean mList;
 
     //TODO: COMO MANEJO ACA EL CASO DE USO? SI ESTA MACHEADO EL CASO DE USO...TENGO QUE HACER UN CONSTRUCTOR POR CADA UNO?
     //O LO PUEDO PONER COMO VARIABLE AL TIPO?
-    public OrdersPresenter(GetOrders getOrders, AddOrdersState addOrdersState, View ordersView) {
+    public OrdersPresenter(GetOrders getOrders, AddOrdersState addOrdersState, GetCuadrillas getCuadrillas, View ordersView) {
         maddOrdersState = Preconditions.checkNotNull(addOrdersState, "El presentador no puede ser null");
         mgetOrders = Preconditions.checkNotNull(getOrders, "El presentador no puede ser null");
+        mgetCuadrillas=Preconditions.checkNotNull(getCuadrillas, "El presentador no puede ser null");
         mOrdersView = Preconditions.checkNotNull(ordersView, "La vista no puede ser null");
-        mOrdersView.setPresenter(this);
+        //mOrdersView.setPresenter(this);
         /*mOrdersMapView = ordersMapView;
         mOrdersMapView.setPresenter(this);*/
 
     }
 
     @Override
-    public void loadOrderList(String estado, String tipo, String sector, DateTime desde, DateTime hasta, String search,Boolean estadoActual,Boolean list) {
+    public void loadOrderList(String estado, String tipo, String sector, DateTime desde, DateTime hasta, String search,Boolean estadoActual) {
         // Se reciben valores de cada filtro
-        mList=list;
         //CriteriaState criteriaState = new CriteriaState(estado);
         CriteriaSector criteriaSector = new CriteriaSector(sector);
         CriteriaTipo criteriaTipo = new CriteriaTipo(tipo);
+
         OrderCriteriaFecha criteriaFecha = new OrderCriteriaFecha(estado,desde,hasta,estadoActual);
         CriteriaSearch criteriaSearch = new CriteriaSearch(search);
 
@@ -71,12 +76,7 @@ public class OrdersPresenter implements Presenter {
                 List<Order> orders = responseValue.getOrders();
                 if (orders.size() >= 1) {
                     // Mostrar la lista en la vista
-                    if(mList==true){
-                        mOrdersView.showOrderList(orders);
-                    }else{
-                        mOrdersView.showOrderMap(orders);
-                    }
-
+                    mOrdersView.showOrderList(orders);
                 } else {
                     // Mostrar estado vacío
                     mOrdersView.showOrderList(orders);
@@ -122,5 +122,41 @@ public class OrdersPresenter implements Presenter {
         };
 
         maddOrdersState.execute(requestValues,useCaseCallback);
+    }
+
+    @Override
+    public void loadCuadrilla(String servicio) {
+        CriteriaCuadrilla criteriaCuadrilla = new CriteriaCuadrilla(servicio);
+
+        GetCuadrillas.RequestValues requestValues = new GetCuadrillas.RequestValues(criteriaCuadrilla);
+
+        UseCase.UseCaseCallback useCaseCallback = new UseCase.UseCaseCallback(){
+            @Override
+            public void onSuccess(Object response) {
+                // Ocultar indicador de progreso
+                //mOrdersView.showProgressIndicator(false);
+                // Se obtiene el valor de respuesta del caso de uso
+                GetCuadrillas.ResponseValue responseValue = (GetCuadrillas.ResponseValue) response;
+
+                // ¿La lista tiene uno o más elementos?
+                List<Cuadrilla> cuadrillas = responseValue.getCuadrilla();
+                if (cuadrillas.size() >= 1) {
+                    // Mostrar la lista en la vista
+                   mOrdersView.showCuadrillasList(cuadrillas);
+                } else {
+                    // Mostrar estado vacío
+                    mOrdersView.showCuadrillasList(cuadrillas);
+                    mOrdersView.showOrdesEmpty();
+                }
+            }
+
+            @Override
+            public void onError(String error) {
+                // Ocultar indicador de progreso
+                mOrdersView.showProgressIndicator(false);
+                mOrdersView.showOrderError(error);
+            }
+        };
+        mgetCuadrillas.execute(requestValues, useCaseCallback);
     }
 }

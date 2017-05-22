@@ -39,10 +39,10 @@ import static android.R.attr.format;
 //TODO: mejorar el diseño del layut...hacer que recuerde el seteo (fechas, etc) cuando vuelve a abrir el filtro
 // TODO:...controlar las consultas y los estados...esta confusa la consulta y los colores...(no figura fecha en la respuesta.??)
 
-public class OrdersFilterDialog extends DialogFragment{
+public class OrdersFilterAll extends DialogFragment{
     private TextView mDesdeFecha;
     private TextView mHastaFecha;
-    public OrdersFilterDialog() {
+    public OrdersFilterAll() {
     }
 
     public interface OnFilterDialogListener {
@@ -75,6 +75,7 @@ public class OrdersFilterDialog extends DialogFragment{
 
         iniciarFechaDesde(v);
         iniciarFechaHasta(v);
+
         aplicar.setOnClickListener(
                 new android.view.View.OnClickListener() {
                     @Override

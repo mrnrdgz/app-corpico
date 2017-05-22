@@ -19,16 +19,16 @@ import ar.com.corpico.appcorpico.orders.data.OrdersRepository;
 import ar.com.corpico.appcorpico.orders.data.OrdersRestStore;
 import ar.com.corpico.appcorpico.orders.data.OrdersSqliteStore;
 import ar.com.corpico.appcorpico.orders.domain.usecase.AddOrdersState;
+import ar.com.corpico.appcorpico.orders.domain.usecase.GetCuadrillas;
 import ar.com.corpico.appcorpico.orders.domain.usecase.GetOrders;
 import ar.com.corpico.appcorpico.orders.presentation.DateDialog;
-import ar.com.corpico.appcorpico.orders.presentation.OrdersFilterDialog;
-import ar.com.corpico.appcorpico.orders.presentation.OrdersFilterDialog.OnFilterDialogListener;
+import ar.com.corpico.appcorpico.orders.presentation.OrdersFilterAll;
+import ar.com.corpico.appcorpico.orders.presentation.OrdersFilterAll.OnFilterDialogListener;
 import ar.com.corpico.appcorpico.orders.presentation.OrdersFragment;
 import ar.com.corpico.appcorpico.orders.presentation.OrdersPresenter;
-import ar.com.corpico.appcorpico.ordersmaps.OrdersMapsFragment;
 
 public class OrderActivity extends NavitationDrawerActivity implements OnFilterDialogListener,DatePickerDialog.OnDateSetListener {
-    private OrdersFilterDialog dialogOrdersFilter;
+    private OrdersFilterAll dialogOrdersFilter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +41,7 @@ public class OrderActivity extends NavitationDrawerActivity implements OnFilterD
                 .findFragmentById(R.id.orders_view_container);
 
         if (orderView == null) {
-            orderView = OrdersFragment.newInstance("Todas");
+            orderView = OrdersFragment.newInstance("Todas","Todos");
 
             getSupportFragmentManager()
                     .beginTransaction()
@@ -64,11 +64,12 @@ public class OrderActivity extends NavitationDrawerActivity implements OnFilterD
          */
         GetOrders getOrders = new GetOrders(repository);
         AddOrdersState addOrderState = new AddOrdersState(repository);
+        GetCuadrillas getCuadrillas = new GetCuadrillas(repository);
 
         /**
          * <<create>> LoginPresenter
          */
-        OrdersPresenter orderPresenter = new OrdersPresenter(getOrders,addOrderState, orderView);
+        OrdersPresenter orderPresenter = new OrdersPresenter(getOrders,addOrderState, getCuadrillas,orderView);
 
         handleIntent(getIntent());
     }
@@ -99,7 +100,7 @@ public class OrderActivity extends NavitationDrawerActivity implements OnFilterD
         int id = item.getItemId();
         switch (id) {
             case R.id.action_filtrar:
-                new OrdersFilterDialog().show(getSupportFragmentManager(), "FilterDialog");
+                new OrdersFilterAll().show(getSupportFragmentManager(), "FilterDialog");
                 break;
             case R.id.action_map:
                 OrdersFragment mOrderFragmen = (OrdersFragment) getSupportFragmentManager().findFragmentById(R.id.orders_view_container);
@@ -146,7 +147,7 @@ public class OrderActivity extends NavitationDrawerActivity implements OnFilterD
 
    @Override
     public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
-        OrdersFilterDialog fragment = (OrdersFilterDialog) getSupportFragmentManager().findFragmentByTag("FilterDialog");
+        OrdersFilterAll fragment = (OrdersFilterAll) getSupportFragmentManager().findFragmentByTag("FilterDialog");
         if (fragment != null) {
             fragment.setDateDesdeView(i, i1, i2);
         }

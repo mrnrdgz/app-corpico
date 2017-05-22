@@ -18,4 +18,14 @@ public class OrdersSqliteStore implements OrderStore {
     public void addOrderEtape( String estado,ArrayList<String> numero) {
 
     }
+
+    @Override
+    public void getTypes(GetTypeStoreCallBack callback, Criteria filter) {
+
+    }
+
+    @Override
+    public void getCuadrillas(GetCuadrillaStoreCallBack callback, Criteria filter) {
+
+    }
 }

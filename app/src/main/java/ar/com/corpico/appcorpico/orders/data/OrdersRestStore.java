@@ -7,8 +7,10 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+import ar.com.corpico.appcorpico.orders.domain.entity.Cuadrilla;
 import ar.com.corpico.appcorpico.orders.domain.entity.Etapa;
 import ar.com.corpico.appcorpico.orders.domain.entity.Order;
+import ar.com.corpico.appcorpico.orders.domain.entity.Tipo;
 import ar.com.corpico.appcorpico.orders.domain.filter.Criteria;
 ///
 
@@ -19,6 +21,8 @@ import ar.com.corpico.appcorpico.orders.domain.filter.Criteria;
 public class OrdersRestStore implements OrderStore {
     // TODO: Reemplazar esta fuente falsa por una conexión real al servidor
     private static final ArrayList<Order> mFakeRestOrder = new ArrayList<>();
+    private static final ArrayList<Tipo> mFakeRestTipo = new ArrayList<>();
+    private static final ArrayList<Cuadrilla> mFakeRestCuadrilla = new ArrayList<>();
     private static final ArrayList<Etapa> mFakeRestEtapa = new ArrayList<>();
     private static final ArrayList<Etapa> mFakeRestEtapa1 = new ArrayList<>();
     private static final ArrayList<Etapa> mFakeRestEtapa2 = new ArrayList<>();
@@ -61,7 +65,7 @@ public class OrdersRestStore implements OrderStore {
     static {
         mFakeRestOrder.add(new Order("839127", "Eléctrico", "2", "Retiro de Medidor", "Por Morosidad", mFakeRestEtapa3, "15514", "1", "Luisa Gonzalez", "Pasaje Rivero 957", "General Pico", "", "35.6630S", "63.7608W", "Nada"));
         mFakeRestOrder.add(new Order("839128", "Eléctrico", "3", "Cambio de Medidor", "Trabado", mFakeRestEtapa, "22814", "1", "Jorgelina Rodriguez", "Calle 531", "General Pico", "", "35.6562S", "63.7537W", "Algo"));
-        mFakeRestOrder.add(new Order("839129", "Eléctrico", "4", "Colocacion de Medidor", "Suministro Nuevo", mFakeRestEtapa6, "24429", "7", "Gustavo Turienzo", "Calle 29", "General Pico", "", "35.6657S", "63.7494W", "Todo"));
+        mFakeRestOrder.add(new Order("839129", "Eléctrico", "3", "Colocacion de Medidor", "Suministro Nuevo", mFakeRestEtapa6, "24429", "7", "Gustavo Turienzo", "Calle 29", "General Pico", "", "35.6657S", "63.7494W", "Todo"));
         mFakeRestOrder.add(new Order("839130", "Eléctrico", "4", "Retiro de Medidor", "Solicitud del Cliente", mFakeRestEtapa7, "55472", "1", "Gonzalo Fernandez", "Calle 18", "General Pico", "", "35.6601S", "63.7690W", "Siempre"));
         mFakeRestOrder.add(new Order("839131", "Eléctrico", "1", "Retiro de Medidor", "Por Morosidad", mFakeRestEtapa8, "40462", "2", "Antonella Privitera", "Calle 28", "General Pico", "", "35.6538S", "63.7528W", "Nunca"));
         mFakeRestOrder.add(new Order("839132", "Eléctrico", "2", "Retiro de Medidor", "Por Morosidad", mFakeRestEtapa9, "17495", "1", "Juan Perez", "Pasaje Rivero 957", "General Pico", "", "35.6629S", "63.7476W", "Nada"));
@@ -71,6 +75,26 @@ public class OrdersRestStore implements OrderStore {
         mFakeRestOrder.add(new Order("839136", "Eléctrico", "1", "Retiro de Medidor", "Por Morosidad", mFakeRestEtapa2, "20484", "1", "Maria Gallo", "Calle 28", "General Pico", "", "35.6598S", "63.7498W", "Nunca"));
     }
 
+    static {
+        mFakeRestTipo.add(new Tipo("Conexiones","Colocacion de Medidor"));
+        mFakeRestTipo.add(new Tipo("Desconexiones","Retiro de Medidor"));
+        mFakeRestTipo.add(new Tipo("Varios","Cambio de Medidor"));
+        mFakeRestTipo.add(new Tipo("Varios","Inspección-Verificación"));
+        mFakeRestTipo.add(new Tipo("Varios","Verificación Lecturas"));
+        mFakeRestTipo.add(new Tipo("Varios","Desplazamiento de estructura"));
+        mFakeRestTipo.add(new Tipo("Varios","Poda de arboles"));
+        mFakeRestTipo.add(new Tipo("Varios","Reparación de veredas"));
+        mFakeRestTipo.add(new Tipo("Varios","Cambio de Tapa"));
+        mFakeRestTipo.add(new Tipo("Varios","Revisión de Medidor"));
+    }
+    static {
+        mFakeRestCuadrilla.add(new Cuadrilla("Conexiones",null,"Electrico"));
+        mFakeRestCuadrilla.add(new Cuadrilla("Desconexiones",null,"Electrico"));
+        mFakeRestCuadrilla.add(new Cuadrilla("varios","Mañana","Electrico"));
+        mFakeRestCuadrilla.add(new Cuadrilla("varios","Tarde","Electrico"));
+        mFakeRestCuadrilla.add(new Cuadrilla("Axuliar",null,"Electrico"));
+
+    }
     @Override
     public void getOrders(final GetCallback callback, final Criteria filter) {
         Handler handler = new Handler();
@@ -99,5 +123,15 @@ public class OrdersRestStore implements OrderStore {
             }
         }
 
+    }
+
+    @Override
+    public void getTypes(final GetTypeStoreCallBack callback, final Criteria filter) {
+        callback.onSuccess(filter.match(mFakeRestTipo));
+    }
+
+    @Override
+    public void getCuadrillas(GetCuadrillaStoreCallBack callback, Criteria filter) {
+        callback.onSuccess(filter.match(mFakeRestCuadrilla));
     }
 }

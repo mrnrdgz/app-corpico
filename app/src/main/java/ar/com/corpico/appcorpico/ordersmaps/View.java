@@ -11,6 +11,4 @@ import ar.com.corpico.appcorpico.orders.presentation.Presenter;
 
 public interface View {
     void LoadOrderMap(List<Order> listorder);
-    void showOrderMap(List<Order> listorder);
-    void setPresenter(Presenter presenter);
 }

@@ -5,7 +5,9 @@ import com.google.common.base.Preconditions;
 import java.util.ArrayList;
 import java.util.List;
 
+import ar.com.corpico.appcorpico.orders.domain.entity.Cuadrilla;
 import ar.com.corpico.appcorpico.orders.domain.entity.Order;
+import ar.com.corpico.appcorpico.orders.domain.entity.Tipo;
 import ar.com.corpico.appcorpico.orders.domain.filter.Criteria;
 
 /**
@@ -58,5 +60,41 @@ public class OrdersRepository implements IOrdersRepository {
     @Override
     public void addOrderState(String estado, ArrayList<String> numero) {
         mOrdersRestStore.addOrderEtape(estado, numero);
+    }
+
+    @Override
+    public void findType(final TiposRepositoryCallBack callback, Criteria filter) {
+        OrderStore.GetTypeStoreCallBack callback1 = new OrderStore.GetTypeStoreCallBack() {
+            @Override
+            public void onSuccess(List<Tipo> tipos) {
+                // TODO: Guardar datos en SQLite. Posible método save()/insert()/add()
+                callback.onSuccess(tipos);
+            }
+
+            @Override
+            public void onError(String error) {
+                callback.onError(error);
+            }
+        };
+
+        mOrdersRestStore.getTypes(callback1, filter);
+    }
+
+    @Override
+    public void findCuadrilla(final CuadrillasRepositoryCallBack callback, Criteria filter) {
+        OrderStore.GetCuadrillaStoreCallBack callback1 = new OrderStore.GetCuadrillaStoreCallBack() {
+            @Override
+            public void onSuccess(List<Cuadrilla> cuadrillas) {
+                // TODO: Guardar datos en SQLite. Posible método save()/insert()/add()
+                callback.onSuccess(cuadrillas);
+            }
+
+            @Override
+            public void onError(String error) {
+                callback.onError(error);
+            }
+        };
+
+        mOrdersRestStore.getCuadrillas(callback1, filter);
     }
 }

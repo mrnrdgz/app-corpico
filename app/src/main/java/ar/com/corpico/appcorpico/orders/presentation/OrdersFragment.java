@@ -1,5 +1,6 @@
 package ar.com.corpico.appcorpico.orders.presentation;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -23,6 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ar.com.corpico.appcorpico.R;
+import ar.com.corpico.appcorpico.orders.domain.entity.Cuadrilla;
 import ar.com.corpico.appcorpico.orders.domain.entity.Order;
 
 import static android.view.View.GONE;
@@ -37,7 +39,9 @@ public class OrdersFragment extends Fragment implements ar.com.corpico.appcorpic
     private OrdersAdapter mOrdersAdapter;
     private TextView mEmptyView;
     private android.view.View mProgressView;
-    private String mOrderType;
+    private String mCuadrilla;
+    private String mEstado;
+    private Activity mActivity;
     private ArrayList<String> list_items = new ArrayList<>();
     private int count;
     private boolean hideAsignarButton;
@@ -48,16 +52,29 @@ public class OrdersFragment extends Fragment implements ar.com.corpico.appcorpic
         // Required empty public constructor
     }
 
+   public interface OnViewActivityListener {
+        void onShowCuadrilla(List<Cuadrilla> listorder);// Eventos Botón Positivo
+    }
+
+    private OnViewActivityListener listenerViewActivity;
+
+
+    public void setActivityListener(OnViewActivityListener listener) {
+        this.listenerViewActivity=listener;
+    }
+
+
     public void setListener(OrdersAdapter.OnAsignarListener listener) {
         this.listener=listener;
     }
 
     //Aca va sin parametros o que parametros irian?
-    public static OrdersFragment newInstance(String tipo) {
+    public static OrdersFragment newInstance(String cuadrilla,String estado) {
         OrdersFragment fragment = new OrdersFragment();
         Bundle args = new Bundle();
         // TODO: Pasar los demás parámetros de la Action Bar
-        args.putString("tipo", tipo);
+        args.putString("cuadrilla", cuadrilla);
+        args.putString("estado", estado);
         fragment.setArguments(args);
         return fragment;
     }
@@ -67,15 +84,16 @@ public class OrdersFragment extends Fragment implements ar.com.corpico.appcorpic
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             // Toman parámetros
-           mOrderType = getArguments().getString("tipo");
+           mCuadrilla = getArguments().getString("cuadrilla");
+           mEstado= getArguments().getString("estado");
            Spinner activitySpinner = (Spinner) getActivity().findViewById(R.id.spinner_toolBar);
-           if (mOrderType.equals("Conexiones")){
+           if (mCuadrilla.equals("Conexiones")){
                activitySpinner.setSelection(0);
            }
-           if (mOrderType.equals("Desconexiones")){
+           if (mCuadrilla.equals("Desconexiones")){
                activitySpinner.setSelection(1);
            }
-           if (mOrderType.equals("Varios")){
+           if (mCuadrilla.equals("Varios")){
                activitySpinner.setSelection(2);
            }
         }
@@ -159,7 +177,7 @@ public class OrdersFragment extends Fragment implements ar.com.corpico.appcorpic
                         }
                         return true;
                     case R.id.action_asignaracuadrilla:
-                        mOrdersPresenter.asignarOrder(mOrderType,list_items);
+                        mOrdersPresenter.asignarOrder(mCuadrilla,list_items);
                         count=0;
                         mOrdersAdapter.clearSelection();
                         mode.finish();
@@ -201,37 +219,18 @@ public class OrdersFragment extends Fragment implements ar.com.corpico.appcorpic
             }
         });
 
-        setLoadOrderList(mOrderType);
+        setLoadOrderList(mCuadrilla);
         return root;
     }
 
     @Override
-    public void setLoadOrderList(String tipo) {
-        mOrderType=tipo;
-        if (tipo.equals("Conexiones")){
-            mOrdersPresenter.loadOrderList("Pendiente","Colocacion de Medidor","Todos",null,null,null,true,true);
-
-        }
-        if (tipo.equals("Desconexiones")){
-            mOrdersPresenter.loadOrderList("Pendiente","Retiro de Medidor","Todos",null,null,null,true,true);
-        }
-        if (tipo.equals("Varios")){
-            mOrdersPresenter.loadOrderList("Pendiente","Varios","Todos",null,null,null,true,true);
-        }
+    public void setLoadOrderList(String cuadrilla) {
+        mCuadrilla=cuadrilla;
+        mOrdersPresenter.loadOrderList(mEstado,mCuadrilla,"Todos",null,null,null,true);
     }
     @Override
     public void setAsignarOrder(String cuadrilla, List<String> listorder) {
         mOrdersPresenter.asignarOrder(cuadrilla,listorder);
-    }
-
-    @Override
-    public void LoadOrderMap(List<Order> listorder) {
-
-    }
-
-    @Override
-    public void showOrderMap(List<Order> listorder) {
-
     }
 
     @Override
@@ -264,7 +263,11 @@ public class OrdersFragment extends Fragment implements ar.com.corpico.appcorpic
 
     @Override
     public void setOrderFilter(String estado, String tipo, String sector, DateTime desde, DateTime hasta, String search,Boolean estadoActual) {
-        mOrdersPresenter.loadOrderList(estado,tipo,sector,desde,hasta,search,estadoActual,true);
+        mOrdersPresenter.loadOrderList(estado,tipo,sector,desde,hasta,search,estadoActual);
     }
 
+    @Override
+    public void showCuadrillasList(List<Cuadrilla> listorder) {
+        listenerViewActivity.onShowCuadrilla(listorder);
+    }
 }

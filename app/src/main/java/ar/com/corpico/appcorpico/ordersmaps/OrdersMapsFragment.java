@@ -1,6 +1,7 @@
 package ar.com.corpico.appcorpico.ordersmaps;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -29,6 +30,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ar.com.corpico.appcorpico.R;
+import ar.com.corpico.appcorpico.orders.domain.entity.Cuadrilla;
 import ar.com.corpico.appcorpico.orders.domain.entity.Order;
 import ar.com.corpico.appcorpico.orders.presentation.*;
 import ar.com.corpico.appcorpico.orders.presentation.Presenter;
@@ -37,20 +39,22 @@ import ar.com.corpico.appcorpico.orders.presentation.Presenter;
 /**
  * Muestra el mapa
  */
-public class OrdersMapsFragment extends SupportMapFragment implements OnMapReadyCallback, ar.com.corpico.appcorpico.orders.presentation.View {
+public class OrdersMapsFragment extends SupportMapFragment implements OnMapReadyCallback, ar.com.corpico.appcorpico.orders.presentation.View, ar.com.corpico.appcorpico.ordersmaps.View {
     private GoogleMap mMap;
-    private String mOrderType;
+    private String mCuadrilla;
+    private String mEstado;
     private Presenter mOrdersMapPresenter;
     private static final int LOCATION_REQUEST_CODE = 1;
 
     public OrdersMapsFragment() {
     }
 
-    public static OrdersMapsFragment newInstance(String tipo) {
+    public static OrdersMapsFragment newInstance(String cuadrilla,String estado) {
         OrdersMapsFragment fragment = new OrdersMapsFragment();
         Bundle args = new Bundle();
         // TODO: Pasar los demás parámetros de la Action Bar
-        args.putString("tipo", tipo);
+        args.putString("cuadrilla", cuadrilla);
+        args.putString("estado", estado);
         fragment.setArguments(args);
         return fragment;
     }
@@ -61,15 +65,16 @@ public class OrdersMapsFragment extends SupportMapFragment implements OnMapReady
 
         if (getArguments() != null) {
             // Toman parámetros
-            mOrderType = getArguments().getString("tipo");
+            mCuadrilla = getArguments().getString("cuadrilla");
+            mEstado = getArguments().getString("estado");
             Spinner activitySpinner = (Spinner) getActivity().findViewById(R.id.spinner_toolBar);
-            if (mOrderType.equals("Conexiones")){
+            if (mCuadrilla.equals("Conexiones")){
                 activitySpinner.setSelection(0);
             }
-            if (mOrderType.equals("Desconexiones")){
+            if (mCuadrilla.equals("Desconexiones")){
                 activitySpinner.setSelection(1);
             }
-            if (mOrderType.equals("Varios")){
+            if (mCuadrilla.equals("Varios")){
                 activitySpinner.setSelection(2);
             }
         }
@@ -80,7 +85,7 @@ public class OrdersMapsFragment extends SupportMapFragment implements OnMapReady
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View root = super.onCreateView(inflater, container, savedInstanceState);
-        this.setLoadOrderList(mOrderType);
+        this.setLoadOrderList(mCuadrilla);
         return root;
     }
     @Override
@@ -136,7 +141,7 @@ public class OrdersMapsFragment extends SupportMapFragment implements OnMapReady
            LatLng pico = new LatLng(-35.666667, -63.733333);
            CameraPosition cameraPosition = new CameraPosition.Builder()
                    .target(pico)
-                   //.zoom(20)
+                   .zoom(15)
                    .build();
            mMap.moveCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
 
@@ -167,11 +172,13 @@ public class OrdersMapsFragment extends SupportMapFragment implements OnMapReady
 
     @Override
     public void showOrderList(List<Order> listorder) {
-
-    }
-    public void showOrderMap(List<Order> listorder) {
         mMap.clear();
-        this.LoadOrderMap(listorder);
+        LoadOrderMap(listorder);
+    }
+
+    @Override
+    public void showCuadrillasList(List<Cuadrilla> listorder) {
+
     }
 
     @Override
@@ -196,20 +203,20 @@ public class OrdersMapsFragment extends SupportMapFragment implements OnMapReady
 
     @Override
     public void setOrderFilter(String estado, String tipo, String sector, DateTime desde, DateTime hasta, String search, Boolean estadoActual) {
-
+        mOrdersMapPresenter.loadOrderList(estado,tipo,sector,desde,hasta,search,estadoActual);
     }
 
     @Override
-    public void setLoadOrderList(String tipo) {
-        mOrderType=tipo;
-        if (tipo.equals("Conexiones")){
-            mOrdersMapPresenter.loadOrderList("Pendiente","Colocacion de Medidor","Todos",null,null,null,true,false);
+    public void setLoadOrderList(String cuadrilla) {
+        mCuadrilla=cuadrilla;
+        if (cuadrilla.equals("Conexiones")){
+            mOrdersMapPresenter.loadOrderList(mEstado,"Colocacion de Medidor","Todos",null,null,null,true);
         }
-        if (tipo.equals("Desconexiones")){
-            mOrdersMapPresenter.loadOrderList("Pendiente","Retiro de Medidor","Todos",null,null,null,true,false);
+        if (cuadrilla.equals("Desconexiones")){
+            mOrdersMapPresenter.loadOrderList(mEstado,"Retiro de Medidor","Todos",null,null,null,true);
         }
-        if (tipo.equals("Varios")){
-            mOrdersMapPresenter.loadOrderList("Pendiente","Varios","Todos",null,null,null,true,false);
+        if (cuadrilla.equals("Varios")){
+            mOrdersMapPresenter.loadOrderList(mEstado,"Varios","Todos",null,null,null,true);
         }
     }
 
