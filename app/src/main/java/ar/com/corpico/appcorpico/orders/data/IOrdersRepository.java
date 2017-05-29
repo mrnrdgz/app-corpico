@@ -3,9 +3,9 @@ package ar.com.corpico.appcorpico.orders.data;
 import java.util.ArrayList;
 import java.util.List;
 
-import ar.com.corpico.appcorpico.orders.domain.entity.Cuadrilla;
+import ar.com.corpico.appcorpico.orders.domain.entity.Tipo_Cuadrilla;
 import ar.com.corpico.appcorpico.orders.domain.entity.Order;
-import ar.com.corpico.appcorpico.orders.domain.entity.Tipo;
+import ar.com.corpico.appcorpico.orders.domain.entity.Tipo_Trabajo;
 import ar.com.corpico.appcorpico.orders.domain.filter.Criteria;
 
 /**
@@ -21,12 +21,12 @@ public interface IOrdersRepository {
     void addOrderState(String estado, ArrayList<String> numero);
     void findType(TiposRepositoryCallBack callback, Criteria filter);
     interface TiposRepositoryCallBack {
-        void onSuccess(List<Tipo> tipos);
+        void onSuccess(List<Tipo_Trabajo> tipoTrabajos);
         void onError(String error);
     }
-    void findCuadrilla(CuadrillasRepositoryCallBack callback, Criteria filter);
-    interface CuadrillasRepositoryCallBack {
-        void onSuccess(List<Cuadrilla> cuadrillas);
+    void findTipoTrabajo(TipoTrabajoRepositoryCallBack callback, Criteria filter);
+    interface TipoTrabajoRepositoryCallBack {
+        void onSuccess(List<Tipo_Trabajo> tipoTrabajo);
         void onError(String error);
     }
 }

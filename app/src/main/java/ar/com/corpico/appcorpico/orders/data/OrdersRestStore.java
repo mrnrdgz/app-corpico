@@ -7,10 +7,10 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-import ar.com.corpico.appcorpico.orders.domain.entity.Cuadrilla;
+import ar.com.corpico.appcorpico.orders.domain.entity.Tipo_Cuadrilla;
 import ar.com.corpico.appcorpico.orders.domain.entity.Etapa;
 import ar.com.corpico.appcorpico.orders.domain.entity.Order;
-import ar.com.corpico.appcorpico.orders.domain.entity.Tipo;
+import ar.com.corpico.appcorpico.orders.domain.entity.Tipo_Trabajo;
 import ar.com.corpico.appcorpico.orders.domain.filter.Criteria;
 ///
 
@@ -21,8 +21,8 @@ import ar.com.corpico.appcorpico.orders.domain.filter.Criteria;
 public class OrdersRestStore implements OrderStore {
     // TODO: Reemplazar esta fuente falsa por una conexión real al servidor
     private static final ArrayList<Order> mFakeRestOrder = new ArrayList<>();
-    private static final ArrayList<Tipo> mFakeRestTipo = new ArrayList<>();
-    private static final ArrayList<Cuadrilla> mFakeRestCuadrilla = new ArrayList<>();
+    private static final ArrayList<Tipo_Trabajo> M_FAKE_REST_TIPO_TRABAJO = new ArrayList<>();
+    private static final ArrayList<Tipo_Cuadrilla> M_FAKE_REST_TIPO_CUADRILLA = new ArrayList<>();
     private static final ArrayList<Etapa> mFakeRestEtapa = new ArrayList<>();
     private static final ArrayList<Etapa> mFakeRestEtapa1 = new ArrayList<>();
     private static final ArrayList<Etapa> mFakeRestEtapa2 = new ArrayList<>();
@@ -36,30 +36,30 @@ public class OrdersRestStore implements OrderStore {
     private static final ArrayList<Etapa> mFakeRestEtapa10 = new ArrayList<>();
 
     static {
-        mFakeRestEtapa.add(new Etapa("2017-01-23T00:00:00.000-03:00", "Pendiente", "Nada"));
-        mFakeRestEtapa6.add(new Etapa("2017-01-23T00:00:00.000-03:00", "Pendiente", "xxx"));
-        mFakeRestEtapa7.add(new Etapa("2017-01-23T00:00:00.000-03:00", "Pendiente", "zzzz"));
-        mFakeRestEtapa8.add(new Etapa("2017-01-23T00:00:00.000-03:00", "Pendiente", "www"));
-        mFakeRestEtapa9.add(new Etapa("2017-01-23T00:00:00.000-03:00", "Pendiente", "sss"));
-        mFakeRestEtapa10.add(new Etapa("2017-01-23T00:00:00.000-03:00", "Pendiente", "yyy"));
+        mFakeRestEtapa.add(new Etapa("2017-01-23T00:00:00.000-03:00", "Pendiente", "Nada",""));
+        mFakeRestEtapa6.add(new Etapa("2017-01-23T00:00:00.000-03:00", "Pendiente", "xxx",""));
+        mFakeRestEtapa7.add(new Etapa("2017-01-23T00:00:00.000-03:00", "Pendiente", "zzzz",""));
+        mFakeRestEtapa8.add(new Etapa("2017-01-23T00:00:00.000-03:00", "Pendiente", "www",""));
+        mFakeRestEtapa9.add(new Etapa("2017-01-23T00:00:00.000-03:00", "Pendiente", "sss",""));
+        mFakeRestEtapa10.add(new Etapa("2017-01-23T00:00:00.000-03:00", "Pendiente", "yyy",""));
 
-        mFakeRestEtapa1.add(new Etapa("2017-01-23T00:00:00.000-03:00", "Pendiente", "Nada"));
-        mFakeRestEtapa1.add(new Etapa("2017-01-25T00:00:00.000-03:00", "Culminada", "Todo"));
-        mFakeRestEtapa1.add(new Etapa("2017-01-26T00:00:00.000-03:00", "Cerrada", "Algo"));
+        mFakeRestEtapa1.add(new Etapa("2017-01-23T00:00:00.000-03:00", "Pendiente", "Nada",""));
+        mFakeRestEtapa1.add(new Etapa("2017-01-25T00:00:00.000-03:00", "Culminada", "Todo",""));
+        mFakeRestEtapa1.add(new Etapa("2017-01-26T00:00:00.000-03:00", "Cerrada", "Algo",""));
 
-        mFakeRestEtapa2.add(new Etapa("2017-01-23T00:00:00.000-03:00", "Pendiente", "Nada"));
-        mFakeRestEtapa2.add(new Etapa("2017-01-24T00:00:00.000-03:00", "No Culminada", "Siempre"));
+        mFakeRestEtapa2.add(new Etapa("2017-01-23T00:00:00.000-03:00", "Pendiente", "Nada",""));
+        mFakeRestEtapa2.add(new Etapa("2017-01-24T00:00:00.000-03:00", "No Culminada", "Siempre",""));
 
-        mFakeRestEtapa3.add(new Etapa("2017-01-23T00:00:00.000-03:00", "Pendiente", ""));
-        mFakeRestEtapa3.add(new Etapa("2017-01-25T00:00:00.000-03:00", "Culminada", "Todo"));
+        mFakeRestEtapa3.add(new Etapa("2017-01-23T00:00:00.000-03:00", "Pendiente", "",""));
+        mFakeRestEtapa3.add(new Etapa("2017-01-25T00:00:00.000-03:00", "Culminada", "Todo",""));
 
-        mFakeRestEtapa4.add(new Etapa("2017-01-24T00:00:00.000-03:00", "Pendiente", ""));
-        mFakeRestEtapa4.add(new Etapa("2017-01-24T00:30:00.000-03:00", "Culminada", "Todo"));
-        mFakeRestEtapa4.add(new Etapa("2017-01-24T00:20:00.000-03:00", "Cerrada", "Algo"));
+        mFakeRestEtapa4.add(new Etapa("2017-01-24T00:00:00.000-03:00", "Pendiente", "",""));
+        mFakeRestEtapa4.add(new Etapa("2017-01-24T00:30:00.000-03:00", "Culminada", "Todo",""));
+        mFakeRestEtapa4.add(new Etapa("2017-01-24T00:20:00.000-03:00", "Cerrada", "Algo",""));
 
-        mFakeRestEtapa5.add(new Etapa("2017-01-22T00:00:00.000-03:00", "Pendiente", "Nunca"));
-        mFakeRestEtapa5.add(new Etapa("2017-01-25T00:00:00.000-03:00", "No Culminada", "Siempre"));
-        mFakeRestEtapa5.add(new Etapa("2017-01-25T00:10:00.000-03:00", "Cerrada", "Algo"));
+        mFakeRestEtapa5.add(new Etapa("2017-01-22T00:00:00.000-03:00", "Pendiente", "Nunca",""));
+        mFakeRestEtapa5.add(new Etapa("2017-01-25T00:00:00.000-03:00", "No Culminada", "Siempre",""));
+        mFakeRestEtapa5.add(new Etapa("2017-01-25T00:10:00.000-03:00", "Cerrada", "Algo",""));
     }
 
     static {
@@ -76,23 +76,23 @@ public class OrdersRestStore implements OrderStore {
     }
 
     static {
-        mFakeRestTipo.add(new Tipo("Conexiones","Colocacion de Medidor"));
-        mFakeRestTipo.add(new Tipo("Desconexiones","Retiro de Medidor"));
-        mFakeRestTipo.add(new Tipo("Varios","Cambio de Medidor"));
-        mFakeRestTipo.add(new Tipo("Varios","Inspección-Verificación"));
-        mFakeRestTipo.add(new Tipo("Varios","Verificación Lecturas"));
-        mFakeRestTipo.add(new Tipo("Varios","Desplazamiento de estructura"));
-        mFakeRestTipo.add(new Tipo("Varios","Poda de arboles"));
-        mFakeRestTipo.add(new Tipo("Varios","Reparación de veredas"));
-        mFakeRestTipo.add(new Tipo("Varios","Cambio de Tapa"));
-        mFakeRestTipo.add(new Tipo("Varios","Revisión de Medidor"));
+        M_FAKE_REST_TIPO_TRABAJO.add(new Tipo_Trabajo("Conexiones","Colocacion de Medidor","Electrico"));
+        M_FAKE_REST_TIPO_TRABAJO.add(new Tipo_Trabajo("Desconexiones","Retiro de Medidor","Electrico"));
+        M_FAKE_REST_TIPO_TRABAJO.add(new Tipo_Trabajo("Varios","Cambio de Medidor","Electrico"));
+        M_FAKE_REST_TIPO_TRABAJO.add(new Tipo_Trabajo("Varios","Inspección-Verificación","Electrico"));
+        M_FAKE_REST_TIPO_TRABAJO.add(new Tipo_Trabajo("Varios","Verificación Lecturas","Electrico"));
+        M_FAKE_REST_TIPO_TRABAJO.add(new Tipo_Trabajo("Varios","Desplazamiento de estructura","Electrico"));
+        M_FAKE_REST_TIPO_TRABAJO.add(new Tipo_Trabajo("Varios","Poda de arboles","Electrico"));
+        M_FAKE_REST_TIPO_TRABAJO.add(new Tipo_Trabajo("Varios","Reparación de veredas","Electrico"));
+        M_FAKE_REST_TIPO_TRABAJO.add(new Tipo_Trabajo("Varios","Cambio de Tapa","Electrico"));
+        M_FAKE_REST_TIPO_TRABAJO.add(new Tipo_Trabajo("Varios","Revisión de Medidor","Electrico"));
     }
     static {
-        mFakeRestCuadrilla.add(new Cuadrilla("Conexiones",null,"Electrico"));
-        mFakeRestCuadrilla.add(new Cuadrilla("Desconexiones",null,"Electrico"));
-        mFakeRestCuadrilla.add(new Cuadrilla("varios","Mañana","Electrico"));
-        mFakeRestCuadrilla.add(new Cuadrilla("varios","Tarde","Electrico"));
-        mFakeRestCuadrilla.add(new Cuadrilla("Axuliar",null,"Electrico"));
+        M_FAKE_REST_TIPO_CUADRILLA.add(new Tipo_Cuadrilla("Conexiones","Electrico"));
+        M_FAKE_REST_TIPO_CUADRILLA.add(new Tipo_Cuadrilla("Desconexiones","Electrico"));
+        M_FAKE_REST_TIPO_CUADRILLA.add(new Tipo_Cuadrilla("varios Mañana","Electrico"));
+        M_FAKE_REST_TIPO_CUADRILLA.add(new Tipo_Cuadrilla("varios Tarde","Electrico"));
+        M_FAKE_REST_TIPO_CUADRILLA.add(new Tipo_Cuadrilla("Axuliar","Electrico"));
 
     }
     @Override
@@ -117,7 +117,7 @@ public class OrdersRestStore implements OrderStore {
         for (String number : numero) {
             for (Order order : mFakeRestOrder) {
                 if (order.getNumero().equals(number)) {
-                    Etapa etapa = new Etapa(date, estado, "");
+                    Etapa etapa = new Etapa(date, estado, "","");
                     order.addEtapas(etapa);
                 }
             }
@@ -127,11 +127,11 @@ public class OrdersRestStore implements OrderStore {
 
     @Override
     public void getTypes(final GetTypeStoreCallBack callback, final Criteria filter) {
-        callback.onSuccess(filter.match(mFakeRestTipo));
+        callback.onSuccess(filter.match(M_FAKE_REST_TIPO_TRABAJO));
     }
 
     @Override
-    public void getCuadrillas(GetCuadrillaStoreCallBack callback, Criteria filter) {
-        callback.onSuccess(filter.match(mFakeRestCuadrilla));
+    public void getTipoTrabajo(GetTipoTrabajoStoreCallBack callback, Criteria filter) {
+        callback.onSuccess(filter.match(M_FAKE_REST_TIPO_TRABAJO));
     }
 }

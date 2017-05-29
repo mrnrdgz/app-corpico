@@ -5,9 +5,9 @@ import com.google.common.base.Preconditions;
 import java.util.ArrayList;
 import java.util.List;
 
-import ar.com.corpico.appcorpico.orders.domain.entity.Cuadrilla;
+import ar.com.corpico.appcorpico.orders.domain.entity.Tipo_Cuadrilla;
 import ar.com.corpico.appcorpico.orders.domain.entity.Order;
-import ar.com.corpico.appcorpico.orders.domain.entity.Tipo;
+import ar.com.corpico.appcorpico.orders.domain.entity.Tipo_Trabajo;
 import ar.com.corpico.appcorpico.orders.domain.filter.Criteria;
 
 /**
@@ -66,7 +66,7 @@ public class OrdersRepository implements IOrdersRepository {
     public void findType(final TiposRepositoryCallBack callback, Criteria filter) {
         OrderStore.GetTypeStoreCallBack callback1 = new OrderStore.GetTypeStoreCallBack() {
             @Override
-            public void onSuccess(List<Tipo> tipos) {
+            public void onSuccess(List<Tipo_Trabajo> tipos) {
                 // TODO: Guardar datos en SQLite. Posible método save()/insert()/add()
                 callback.onSuccess(tipos);
             }
@@ -81,12 +81,12 @@ public class OrdersRepository implements IOrdersRepository {
     }
 
     @Override
-    public void findCuadrilla(final CuadrillasRepositoryCallBack callback, Criteria filter) {
-        OrderStore.GetCuadrillaStoreCallBack callback1 = new OrderStore.GetCuadrillaStoreCallBack() {
+    public void findTipoTrabajo(final TipoTrabajoRepositoryCallBack callback, Criteria filter) {
+        OrderStore.GetTipoTrabajoStoreCallBack callback1 = new OrderStore.GetTipoTrabajoStoreCallBack() {
             @Override
-            public void onSuccess(List<Cuadrilla> cuadrillas) {
+            public void onSuccess(List<Tipo_Trabajo> tipoTrabajo) {
                 // TODO: Guardar datos en SQLite. Posible método save()/insert()/add()
-                callback.onSuccess(cuadrillas);
+                callback.onSuccess(tipoTrabajo);
             }
 
             @Override
@@ -95,6 +95,6 @@ public class OrdersRepository implements IOrdersRepository {
             }
         };
 
-        mOrdersRestStore.getCuadrillas(callback1, filter);
+        mOrdersRestStore.getTipoTrabajo(callback1, filter);
     }
 }

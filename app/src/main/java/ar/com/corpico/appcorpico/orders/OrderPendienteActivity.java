@@ -1,6 +1,5 @@
 package ar.com.corpico.appcorpico.orders;
 
-import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.SearchManager;
 import android.content.Context;
@@ -19,7 +18,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -35,20 +33,19 @@ import ar.com.corpico.appcorpico.R;
 import ar.com.corpico.appcorpico.orders.data.OrdersRepository;
 import ar.com.corpico.appcorpico.orders.data.OrdersRestStore;
 import ar.com.corpico.appcorpico.orders.data.OrdersSqliteStore;
-import ar.com.corpico.appcorpico.orders.domain.entity.Cuadrilla;
-import ar.com.corpico.appcorpico.orders.domain.entity.Order;
+import ar.com.corpico.appcorpico.orders.domain.entity.Tipo_Cuadrilla;
+import ar.com.corpico.appcorpico.orders.domain.entity.Tipo_Trabajo;
 import ar.com.corpico.appcorpico.orders.domain.usecase.AddOrdersState;
-import ar.com.corpico.appcorpico.orders.domain.usecase.GetCuadrillas;
+import ar.com.corpico.appcorpico.orders.domain.usecase.GetTipoTrabajo;
 import ar.com.corpico.appcorpico.orders.domain.usecase.GetOrders;
 import ar.com.corpico.appcorpico.orders.presentation.AsignarAConexiones;
-import ar.com.corpico.appcorpico.orders.presentation.CuadrillaAdapter;
+import ar.com.corpico.appcorpico.orders.presentation.TipoTrabajoAdapter;
 import ar.com.corpico.appcorpico.orders.presentation.DateDialog;
 import ar.com.corpico.appcorpico.orders.presentation.OrdersAdapter;
 import ar.com.corpico.appcorpico.orders.presentation.OrdersFilter;
 import ar.com.corpico.appcorpico.orders.presentation.OrdersFilterAll;
 import ar.com.corpico.appcorpico.orders.presentation.OrdersFragment;
 import ar.com.corpico.appcorpico.orders.presentation.OrdersPresenter;
-import ar.com.corpico.appcorpico.orders.presentation.Presenter;
 import ar.com.corpico.appcorpico.ordersmaps.OrdersMapsFragment;
 
 
@@ -59,11 +56,11 @@ import ar.com.corpico.appcorpico.ordersmaps.OrdersMapsFragment;
 
 public class OrderPendienteActivity extends NavitationDrawerActivity implements OrdersAdapter.OnAsignarListener, OrdersFilterAll.OnFilterDialogListener,DatePickerDialog.OnDateSetListener,AsignarAConexiones.OnAsignarAConexionesListener,OrdersFilter.OnOrdersFilterListener,OrdersFragment.OnViewActivityListener{
     private String mCuadrilla;
-    private CuadrillaAdapter mCuadrillaAdapter;
+    private TipoTrabajoAdapter mTipoTrabajoAdapter;
     private OrdersFragment mOrderView;
     private OrdersMapsFragment mOrderMapView;
     private GetOrders mGetOrders;
-    private GetCuadrillas mGetCuadrillas;
+    private GetTipoTrabajo mGetTipoTrabajo;
     private AddOrdersState mAddOrdersState;
     private boolean mViewMap = true;
     private OrdersPresenter orderPresenter;
@@ -81,9 +78,9 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements 
         mServicio= "Electrico";
         final Spinner spinner = (Spinner) findViewById(R.id.spinner_toolBar);
 
-        /*mCuadrillaAdapter = new CuadrillaAdapter(this,new ArrayList<Cuadrilla>(0));
+        /*mTipoTrabajoAdapter = new TipoTrabajoAdapter(this,new ArrayList<Tipo_Cuadrilla>(0));
         orderPresenter.loadCuadrilla(mServicio);
-        spinner.setAdapter(mCuadrillaAdapter);*/
+        spinner.setAdapter(mTipoTrabajoAdapter);*/
         //ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(this, R.layout.custom_spinner_item,getResources().getStringArray(R.array.pendientes_tipos));
         //spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         //spinner.setAdapter(spinnerAdapter);
@@ -131,20 +128,20 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements 
         //AddOrdersState addOrdersState = new AddOrdersState(repository);
         mAddOrdersState = new AddOrdersState(repository);
 
-        mGetCuadrillas= new GetCuadrillas(repository);
+        mGetTipoTrabajo = new GetTipoTrabajo(repository);
 
         /**
          * <<create>> Caso de uso Presenter
          */
         //TODO: ACA DEBERIA USAR UNA VARIABLE PARA PONER EL CASO DE USO?
-        orderPresenter = new OrdersPresenter(mGetOrders, mAddOrdersState, mGetCuadrillas,mOrderView);
+        orderPresenter = new OrdersPresenter(mGetOrders, mAddOrdersState, mGetTipoTrabajo,mOrderView);
         mOrderView.setPresenter(orderPresenter);
 
-       mCuadrillaAdapter = new CuadrillaAdapter(this,new ArrayList<Cuadrilla>(0));
-        //mCuadrillaAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(mCuadrillaAdapter);
+       mTipoTrabajoAdapter = new TipoTrabajoAdapter(this,new ArrayList<Tipo_Trabajo>(0));
+        //mTipoTrabajoAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(mTipoTrabajoAdapter);
 
-        orderPresenter.loadCuadrilla(mServicio);
+        orderPresenter.loadTipoTrabajo(mServicio);
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -246,7 +243,7 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements 
                     ft.replace(R.id.orders_view_container, mOrderMapView,"OrderViewMap")
                             //.addToBackStack("OrderViewMap")
                             .commit();
-                    orderPresenter = new OrdersPresenter(mGetOrders, mAddOrdersState, mGetCuadrillas,mOrderMapView);
+                    orderPresenter = new OrdersPresenter(mGetOrders, mAddOrdersState, mGetTipoTrabajo,mOrderMapView);
                     mOrderMapView.setPresenter(orderPresenter);
                 }
                 break;
@@ -261,7 +258,7 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements 
                     ft.replace(R.id.orders_view_container, mOrderView,"OrderView")
                             //.addToBackStack("OrderView")
                             .commit();
-                    orderPresenter = new OrdersPresenter(mGetOrders, mAddOrdersState, mGetCuadrillas,mOrderView);
+                    orderPresenter = new OrdersPresenter(mGetOrders, mAddOrdersState, mGetTipoTrabajo,mOrderView);
                     mOrderView.setPresenter(orderPresenter);
                 }
                 break;
@@ -359,10 +356,10 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements 
         return super.onPrepareOptionsMenu(menu);
     }
 
-    @Override
-    public void onShowCuadrilla(List<Cuadrilla> cuadrillas) {
-        mCuadrillaAdapter.clear();
-        mCuadrillaAdapter.addAll(cuadrillas);
-        mCuadrillaAdapter.notifyDataSetChanged();
+     @Override
+    public void onShowTipoTrabajo(List<Tipo_Trabajo> tipoTrabajo) {
+        mTipoTrabajoAdapter.clear();
+        mTipoTrabajoAdapter.addAll(tipoTrabajo);
+        mTipoTrabajoAdapter.notifyDataSetChanged();
     }
 }

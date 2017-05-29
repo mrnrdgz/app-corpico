@@ -5,22 +5,16 @@ import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.List;
 
 import ar.com.corpico.appcorpico.R;
-import ar.com.corpico.appcorpico.orders.domain.entity.Cuadrilla;
-import ar.com.corpico.appcorpico.orders.domain.entity.Order;
+import ar.com.corpico.appcorpico.orders.domain.entity.Tipo_Trabajo;
 
-import static android.R.attr.id;
-import static android.R.attr.name;
-import static ar.com.corpico.appcorpico.R.id.cuadrilla;
+public class TipoTrabajoAdapter extends ArrayAdapter<Tipo_Trabajo> {
 
-public class CuadrillaAdapter extends ArrayAdapter<Cuadrilla> {
-
-    public CuadrillaAdapter(Context context, List<Cuadrilla> objects) {
+    public TipoTrabajoAdapter(Context context, List<Tipo_Trabajo> objects) {
         super(context, 0, objects);
     }
 
@@ -29,7 +23,7 @@ public class CuadrillaAdapter extends ArrayAdapter<Cuadrilla> {
        /*
        Obtener el objeto procesado actualmente
         */
-        Cuadrilla cuadrilla;
+        Tipo_Trabajo tipoTrabajo;
 
         /*
         Obtener LayoutInflater de la actividad
@@ -50,7 +44,7 @@ public class CuadrillaAdapter extends ArrayAdapter<Cuadrilla> {
         /*
         Instancias del Texto y el Icono
          */
-        TextView name = (TextView) convertView.findViewById(R.id.cuadrilla);
+        TextView name = (TextView) convertView.findViewById(R.id.tipoTrabajo);
 
         if (position == 0) { //Primer elemento
             name.setTextColor(Color.parseColor("#FFFFFF")); //Texto color Blanco
@@ -58,13 +52,13 @@ public class CuadrillaAdapter extends ArrayAdapter<Cuadrilla> {
             name.setTextColor(Color.parseColor("#000000")); //Texto color Negro
         }
 
-        // Cuadrilla actual..
-        cuadrilla =  getItem(position);
+        // Tipo_Cuadrilla actual..
+        tipoTrabajo =  getItem(position);
 
         /*
         Asignar valores
          */
-        name.setText(cuadrilla.getCuadrilla());
+        name.setText(tipoTrabajo.getTipoTrabajo());
 
         return convertView;
     }

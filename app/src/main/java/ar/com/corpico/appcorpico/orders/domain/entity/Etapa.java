@@ -14,13 +14,22 @@ public class Etapa {
     private String mFecha;
     private String mEstado;
     private String mObservacion;
+    private String mUsuario;
 
-    public Etapa(String Fecha, String Estado, String Observacion) {
+    public Etapa(String Fecha, String Estado, String Observacion, String Usuario) {
         mFecha = Fecha;
         mEstado = Estado;
         mObservacion = Observacion;
+        mUsuario=Usuario;
+
     }
 
+    public String getUsuario() {
+        return mUsuario;
+    }
+    public void setUsuario(String Usuario) {
+        this.mUsuario = Usuario;
+    }
     public String getFecha() {
         return mFecha;
     }

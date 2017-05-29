@@ -24,8 +24,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ar.com.corpico.appcorpico.R;
-import ar.com.corpico.appcorpico.orders.domain.entity.Cuadrilla;
+import ar.com.corpico.appcorpico.orders.domain.entity.Tipo_Cuadrilla;
 import ar.com.corpico.appcorpico.orders.domain.entity.Order;
+import ar.com.corpico.appcorpico.orders.domain.entity.Tipo_Trabajo;
 
 import static android.view.View.GONE;
 
@@ -53,7 +54,7 @@ public class OrdersFragment extends Fragment implements ar.com.corpico.appcorpic
     }
 
    public interface OnViewActivityListener {
-        void onShowCuadrilla(List<Cuadrilla> listorder);// Eventos Botón Positivo
+        void onShowTipoTrabajo(List<Tipo_Trabajo> listorder);// Eventos Botón Positivo
     }
 
     private OnViewActivityListener listenerViewActivity;
@@ -212,7 +213,7 @@ public class OrdersFragment extends Fragment implements ar.com.corpico.appcorpic
                 intent.putExtra("Numero",currentOrder.getNumero().toString());
                 //intent.putExtra("Fecha",currentOrder.getFecha().toString());
                 intent.putExtra("Etapa",currentOrder.getEtapas().toString());
-                intent.putExtra("Tipo",currentOrder.getTipo().toString());
+                intent.putExtra("Tipo_Trabajo",currentOrder.getTipo().toString());
                 intent.putExtra("Sector",currentOrder.getSector().toString());
                 intent.putExtra("Observacion",currentOrder.getObservacion().toString());
                 startActivity(intent);
@@ -267,7 +268,7 @@ public class OrdersFragment extends Fragment implements ar.com.corpico.appcorpic
     }
 
     @Override
-    public void showCuadrillasList(List<Cuadrilla> listorder) {
-        listenerViewActivity.onShowCuadrilla(listorder);
+    public void showTipoTrabajoList(List<Tipo_Trabajo> listorder) {
+        listenerViewActivity.onShowTipoTrabajo(listorder);
     }
 }

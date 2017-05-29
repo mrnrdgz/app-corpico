@@ -1,7 +1,5 @@
 package ar.com.corpico.appcorpico.orders.presentation;
 
-import android.app.Activity;
-
 import com.google.common.base.Preconditions;
 
 import org.joda.time.DateTime;
@@ -9,16 +7,16 @@ import org.joda.time.DateTime;
 import java.util.List;
 
 import ar.com.corpico.appcorpico.UseCase;
-import ar.com.corpico.appcorpico.orders.domain.entity.Cuadrilla;
 import ar.com.corpico.appcorpico.orders.domain.entity.Order;
+import ar.com.corpico.appcorpico.orders.domain.entity.Tipo_Trabajo;
 import ar.com.corpico.appcorpico.orders.domain.filter.AndCriteria;
-import ar.com.corpico.appcorpico.orders.domain.filter.CriteriaCuadrilla;
+import ar.com.corpico.appcorpico.orders.domain.filter.CriteriaTipoTrabajo;
 import ar.com.corpico.appcorpico.orders.domain.filter.CriteriaSearch;
 import ar.com.corpico.appcorpico.orders.domain.filter.CriteriaSector;
 import ar.com.corpico.appcorpico.orders.domain.filter.CriteriaTipo;
 import ar.com.corpico.appcorpico.orders.domain.filter.OrderCriteriaFecha;
 import ar.com.corpico.appcorpico.orders.domain.usecase.AddOrdersState;
-import ar.com.corpico.appcorpico.orders.domain.usecase.GetCuadrillas;
+import ar.com.corpico.appcorpico.orders.domain.usecase.GetTipoTrabajo;
 import ar.com.corpico.appcorpico.orders.domain.usecase.GetOrders;
 
 /**
@@ -28,16 +26,16 @@ import ar.com.corpico.appcorpico.orders.domain.usecase.GetOrders;
 public class OrdersPresenter implements Presenter {
     private AddOrdersState maddOrdersState;
     private GetOrders mgetOrders;
-    private GetCuadrillas mgetCuadrillas;
+    private GetTipoTrabajo mgetTipoTrabajo;
     private View mOrdersView;
     private String mCuadrilla;
 
     //TODO: COMO MANEJO ACA EL CASO DE USO? SI ESTA MACHEADO EL CASO DE USO...TENGO QUE HACER UN CONSTRUCTOR POR CADA UNO?
     //O LO PUEDO PONER COMO VARIABLE AL TIPO?
-    public OrdersPresenter(GetOrders getOrders, AddOrdersState addOrdersState, GetCuadrillas getCuadrillas, View ordersView) {
+    public OrdersPresenter(GetOrders getOrders, AddOrdersState addOrdersState, GetTipoTrabajo getTipoTrabajo, View ordersView) {
         maddOrdersState = Preconditions.checkNotNull(addOrdersState, "El presentador no puede ser null");
         mgetOrders = Preconditions.checkNotNull(getOrders, "El presentador no puede ser null");
-        mgetCuadrillas=Preconditions.checkNotNull(getCuadrillas, "El presentador no puede ser null");
+        mgetTipoTrabajo =Preconditions.checkNotNull(getTipoTrabajo, "El presentador no puede ser null");
         mOrdersView = Preconditions.checkNotNull(ordersView, "La vista no puede ser null");
         //mOrdersView.setPresenter(this);
         /*mOrdersMapView = ordersMapView;
@@ -125,10 +123,10 @@ public class OrdersPresenter implements Presenter {
     }
 
     @Override
-    public void loadCuadrilla(String servicio) {
-        CriteriaCuadrilla criteriaCuadrilla = new CriteriaCuadrilla(servicio);
+    public void loadTipoTrabajo(String servicio) {
+        CriteriaTipoTrabajo criteriaTipoTrabajo = new CriteriaTipoTrabajo(servicio);
 
-        GetCuadrillas.RequestValues requestValues = new GetCuadrillas.RequestValues(criteriaCuadrilla);
+        GetTipoTrabajo.RequestValues requestValues = new GetTipoTrabajo.RequestValues(criteriaTipoTrabajo);
 
         UseCase.UseCaseCallback useCaseCallback = new UseCase.UseCaseCallback(){
             @Override
@@ -136,16 +134,16 @@ public class OrdersPresenter implements Presenter {
                 // Ocultar indicador de progreso
                 //mOrdersView.showProgressIndicator(false);
                 // Se obtiene el valor de respuesta del caso de uso
-                GetCuadrillas.ResponseValue responseValue = (GetCuadrillas.ResponseValue) response;
+                GetTipoTrabajo.ResponseValue responseValue = (GetTipoTrabajo.ResponseValue) response;
 
                 // ¿La lista tiene uno o más elementos?
-                List<Cuadrilla> cuadrillas = responseValue.getCuadrilla();
-                if (cuadrillas.size() >= 1) {
+                List<Tipo_Trabajo> tipoTrabajo = responseValue.getTipoTrabajo();
+                if (tipoTrabajo.size() >= 1) {
                     // Mostrar la lista en la vista
-                   mOrdersView.showCuadrillasList(cuadrillas);
+                   mOrdersView.showTipoTrabajoList(tipoTrabajo);
                 } else {
                     // Mostrar estado vacío
-                    mOrdersView.showCuadrillasList(cuadrillas);
+                    mOrdersView.showTipoTrabajoList(tipoTrabajo);
                     mOrdersView.showOrdesEmpty();
                 }
             }
@@ -157,6 +155,6 @@ public class OrdersPresenter implements Presenter {
                 mOrdersView.showOrderError(error);
             }
         };
-        mgetCuadrillas.execute(requestValues, useCaseCallback);
+        mgetTipoTrabajo.execute(requestValues, useCaseCallback);
     }
 }

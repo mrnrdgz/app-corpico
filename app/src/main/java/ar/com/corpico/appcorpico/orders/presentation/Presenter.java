@@ -12,6 +12,6 @@ public interface Presenter {
     void loadOrderList(String estado, String tipo, String sector, DateTime desde, DateTime hasta, String search, Boolean estadoActual);
     // TODO: el parametro "numero" luego lo reemplazare por List<Order>?
     void asignarOrder(String cuadrilla, List<String> listorder);
-    void loadCuadrilla(String servicio);
+    void loadTipoTrabajo(String servicio);
 
 }

@@ -3,9 +3,7 @@ package ar.com.corpico.appcorpico.orders.domain.filter;
 import java.util.ArrayList;
 import java.util.List;
 
-import ar.com.corpico.appcorpico.orders.domain.entity.Etapa;
 import ar.com.corpico.appcorpico.orders.domain.entity.Order;
-import ar.com.corpico.appcorpico.orders.domain.entity.Tipo;
 
 /**
  * Created by Administrador on 26/01/2017.

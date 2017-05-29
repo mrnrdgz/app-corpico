@@ -200,7 +200,7 @@ public class Order {
                 "Numero = '" + mNumero + '\'' +
                 "Servicio = '" + mServicio + '\'' +
                 "Sector = '" + mSector + '\'' +
-                "Tipo = '" + mTipo + '\'' +
+                "Tipo_Trabajo = '" + mTipo + '\'' +
                 "Motivo = '" + mMotivo + '\'' +
                 "Estado = '" + mEtapas + '\'' +
                 "Asociado = '" + mAsociado + '\'' +

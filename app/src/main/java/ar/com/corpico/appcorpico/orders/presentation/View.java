@@ -1,13 +1,12 @@
 package ar.com.corpico.appcorpico.orders.presentation;
 
-import android.app.Activity;
-
 import org.joda.time.DateTime;
 
 import java.util.List;
 
-import ar.com.corpico.appcorpico.orders.domain.entity.Cuadrilla;
+import ar.com.corpico.appcorpico.orders.domain.entity.Tipo_Cuadrilla;
 import ar.com.corpico.appcorpico.orders.domain.entity.Order;
+import ar.com.corpico.appcorpico.orders.domain.entity.Tipo_Trabajo;
 
 /**
  * Created by Administrador on 06/01/2017.
@@ -15,7 +14,7 @@ import ar.com.corpico.appcorpico.orders.domain.entity.Order;
 
 public interface View {
     void showOrderList(List<Order> listorder);
-    void showCuadrillasList(List<Cuadrilla> listorder);
+    void showTipoTrabajoList(List<Tipo_Trabajo> listorder);
     void showOrderError(String error);
     void setPresenter(Presenter presenter);
     void showOrdesEmpty();

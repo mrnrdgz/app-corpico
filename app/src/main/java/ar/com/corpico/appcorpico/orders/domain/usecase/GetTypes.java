@@ -6,8 +6,7 @@ import java.util.List;
 
 import ar.com.corpico.appcorpico.UseCase;
 import ar.com.corpico.appcorpico.orders.data.IOrdersRepository;
-import ar.com.corpico.appcorpico.orders.domain.entity.Order;
-import ar.com.corpico.appcorpico.orders.domain.entity.Tipo;
+import ar.com.corpico.appcorpico.orders.domain.entity.Tipo_Trabajo;
 import ar.com.corpico.appcorpico.orders.domain.filter.Criteria;
 
 /**
@@ -26,7 +25,7 @@ public class GetTypes extends UseCase<GetTypes.RequestValues, GetTypes.ResponseV
 
         IOrdersRepository.TiposRepositoryCallBack findCallback = new IOrdersRepository.TiposRepositoryCallBack() {
             @Override
-            public void onSuccess(List<Tipo> tipos) {
+            public void onSuccess(List<Tipo_Trabajo> tipos) {
                 ResponseValue responseValue = new ResponseValue(tipos);
                 callback.onSuccess(responseValue);
             }
@@ -58,14 +57,14 @@ public class GetTypes extends UseCase<GetTypes.RequestValues, GetTypes.ResponseV
 
     public static final class ResponseValue implements UseCase.ResponseValue {
 
-        private final List<Tipo> tipos;
+        private final List<Tipo_Trabajo> tipoTrabajos;
 
-        public ResponseValue(List<Tipo> tipos) {
-            this.tipos = Preconditions.checkNotNull(tipos, "La lista de ordenes no puede ser null");
+        public ResponseValue(List<Tipo_Trabajo> tipoTrabajos) {
+            this.tipoTrabajos = Preconditions.checkNotNull(tipoTrabajos, "La lista de ordenes no puede ser null");
         }
 
-        public List<Tipo> getTipos() {
-            return tipos;
+        public List<Tipo_Trabajo> getTipoTrabajos() {
+            return tipoTrabajos;
         }
     }
 }

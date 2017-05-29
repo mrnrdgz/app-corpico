@@ -35,7 +35,7 @@ public class Detail_OT extends AppCompatActivity {
             numero.setText((String)extras.get("Numero"));
             fecha.setText((String)extras.get("Fecha"));
             estado.setText((String)extras.get("Estado"));
-            tipo.setText((String)extras.get("Tipo"));
+            tipo.setText((String)extras.get("Tipo_Trabajo"));
             sector.setText((String)extras.get("Sector"));
             observacion.setText((String)extras.get("Observacion"));
         }
