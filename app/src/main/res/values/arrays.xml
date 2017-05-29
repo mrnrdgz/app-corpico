@@ -33,7 +33,7 @@
         <item>Asignadas a tipoCuadrilla Varios Tarde</item>
     </string-array>
     <string-array name="tipoTrabajos">
-        <item>Todos</item>
+        <item> Todos</item>
         <item>Retiro de Medidor</item>
         <item>Cambio de Medidor</item>
         <item>Rehabilitacion de Servicio</item>

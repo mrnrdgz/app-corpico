@@ -55,7 +55,7 @@ import ar.com.corpico.appcorpico.ordersmaps.OrdersMapsFragment;
  */
 
 public class OrderPendienteActivity extends NavitationDrawerActivity implements OrdersAdapter.OnAsignarListener, OrdersFilterAll.OnFilterDialogListener,DatePickerDialog.OnDateSetListener,AsignarAConexiones.OnAsignarAConexionesListener,OrdersFilter.OnOrdersFilterListener,OrdersFragment.OnViewActivityListener{
-    private String mCuadrilla;
+    private String mTipoTrabajo;
     private TipoTrabajoAdapter mTipoTrabajoAdapter;
     private OrdersFragment mOrderView;
     private OrdersMapsFragment mOrderMapView;
@@ -74,7 +74,7 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements 
         Bundle bundle = getIntent().getExtras();
         mEstado= bundle.getString("estado");
 
-        mCuadrilla="Conexiones";
+        //mTipoTrabajo="Todos";
         mServicio= "Electrico";
         final Spinner spinner = (Spinner) findViewById(R.id.spinner_toolBar);
 
@@ -91,7 +91,7 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements 
                 .findFragmentById(R.id.orders_view_container);
 
         if (mOrderView == null) {
-            mOrderView = OrdersFragment.newInstance(mCuadrilla,mEstado);
+            mOrderView = OrdersFragment.newInstance(mTipoTrabajo,mEstado);
 
             getSupportFragmentManager().beginTransaction()
             .add(R.id.orders_view_container, mOrderView,"OrderView")
@@ -148,12 +148,12 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements 
                 View v = spinner.getSelectedView();
                 ((TextView)v).setTextColor(Color.WHITE);
                 Toast.makeText(OrderPendienteActivity.this, "SPINNER " + spinner.getSelectedItem(), Toast.LENGTH_SHORT).show();
-                mCuadrilla= spinner.getSelectedItem().toString();
-                if (mCuadrilla != null && mOrderView != null && mViewMap ){
-                    mOrderView.setLoadOrderList(mCuadrilla);
+                mTipoTrabajo= spinner.getSelectedItem().toString();
+                if (mTipoTrabajo != null && mOrderView != null && mViewMap ){
+                    mOrderView.setLoadOrderList(mTipoTrabajo);
                 }
-                if (mCuadrilla != null && mOrderMapView != null && mViewMap==false ){
-                    mOrderMapView.setLoadOrderList(mCuadrilla);
+                if (mTipoTrabajo != null && mOrderMapView != null && mViewMap==false ){
+                    mOrderMapView.setLoadOrderList(mTipoTrabajo);
                 }
             }
 
@@ -209,7 +209,7 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements 
                     // Search
                 } else {
                     // Do something when there's no input
-                    mOrderView.setLoadOrderList(mCuadrilla);
+                    mOrderView.setLoadOrderList(mTipoTrabajo);
                 }
                 return false;
             }
@@ -227,7 +227,7 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements 
         switch (id) {
             case R.id.action_filtrar:
                 //new OrdersFilterAll().show(getSupportFragmentManager(), "OrderFilterAllDialog");
-                new OrdersFilter().newInstance(mCuadrilla,mEstado).show(getSupportFragmentManager(), "OrderFilterDialog");
+                new OrdersFilter().newInstance(mTipoTrabajo,mEstado).show(getSupportFragmentManager(), "OrderFilterDialog");
                 //new OrdersFilter().show(getSupportFragmentManager(), "OrderFilterDialog");
                 break;
             case R.id.action_map:
@@ -239,7 +239,7 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements 
                 Fragment fragment = fm.findFragmentById(R.id.orders_view_container);
                 if(!(fragment instanceof OrdersMapsFragment)){
                     // TODO: SI es de estipo, entonces...
-                    mOrderMapView = OrdersMapsFragment.newInstance(mCuadrilla,mEstado);
+                    mOrderMapView = OrdersMapsFragment.newInstance(mTipoTrabajo,mEstado);
                     ft.replace(R.id.orders_view_container, mOrderMapView,"OrderViewMap")
                             //.addToBackStack("OrderViewMap")
                             .commit();
@@ -254,7 +254,7 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements 
                 ft = getSupportFragmentManager().beginTransaction();
                 Fragment fragment1 = fm.findFragmentById(R.id.orders_view_container);
                 if(!(fragment1 instanceof OrdersFragment)){
-                    mOrderView = OrdersFragment.newInstance(mCuadrilla,mEstado);
+                    mOrderView = OrdersFragment.newInstance(mTipoTrabajo,mEstado);
                     ft.replace(R.id.orders_view_container, mOrderView,"OrderView")
                             //.addToBackStack("OrderView")
                             .commit();
@@ -326,7 +326,7 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements 
             }
             ft.addToBackStack(null);
 
-            DialogFragment newFragment = AsignarAConexiones.newInstance(mCuadrilla,numero);
+            DialogFragment newFragment = AsignarAConexiones.newInstance(mTipoTrabajo,numero);
             newFragment.show(ft, "AsignarconexionDialog");
     }
 

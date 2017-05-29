@@ -44,15 +44,9 @@ public class TipoTrabajoAdapter extends ArrayAdapter<Tipo_Trabajo> {
         /*
         Instancias del Texto y el Icono
          */
-        TextView name = (TextView) convertView.findViewById(R.id.tipoTrabajo);
-
-        if (position == 0) { //Primer elemento
-            name.setTextColor(Color.parseColor("#FFFFFF")); //Texto color Blanco
-        } else { //Otros elementos ...
-            name.setTextColor(Color.parseColor("#000000")); //Texto color Negro
-        }
-
-        // Tipo_Cuadrilla actual..
+        TextView name = (TextView) convertView.findViewById(R.id.tipo_trabajo);
+        name.setTextColor(Color.parseColor("#000000")); //Texto color Negro
+        // Tipo_Trabajo actual..
         tipoTrabajo =  getItem(position);
 
         /*
@@ -65,10 +59,6 @@ public class TipoTrabajoAdapter extends ArrayAdapter<Tipo_Trabajo> {
 
     @Override
     public android.view.View getDropDownView(int position, android.view.View convertView, ViewGroup parent) {
-        /*
-        Debido a que deseamos usar spinner_item.xml para inflar los
-        items del Spinner en ambos casos, entonces llamamos a getView()
-         */
         return getView(position,convertView,parent);
     }
 }

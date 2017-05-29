@@ -20,7 +20,6 @@ public class CriteriaTipoTrabajo implements Criteria<Tipo_Trabajo> {
     @Override
     public List<Tipo_Trabajo> match(List<Tipo_Trabajo> tiposTrabajo) {
         List<Tipo_Trabajo> filteredTipoTrabajo = new ArrayList<>();
-
             for (Tipo_Trabajo tipoTrabajo : tiposTrabajo) {
                 if (tipoTrabajo.getServicio().equals(servicio)) {
                     filteredTipoTrabajo.add(tipoTrabajo);
