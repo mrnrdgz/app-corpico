@@ -79,11 +79,13 @@
         <meta-data	android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
-        <meta-data  android:name="com.google.android.maps.v2.API_KEY"
-            android:value="AIzaSyBRiJ8mlpD5Rfe0RRf2t8tnrpmtCk9yZp8"/>
+
         <!--casa AIzaSyBqlx4Abvi_9u8OAOhCTwhBTnmnyculJ3I
        // trabajo AIzaSyC1VqZmzzXuSEWvCyDnoFkBhqhPJKHZRFA
-         Clave API AIzaSyBRiJ8mlpD5Rfe0RRf2t8tnrpmtCk9yZp8-->
+         Clave API AIzaSyBRiJ8mlpD5Rfe0RRf2t8tnrpmtCk9yZp8
+         <meta-data  android:name="com.google.android.maps.v2.API_KEY"
+            android:value="AIzaSyBRiJ8mlpD5Rfe0RRf2t8tnrpmtCk9yZp8"/>
+         -->
 
     </application>
 

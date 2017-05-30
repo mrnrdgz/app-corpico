@@ -23,9 +23,9 @@ import static ar.com.corpico.appcorpico.R.id.tv_tipo;
  */
 
 public class OrdersFilter extends DialogFragment {
-    private String mCuadrilla;
-    private String mTipo;
+    private String mTipoTrabajo;
     private String mState;
+    private String mSector;
     public OrdersFilter() {
     }
     public interface OnOrdersFilterListener {
@@ -34,13 +34,14 @@ public class OrdersFilter extends DialogFragment {
         //void loadType();
     }
     OnOrdersFilterListener listener;
-    public static OrdersFilter newInstance(String cuadrilla,String estado) {
+    public static OrdersFilter newInstance(String tipotrabajo,String estado,String sector) {
         OrdersFilter f = new OrdersFilter();
 
         // Supply num input as an argument.
         Bundle args = new Bundle();
-        args.putString("cuadrilla", cuadrilla);
+        args.putString("tipotrabajo", tipotrabajo);
         args.putString("estado", estado);
+        args.putString("sector", sector);
         f.setArguments(args);
 
         return f;
@@ -48,8 +49,9 @@ public class OrdersFilter extends DialogFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mCuadrilla = getArguments().getString("cuadrilla");
+        mTipoTrabajo = getArguments().getString("tipotrabajo");
         mState = getArguments().getString("estado");
+        mSector = getArguments().getString("sector");
     }
     @NonNull
     @Override
@@ -69,19 +71,29 @@ public class OrdersFilter extends DialogFragment {
         final Spinner mTipoSpinner = (Spinner)v.findViewById(R.id.tipo_spinner);
         final Spinner mSectorSpinner = (Spinner)v.findViewById(R.id.sector_spinner);
         //listener.LoadTipos(mType);
-        /*if(mType.equals("Conexiones") || mType.equals("Desconexiones")){
-            mTipoTitulo.setVisibility(View.GONE);
-            mTipoSpinner.setVisibility(View.GONE);
+        /*if(mType.equals("Conexiones") || mType.equals("Desconexiones")){*/
+        mTipoTitulo.setVisibility(View.GONE);
+        mTipoSpinner.setVisibility(View.GONE);
+        for (int i = 0; i < mSectorSpinner.getCount(); i++) {
+            if (mSectorSpinner.getItemAtPosition(i).toString().equalsIgnoreCase(mSector)) {
+                mSectorSpinner.setSelection(i);
+            }
         }
+        //mSector=mSectorSpinner.getSelectedItem().toString();
+        /*if(!mSector.equals(mSectorSpinner.getSelectedItem().toString())){
+            mSector=mSectorSpinner.getSelectedItem().toString();
+        }*/
+
+        /*}
         if(mType.equals("Conexiones") ){
             mTipo = "Colocacion de Medidor";
         }
         if(mType.equals("Desconexiones") ){
             mTipo = "Retiro de Medidor";
-        }*/
+        }
         if(!mCuadrilla.equals("Conexiones") && !mCuadrilla.equals("Desconexiones")){
             mTipo= mTipoSpinner.getItemAtPosition(mTipoSpinner.getSelectedItemPosition()).toString();
-        }
+        }*/
 
         Button aplicar = (Button) v.findViewById(R.id.aplicar_boton);
         Button cancelar = (Button) v.findViewById(R.id.cancelar_boton);
@@ -90,10 +102,8 @@ public class OrdersFilter extends DialogFragment {
                 new android.view.View.OnClickListener() {
                     @Override
                     public void onClick(android.view.View v) {
-
-                        listener.onFilterPossitiveButtonClick(mState,mTipo,
-                                mSectorSpinner.getItemAtPosition(mSectorSpinner.getSelectedItemPosition()).toString(),
-                                null,null,true);
+                        mSector = mSectorSpinner.getItemAtPosition(mSectorSpinner.getSelectedItemPosition()).toString();
+                        listener.onFilterPossitiveButtonClick(mState,mTipoTrabajo,mSector,null,null,true);
                         dismiss();
                     }
                 }

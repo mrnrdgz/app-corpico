@@ -22,13 +22,17 @@ public class CriteriaSector implements Criteria<Order> {
     @Override
     public List<Order> match(List<Order> orders) {
         List<Order> filteredOrders = new ArrayList<>();
-        if (!sector.equals("Todos")){
+        if (sector==null){
+            filteredOrders = orders;
+            return filteredOrders;
+        }
+        if (!sector.equals("Todos") && sector!=null ){
             for (Order order : orders) {
                 if (order.getSector().equals(sector)) {
                     filteredOrders.add(order);
                 }
             }
-        }else{
+        }if (sector.equals("Todos")){
             filteredOrders = orders;
         }
         return filteredOrders;

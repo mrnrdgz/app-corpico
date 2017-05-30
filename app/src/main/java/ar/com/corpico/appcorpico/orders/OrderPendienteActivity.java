@@ -56,6 +56,7 @@ import ar.com.corpico.appcorpico.ordersmaps.OrdersMapsFragment;
 
 public class OrderPendienteActivity extends NavitationDrawerActivity implements OrdersAdapter.OnAsignarListener, OrdersFilterAll.OnFilterDialogListener,DatePickerDialog.OnDateSetListener,AsignarAConexiones.OnAsignarAConexionesListener,OrdersFilter.OnOrdersFilterListener,OrdersFragment.OnViewActivityListener{
     private String mTipoTrabajo;
+    private String mSector;
     private TipoTrabajoAdapter mTipoTrabajoAdapter;
     private OrdersFragment mOrderView;
     private OrdersMapsFragment mOrderMapView;
@@ -74,7 +75,6 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements 
         Bundle bundle = getIntent().getExtras();
         mEstado= bundle.getString("estado");
 
-        //mTipoTrabajo="Todos";
         mServicio= "Electrico";
         final Spinner spinner = (Spinner) findViewById(R.id.spinner_toolBar);
 
@@ -86,12 +86,11 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements 
         //spinner.setAdapter(spinnerAdapter);
 
 
-
         mOrderView = (OrdersFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.orders_view_container);
 
         if (mOrderView == null) {
-            mOrderView = OrdersFragment.newInstance(mTipoTrabajo,mEstado);
+            mOrderView = OrdersFragment.newInstance(mTipoTrabajo,mEstado,mSector);
 
             getSupportFragmentManager().beginTransaction()
             .add(R.id.orders_view_container, mOrderView,"OrderView")
@@ -99,10 +98,6 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements 
             .commit();
 
         }
-
-       // mOrderMapView = OrdersMapsFragment.newInstance(mCuadrilla);
-
-
 
         //SETEA LA LLAMADA PARA QUE LA ACTIVIDAD TENGA COMUNICACION CON ORDERADAPTER
         mOrderView.setListener(this);
@@ -123,9 +118,7 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements 
          * <<create>> CaseUser
          */
         //TODO: ACA DEBERIA USAR UNA VARIABLE PARA PONER EL CASO DE USO?
-        //GetOrders getOrders = new GetOrders(repository);
         mGetOrders = new GetOrders(repository);
-        //AddOrdersState addOrdersState = new AddOrdersState(repository);
         mAddOrdersState = new AddOrdersState(repository);
 
         mGetTipoTrabajo = new GetTipoTrabajo(repository);
@@ -147,8 +140,8 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements 
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 View v = spinner.getSelectedView();
                 ((TextView)v).setTextColor(Color.WHITE);
-                Toast.makeText(OrderPendienteActivity.this, "SPINNER " + spinner.getSelectedItem(), Toast.LENGTH_SHORT).show();
-                mTipoTrabajo= spinner.getSelectedItem().toString();
+                Tipo_Trabajo item = (Tipo_Trabajo) spinner.getSelectedItem();
+                mTipoTrabajo=item.getTipoTrabajo();
                 if (mTipoTrabajo != null && mOrderView != null && mViewMap ){
                     mOrderView.setLoadOrderList(mTipoTrabajo);
                 }
@@ -227,7 +220,7 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements 
         switch (id) {
             case R.id.action_filtrar:
                 //new OrdersFilterAll().show(getSupportFragmentManager(), "OrderFilterAllDialog");
-                new OrdersFilter().newInstance(mTipoTrabajo,mEstado).show(getSupportFragmentManager(), "OrderFilterDialog");
+                new OrdersFilter().newInstance(mTipoTrabajo,mEstado,mSector).show(getSupportFragmentManager(), "OrderFilterDialog");
                 //new OrdersFilter().show(getSupportFragmentManager(), "OrderFilterDialog");
                 break;
             case R.id.action_map:
@@ -239,7 +232,7 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements 
                 Fragment fragment = fm.findFragmentById(R.id.orders_view_container);
                 if(!(fragment instanceof OrdersMapsFragment)){
                     // TODO: SI es de estipo, entonces...
-                    mOrderMapView = OrdersMapsFragment.newInstance(mTipoTrabajo,mEstado);
+                    mOrderMapView = OrdersMapsFragment.newInstance(mTipoTrabajo,mEstado,mSector);
                     ft.replace(R.id.orders_view_container, mOrderMapView,"OrderViewMap")
                             //.addToBackStack("OrderViewMap")
                             .commit();
@@ -254,7 +247,7 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements 
                 ft = getSupportFragmentManager().beginTransaction();
                 Fragment fragment1 = fm.findFragmentById(R.id.orders_view_container);
                 if(!(fragment1 instanceof OrdersFragment)){
-                    mOrderView = OrdersFragment.newInstance(mTipoTrabajo,mEstado);
+                    mOrderView = OrdersFragment.newInstance(mTipoTrabajo,mEstado,mSector);
                     ft.replace(R.id.orders_view_container, mOrderView,"OrderView")
                             //.addToBackStack("OrderView")
                             .commit();
@@ -277,8 +270,10 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements 
 
     @Override
     public void onFilterPossitiveButtonClick(String estado, String tipo, String sector, DateTime desde, DateTime hasta, Boolean estadoActual) {
+        mSector=sector;
+        //TODO: VER PORQUE NO ANDA PARA EL MAPVIEW
         OrdersFragment mOrderFragmen = (OrdersFragment) getSupportFragmentManager().findFragmentById(R.id.orders_view_container);
-        mOrderFragmen.setOrderFilter(estado, tipo, sector, desde, hasta, null,estadoActual);
+        mOrderFragmen.setOrderFilter(mEstado, mTipoTrabajo, mSector, desde, hasta, null,estadoActual);
     }
 
     @Override
@@ -303,7 +298,6 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements 
             //TODO: VER EN LA BUSQUEDA LA FEHCA...SI PONGO NULL ESTA CONTROLADO...PERO EN EL TIEMPO...PUEDE TRAER.
             //MUCHOS REGISTROS...COMO PODRIAMOS CONTROLAR ESO?
             OrdersFragment mOrderFragmen = (OrdersFragment) getSupportFragmentManager().findFragmentById(R.id.orders_view_container);
-            //mOrderFragmen.setOrderFilter("Todos", "Todos", "Todos", null, null, query,false);
             mOrderFragmen.setOrderFilter(mEstado, "Todos", "Todos", null, null, query,true);
         }
     }

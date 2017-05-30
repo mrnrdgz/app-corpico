@@ -38,20 +38,22 @@ import ar.com.corpico.appcorpico.orders.presentation.Presenter;
  */
 public class OrdersMapsFragment extends SupportMapFragment implements OnMapReadyCallback, ar.com.corpico.appcorpico.orders.presentation.View, ar.com.corpico.appcorpico.ordersmaps.View {
     private GoogleMap mMap;
-    private String mCuadrilla;
+    private String mTipoTrabajo;
     private String mEstado;
+    private String mSector;
     private Presenter mOrdersMapPresenter;
     private static final int LOCATION_REQUEST_CODE = 1;
 
     public OrdersMapsFragment() {
     }
 
-    public static OrdersMapsFragment newInstance(String cuadrilla,String estado) {
+    public static OrdersMapsFragment newInstance(String tipotrabajo,String estado,String sector) {
         OrdersMapsFragment fragment = new OrdersMapsFragment();
         Bundle args = new Bundle();
         // TODO: Pasar los demás parámetros de la Action Bar
-        args.putString("cuadrilla", cuadrilla);
+        args.putString("tipotrabajo", tipotrabajo);
         args.putString("estado", estado);
+        args.putString("sector", sector);
         fragment.setArguments(args);
         return fragment;
     }
@@ -62,19 +64,12 @@ public class OrdersMapsFragment extends SupportMapFragment implements OnMapReady
 
         if (getArguments() != null) {
             // Toman parámetros
-            mCuadrilla = getArguments().getString("cuadrilla");
+            mTipoTrabajo = getArguments().getString("tipotrabajo");
             mEstado = getArguments().getString("estado");
+            mSector = getArguments().getString("sector");
             Spinner activitySpinner = (Spinner) getActivity().findViewById(R.id.spinner_toolBar);
-            if (mCuadrilla.equals("Conexiones")){
-                activitySpinner.setSelection(0);
-            }
-            if (mCuadrilla.equals("Desconexiones")){
-                activitySpinner.setSelection(1);
-            }
-            if (mCuadrilla.equals("Varios")){
-                activitySpinner.setSelection(2);
-            }
         }
+        //setLoadOrderList(mTipoTrabajo);
         getMapAsync(this);
 
     }
@@ -82,7 +77,7 @@ public class OrdersMapsFragment extends SupportMapFragment implements OnMapReady
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View root = super.onCreateView(inflater, container, savedInstanceState);
-        this.setLoadOrderList(mCuadrilla);
+        this.setLoadOrderList(mTipoTrabajo);
         return root;
     }
     @Override
@@ -200,20 +195,15 @@ public class OrdersMapsFragment extends SupportMapFragment implements OnMapReady
 
     @Override
     public void setOrderFilter(String estado, String tipo, String sector, DateTime desde, DateTime hasta, String search, Boolean estadoActual) {
-        mOrdersMapPresenter.loadOrderList(estado,tipo,sector,desde,hasta,search,estadoActual);
+        mSector=sector;
+        mOrdersMapPresenter.loadOrderList(mEstado,mTipoTrabajo,mSector,desde,hasta,search,estadoActual);
     }
 
     @Override
-    public void setLoadOrderList(String cuadrilla) {
-        mCuadrilla=cuadrilla;
-        if (cuadrilla.equals("Conexiones")){
-            mOrdersMapPresenter.loadOrderList(mEstado,"Colocacion de Medidor","Todos",null,null,null,true);
-        }
-        if (cuadrilla.equals("Desconexiones")){
-            mOrdersMapPresenter.loadOrderList(mEstado,"Retiro de Medidor","Todos",null,null,null,true);
-        }
-        if (cuadrilla.equals("Varios")){
-            mOrdersMapPresenter.loadOrderList(mEstado,"Varios","Todos",null,null,null,true);
+    public void setLoadOrderList(String tipotrabajo) {
+        mTipoTrabajo=tipotrabajo;
+        if (mTipoTrabajo != null){
+            mOrdersMapPresenter.loadOrderList(mEstado,mTipoTrabajo,mSector,null,null,null,true);
         }
     }
 

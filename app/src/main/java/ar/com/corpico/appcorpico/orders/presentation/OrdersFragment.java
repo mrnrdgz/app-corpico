@@ -42,6 +42,7 @@ public class OrdersFragment extends Fragment implements ar.com.corpico.appcorpic
     private android.view.View mProgressView;
     private String mTipoTrabajo;
     private String mEstado;
+    private String mSector;
     private Activity mActivity;
     private ArrayList<String> list_items = new ArrayList<>();
     private int count;
@@ -70,12 +71,13 @@ public class OrdersFragment extends Fragment implements ar.com.corpico.appcorpic
     }
 
     //Aca va sin parametros o que parametros irian?
-    public static OrdersFragment newInstance(String tipotrabajo,String estado) {
+    public static OrdersFragment newInstance(String tipotrabajo,String estado,String sector) {
         OrdersFragment fragment = new OrdersFragment();
         Bundle args = new Bundle();
         // TODO: Pasar los demás parámetros de la Action Bar
         args.putString("tipotrabajo", tipotrabajo);
         args.putString("estado", estado);
+        args.putString("sector", sector);
         fragment.setArguments(args);
         return fragment;
     }
@@ -87,16 +89,8 @@ public class OrdersFragment extends Fragment implements ar.com.corpico.appcorpic
             // Toman parámetros
            mTipoTrabajo = getArguments().getString("tipotrabajo");
            mEstado= getArguments().getString("estado");
+           mSector= getArguments().getString("sector");
            Spinner activitySpinner = (Spinner) getActivity().findViewById(R.id.spinner_toolBar);
-           /*if (mTipoTrabajo.equals("Conexiones")){*/
-               activitySpinner.setSelection(0);
-          /* }
-           if (mCuadrilla.equals("Desconexiones")){
-               activitySpinner.setSelection(1);
-           }
-           if (mCuadrilla.equals("Varios")){
-               activitySpinner.setSelection(2);
-           }*/
         }
     }
 
@@ -220,14 +214,16 @@ public class OrdersFragment extends Fragment implements ar.com.corpico.appcorpic
             }
         });
 
-        setLoadOrderList(mTipoTrabajo);
+        //setLoadOrderList(mTipoTrabajo);
         return root;
     }
 
     @Override
     public void setLoadOrderList(String tipotrabajo) {
         mTipoTrabajo=tipotrabajo;
-        mOrdersPresenter.loadOrderList(mEstado,mTipoTrabajo,"Todos",null,null,null,true);
+        if (mTipoTrabajo!=null){
+            mOrdersPresenter.loadOrderList(mEstado,mTipoTrabajo,mSector,null,null,null,true);
+        }
     }
     @Override
     public void setAsignarOrder(String cuadrilla, List<String> listorder) {
@@ -264,7 +260,8 @@ public class OrdersFragment extends Fragment implements ar.com.corpico.appcorpic
 
     @Override
     public void setOrderFilter(String estado, String tipo, String sector, DateTime desde, DateTime hasta, String search,Boolean estadoActual) {
-        mOrdersPresenter.loadOrderList(estado,tipo,sector,desde,hasta,search,estadoActual);
+        mSector=sector;
+        mOrdersPresenter.loadOrderList(mEstado,mTipoTrabajo,mSector,desde,hasta,search,estadoActual);
     }
 
     @Override

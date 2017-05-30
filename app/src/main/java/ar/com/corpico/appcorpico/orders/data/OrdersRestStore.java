@@ -86,6 +86,7 @@ public class OrdersRestStore implements OrderStore {
         M_FAKE_REST_TIPO_TRABAJO.add(new Tipo_Trabajo("Varios","Reparación de veredas","Electrico"));
         M_FAKE_REST_TIPO_TRABAJO.add(new Tipo_Trabajo("Varios","Cambio de Tapa","Electrico"));
         M_FAKE_REST_TIPO_TRABAJO.add(new Tipo_Trabajo("Varios","Revisión de Medidor","Electrico"));
+        M_FAKE_REST_TIPO_TRABAJO.add(new Tipo_Trabajo("Varios","Todos","Electrico"));
     }
     static {
         M_FAKE_REST_TIPO_CUADRILLA.add(new Tipo_Cuadrilla("Conexiones","Electrico"));
