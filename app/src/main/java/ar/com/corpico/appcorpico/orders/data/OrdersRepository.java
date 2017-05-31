@@ -63,12 +63,12 @@ public class OrdersRepository implements IOrdersRepository {
     }
 
     @Override
-    public void findType(final TiposRepositoryCallBack callback, Criteria filter) {
-        OrderStore.GetTypeStoreCallBack callback1 = new OrderStore.GetTypeStoreCallBack() {
+    public void findCuadrilla(final CuadrillaxTipoRepositoryCallBack callback, Criteria filter) {
+        OrderStore.GetCuadrillaxTipoStoreCallBack callback1 = new OrderStore.GetCuadrillaxTipoStoreCallBack() {
             @Override
-            public void onSuccess(List<Tipo_Trabajo> tipos) {
+            public void onSuccess(List<Tipo_Cuadrilla> tiposcuadrilla) {
                 // TODO: Guardar datos en SQLite. Posible método save()/insert()/add()
-                callback.onSuccess(tipos);
+                callback.onSuccess(tiposcuadrilla);
             }
 
             @Override
@@ -77,7 +77,7 @@ public class OrdersRepository implements IOrdersRepository {
             }
         };
 
-        mOrdersRestStore.getTypes(callback1, filter);
+        mOrdersRestStore.getCuadrillaxTipo(callback1, filter);
     }
 
     @Override

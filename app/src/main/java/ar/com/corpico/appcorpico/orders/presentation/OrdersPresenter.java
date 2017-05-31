@@ -195,6 +195,6 @@ public class OrdersPresenter implements Presenter {
                 mOrdersView.showOrderError(error);
             }
         };
-        mgetTipoTrabajo.execute(requestValues, useCaseCallback);
+        mgetCuadrillaxTipo.execute(requestValues, useCaseCallback);
     }
 }
