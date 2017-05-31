@@ -6,6 +6,7 @@ import java.util.List;
 
 import ar.com.corpico.appcorpico.UseCase;
 import ar.com.corpico.appcorpico.orders.data.IOrdersRepository;
+import ar.com.corpico.appcorpico.orders.domain.entity.Tipo_Cuadrilla;
 import ar.com.corpico.appcorpico.orders.domain.entity.Tipo_Trabajo;
 import ar.com.corpico.appcorpico.orders.domain.filter.Criteria;
 
@@ -13,20 +14,20 @@ import ar.com.corpico.appcorpico.orders.domain.filter.Criteria;
  * Created by Administrador on 07/01/2017.
  */
 
-public class GetTypes extends UseCase<GetTypes.RequestValues, GetTypes.ResponseValue> {
+public class GetCuadrillaxTipo extends UseCase<GetCuadrillaxTipo.RequestValues, GetCuadrillaxTipo.ResponseValue> {
     private IOrdersRepository mOrdersRepository;
 
-    public GetTypes(IOrdersRepository ordersRepository) {
+    public GetCuadrillaxTipo(IOrdersRepository ordersRepository) {
         this.mOrdersRepository = ordersRepository;
     }
 
     @Override
     public void execute(RequestValues requestValues, final UseCaseCallback callback) {
 
-        IOrdersRepository.TiposRepositoryCallBack findCallback = new IOrdersRepository.TiposRepositoryCallBack() {
+        IOrdersRepository.CuadrillaxTipoRepositoryCallBack findCallback = new IOrdersRepository.CuadrillaxTipoRepositoryCallBack() {
             @Override
-            public void onSuccess(List<Tipo_Trabajo> tipos) {
-                ResponseValue responseValue = new ResponseValue(tipos);
+            public void onSuccess(List<Tipo_Cuadrilla> tipocuadrilla) {
+                ResponseValue responseValue = new ResponseValue(tipocuadrilla);
                 callback.onSuccess(responseValue);
             }
 
@@ -37,7 +38,7 @@ public class GetTypes extends UseCase<GetTypes.RequestValues, GetTypes.ResponseV
         };
 
 
-        mOrdersRepository.findType(findCallback, requestValues.getFilter());
+        mOrdersRepository.findCuadrilla(findCallback, requestValues.getFilter());
     }
 
     public static final class RequestValues implements UseCase.RequestValues {
@@ -57,14 +58,14 @@ public class GetTypes extends UseCase<GetTypes.RequestValues, GetTypes.ResponseV
 
     public static final class ResponseValue implements UseCase.ResponseValue {
 
-        private final List<Tipo_Trabajo> tipoTrabajos;
+        private final List<Tipo_Cuadrilla> tipocuadrilla;
 
-        public ResponseValue(List<Tipo_Trabajo> tipoTrabajos) {
-            this.tipoTrabajos = Preconditions.checkNotNull(tipoTrabajos, "La lista de ordenes no puede ser null");
+        public ResponseValue(List<Tipo_Cuadrilla> tipocuadrilla) {
+            this.tipocuadrilla = Preconditions.checkNotNull(tipocuadrilla, "La lista de ordenes no puede ser null");
         }
 
-        public List<Tipo_Trabajo> getTipoTrabajos() {
-            return tipoTrabajos;
+        public List<Tipo_Cuadrilla> getCuadrilaxTipo() {
+            return tipocuadrilla;
         }
     }
 }

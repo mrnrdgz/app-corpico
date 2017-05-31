@@ -127,7 +127,7 @@ public class OrdersRestStore implements OrderStore {
     }
 
     @Override
-    public void getTypes(final GetTypeStoreCallBack callback, final Criteria filter) {
+    public void getCuadrillaxTipo(final GetCuadrillaxTipoStoreCallBack callback, final Criteria filter) {
         callback.onSuccess(filter.match(M_FAKE_REST_TIPO_TRABAJO));
     }
 

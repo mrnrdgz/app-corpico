@@ -20,7 +20,7 @@ public class OrdersSqliteStore implements OrderStore {
     }
 
     @Override
-    public void getTypes(GetTypeStoreCallBack callback, Criteria filter) {
+    public void getCuadrillaxTipo(GetCuadrillaxTipoStoreCallBack callback, Criteria filter) {
 
     }
 

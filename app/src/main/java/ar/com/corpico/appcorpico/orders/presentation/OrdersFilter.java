@@ -31,8 +31,10 @@ public class OrdersFilter extends DialogFragment {
     public interface OnOrdersFilterListener {
         void onFilterPossitiveButtonClick(String estado, String tipo, String sector, DateTime desde, DateTime hasta, Boolean estadoActual);// Eventos Botón Positivo
         void onNegativeButtonClick();// Eventos Botón Negativo
+        void onCargarCuadrillasListner(String tipotrabajo);
         //void loadType();
     }
+
     OnOrdersFilterListener listener;
     public static OrdersFilter newInstance(String tipotrabajo,String estado,String sector) {
         OrdersFilter f = new OrdersFilter();

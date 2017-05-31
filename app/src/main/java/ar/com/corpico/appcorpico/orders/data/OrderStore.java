@@ -20,8 +20,8 @@ public interface OrderStore {
         void onError(String error);
     }
     void addOrderEtape(String estado, ArrayList<String> numero);
-    void getTypes(GetTypeStoreCallBack callback, Criteria filter);
-    interface GetTypeStoreCallBack{
+    void getCuadrillaxTipo(GetCuadrillaxTipoStoreCallBack callback, Criteria filter);
+    interface GetCuadrillaxTipoStoreCallBack{
         void onSuccess(List<Tipo_Trabajo> tipoTrabajos);
         void onError(String error);
     }

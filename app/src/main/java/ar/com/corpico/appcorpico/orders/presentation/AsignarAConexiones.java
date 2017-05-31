@@ -11,6 +11,7 @@ import android.view.*;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -21,6 +22,8 @@ import org.joda.time.format.DateTimeFormat;
 import java.util.ArrayList;
 
 import ar.com.corpico.appcorpico.R;
+import ar.com.corpico.appcorpico.orders.domain.entity.Order;
+import ar.com.corpico.appcorpico.orders.domain.entity.Tipo_Trabajo;
 
 /**
  * Created by sistemas on 17/04/2017.
@@ -28,7 +31,7 @@ import ar.com.corpico.appcorpico.R;
 
 public class AsignarAConexiones extends DialogFragment {
     private ArrayList<String> mNumeroOT = new ArrayList<>();
-    private String mCuadrilla;
+    private String mTipoTrabajo;
     public interface OnAsignarAConexionesListener {
         void onPossitiveButtonAsignarClick(String cuadrilla, ArrayList<String> numero);// Eventos Botón Positivo
         //LO DEJO X SI MAS ADELANTE LO TENGO QUE DEFINIR
@@ -41,12 +44,12 @@ public class AsignarAConexiones extends DialogFragment {
     }
     //TODO: HAGO CON ESTE ARGUNTO PARA PROBAR...LUEGO EL ARGUMENTO CREO Q
     // DEBERIA SER ORDER PARA CUANDO USE MAS DE UNA SELLECCION
-    public static AsignarAConexiones newInstance(String cuadrilla, ArrayList<String> numero) {
+    public static AsignarAConexiones newInstance(String tipotrabajo, ArrayList<String> numero) {
         AsignarAConexiones f = new AsignarAConexiones();
 
         Bundle args = new Bundle();
         args.putString("NUMERO", numero.get(0));
-        args.putString("CUADRILLA",cuadrilla);
+        args.putString("TIPO_TRABAJO",tipotrabajo);
         f.setArguments(args);
 
         return f;
@@ -67,32 +70,17 @@ public class AsignarAConexiones extends DialogFragment {
         final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = getActivity().getLayoutInflater();
         mNumeroOT.add(getArguments().getString("NUMERO"));
-        mCuadrilla = getArguments().getString("CUADRILLA");
+        mTipoTrabajo = getArguments().getString("TIPO_TRABAJO");
 
 
         android.view.View v = inflater.inflate(R.layout.dialog_asignar_conexiones, null);
         builder.setView(v);
         builder.setTitle("Asignar a cuadrilla");
 
-        final RadioButton mConexiones  = (RadioButton) v.findViewById(R.id.radioButtonConexiones);
-        final RadioButton mDesconexiones  = (RadioButton) v.findViewById(R.id.radioButtonDesconexiones);
-        final RadioButton mVariosMañana  = (RadioButton) v.findViewById(R.id.radioButtonMañana);
-        final RadioButton mVariosTarde  = (RadioButton) v.findViewById(R.id.radioButtonTarde);
-        final RadioButton mAuxiliar  = (RadioButton) v.findViewById(R.id.radioButtonAuxliar);
-        if (mCuadrilla.equals("Conexiones")){
-            mConexiones.setVisibility(View.VISIBLE);
-            mAuxiliar.setVisibility(View.VISIBLE);
-        }
-        if (mCuadrilla.equals("Desconexiones")){
-            mDesconexiones.setVisibility(View.VISIBLE);
-            mAuxiliar.setVisibility(View.VISIBLE);
-        }
+        ListView mCuadrillaList = (ListView) v.findViewById(R.id.cuadrillasList);
+        CuadrillaAdapter mCuadrillaAdapter = new CuadrillaAdapter(getActivity(),new ArrayList<Tipo_Trabajo>(0));
+        mCuadrillaList.setAdapter(mCuadrillaAdapter);
 
-        if (mCuadrilla.equals("Varios")){
-            mVariosMañana.setVisibility(View.VISIBLE);
-            mVariosTarde.setVisibility(View.VISIBLE);
-            mAuxiliar.setVisibility(android.view.View.VISIBLE);
-        }
         Button asignar = (Button) v.findViewById(R.id.aplicar_boton);
         Button cancelar = (Button) v.findViewById(R.id.cancelar_boton);
 
@@ -100,7 +88,7 @@ public class AsignarAConexiones extends DialogFragment {
                 new android.view.View.OnClickListener() {
                     @Override
                     public void onClick(android.view.View v) {
-                        listener.onPossitiveButtonAsignarClick(mCuadrilla,mNumeroOT);
+                        listener.onPossitiveButtonAsignarClick(mTipoTrabajo,mNumeroOT);
                         dismiss();
                     }
                 }

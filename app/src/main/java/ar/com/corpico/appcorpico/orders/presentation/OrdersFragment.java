@@ -56,7 +56,7 @@ public class OrdersFragment extends Fragment implements ar.com.corpico.appcorpic
 
    public interface OnViewActivityListener {
         void onShowTipoTrabajo(List<Tipo_Trabajo> listorder);// Eventos Botón Positivo
-    }
+   }
 
     private OnViewActivityListener listenerViewActivity;
 
@@ -214,7 +214,7 @@ public class OrdersFragment extends Fragment implements ar.com.corpico.appcorpic
             }
         });
 
-        //setLoadOrderList(mTipoTrabajo);
+        setLoadOrderList(mTipoTrabajo);
         return root;
     }
 
@@ -267,5 +267,10 @@ public class OrdersFragment extends Fragment implements ar.com.corpico.appcorpic
     @Override
     public void showTipoTrabajoList(List<Tipo_Trabajo> listorder) {
         listenerViewActivity.onShowTipoTrabajo(listorder);
+    }
+
+    @Override
+    public void showCuadrillaxTipoList(List<Tipo_Cuadrilla> listcuadrilla) {
+
     }
 }

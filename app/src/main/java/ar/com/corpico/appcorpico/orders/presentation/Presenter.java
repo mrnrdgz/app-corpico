@@ -13,5 +13,6 @@ public interface Presenter {
     // TODO: el parametro "numero" luego lo reemplazare por List<Order>?
     void asignarOrder(String cuadrilla, List<String> listorder);
     void loadTipoTrabajo(String servicio);
+    void loadCuadrillasXTipo(String tipotrabajo);
 
 }

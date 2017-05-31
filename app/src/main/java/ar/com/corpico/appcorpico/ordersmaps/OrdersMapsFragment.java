@@ -69,7 +69,7 @@ public class OrdersMapsFragment extends SupportMapFragment implements OnMapReady
             mSector = getArguments().getString("sector");
             Spinner activitySpinner = (Spinner) getActivity().findViewById(R.id.spinner_toolBar);
         }
-        //setLoadOrderList(mTipoTrabajo);
+        setLoadOrderList(mTipoTrabajo);
         getMapAsync(this);
 
     }
