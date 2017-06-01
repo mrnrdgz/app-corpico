@@ -377,7 +377,7 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements 
     }
 
     @Override
-    public Void onShowTipoCuadrilla(ArrayList<Tipo_Cuadrilla> listtipocuadrilla) {
+    public void onShowTipoCuadrilla(List<Tipo_Cuadrilla> listtipocuadrilla) {
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
             Fragment prev = getSupportFragmentManager().findFragmentByTag("AsignarconexionDialog");
             if (prev != null) {

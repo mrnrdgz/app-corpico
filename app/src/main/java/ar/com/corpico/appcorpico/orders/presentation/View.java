@@ -16,7 +16,7 @@ import ar.com.corpico.appcorpico.orders.domain.entity.Tipo_Trabajo;
 public interface View {
     void showOrderList(List<Order> listorder);
     void showTipoTrabajoList(List<Tipo_Trabajo> listorder);
-    void showCuadrillaxTipoList(ArrayList<Tipo_Cuadrilla> listcuadrilla);
+    void showCuadrillaxTipoList(List<Tipo_Cuadrilla> listcuadrilla);
     void showOrderError(String error);
     void setPresenter(Presenter presenter);
     void showOrdesEmpty();

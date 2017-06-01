@@ -2,33 +2,21 @@ package ar.com.corpico.appcorpico.orders.presentation;
 
 import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
-import android.util.Log;
 import android.view.*;
-import android.view.View;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.ListView;
-import android.widget.RadioButton;
-import android.widget.Spinner;
-import android.widget.Toast;
-
-import org.joda.time.DateTime;
-import org.joda.time.format.DateTimeFormat;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import ar.com.corpico.appcorpico.R;
-import ar.com.corpico.appcorpico.orders.domain.entity.Order;
 import ar.com.corpico.appcorpico.orders.domain.entity.Tipo_Cuadrilla;
-import ar.com.corpico.appcorpico.orders.domain.entity.Tipo_Trabajo;
-
-import static ar.com.corpico.appcorpico.R.id.imageView;
 
 /**
  * Created by sistemas on 17/04/2017.
@@ -36,7 +24,7 @@ import static ar.com.corpico.appcorpico.R.id.imageView;
 
 public class AsignarAConexiones extends DialogFragment {
     private ArrayList<String> mNumeroOT = new ArrayList<>();
-    private ArrayList<Tipo_Cuadrilla> mTipoCuadrilla = new ArrayList<>();
+    private List<Tipo_Cuadrilla> mTipoCuadrillaList = new ArrayList<Tipo_Cuadrilla>();
     //private ArrayList<String> mTipoCuadrilla = new ArrayList<>();
     private ListView mCuadrillaList;
     private CuadrillaAdapter mCuadrillaAdapter;
@@ -52,16 +40,18 @@ public class AsignarAConexiones extends DialogFragment {
     }
     //TODO: HAGO CON ESTE ARGUNTO PARA PROBAR...LUEGO EL ARGUMENTO CREO Q
     // DEBERIA SER ORDER PARA CUANDO USE MAS DE UNA SELLECCION
-    public static AsignarAConexiones newInstance(ArrayList<Tipo_Cuadrilla> tipocuadrilla, ArrayList<String> numero) {
+    public static AsignarAConexiones newInstance(List<Tipo_Cuadrilla> tipocuadrilla, ArrayList<String> numero) {
         AsignarAConexiones f = new AsignarAConexiones();
 
-        ArrayList[] myArray = new ArrayList[10];
         //arguments.putParcelableArray("key"myArray);
+        for(int x=0;x<tipocuadrilla.size();x++) {
+            mTipoCuadrillaList.add(new Tipo_Cuadrilla(tipocuadrilla.getTipo_cuadrilla(x)));
+        }
 
         Bundle args = new Bundle();
         args.putString("NUMERO", numero.get(0));
-        //args.putString("TIPO_CUADRILLA",tipocuadrilla.get(0));
-        args.putParcelableArrayList("TIPO_CUADRILLA",myArray);
+        args.putExtra("TIPO_CUADRILLA",tipocuadrilla);
+        args.writeToParcel(tipocuadrilla,"TIPO_CUADRILLA");
 
         f.setArguments(args);
 
@@ -85,26 +75,25 @@ public class AsignarAConexiones extends DialogFragment {
         LayoutInflater inflater = getActivity().getLayoutInflater();
 
         mNumeroOT.add(getArguments().getString("NUMERO"));
-        //mTipoCuadrilla.add (getArguments().getString("TIPO_CUADRILLA"));
-        mTipoCuadrilla= getArguments().getArrayList("TIPO_CUADRILLA");
+        mTipoCuadrillaList.addAll((Collection<? extends Tipo_Cuadrilla>) getArguments().getParcelable("TIPO_CUADRILLA"));
 
 
-        if (mTipoCuadrilla != null && !mTipoCuadrilla.isEmpty()) {
-            for (Tipo_Cuadrilla tipocuadrilla : mTipoCuadrilla) {
-                mTipoCuadrilla.add(tipocuadrilla);
+        /*if (mTipoCuadrilla != null && !mTipoCuadrilla.isEmpty()) {
+            for(int x=0;x<mTipoCuadrilla.size();x++) {
+                mTipoCuadrillaList.add(new Tipo_Cuadrilla(mTipoCuadrilla.get(x).toString(),""));
             }
-
+        }*/
 
         android.view.View v = inflater.inflate(R.layout.dialog_asignar_conexiones, null);
         builder.setView(v);
         builder.setTitle("Asignar a cuadrilla");
 
         mCuadrillaList = (ListView) v.findViewById(R.id.cuadrillaslist);
-        mCuadrillaAdapter = new CuadrillaAdapter(getActivity(),new ArrayList<Tipo_Cuadrilla>());
+        mCuadrillaAdapter = new CuadrillaAdapter(getActivity(),new ArrayList<Tipo_Cuadrilla>(0));
         mCuadrillaList.setAdapter(mCuadrillaAdapter);
 
         mCuadrillaAdapter.clear();
-        mCuadrillaAdapter.addAll(mTipoCuadrilla);
+        mCuadrillaAdapter.addAll(mTipoCuadrillaList);
         mCuadrillaAdapter.notifyDataSetChanged();
 
         Button asignar = (Button) v.findViewById(R.id.aplicar_boton);
@@ -114,7 +103,7 @@ public class AsignarAConexiones extends DialogFragment {
                 new android.view.View.OnClickListener() {
                     @Override
                     public void onClick(android.view.View v) {
-                        listener.onPossitiveButtonAsignarClick(mTipoTrabajo,mNumeroOT);
+                        //listener.onPossitiveButtonAsignarClick(mTipoTrabajo,mNumeroOT);
                         dismiss();
                     }
                 }
