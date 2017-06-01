@@ -69,6 +69,7 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements 
     private OrdersPresenter orderPresenter;
     private String mEstado;
     private String mServicio;
+    private ArrayList<String> mOrdenListNumero;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -330,15 +331,16 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements 
     @Override
     public void onButtonClickListner(ArrayList<String> numero) {
         //TODO: HACER EL DIALOG PARA ASIGNAR EL TRABAJO A LA CUADRILLA ESTO DE ABAJO ES UNA Prueba
-            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+         /*   FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
             Fragment prev = getSupportFragmentManager().findFragmentByTag("AsignarconexionDialog");
             if (prev != null) {
                 ft.remove(prev);
             }
-            ft.addToBackStack(null);
+            ft.addToBackStack(null);*/
+            mOrdenListNumero = numero;
             orderPresenter.loadCuadrillasXTipo(mTipoTrabajo);
-            DialogFragment newFragment = AsignarAConexiones.newInstance(mTipoTrabajo,numero);
-            newFragment.show(ft, "AsignarconexionDialog");
+           /* DialogFragment newFragment = AsignarAConexiones.newInstance(mTipoTrabajo,numero);
+            newFragment.show(ft, "AsignarconexionDialog");*/
     }
 
     @Override
@@ -372,6 +374,19 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements 
         mTipoTrabajoAdapter.clear();
         mTipoTrabajoAdapter.addAll(tipoTrabajo);
         mTipoTrabajoAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public Void onShowTipoCuadrilla(ArrayList<Tipo_Cuadrilla> listtipocuadrilla) {
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            Fragment prev = getSupportFragmentManager().findFragmentByTag("AsignarconexionDialog");
+            if (prev != null) {
+                ft.remove(prev);
+            }
+            ft.addToBackStack(null);
+
+        DialogFragment newFragment = AsignarAConexiones.newInstance(listtipocuadrilla,mOrdenListNumero);
+        newFragment.show(ft, "AsignarconexionDialog");
     }
 
 }

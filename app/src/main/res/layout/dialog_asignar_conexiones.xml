@@ -16,7 +16,7 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
             <ListView
-                android:id="@+id/cuadrillasList"
+                android:id="@+id/cuadrillaslist"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:choiceMode="singleChoice"

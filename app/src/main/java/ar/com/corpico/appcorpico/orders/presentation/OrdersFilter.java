@@ -81,21 +81,6 @@ public class OrdersFilter extends DialogFragment {
                 mSectorSpinner.setSelection(i);
             }
         }
-        //mSector=mSectorSpinner.getSelectedItem().toString();
-        /*if(!mSector.equals(mSectorSpinner.getSelectedItem().toString())){
-            mSector=mSectorSpinner.getSelectedItem().toString();
-        }*/
-
-        /*}
-        if(mType.equals("Conexiones") ){
-            mTipo = "Colocacion de Medidor";
-        }
-        if(mType.equals("Desconexiones") ){
-            mTipo = "Retiro de Medidor";
-        }
-        if(!mCuadrilla.equals("Conexiones") && !mCuadrilla.equals("Desconexiones")){
-            mTipo= mTipoSpinner.getItemAtPosition(mTipoSpinner.getSelectedItemPosition()).toString();
-        }*/
 
         Button aplicar = (Button) v.findViewById(R.id.aplicar_boton);
         Button cancelar = (Button) v.findViewById(R.id.cancelar_boton);

@@ -12,11 +12,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ar.com.corpico.appcorpico.R;
+import ar.com.corpico.appcorpico.orders.domain.entity.Tipo_Cuadrilla;
 import ar.com.corpico.appcorpico.orders.domain.entity.Tipo_Trabajo;
 
-public class CuadrillaAdapter extends ArrayAdapter<Tipo_Trabajo> {
+public class CuadrillaAdapter extends ArrayAdapter<Tipo_Cuadrilla> {
 
-    public CuadrillaAdapter(Context context, List<Tipo_Trabajo> objects) {
+    public CuadrillaAdapter(Context context, List<Tipo_Cuadrilla> objects) {
         super(context, 0, objects);
     }
 
@@ -25,7 +26,7 @@ public class CuadrillaAdapter extends ArrayAdapter<Tipo_Trabajo> {
        /*
        Obtener el objeto procesado actualmente
         */
-        Tipo_Trabajo tipoTrabajo;
+        Tipo_Cuadrilla tipoCuadrilla;
 
         /*
         Obtener LayoutInflater de la actividad
@@ -44,14 +45,14 @@ public class CuadrillaAdapter extends ArrayAdapter<Tipo_Trabajo> {
         }
 
         RadioButton cuadrillaRadioButton = (RadioButton)convertView.findViewById(R.id.CuadrillaradioButton);
-        TextView cuadrilla = (TextView) convertView.findViewById(R.id.Cuadrilla_text);
+        //TextView cuadrilla = (TextView) convertView.findViewById(R.id.Cuadrilla_text);
         // Tipo_Trabajo actual..
-        tipoTrabajo =  getItem(position);
+        tipoCuadrilla =  getItem(position);
 
         /*
         Asignar valores
          */
-        cuadrilla.setText(tipoTrabajo.getTipoCuadrilla());
+        cuadrillaRadioButton.setText(tipoCuadrilla.getTipoCuadrilla());
 
         return convertView;
     }

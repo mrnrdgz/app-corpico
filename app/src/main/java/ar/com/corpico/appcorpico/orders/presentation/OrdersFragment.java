@@ -3,7 +3,9 @@ package ar.com.corpico.appcorpico.orders.presentation;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.Toolbar;
 import android.view.ActionMode;
 import android.view.LayoutInflater;
@@ -55,7 +57,8 @@ public class OrdersFragment extends Fragment implements ar.com.corpico.appcorpic
     }
 
    public interface OnViewActivityListener {
-        void onShowTipoTrabajo(List<Tipo_Trabajo> listorder);// Eventos Botón Positivo
+        void onShowTipoTrabajo(List<Tipo_Trabajo> listorder);
+        Void onShowTipoCuadrilla(ArrayList<Tipo_Cuadrilla> listtipocuadrilla);
    }
 
     private OnViewActivityListener listenerViewActivity;
@@ -64,7 +67,6 @@ public class OrdersFragment extends Fragment implements ar.com.corpico.appcorpic
     public void setActivityListener(OnViewActivityListener listener) {
         this.listenerViewActivity=listener;
     }
-
 
     public void setListener(OrdersAdapter.OnAsignarListener listener) {
         this.listener=listener;
@@ -270,7 +272,8 @@ public class OrdersFragment extends Fragment implements ar.com.corpico.appcorpic
     }
 
     @Override
-    public void showCuadrillaxTipoList(List<Tipo_Cuadrilla> listcuadrilla) {
+    public void showCuadrillaxTipoList(ArrayList<Tipo_Cuadrilla> listcuadrilla) {
+        //TODO: ACA LLAMO A UN LISTERNER QUE ME CONECTE CON LA ACTIVITY Y LE PASO LAS CUADRILLAS
 
     }
 }
