@@ -13,14 +13,14 @@ import java.util.List;
 public class Tipo_Cuadrilla implements Parcelable {
     private String tipo_cuadrilla;
     private String servicio;
-    private List<Tipo_Cuadrilla> tipo_cuadrillaList;
 
-    public Tipo_Cuadrilla(String tipo_cuadrilla, String servicio,List<Tipo_Cuadrilla> tipo_cuadrillaList) {
+    public Tipo_Cuadrilla(String tipo_cuadrilla, String servicio) {
         this.tipo_cuadrilla = tipo_cuadrilla;
         this.servicio = servicio;
-        this.tipo_cuadrillaList=tipo_cuadrillaList;
     }
+    public Tipo_Cuadrilla() {
 
+    }
     public String getTipo_cuadrilla() {
         return tipo_cuadrilla;
     }
@@ -37,14 +37,6 @@ public class Tipo_Cuadrilla implements Parcelable {
         this.servicio = servicio;
     }
 
-    public List<Tipo_Cuadrilla> getTipo_cuadrillaList() {
-        return tipo_cuadrillaList;
-    }
-
-    public void setTipo_cuadrillaList(List<Tipo_Cuadrilla> tipo_cuadrillaList) {
-        this.tipo_cuadrillaList = tipo_cuadrillaList;
-    }
-
     @Override
     public int describeContents() {
         return 0;
@@ -54,14 +46,11 @@ public class Tipo_Cuadrilla implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(this.tipo_cuadrilla);
         dest.writeString(this.servicio);
-        dest.writeList(this.tipo_cuadrillaList);
     }
 
     protected Tipo_Cuadrilla(Parcel in) {
         this.tipo_cuadrilla = in.readString();
         this.servicio = in.readString();
-        this.tipo_cuadrillaList = new ArrayList<Tipo_Cuadrilla>();
-        in.readList(this.tipo_cuadrillaList, Tipo_Cuadrilla.class.getClassLoader());
     }
 
     public static final Parcelable.Creator<Tipo_Cuadrilla> CREATOR = new Parcelable.Creator<Tipo_Cuadrilla>() {

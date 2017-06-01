@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -49,6 +50,7 @@ import ar.com.corpico.appcorpico.orders.presentation.OrdersFragment;
 import ar.com.corpico.appcorpico.orders.presentation.OrdersPresenter;
 import ar.com.corpico.appcorpico.ordersmaps.OrdersMapsFragment;
 
+import static android.R.attr.fragment;
 
 
 /**
@@ -384,7 +386,10 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements 
                 ft.remove(prev);
             }
             ft.addToBackStack(null);
-
+        Bundle bundle = new Bundle();
+        /*bundle.putParcelable("TIPO_CUADRILLA", (Parcelable) listtipocuadrilla);
+        DialogFragment newFragment = new DialogFragment();
+        newFragment.setArguments(bundle);*/
         DialogFragment newFragment = AsignarAConexiones.newInstance(listtipocuadrilla,mOrdenListNumero);
         newFragment.show(ft, "AsignarconexionDialog");
     }

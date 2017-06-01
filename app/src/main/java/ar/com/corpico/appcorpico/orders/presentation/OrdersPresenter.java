@@ -4,6 +4,7 @@ import com.google.common.base.Preconditions;
 
 import org.joda.time.DateTime;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import ar.com.corpico.appcorpico.UseCase;

@@ -52,7 +52,7 @@ public class CuadrillaAdapter extends ArrayAdapter<Tipo_Cuadrilla> {
         /*
         Asignar valores
          */
-        cuadrillaRadioButton.setText(tipoCuadrilla.getTipoCuadrilla());
+        cuadrillaRadioButton.setText(tipoCuadrilla.getTipo_cuadrilla());
 
         return convertView;
     }

@@ -25,7 +25,6 @@ import ar.com.corpico.appcorpico.orders.domain.entity.Tipo_Cuadrilla;
 public class AsignarAConexiones extends DialogFragment {
     private ArrayList<String> mNumeroOT = new ArrayList<>();
     private List<Tipo_Cuadrilla> mTipoCuadrillaList = new ArrayList<Tipo_Cuadrilla>();
-    //private ArrayList<String> mTipoCuadrilla = new ArrayList<>();
     private ListView mCuadrillaList;
     private CuadrillaAdapter mCuadrillaAdapter;
     public interface OnAsignarAConexionesListener {
@@ -43,15 +42,9 @@ public class AsignarAConexiones extends DialogFragment {
     public static AsignarAConexiones newInstance(List<Tipo_Cuadrilla> tipocuadrilla, ArrayList<String> numero) {
         AsignarAConexiones f = new AsignarAConexiones();
 
-        //arguments.putParcelableArray("key"myArray);
-        for(int x=0;x<tipocuadrilla.size();x++) {
-            mTipoCuadrillaList.add(new Tipo_Cuadrilla(tipocuadrilla.getTipo_cuadrilla(x)));
-        }
-
         Bundle args = new Bundle();
         args.putString("NUMERO", numero.get(0));
-        args.putExtra("TIPO_CUADRILLA",tipocuadrilla);
-        args.writeToParcel(tipocuadrilla,"TIPO_CUADRILLA");
+        args.putParcelableArrayList("TIPO_CUADRILLA", tipocuadrilla);
 
         f.setArguments(args);
 
@@ -78,11 +71,6 @@ public class AsignarAConexiones extends DialogFragment {
         mTipoCuadrillaList.addAll((Collection<? extends Tipo_Cuadrilla>) getArguments().getParcelable("TIPO_CUADRILLA"));
 
 
-        /*if (mTipoCuadrilla != null && !mTipoCuadrilla.isEmpty()) {
-            for(int x=0;x<mTipoCuadrilla.size();x++) {
-                mTipoCuadrillaList.add(new Tipo_Cuadrilla(mTipoCuadrilla.get(x).toString(),""));
-            }
-        }*/
 
         android.view.View v = inflater.inflate(R.layout.dialog_asignar_conexiones, null);
         builder.setView(v);
