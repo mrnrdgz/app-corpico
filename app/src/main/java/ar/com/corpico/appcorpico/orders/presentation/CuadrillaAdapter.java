@@ -58,6 +58,7 @@ public class CuadrillaAdapter extends ArrayAdapter<Tipo_Trabajo> {
         cuadrillaRadioButton.setOnClickListener(new android.view.View.OnClickListener() {
             @Override
             public void onClick(android.view.View v) {;
+                //TODO:
                 ArrayList<String> aux = new ArrayList();
                 aux.add(0,getItem(position).getTipoCuadrilla());
                 listenerAdapter.onButtonClickListner(aux);
