@@ -379,17 +379,13 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements 
     }
 
     @Override
-    public void onShowTipoCuadrilla(List<Tipo_Cuadrilla> listtipocuadrilla) {
+    public void onShowTipoCuadrilla(List<Tipo_Trabajo> listtipocuadrilla) {
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
             Fragment prev = getSupportFragmentManager().findFragmentByTag("AsignarconexionDialog");
             if (prev != null) {
                 ft.remove(prev);
             }
             ft.addToBackStack(null);
-        Bundle bundle = new Bundle();
-        /*bundle.putParcelable("TIPO_CUADRILLA", (Parcelable) listtipocuadrilla);
-        DialogFragment newFragment = new DialogFragment();
-        newFragment.setArguments(bundle);*/
         DialogFragment newFragment = AsignarAConexiones.newInstance(listtipocuadrilla,mOrdenListNumero);
         newFragment.show(ft, "AsignarconexionDialog");
     }

@@ -175,7 +175,7 @@ public class OrdersMapsFragment extends SupportMapFragment implements OnMapReady
     }
 
     @Override
-    public void showCuadrillaxTipoList(ArrayList<Tipo_Cuadrilla> listcuadrilla) {
+    public void showCuadrillaxTipoList(List<Tipo_Trabajo> listcuadrilla) {
 
     }
 

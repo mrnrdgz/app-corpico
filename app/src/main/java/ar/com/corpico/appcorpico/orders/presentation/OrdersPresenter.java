@@ -178,7 +178,7 @@ public class OrdersPresenter implements Presenter {
                 GetCuadrillaxTipo.ResponseValue responseValue = (GetCuadrillaxTipo.ResponseValue) response;
 
                 // ¿La lista tiene uno o más elementos?
-                List<Tipo_Cuadrilla> tipocuadrilla = responseValue.getCuadrilaxTipo();
+                List<Tipo_Trabajo> tipocuadrilla = responseValue.getCuadrilaxTipo();
                 if (tipocuadrilla.size() >= 1) {
                     // Mostrar la lista en la vista
                     mOrdersView.showCuadrillaxTipoList(tipocuadrilla);

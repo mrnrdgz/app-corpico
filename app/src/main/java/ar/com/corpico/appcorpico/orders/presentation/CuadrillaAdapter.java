@@ -2,8 +2,7 @@ package ar.com.corpico.appcorpico.orders.presentation;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.view.LayoutInflater;
-import android.view.ViewGroup;
+import android.view.*;
 import android.widget.ArrayAdapter;
 import android.widget.RadioButton;
 import android.widget.TextView;
@@ -15,9 +14,10 @@ import ar.com.corpico.appcorpico.R;
 import ar.com.corpico.appcorpico.orders.domain.entity.Tipo_Cuadrilla;
 import ar.com.corpico.appcorpico.orders.domain.entity.Tipo_Trabajo;
 
-public class CuadrillaAdapter extends ArrayAdapter<Tipo_Cuadrilla> {
 
-    public CuadrillaAdapter(Context context, List<Tipo_Cuadrilla> objects) {
+public class CuadrillaAdapter extends ArrayAdapter<Tipo_Trabajo> {
+
+    public CuadrillaAdapter(Context context, List<Tipo_Trabajo> objects) {
         super(context, 0, objects);
     }
 
@@ -26,7 +26,8 @@ public class CuadrillaAdapter extends ArrayAdapter<Tipo_Cuadrilla> {
        /*
        Obtener el objeto procesado actualmente
         */
-        Tipo_Cuadrilla tipoCuadrilla;
+        //Tipo_Cuadrilla tipoCuadrilla;
+        Tipo_Trabajo tipoTrabajo;
 
         /*
         Obtener LayoutInflater de la actividad
@@ -44,15 +45,24 @@ public class CuadrillaAdapter extends ArrayAdapter<Tipo_Cuadrilla> {
                     false);
         }
 
-        RadioButton cuadrillaRadioButton = (RadioButton)convertView.findViewById(R.id.CuadrillaradioButton);
+        final RadioButton cuadrillaRadioButton = (RadioButton)convertView.findViewById(R.id.CuadrillaradioButton);
         //TextView cuadrilla = (TextView) convertView.findViewById(R.id.Cuadrilla_text);
         // Tipo_Trabajo actual..
-        tipoCuadrilla =  getItem(position);
+        tipoTrabajo = getItem(position);
 
         /*
         Asignar valores
          */
-        cuadrillaRadioButton.setText(tipoCuadrilla.getTipo_cuadrilla());
+        cuadrillaRadioButton.setText(tipoTrabajo.getTipoCuadrilla());
+
+        cuadrillaRadioButton.setOnClickListener(new android.view.View.OnClickListener() {
+            @Override
+            public void onClick(android.view.View v) {;
+                ArrayList<String> aux = new ArrayList();
+                aux.add(0,getItem(position).getTipoCuadrilla());
+                listenerAdapter.onButtonClickListner(aux);
+            }
+        });
 
         return convertView;
     }

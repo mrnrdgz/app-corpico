@@ -22,7 +22,7 @@ public interface OrderStore {
     void addOrderEtape(String estado, ArrayList<String> numero);
     void getCuadrillaxTipo(GetCuadrillaxTipoStoreCallBack callback, Criteria filter);
     interface GetCuadrillaxTipoStoreCallBack{
-        void onSuccess(List<Tipo_Cuadrilla> tipoCuadrilla);
+        void onSuccess(List<Tipo_Trabajo> tipoCuadrilla);
         void onError(String error);
     }
     void getTipoTrabajo(GetTipoTrabajoStoreCallBack callback, Criteria filter);

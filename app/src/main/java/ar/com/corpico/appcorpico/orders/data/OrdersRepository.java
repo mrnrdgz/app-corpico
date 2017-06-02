@@ -66,7 +66,7 @@ public class OrdersRepository implements IOrdersRepository {
     public void findCuadrilla(final CuadrillaxTipoRepositoryCallBack callback, Criteria filter) {
         OrderStore.GetCuadrillaxTipoStoreCallBack callback1 = new OrderStore.GetCuadrillaxTipoStoreCallBack() {
             @Override
-            public void onSuccess(List<Tipo_Cuadrilla> tiposcuadrilla) {
+            public void onSuccess(List<Tipo_Trabajo> tiposcuadrilla) {
                 // TODO: Guardar datos en SQLite. Posible método save()/insert()/add()
                 callback.onSuccess(tiposcuadrilla);
             }

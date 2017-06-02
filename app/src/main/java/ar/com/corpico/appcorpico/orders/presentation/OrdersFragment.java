@@ -58,7 +58,7 @@ public class OrdersFragment extends Fragment implements ar.com.corpico.appcorpic
 
    public interface OnViewActivityListener {
         void onShowTipoTrabajo(List<Tipo_Trabajo> listorder);
-        void onShowTipoCuadrilla(List<Tipo_Cuadrilla> listtipocuadrilla);
+        void onShowTipoCuadrilla(List<Tipo_Trabajo> listtipocuadrilla);
    }
 
     private OnViewActivityListener listenerViewActivity;
@@ -272,7 +272,7 @@ public class OrdersFragment extends Fragment implements ar.com.corpico.appcorpic
     }
 
     @Override
-    public void showCuadrillaxTipoList(List<Tipo_Cuadrilla> listcuadrilla) {
+    public void showCuadrillaxTipoList(List<Tipo_Trabajo> listcuadrilla) {
         //TODO: ACA LLAMO A UN LISTERNER QUE ME CONECTE CON LA ACTIVITY Y LE PASO LAS CUADRILLAS
         listenerViewActivity.onShowTipoCuadrilla(listcuadrilla);
     }

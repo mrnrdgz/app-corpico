@@ -26,7 +26,7 @@ public class GetCuadrillaxTipo extends UseCase<GetCuadrillaxTipo.RequestValues, 
 
         IOrdersRepository.CuadrillaxTipoRepositoryCallBack findCallback = new IOrdersRepository.CuadrillaxTipoRepositoryCallBack() {
             @Override
-            public void onSuccess(List<Tipo_Cuadrilla> tipocuadrilla) {
+            public void onSuccess(List<Tipo_Trabajo> tipocuadrilla) {
                 ResponseValue responseValue = new ResponseValue(tipocuadrilla);
                 callback.onSuccess(responseValue);
             }
@@ -58,13 +58,13 @@ public class GetCuadrillaxTipo extends UseCase<GetCuadrillaxTipo.RequestValues, 
 
     public static final class ResponseValue implements UseCase.ResponseValue {
 
-        private final List<Tipo_Cuadrilla> tipocuadrilla;
+        private final List<Tipo_Trabajo> tipocuadrilla;
 
-        public ResponseValue(List<Tipo_Cuadrilla> tipocuadrilla) {
+        public ResponseValue(List<Tipo_Trabajo> tipocuadrilla) {
             this.tipocuadrilla = Preconditions.checkNotNull(tipocuadrilla, "La lista de ordenes no puede ser null");
         }
 
-        public List<Tipo_Cuadrilla> getCuadrilaxTipo() {
+        public List<Tipo_Trabajo> getCuadrilaxTipo() {
             return tipocuadrilla;
         }
     }
