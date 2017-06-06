@@ -10,7 +10,7 @@ import java.util.List;
  * Created by Administrador on 22/05/2017.
  */
 
-public class Tipo_Cuadrilla implements Parcelable {
+public class Tipo_Cuadrilla {
     private String tipo_cuadrilla;
     private String servicio;
 
@@ -37,31 +37,4 @@ public class Tipo_Cuadrilla implements Parcelable {
         this.servicio = servicio;
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(this.tipo_cuadrilla);
-        dest.writeString(this.servicio);
-    }
-
-    protected Tipo_Cuadrilla(Parcel in) {
-        this.tipo_cuadrilla = in.readString();
-        this.servicio = in.readString();
-    }
-
-    public static final Parcelable.Creator<Tipo_Cuadrilla> CREATOR = new Parcelable.Creator<Tipo_Cuadrilla>() {
-        @Override
-        public Tipo_Cuadrilla createFromParcel(Parcel source) {
-            return new Tipo_Cuadrilla(source);
-        }
-
-        @Override
-        public Tipo_Cuadrilla[] newArray(int size) {
-            return new Tipo_Cuadrilla[size];
-        }
-    };
 }

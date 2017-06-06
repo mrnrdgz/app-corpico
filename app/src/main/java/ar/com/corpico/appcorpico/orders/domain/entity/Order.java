@@ -14,9 +14,8 @@ import static android.R.attr.order;
  */
 public class Order {
     private String mNumero;
-    private String mServicio;
-    private String mSector;
-    private String mTipo;
+    private String mZona;
+    private String mTipo_Trabajo;
     private String mMotivo;
     private ArrayList<Etapa> mEtapas;
     private String mAsociado;
@@ -31,13 +30,12 @@ public class Order {
     private String mState;
     private Etapa mCurrentEtapa;
 
-    public Order(String Numero, String Servicio, String Sector, String Tipo, String Motivo, ArrayList<Etapa> Etapas, String Asociado,
+    public Order(String Numero, String Zona, String Tipo_Trabajo, String Motivo, ArrayList<Etapa> Etapas, String Asociado,
                  String Suministro, String Titular, String Domicilio, String Localidad, String Anexo, String Latitud, String Longitud,
                  String Observacion) {
         this.mNumero = Numero;
-        this.mServicio= Servicio;
-        this.mSector = Sector;
-        this.mTipo = Tipo;
+        this.mZona = Zona;
+        this.mTipo_Trabajo = Tipo_Trabajo;
         this.mMotivo= Motivo;
         this.mEtapas = Etapas;
         this.mAsociado = Asociado;
@@ -59,20 +57,20 @@ public class Order {
         this.mNumero = Numero;
     }
 
-    public String getSector() {
-        return mSector;
+    public String getZona() {
+        return mZona;
     }
 
-    public void setSector(String Sector) {
-        this.mSector = Sector;
+    public void setZona(String Zona) {
+        this.mZona = Zona;
     }
 
-    public String getTipo() {
-        return mTipo;
+    public String getTipo_Trabajo() {
+        return mTipo_Trabajo;
     }
 
-    public void setTipo(String Tipo) {
-        this.mTipo = Tipo;
+    public void setTipo_Trabajo(String Tipo_Trabajo) {
+        this.mTipo_Trabajo = Tipo_Trabajo;
     }
 
     public String getAsociado() {
@@ -144,14 +142,6 @@ public class Order {
         mEtapas.add(etapa);
     }
 
-    public String getServicio() {
-        return mServicio;
-    }
-
-    public void setServicio(String Servicio) {
-        this.mServicio = Servicio;
-    }
-
     public String getMotivo() {
         return mMotivo;
     }
@@ -198,11 +188,10 @@ public class Order {
     public String toString(){
         return "Order={" +
                 "Numero = '" + mNumero + '\'' +
-                "Servicio = '" + mServicio + '\'' +
-                "Sector = '" + mSector + '\'' +
-                "Tipo_Trabajo = '" + mTipo + '\'' +
+                "Zona = '" + mZona + '\'' +
+                "Tipo_Trabajo = '" + mTipo_Trabajo + '\'' +
                 "Motivo = '" + mMotivo + '\'' +
-                "Estado = '" + mEtapas + '\'' +
+                "Etapa = '" + mEtapas + '\'' +
                 "Asociado = '" + mAsociado + '\'' +
                 "Suministro = '" + mSuministro + '\'' +
                 "Titular = '" + mTitular + '\'' +

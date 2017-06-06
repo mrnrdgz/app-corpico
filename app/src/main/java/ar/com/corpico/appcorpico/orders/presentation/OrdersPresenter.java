@@ -4,12 +4,10 @@ import com.google.common.base.Preconditions;
 
 import org.joda.time.DateTime;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import ar.com.corpico.appcorpico.UseCase;
 import ar.com.corpico.appcorpico.orders.domain.entity.Order;
-import ar.com.corpico.appcorpico.orders.domain.entity.Tipo_Cuadrilla;
 import ar.com.corpico.appcorpico.orders.domain.entity.Tipo_Trabajo;
 import ar.com.corpico.appcorpico.orders.domain.filter.AndCriteria;
 import ar.com.corpico.appcorpico.orders.domain.filter.CriteriaCuadrillaTipo;
@@ -17,6 +15,7 @@ import ar.com.corpico.appcorpico.orders.domain.filter.CriteriaTipoTrabajo;
 import ar.com.corpico.appcorpico.orders.domain.filter.CriteriaSearch;
 import ar.com.corpico.appcorpico.orders.domain.filter.CriteriaSector;
 import ar.com.corpico.appcorpico.orders.domain.filter.CriteriaTipo;
+import ar.com.corpico.appcorpico.orders.domain.filter.CriteriaZona;
 import ar.com.corpico.appcorpico.orders.domain.filter.OrderCriteriaFecha;
 import ar.com.corpico.appcorpico.orders.domain.usecase.AddOrdersState;
 import ar.com.corpico.appcorpico.orders.domain.usecase.GetCuadrillaxTipo;
@@ -50,17 +49,17 @@ public class OrdersPresenter implements Presenter {
     }
 
     @Override
-    public void loadOrderList(String estado, String tipo, String sector, DateTime desde, DateTime hasta, String search,Boolean estadoActual) {
+    public void loadOrderList(String estado, String tipotrabajo, String zona, DateTime desde, DateTime hasta, String search,Boolean estadoActual) {
         // Se reciben valores de cada filtro
         //CriteriaState criteriaState = new CriteriaState(estado);
-        CriteriaSector criteriaSector = new CriteriaSector(sector);
-        CriteriaTipo criteriaTipo = new CriteriaTipo(tipo);
+        CriteriaZona criteriaZona = new CriteriaZona(zona);
+        CriteriaTipoTrabajo criteriaTipoTrabajo = new CriteriaTipoTrabajo(tipotrabajo);
 
         OrderCriteriaFecha criteriaFecha = new OrderCriteriaFecha(estado,desde,hasta,estadoActual);
         CriteriaSearch criteriaSearch = new CriteriaSearch(search);
 
         AndCriteria andCriteria = new AndCriteria(
-                 new AndCriteria(criteriaSector,criteriaTipo),
+                 new AndCriteria(criteriaZona,criteriaTipoTrabajo),
                  new AndCriteria(criteriaFecha,criteriaSearch));
 
         mOrdersView.showProgressIndicator(true);

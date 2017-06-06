@@ -12,27 +12,27 @@ import static android.R.attr.order;
  * Created by Administrador on 08/01/2017.
  */
 
-public class CriteriaSector implements Criteria<Order> {
-    private final String sector;
+public class CriteriaZona implements Criteria<Order> {
+    private final String zona;
 
-    public CriteriaSector(String sector) {
-        this.sector = sector;
+    public CriteriaZona(String zona) {
+        this.zona = zona;
     }
 
     @Override
     public List<Order> match(List<Order> orders) {
         List<Order> filteredOrders = new ArrayList<>();
-        if (sector==null){
+        if (zona==null){
             filteredOrders = orders;
             return filteredOrders;
         }
-        if (!sector.equals("Todos") && sector!=null ){
+        if (!zona.equals("Todos") && zona!=null ){
             for (Order order : orders) {
-                if (order.getSector().equals(sector)) {
+                if (order.getZona().equals(zona)) {
                     filteredOrders.add(order);
                 }
             }
-        }if (sector.equals("Todos")){
+        }if (zona.equals("Todos")){
             filteredOrders = orders;
         }
         return filteredOrders;
