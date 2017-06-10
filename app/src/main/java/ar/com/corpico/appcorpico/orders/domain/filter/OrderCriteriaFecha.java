@@ -9,8 +9,6 @@ import java.util.List;
 import ar.com.corpico.appcorpico.orders.domain.entity.Etapa;
 import ar.com.corpico.appcorpico.orders.domain.entity.Order;
 
-import static android.R.attr.order;
-
 /**
  * Created by sistemas on 30/01/2017.
  */
@@ -51,7 +49,7 @@ public class OrderCriteriaFecha implements Criteria<Order> {
                     /*ArrayList<Etapa> etapasOrdenadas=  order.sortEtapas(order.getEtapas());
                     String estadoEtapa = etapasOrdenadas.get(etapasOrdenadas.size()-1).getEstado();
                     DateTime fechaEtapa = new DateTime(etapasOrdenadas.get(etapasOrdenadas.size()-1).getFecha());*/
-                    Etapa currentEtapa = order.getCurrentEtapa(order.getEtapas());
+                    Etapa currentEtapa = order.getCurrentEtapa();
                     String estadoEtapa = currentEtapa.getEstado();
                     DateTime fechaEtapa = new DateTime(currentEtapa.getFecha());
                     if (mEstado.equals(estadoEtapa)|| mEstado.equals("Todos")) {
@@ -64,7 +62,7 @@ public class OrderCriteriaFecha implements Criteria<Order> {
 
         }if (mDesde == null && mHasta == null && mEstadoActual) {
             for (Order order : itemsDeEntrada) {
-                Etapa currentEtapa = order.getCurrentEtapa(order.getEtapas());
+                Etapa currentEtapa = order.getCurrentEtapa();
                 String estadoEtapa = currentEtapa.getEstado();
                 if (mEstado.equals(estadoEtapa) || mEstado.equals("Todos")) {
                     filteredOrders.add(order);

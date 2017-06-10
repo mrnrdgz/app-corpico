@@ -6,8 +6,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
-import static android.R.attr.order;
-
 
 /**
  * Created by Administrador on 07/01/2017.
@@ -170,8 +168,8 @@ public class Order {
         mState= etapasOrdenadas.get(etapasOrdenadas.size()-1).getEstado();
         return mState;
     }
-    public Etapa getCurrentEtapa(ArrayList etapas){
-        ArrayList<Etapa> etapasOrdenadas = sortEtapas(etapas);
+    public Etapa getCurrentEtapa(){
+        ArrayList<Etapa> etapasOrdenadas = sortEtapas(mEtapas);
         mCurrentEtapa = etapasOrdenadas.get(etapasOrdenadas.size()-1);
         return  mCurrentEtapa;
     }

@@ -13,10 +13,11 @@ import ar.com.corpico.appcorpico.orders.domain.filter.AndCriteria;
 import ar.com.corpico.appcorpico.orders.domain.filter.CriteriaCuadrillaTipo;
 import ar.com.corpico.appcorpico.orders.domain.filter.CriteriaTipoTrabajo;
 import ar.com.corpico.appcorpico.orders.domain.filter.CriteriaSearch;
-import ar.com.corpico.appcorpico.orders.domain.filter.CriteriaSector;
-import ar.com.corpico.appcorpico.orders.domain.filter.CriteriaTipo;
 import ar.com.corpico.appcorpico.orders.domain.filter.CriteriaZona;
 import ar.com.corpico.appcorpico.orders.domain.filter.OrderCriteriaFecha;
+import ar.com.corpico.appcorpico.orders.domain.filter.Specifications.Specification;
+import ar.com.corpico.appcorpico.orders.domain.filter.Specifications.StateSpec;
+import ar.com.corpico.appcorpico.orders.domain.filter.Specifications.ZoneSpec;
 import ar.com.corpico.appcorpico.orders.domain.usecase.AddOrdersState;
 import ar.com.corpico.appcorpico.orders.domain.usecase.GetCuadrillaxTipo;
 import ar.com.corpico.appcorpico.orders.domain.usecase.GetTipoTrabajo;
@@ -49,7 +50,22 @@ public class OrdersPresenter implements Presenter {
     }
 
     @Override
-    public void loadOrderList(String estado, String tipotrabajo, String zona, DateTime desde, DateTime hasta, String search,Boolean estadoActual) {
+    public void loadOrderList(String estado, String tipotrabajo, String zona, DateTime desde,
+                              DateTime hasta, String search,Boolean estadoActual) {
+
+        /**
+         * Aqui creo dos especificaciones compuestas y luego las compongo con and()
+         */
+        StateSpec stateSpec = new StateSpec(estado);
+        ZoneSpec zoneSpec = new ZoneSpec(zona);
+        Specification<Order> resultadoSpec = stateSpec.and(zoneSpec);
+        /**
+         * Luego puedes cambiar el parámetro del caso de uso y el repositorio para que
+         * en la fuente de datos se reciba la especificación y pueda filtrarse con el método
+         * Collections2.filter()
+         */
+
+
         // Se reciben valores de cada filtro
         //CriteriaState criteriaState = new CriteriaState(estado);
         CriteriaZona criteriaZona = new CriteriaZona(zona);
