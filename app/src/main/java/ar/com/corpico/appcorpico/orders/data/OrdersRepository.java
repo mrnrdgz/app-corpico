@@ -5,10 +5,11 @@ import com.google.common.base.Preconditions;
 import java.util.ArrayList;
 import java.util.List;
 
-import ar.com.corpico.appcorpico.orders.domain.entity.Tipo_Cuadrilla;
 import ar.com.corpico.appcorpico.orders.domain.entity.Order;
+import ar.com.corpico.appcorpico.orders.domain.entity.Tipo_Cuadrilla;
 import ar.com.corpico.appcorpico.orders.domain.entity.Tipo_Trabajo;
 import ar.com.corpico.appcorpico.orders.domain.filter.Criteria;
+import ar.com.corpico.appcorpico.orders.domain.filter.Specifications.Specification;
 
 /**
  * Created by Administrador on 07/01/2017.
@@ -18,14 +19,14 @@ public class OrdersRepository implements IOrdersRepository {
     private static OrdersRepository repository;
 
     // Relaciones de composición
-    private OrdersRestStore mOrdersRestStore;
+    private FuenteOrdenesServidor mOrdersRestStore;
 
-    private OrdersRepository(OrdersRestStore ordersRestStore) {
+    private OrdersRepository(FuenteOrdenesServidor ordersRestStore) {
         mOrdersRestStore = Preconditions.checkNotNull(ordersRestStore,
                 "La fuente de datos rest de ordenes no puede ser null");
     }
 
-    public static OrdersRepository getInstance(OrdersRestStore ordersRestStore) {
+    public static OrdersRepository getInstance(FuenteOrdenesServidor ordersRestStore) {
         if (repository == null) {
             repository = new OrdersRepository(ordersRestStore);
         }
@@ -33,7 +34,7 @@ public class OrdersRepository implements IOrdersRepository {
     }
 
     @Override
-    public void findOrder(final OrdersRepositoryCallback callback, Criteria filter) {
+    public void findOrder(final OrdersRepositoryCallback callback, Specification filter) {
         /**
          * Estrategia:
          * 1. Se consuta primero el servicio REST
@@ -78,6 +79,24 @@ public class OrdersRepository implements IOrdersRepository {
         };
 
         mOrdersRestStore.getCuadrillaxTipo(callback1, filter);
+    }
+
+    @Override
+    public void findTipoCuadrilla(final TipoCuadrillaRepositoryCallBack callback, Criteria filter) {
+        OrderStore.GetTipoCuadrillaStoreCallBack callback1 = new OrderStore.GetTipoCuadrillaStoreCallBack() {
+            @Override
+            public void onSuccess(List<Tipo_Cuadrilla> tipoCuadrilla) {
+                // TODO: Guardar datos en SQLite. Posible método save()/insert()/add()
+                callback.onSuccess(tipoCuadrilla);
+            }
+
+            @Override
+            public void onError(String error) {
+                callback.onError(error);
+            }
+        };
+
+        mOrdersRestStore.getTipoCuadrilla(callback1, filter);
     }
 
     @Override

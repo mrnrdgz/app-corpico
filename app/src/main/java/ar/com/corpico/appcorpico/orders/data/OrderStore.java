@@ -7,13 +7,14 @@ import ar.com.corpico.appcorpico.orders.domain.entity.Tipo_Cuadrilla;
 import ar.com.corpico.appcorpico.orders.domain.entity.Order;
 import ar.com.corpico.appcorpico.orders.domain.entity.Tipo_Trabajo;
 import ar.com.corpico.appcorpico.orders.domain.filter.Criteria;
+import ar.com.corpico.appcorpico.orders.domain.filter.Specifications.Specification;
 
 /**
  * Created by Administrador on 07/01/2017.
  */
 
 public interface OrderStore {
-    void getOrders(GetCallback callback, Criteria filter);
+    void getOrders(GetCallback callback, Specification filter);
 
     interface GetCallback{
         void onSuccess(List<Order> orders);
@@ -23,6 +24,11 @@ public interface OrderStore {
     void getCuadrillaxTipo(GetCuadrillaxTipoStoreCallBack callback, Criteria filter);
     interface GetCuadrillaxTipoStoreCallBack{
         void onSuccess(List<Tipo_Trabajo> tipoCuadrilla);
+        void onError(String error);
+    }
+    void getTipoCuadrilla(GetTipoCuadrillaStoreCallBack callback, Criteria filter);
+    interface GetTipoCuadrillaStoreCallBack{
+        void onSuccess(List<Tipo_Cuadrilla> tipoCuadrilla);
         void onError(String error);
     }
     void getTipoTrabajo(GetTipoTrabajoStoreCallBack callback, Criteria filter);

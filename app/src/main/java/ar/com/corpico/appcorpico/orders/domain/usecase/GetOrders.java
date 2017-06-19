@@ -8,6 +8,7 @@ import ar.com.corpico.appcorpico.UseCase;
 import ar.com.corpico.appcorpico.orders.data.IOrdersRepository;
 import ar.com.corpico.appcorpico.orders.domain.entity.Order;
 import ar.com.corpico.appcorpico.orders.domain.filter.Criteria;
+import ar.com.corpico.appcorpico.orders.domain.filter.Specifications.Specification;
 
 /**
  * Created by Administrador on 07/01/2017.
@@ -41,16 +42,17 @@ public class GetOrders extends UseCase<GetOrders.RequestValues, GetOrders.Respon
     }
 
     public static final class RequestValues implements UseCase.RequestValues {
-        private Criteria filter;
+        //private Criteria filter;
+        private Specification filter;
 
         public RequestValues() {
         }
 
-        public RequestValues(Criteria filter){
+        public RequestValues(Specification filter){
             this.filter = filter;
         }
 
-        public Criteria getFilter() {
+        public Specification getFilter() {
             return filter;
         }
     }

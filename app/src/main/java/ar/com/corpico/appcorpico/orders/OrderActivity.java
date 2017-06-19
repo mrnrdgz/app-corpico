@@ -16,12 +16,13 @@ import org.joda.time.DateTime;
 import ar.com.corpico.appcorpico.NavitationDrawerActivity;
 import ar.com.corpico.appcorpico.R;
 import ar.com.corpico.appcorpico.orders.data.OrdersRepository;
-import ar.com.corpico.appcorpico.orders.data.OrdersRestStore;
+import ar.com.corpico.appcorpico.orders.data.FuenteOrdenesServidor;
 import ar.com.corpico.appcorpico.orders.data.OrdersSqliteStore;
 import ar.com.corpico.appcorpico.orders.domain.usecase.AddOrdersState;
 import ar.com.corpico.appcorpico.orders.domain.usecase.GetCuadrillaxTipo;
-import ar.com.corpico.appcorpico.orders.domain.usecase.GetTipoTrabajo;
+import ar.com.corpico.appcorpico.orders.domain.usecase.GetTipoCuadrilla;
 import ar.com.corpico.appcorpico.orders.domain.usecase.GetOrders;
+import ar.com.corpico.appcorpico.orders.domain.usecase.GetTipoTrabajo;
 import ar.com.corpico.appcorpico.orders.presentation.DateDialog;
 import ar.com.corpico.appcorpico.orders.presentation.OrdersFilterAll;
 import ar.com.corpico.appcorpico.orders.presentation.OrdersFilterAll.OnFilterDialogListener;
@@ -52,7 +53,7 @@ public class OrderActivity extends NavitationDrawerActivity implements OnFilterD
         /**
          * <<create>> Almacénes
          */
-        OrdersRestStore restStore = new OrdersRestStore();
+        FuenteOrdenesServidor restStore = new FuenteOrdenesServidor();
         OrdersSqliteStore sqliteStore = new OrdersSqliteStore();
 
         /**
@@ -65,13 +66,14 @@ public class OrderActivity extends NavitationDrawerActivity implements OnFilterD
          */
         GetOrders getOrders = new GetOrders(repository);
         AddOrdersState addOrderState = new AddOrdersState(repository);
-        GetTipoTrabajo getTipoTrabajo = new GetTipoTrabajo(repository);
+        GetTipoCuadrilla getTipoCuadrilla = new GetTipoCuadrilla(repository);
         GetCuadrillaxTipo getCuadrillaxTipo= new GetCuadrillaxTipo(repository);
+        GetTipoTrabajo mGetTipoTrabajo = new GetTipoTrabajo(repository);
 
         /**
          * <<create>> LoginPresenter
          */
-        OrdersPresenter orderPresenter = new OrdersPresenter(getOrders,addOrderState, getTipoTrabajo,getCuadrillaxTipo,orderView);
+        OrdersPresenter orderPresenter = new OrdersPresenter(getOrders,addOrderState, getTipoCuadrilla,getCuadrillaxTipo,mGetTipoTrabajo,orderView);
 
         handleIntent(getIntent());
     }

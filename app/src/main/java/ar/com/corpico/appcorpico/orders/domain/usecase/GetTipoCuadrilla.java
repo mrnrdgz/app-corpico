@@ -1,12 +1,12 @@
 package ar.com.corpico.appcorpico.orders.domain.usecase;
 
+import ar.com.corpico.appcorpico.orders.domain.entity.Tipo_Cuadrilla;
 import ar.com.corpico.appcorpico.orders.domain.entity.Tipo_Trabajo;
 import ar.com.corpico.appcorpico.orders.domain.filter.Criteria;
 
 
 import com.google.common.base.Preconditions;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import ar.com.corpico.appcorpico.UseCase;
@@ -16,24 +16,20 @@ import ar.com.corpico.appcorpico.orders.data.IOrdersRepository;
  * Created by Administrador on 07/01/2017.
  */
 
-public class GetTipoTrabajo extends UseCase<GetTipoTrabajo.RequestValues, GetTipoTrabajo.ResponseValue> {
+public class GetTipoCuadrilla extends UseCase<GetTipoCuadrilla.RequestValues, GetTipoCuadrilla.ResponseValue> {
     private IOrdersRepository mOrdersRepository;
 
-    public GetTipoTrabajo(IOrdersRepository ordersRepository) {
+    public GetTipoCuadrilla(IOrdersRepository ordersRepository) {
         this.mOrdersRepository = ordersRepository;
     }
 
     @Override
     public void execute(RequestValues requestValues, final UseCaseCallback callback) {
 
-        IOrdersRepository.TipoTrabajoRepositoryCallBack findCallback = new IOrdersRepository.TipoTrabajoRepositoryCallBack() {
+        IOrdersRepository.TipoCuadrillaRepositoryCallBack findCallback = new IOrdersRepository.TipoCuadrillaRepositoryCallBack() {
             @Override
-            public void onSuccess(List<Tipo_Trabajo> tipoTrabajo) {
-                List<String> tipoTrabajos = new ArrayList<>();
-                for(Tipo_Trabajo tipo: tipoTrabajo){
-                    tipoTrabajos.add(tipo.getTipoTrabajo());
-                }
-                ResponseValue responseValue = new ResponseValue(tipoTrabajos);
+            public void onSuccess(List<Tipo_Cuadrilla> tipoCuadrilla) {
+                ResponseValue responseValue = new ResponseValue(tipoCuadrilla);
                 callback.onSuccess(responseValue);
             }
 
@@ -44,7 +40,7 @@ public class GetTipoTrabajo extends UseCase<GetTipoTrabajo.RequestValues, GetTip
         };
 
 
-        mOrdersRepository.findTipoTrabajo(findCallback, requestValues.getFilter());
+        mOrdersRepository.findTipoCuadrilla(findCallback, requestValues.getFilter());
     }
 
     public static final class RequestValues implements UseCase.RequestValues {
@@ -64,14 +60,14 @@ public class GetTipoTrabajo extends UseCase<GetTipoTrabajo.RequestValues, GetTip
 
     public static final class ResponseValue implements UseCase.ResponseValue {
 
-        private final List<String> tipoTrabajo;
+        private final List<Tipo_Cuadrilla> tipoCuadrilla;
 
-        public ResponseValue(List<String> tipoTrabajo) {
-            this.tipoTrabajo = Preconditions.checkNotNull(tipoTrabajo, "La lista de ordenes no puede ser null");
+        public ResponseValue(List<Tipo_Cuadrilla> tipoCuadrilla) {
+            this.tipoCuadrilla = Preconditions.checkNotNull(tipoCuadrilla, "La lista de ordenes no puede ser null");
         }
 
-        public List<String> getTipoTrabajo() {
-            return tipoTrabajo;
+        public List<Tipo_Cuadrilla> getTipoCuadrilla() {
+            return tipoCuadrilla;
         }
     }
 }

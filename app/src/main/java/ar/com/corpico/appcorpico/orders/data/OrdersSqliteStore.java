@@ -3,6 +3,7 @@ package ar.com.corpico.appcorpico.orders.data;
 import java.util.ArrayList;
 
 import ar.com.corpico.appcorpico.orders.domain.filter.Criteria;
+import ar.com.corpico.appcorpico.orders.domain.filter.Specifications.Specification;
 
 /**
  * Created by Administrador on 07/01/2017.
@@ -10,7 +11,7 @@ import ar.com.corpico.appcorpico.orders.domain.filter.Criteria;
 
 public class OrdersSqliteStore implements OrderStore {
     @Override
-    public void getOrders(GetCallback callback, Criteria filter) {
+    public void getOrders(GetCallback callback, Specification filter) {
 
     }
 
@@ -24,6 +25,10 @@ public class OrdersSqliteStore implements OrderStore {
 
     }
 
+    @Override
+    public void getTipoCuadrilla(GetTipoCuadrillaStoreCallBack callback, Criteria filter) {
+
+    }
     @Override
     public void getTipoTrabajo(GetTipoTrabajoStoreCallBack callback, Criteria filter) {
 

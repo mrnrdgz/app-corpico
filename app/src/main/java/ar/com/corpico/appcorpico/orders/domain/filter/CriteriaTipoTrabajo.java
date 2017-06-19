@@ -1,50 +1,39 @@
 package ar.com.corpico.appcorpico.orders.domain.filter;
-
 import java.util.ArrayList;
 import java.util.List;
 
-import ar.com.corpico.appcorpico.orders.domain.entity.Etapa;
-import ar.com.corpico.appcorpico.orders.domain.entity.Order;
+import ar.com.corpico.appcorpico.orders.domain.entity.Tipo_Trabajo;
+import ar.com.corpico.appcorpico.orders.domain.filter.Criteria;
+
+import static ar.com.corpico.appcorpico.R.array.tipoTrabajos;
 
 /**
  * Created by Administrador on 26/01/2017.
  */
-public class CriteriaTipoTrabajo implements Criteria<Order> {
-    private final String tipo_trabajo;
+public class CriteriaTipoTrabajo implements Criteria<Tipo_Trabajo> {
+    private final String cuadrilla;
 
-    public CriteriaTipoTrabajo(String tipo_trabajo) {
-        this.tipo_trabajo=tipo_trabajo;
+    public CriteriaTipoTrabajo(String cuadrilla) {
+        this.cuadrilla=cuadrilla;
     }
 
     @Override
-    public List<Order> match(List<Order> orders) {
-        List<Order> filteredOrders = new ArrayList<>();
-        if (tipo_trabajo==null){
-            return filteredOrders;
-        }
-        if (!tipo_trabajo.equals("Todos") && !tipo_trabajo.equals("Varios")&& tipo_trabajo!=null) {
-            for (Order order : orders) {
-                if (order.getTipo_Trabajo().equals(tipo_trabajo)) {
-                    filteredOrders.add(order);
+    public List<Tipo_Trabajo> match(List<Tipo_Trabajo> tipoTrabajos) {
+        List<Tipo_Trabajo> filteredTipoTrabajo = new ArrayList<>();
+        if (!cuadrilla.equals("") || cuadrilla !=null) {
+            for (Tipo_Trabajo tipoTrabajo : tipoTrabajos) {
+                if (tipoTrabajo.getTipoCuadrilla().equals(cuadrilla)) {
+                    filteredTipoTrabajo.add(tipoTrabajo);
                 }
             }
+        }else{
+            filteredTipoTrabajo = tipoTrabajos;
         }
-        /*if (tipo.equals("Varios")) {
-            for (Order order : orders) {
-                if (order.getTipo() != "Colocacion de Medidor" && order.getTipo() != "Retiro de Medidor") {
-                    filteredOrders.add(order);
-                }
-            }
-        }*/
-        if (tipo_trabajo.equals("Todos") ) {
-            filteredOrders = orders;
-        }
-        return filteredOrders;
+        return filteredTipoTrabajo;
     }
-
 
     @Override
     public Object toSql() {
-        return "select ... from order where state = " + tipo_trabajo;
+        return "select ... from order where servicio = " + cuadrilla;
     }
 }

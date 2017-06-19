@@ -42,7 +42,8 @@ public class OrdersFragment extends Fragment implements ar.com.corpico.appcorpic
     private OrdersAdapter mOrdersAdapter;
     private TextView mEmptyView;
     private android.view.View mProgressView;
-    private String mTipoTrabajo;
+    private String mTipoCuadrilla;
+    private List<String> mTipoTrabajo;
     private String mEstado;
     private String mSector;
     private Activity mActivity;
@@ -57,8 +58,8 @@ public class OrdersFragment extends Fragment implements ar.com.corpico.appcorpic
     }
 
    public interface OnViewActivityListener {
-        void onShowTipoTrabajo(List<Tipo_Trabajo> listorder);
-        void onShowTipoCuadrilla(List<Tipo_Trabajo> listtipocuadrilla);
+        void onShowTipoCuadrilla(List<Tipo_Cuadrilla> listorder);
+        //void onShowTipoCuadrilla(List<Tipo_Cuadrilla> listtipocuadrilla);
    }
 
     private OnViewActivityListener listenerViewActivity;
@@ -73,11 +74,11 @@ public class OrdersFragment extends Fragment implements ar.com.corpico.appcorpic
     }
 
     //Aca va sin parametros o que parametros irian?
-    public static OrdersFragment newInstance(String tipotrabajo,String estado,String sector) {
+    public static OrdersFragment newInstance(String tipocuadrilla,String estado,String sector) {
         OrdersFragment fragment = new OrdersFragment();
         Bundle args = new Bundle();
         // TODO: Pasar los demás parámetros de la Action Bar
-        args.putString("tipotrabajo", tipotrabajo);
+        args.putString("tipocuadrilla", tipocuadrilla);
         args.putString("estado", estado);
         args.putString("sector", sector);
         fragment.setArguments(args);
@@ -89,7 +90,7 @@ public class OrdersFragment extends Fragment implements ar.com.corpico.appcorpic
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             // Toman parámetros
-           mTipoTrabajo = getArguments().getString("tipotrabajo");
+           mTipoCuadrilla = getArguments().getString("tipocuadrilla");
            mEstado= getArguments().getString("estado");
            mSector= getArguments().getString("sector");
            Spinner activitySpinner = (Spinner) getActivity().findViewById(R.id.spinner_toolBar);
@@ -174,7 +175,7 @@ public class OrdersFragment extends Fragment implements ar.com.corpico.appcorpic
                         }
                         return true;
                     case R.id.action_asignaracuadrilla:
-                        mOrdersPresenter.asignarOrder(mTipoTrabajo,list_items);
+                        //mOrdersPresenter.asignarOrder(mTipoCuadrilla,list_items);
                         count=0;
                         mOrdersAdapter.clearSelection();
                         mode.finish();
@@ -209,21 +210,24 @@ public class OrdersFragment extends Fragment implements ar.com.corpico.appcorpic
                 intent.putExtra("Numero",currentOrder.getNumero().toString());
                 //intent.putExtra("Fecha",currentOrder.getFecha().toString());
                 intent.putExtra("Etapa",currentOrder.getEtapas().toString());
-                intent.putExtra("Tipo_Trabajo",currentOrder.getTipo().toString());
-                intent.putExtra("Sector",currentOrder.getSector().toString());
+                intent.putExtra("Tipo_Trabajo",currentOrder.getTipo_Trabajo().toString());
+                intent.putExtra("Sector",currentOrder.getZona().toString());
                 intent.putExtra("Observacion",currentOrder.getObservacion().toString());
                 startActivity(intent);
             }
         });
 
-        setLoadOrderList(mTipoTrabajo);
+       // setLoadOrderList(mTipoCuadrilla);
         return root;
     }
 
     @Override
-    public void setLoadOrderList(String tipotrabajo) {
-        mTipoTrabajo=tipotrabajo;
-        if (mTipoTrabajo!=null){
+    public void setLoadOrderList(String tipocuadrilla) {
+        mTipoCuadrilla=tipocuadrilla;
+        if (mTipoCuadrilla!=null){
+            //if(mTipoTrabajo==null){
+                mOrdersPresenter.setLoadTipoTrabajos(mTipoCuadrilla);
+            //}
             mOrdersPresenter.loadOrderList(mEstado,mTipoTrabajo,mSector,null,null,null,true);
         }
     }
@@ -251,6 +255,11 @@ public class OrdersFragment extends Fragment implements ar.com.corpico.appcorpic
     }
 
     @Override
+    public void setTipoTrabajo(List<String> tipoTrabajo) {
+        mTipoTrabajo=tipoTrabajo;
+    }
+
+    @Override
     public void showOrdesEmpty() {
         mOrderList.setEmptyView(mEmptyView);
     }
@@ -267,13 +276,14 @@ public class OrdersFragment extends Fragment implements ar.com.corpico.appcorpic
     }
 
     @Override
-    public void showTipoTrabajoList(List<Tipo_Trabajo> listorder) {
-        listenerViewActivity.onShowTipoTrabajo(listorder);
+    public void showTipoCuadrillaList(List<Tipo_Cuadrilla> listorder) {
+        listenerViewActivity.onShowTipoCuadrilla(listorder);
     }
 
     @Override
-    public void showCuadrillaxTipoList(List<Tipo_Trabajo> listcuadrilla) {
+    public void showCuadrillaxTipoList(List<Tipo_Cuadrilla> listcuadrilla) {
         //TODO: ACA LLAMO A UN LISTERNER QUE ME CONECTE CON LA ACTIVITY Y LE PASO LAS CUADRILLAS
         listenerViewActivity.onShowTipoCuadrilla(listcuadrilla);
     }
+
 }

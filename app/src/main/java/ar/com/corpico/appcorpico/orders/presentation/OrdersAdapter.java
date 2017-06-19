@@ -115,7 +115,7 @@ public class OrdersAdapter extends ArrayAdapter<Order> {
         //numero.setText(order.getNumero());
         titular.setText(order.getTitular());
         domicilio.setText(order.getDomicilio());
-        tipo.setText(order.getTipo());
+        tipo.setText(order.getTipo_Trabajo());
 
         String estado = order.getCurrentState(order.getEtapas());
 

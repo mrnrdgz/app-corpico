@@ -39,7 +39,8 @@ import ar.com.corpico.appcorpico.orders.presentation.Presenter;
  */
 public class OrdersMapsFragment extends SupportMapFragment implements OnMapReadyCallback, ar.com.corpico.appcorpico.orders.presentation.View, ar.com.corpico.appcorpico.ordersmaps.View {
     private GoogleMap mMap;
-    private String mTipoTrabajo;
+    private String mTipoCuadrilla;
+    private List<String> mTipoTrabajo;
     private String mEstado;
     private String mSector;
     private Presenter mOrdersMapPresenter;
@@ -65,12 +66,12 @@ public class OrdersMapsFragment extends SupportMapFragment implements OnMapReady
 
         if (getArguments() != null) {
             // Toman parámetros
-            mTipoTrabajo = getArguments().getString("tipotrabajo");
+            //mTipoTrabajo = getArguments().getString("tipotrabajo");
             mEstado = getArguments().getString("estado");
             mSector = getArguments().getString("sector");
             Spinner activitySpinner = (Spinner) getActivity().findViewById(R.id.spinner_toolBar);
         }
-        setLoadOrderList(mTipoTrabajo);
+        setLoadOrderList(mTipoCuadrilla);
         getMapAsync(this);
 
     }
@@ -78,7 +79,7 @@ public class OrdersMapsFragment extends SupportMapFragment implements OnMapReady
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View root = super.onCreateView(inflater, container, savedInstanceState);
-        this.setLoadOrderList(mTipoTrabajo);
+        this.setLoadOrderList(mTipoCuadrilla);
         return root;
     }
     @Override
@@ -170,12 +171,13 @@ public class OrdersMapsFragment extends SupportMapFragment implements OnMapReady
     }
 
     @Override
-    public void showTipoTrabajoList(List<Tipo_Trabajo> listorder) {
+    public void showTipoCuadrillaList(List<Tipo_Cuadrilla> listorder) {
 
     }
 
+
     @Override
-    public void showCuadrillaxTipoList(List<Tipo_Trabajo> listcuadrilla) {
+    public void showCuadrillaxTipoList(List<Tipo_Cuadrilla> listcuadrilla) {
 
     }
 
@@ -187,6 +189,11 @@ public class OrdersMapsFragment extends SupportMapFragment implements OnMapReady
     @Override
     public void setPresenter(Presenter presenter) {
         mOrdersMapPresenter=presenter;
+    }
+
+    @Override
+    public void setTipoTrabajo(List<String> tipoTrabajo) {
+
     }
 
     @Override
@@ -206,9 +213,12 @@ public class OrdersMapsFragment extends SupportMapFragment implements OnMapReady
     }
 
     @Override
-    public void setLoadOrderList(String tipotrabajo) {
-        mTipoTrabajo=tipotrabajo;
-        if (mTipoTrabajo != null){
+    public void setLoadOrderList(String tipocuadrilla) {
+        mTipoCuadrilla=tipocuadrilla;
+        if (mTipoCuadrilla != null){
+            if(mTipoTrabajo==null){
+                mOrdersMapPresenter.setLoadTipoTrabajos(mTipoCuadrilla);
+            }
             mOrdersMapPresenter.loadOrderList(mEstado,mTipoTrabajo,mSector,null,null,null,true);
         }
     }

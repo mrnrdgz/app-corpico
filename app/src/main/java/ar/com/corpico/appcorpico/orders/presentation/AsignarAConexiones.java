@@ -45,17 +45,18 @@ public class AsignarAConexiones extends DialogFragment {
     }
     //TODO: HAGO CON ESTE ARGUNTO PARA PROBAR...LUEGO EL ARGUMENTO CREO Q
     // DEBERIA SER ORDER PARA CUANDO USE MAS DE UNA SELLECCION
-    public static AsignarAConexiones newInstance(List<Tipo_Trabajo> tipocuadrilla, ArrayList<String> numero) {
+    public static AsignarAConexiones newInstance(List<String> tipocuadrilla, ArrayList<String> numero) {
         AsignarAConexiones f = new AsignarAConexiones();
-        ArrayList<Tipo_Trabajo> tc = new ArrayList<>();
+        /*ArrayList<Tipo_Trabajo> tc = new ArrayList<>();
 
         for(int i=0; i< tipocuadrilla.size(); i++){
             tc.add(tipocuadrilla.get(i));
-        }
+        }*/
 
         Bundle args = new Bundle();
         args.putString("NUMERO", numero.get(0));
-        args.putParcelableArrayList("TIPO_CUADRILLA",tc);
+        //args.putParcelableArrayList("TIPO_CUADRILLA",tc);
+        args.putString("TIPO_CUADRILLA", numero.get(0));
 
         f.setArguments(args);
 
@@ -78,13 +79,14 @@ public class AsignarAConexiones extends DialogFragment {
         final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = getActivity().getLayoutInflater();
 
-        ArrayList<Tipo_Trabajo> tc = new ArrayList<>();
+        //ArrayList<Tipo_Trabajo> tc = new ArrayList<>();
         mNumeroOT.add(getArguments().getString("NUMERO"));
-        tc.addAll(getArguments().<Tipo_Trabajo>getParcelableArrayList("TIPO_CUADRILLA"));
+
+        /*tc.addAll(getArguments().<Tipo_Trabajo>getParcelableArrayList("TIPO_CUADRILLA"));
 
         for(int i=0; i< tc.size(); i++){
             mTipoCuadrillaList.add(tc.get(i));
-        }
+        }*/
 
         android.view.View v = inflater.inflate(R.layout.dialog_asignar_conexiones, null);
         builder.setView(v);

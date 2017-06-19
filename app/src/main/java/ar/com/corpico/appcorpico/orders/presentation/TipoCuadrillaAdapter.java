@@ -10,11 +10,12 @@ import android.widget.TextView;
 import java.util.List;
 
 import ar.com.corpico.appcorpico.R;
+import ar.com.corpico.appcorpico.orders.domain.entity.Tipo_Cuadrilla;
 import ar.com.corpico.appcorpico.orders.domain.entity.Tipo_Trabajo;
 
-public class TipoTrabajoAdapter extends ArrayAdapter<Tipo_Trabajo> {
+public class TipoCuadrillaAdapter extends ArrayAdapter<Tipo_Cuadrilla> {
 
-    public TipoTrabajoAdapter(Context context, List<Tipo_Trabajo> objects) {
+    public TipoCuadrillaAdapter(Context context, List<Tipo_Cuadrilla> objects) {
         super(context, 0, objects);
     }
 
@@ -23,7 +24,7 @@ public class TipoTrabajoAdapter extends ArrayAdapter<Tipo_Trabajo> {
        /*
        Obtener el objeto procesado actualmente
         */
-        Tipo_Trabajo tipoTrabajo;
+        Tipo_Cuadrilla tipoCuadrilla;
 
         /*
         Obtener LayoutInflater de la actividad
@@ -47,12 +48,12 @@ public class TipoTrabajoAdapter extends ArrayAdapter<Tipo_Trabajo> {
         TextView name = (TextView) convertView.findViewById(R.id.tipo_trabajo);
         name.setTextColor(Color.parseColor("#000000")); //Texto color Negro
         // Tipo_Trabajo actual..
-        tipoTrabajo =  getItem(position);
+        tipoCuadrilla =  getItem(position);
 
         /*
         Asignar valores
          */
-        name.setText(tipoTrabajo.getTipoTrabajo());
+        name.setText(tipoCuadrilla.getTipo_cuadrilla());
 
         return convertView;
     }

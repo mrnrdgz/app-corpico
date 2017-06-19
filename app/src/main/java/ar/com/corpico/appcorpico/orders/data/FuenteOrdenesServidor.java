@@ -2,23 +2,31 @@ package ar.com.corpico.appcorpico.orders.data;
 
 import android.os.Handler;
 
+import com.google.common.base.Predicate;
+import com.google.common.collect.Collections2;
+import com.google.common.collect.Lists;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 import ar.com.corpico.appcorpico.orders.domain.entity.Tipo_Cuadrilla;
 import ar.com.corpico.appcorpico.orders.domain.entity.Etapa;
 import ar.com.corpico.appcorpico.orders.domain.entity.Order;
 import ar.com.corpico.appcorpico.orders.domain.entity.Tipo_Trabajo;
 import ar.com.corpico.appcorpico.orders.domain.filter.Criteria;
+import ar.com.corpico.appcorpico.orders.domain.filter.Specifications.Specification;
+
+import static android.R.attr.order;
 ///
 
 /**
  * Created by Administrador on 07/01/2017.
  */
 
-public class OrdersRestStore implements OrderStore {
+public class FuenteOrdenesServidor implements OrderStore {
     // TODO: Reemplazar esta fuente falsa por una conexión real al servidor
     private static final ArrayList<Order> mFakeRestOrder = new ArrayList<>();
     private static final ArrayList<Tipo_Trabajo> mFakeRestTipo_Trabajo = new ArrayList<>();
@@ -41,7 +49,7 @@ public class OrdersRestStore implements OrderStore {
         mFakeRestEtapa7.add(new Etapa("2017-01-23T00:00:00.000-03:00", "Pendiente", "zzzz",""));
         mFakeRestEtapa8.add(new Etapa("2017-01-23T00:00:00.000-03:00", "Pendiente", "www",""));
         mFakeRestEtapa9.add(new Etapa("2017-01-23T00:00:00.000-03:00", "Pendiente", "sss",""));
-        mFakeRestEtapa10.add(new Etapa("2017-01-23T00:00:00.000-03:00", "Pendiente", "yyy",""));
+        mFakeRestEtapa10.add(new Etapa("2017-01-23T00:00:00.000-03:00", "Culminada", "yyy",""));
 
         mFakeRestEtapa1.add(new Etapa("2017-01-23T00:00:00.000-03:00", "Pendiente", "Nada",""));
         mFakeRestEtapa1.add(new Etapa("2017-01-25T00:00:00.000-03:00", "Culminada", "Todo",""));
@@ -78,15 +86,29 @@ public class OrdersRestStore implements OrderStore {
     static {
         mFakeRestTipo_Trabajo.add(new Tipo_Trabajo("Conexiones","Colocacion de Medidor","Electrico"));
         mFakeRestTipo_Trabajo.add(new Tipo_Trabajo("Desconexiones","Retiro de Medidor","Electrico"));
-        mFakeRestTipo_Trabajo.add(new Tipo_Trabajo("Varios","Cambio de Medidor","Electrico"));
-        mFakeRestTipo_Trabajo.add(new Tipo_Trabajo("Varios","Inspección-Verificación","Electrico"));
-        mFakeRestTipo_Trabajo.add(new Tipo_Trabajo("Varios","Verificación Lecturas","Electrico"));
-        mFakeRestTipo_Trabajo.add(new Tipo_Trabajo("Varios","Desplazamiento de estructura","Electrico"));
-        mFakeRestTipo_Trabajo.add(new Tipo_Trabajo("Varios","Poda de arboles","Electrico"));
-        mFakeRestTipo_Trabajo.add(new Tipo_Trabajo("Varios","Reparación de veredas","Electrico"));
-        mFakeRestTipo_Trabajo.add(new Tipo_Trabajo("Varios","Cambio de Tapa","Electrico"));
-        mFakeRestTipo_Trabajo.add(new Tipo_Trabajo("Varios","Revisión de Medidor","Electrico"));
-        mFakeRestTipo_Trabajo.add(new Tipo_Trabajo("Varios","Todos","Electrico"));
+
+        mFakeRestTipo_Trabajo.add(new Tipo_Trabajo("varios Mañana","Cambio de Medidor","Electrico"));
+        mFakeRestTipo_Trabajo.add(new Tipo_Trabajo("varios Mañana","Inspección-Verificación","Electrico"));
+        mFakeRestTipo_Trabajo.add(new Tipo_Trabajo("varios Mañana","Verificación Lecturas","Electrico"));
+        mFakeRestTipo_Trabajo.add(new Tipo_Trabajo("varios Mañana","Desplazamiento de estructura","Electrico"));
+        mFakeRestTipo_Trabajo.add(new Tipo_Trabajo("varios Mañana","Poda de arboles","Electrico"));
+        mFakeRestTipo_Trabajo.add(new Tipo_Trabajo("Varios Mañana","Revisión de Medidor","Electrico"));
+        mFakeRestTipo_Trabajo.add(new Tipo_Trabajo("varios Mañana","Todos","Electrico"));
+        mFakeRestTipo_Trabajo.add(new Tipo_Trabajo("varios Mañana","Reparación de veredas","Electrico"));
+        mFakeRestTipo_Trabajo.add(new Tipo_Trabajo("varios Mañana","Cambio de Tapa","Electrico"));
+
+        mFakeRestTipo_Trabajo.add(new Tipo_Trabajo("Auxiliar","Reparación de veredas","Electrico"));
+        mFakeRestTipo_Trabajo.add(new Tipo_Trabajo("Auxiliar","Cambio de Tapa","Electrico"));
+
+        mFakeRestTipo_Trabajo.add(new Tipo_Trabajo("varios Tarde","Cambio de Medidor","Electrico"));
+        mFakeRestTipo_Trabajo.add(new Tipo_Trabajo("varios Tarde","Inspección-Verificación","Electrico"));
+        mFakeRestTipo_Trabajo.add(new Tipo_Trabajo("varios Tarde","Verificación Lecturas","Electrico"));
+        mFakeRestTipo_Trabajo.add(new Tipo_Trabajo("varios Tarde","Desplazamiento de estructura","Electrico"));
+        mFakeRestTipo_Trabajo.add(new Tipo_Trabajo("varios Tarde","Poda de arboles","Electrico"));
+        mFakeRestTipo_Trabajo.add(new Tipo_Trabajo("varios Tarde","Reparación de veredas","Electrico"));
+        mFakeRestTipo_Trabajo.add(new Tipo_Trabajo("varios Tarde","Cambio de Tapa","Electrico"));
+        mFakeRestTipo_Trabajo.add(new Tipo_Trabajo("Varios Tarde","Revisión de Medidor","Electrico"));
+        mFakeRestTipo_Trabajo.add(new Tipo_Trabajo("varios Tarde","Todos","Electrico"));
     }
     static {
         mFakeRestTipo_Cuadrilla.add(new Tipo_Cuadrilla("Conexiones","Electrico"));
@@ -97,13 +119,21 @@ public class OrdersRestStore implements OrderStore {
 
     }
     @Override
-    public void getOrders(final GetCallback callback, final Criteria filter) {
+    public void getOrders(final GetCallback callback, final Specification filter) {
         Handler handler = new Handler();
+
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
                 // TODO: Realizar filtro
-                callback.onSuccess(filter.match(mFakeRestOrder));
+                //callback.onSuccess(filter.match(mFakeRestOrder));
+                callback.onSuccess(Lists.newArrayList(Collections2.filter(mFakeRestOrder, new Predicate<Order>() {
+                    @Override
+                    public boolean apply(Order input) {
+                        return filter.isSatisfiedBy(input);
+
+                    }
+                })));
             }
         }, 2000);
 
@@ -131,6 +161,10 @@ public class OrdersRestStore implements OrderStore {
         callback.onSuccess(filter.match(mFakeRestTipo_Trabajo));
     }
 
+    @Override
+    public void getTipoCuadrilla(GetTipoCuadrillaStoreCallBack callback, Criteria filter) {
+        callback.onSuccess(filter.match(mFakeRestTipo_Cuadrilla));
+    }
     @Override
     public void getTipoTrabajo(GetTipoTrabajoStoreCallBack callback, Criteria filter) {
         callback.onSuccess(filter.match(mFakeRestTipo_Trabajo));
