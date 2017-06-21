@@ -18,7 +18,6 @@ public abstract class CompositeSpec<T> implements Specification<T>{
         return new OrSpec(this, other);
     }
 
-
     public class AndSpec extends CompositeSpec<T>{
 
         Specification<T> spec1;
@@ -47,7 +46,11 @@ public abstract class CompositeSpec<T> implements Specification<T>{
 
         @Override
         public boolean isSatisfiedBy(T item) {
-            return spec1.isSatisfiedBy(item) || spec2.isSatisfiedBy(item);
+            if (spec1.isSatisfiedBy(item) || spec2.isSatisfiedBy(item)){
+                return true;
+            }
+            return false;
+            //return spec1.isSatisfiedBy(item) || spec2.isSatisfiedBy(item);
         }
     }
 }

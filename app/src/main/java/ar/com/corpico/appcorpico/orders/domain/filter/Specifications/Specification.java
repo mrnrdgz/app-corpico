@@ -5,6 +5,7 @@ package ar.com.corpico.appcorpico.orders.domain.filter.Specifications;
  */
 
 public interface Specification<T> {
-
     boolean isSatisfiedBy(T item);
+    Specification<T> and(Specification<T> specification);
+    Specification<T> or(Specification<T> specification);
 }

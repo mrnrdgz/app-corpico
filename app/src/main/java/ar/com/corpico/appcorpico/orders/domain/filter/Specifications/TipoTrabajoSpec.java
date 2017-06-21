@@ -18,15 +18,13 @@ public class TipoTrabajoSpec extends CompositeSpec<Order> {
 
     @Override
     public boolean isSatisfiedBy(Order item) {
-
         // Si el tipoTrabajo tiene el valor "Todos", entonces <code>item</code> satisface la especificación
         if(tiposTrabajo==null){
             return true;
         }
-        if ( tiposTrabajo.equals("Todos")) {
+        if (tiposTrabajo.equals("Todos")) {
             return true;
         }
-        //return tipoTrabajo.equals(item.getTipo_Trabajo());
         return tiposTrabajo.equals(item.getTipo_Trabajo());
     }
 }

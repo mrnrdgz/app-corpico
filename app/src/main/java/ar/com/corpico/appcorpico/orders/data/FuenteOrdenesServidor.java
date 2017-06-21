@@ -93,7 +93,6 @@ public class FuenteOrdenesServidor implements OrderStore {
         mFakeRestTipo_Trabajo.add(new Tipo_Trabajo("varios Mañana","Desplazamiento de estructura","Electrico"));
         mFakeRestTipo_Trabajo.add(new Tipo_Trabajo("varios Mañana","Poda de arboles","Electrico"));
         mFakeRestTipo_Trabajo.add(new Tipo_Trabajo("Varios Mañana","Revisión de Medidor","Electrico"));
-        mFakeRestTipo_Trabajo.add(new Tipo_Trabajo("varios Mañana","Todos","Electrico"));
         mFakeRestTipo_Trabajo.add(new Tipo_Trabajo("varios Mañana","Reparación de veredas","Electrico"));
         mFakeRestTipo_Trabajo.add(new Tipo_Trabajo("varios Mañana","Cambio de Tapa","Electrico"));
 
@@ -108,14 +107,13 @@ public class FuenteOrdenesServidor implements OrderStore {
         mFakeRestTipo_Trabajo.add(new Tipo_Trabajo("varios Tarde","Reparación de veredas","Electrico"));
         mFakeRestTipo_Trabajo.add(new Tipo_Trabajo("varios Tarde","Cambio de Tapa","Electrico"));
         mFakeRestTipo_Trabajo.add(new Tipo_Trabajo("Varios Tarde","Revisión de Medidor","Electrico"));
-        mFakeRestTipo_Trabajo.add(new Tipo_Trabajo("varios Tarde","Todos","Electrico"));
     }
     static {
         mFakeRestTipo_Cuadrilla.add(new Tipo_Cuadrilla("Conexiones","Electrico"));
         mFakeRestTipo_Cuadrilla.add(new Tipo_Cuadrilla("Desconexiones","Electrico"));
         mFakeRestTipo_Cuadrilla.add(new Tipo_Cuadrilla("varios Mañana","Electrico"));
         mFakeRestTipo_Cuadrilla.add(new Tipo_Cuadrilla("varios Tarde","Electrico"));
-        mFakeRestTipo_Cuadrilla.add(new Tipo_Cuadrilla("Axuliar","Electrico"));
+        mFakeRestTipo_Cuadrilla.add(new Tipo_Cuadrilla("Auxiliar","Electrico"));
 
     }
     @Override
@@ -131,7 +129,6 @@ public class FuenteOrdenesServidor implements OrderStore {
                     @Override
                     public boolean apply(Order input) {
                         return filter.isSatisfiedBy(input);
-
                     }
                 })));
             }

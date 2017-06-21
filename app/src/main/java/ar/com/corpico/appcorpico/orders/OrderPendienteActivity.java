@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -207,7 +208,7 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements 
                     // Search
                 } else {
                     // Do something when there's no input
-                    //mOrderView.setLoadOrderList(mTipoCuadrilla);
+                    mOrderView.setLoadOrderList(mTipoCuadrilla);
                 }
                 return false;
             }
@@ -313,7 +314,7 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements 
             //MUCHOS REGISTROS...COMO PODRIAMOS CONTROLAR ESO?
             if (mViewMap){
                 OrdersFragment mOrderFragmen = (OrdersFragment) getSupportFragmentManager().findFragmentById(R.id.orders_view_container);
-                mOrderFragmen.setOrderFilter(mEstado, mTipoCuadrilla, mZona, null, null, query,true);
+                mOrderFragmen.setOrderFilter(mEstado,mTipoCuadrilla, mZona, null, null, query,true);
             }else{
                 OrdersMapsFragment mOrderMapFragment = (OrdersMapsFragment)getSupportFragmentManager().findFragmentById(R.id.orders_view_container);
                 mOrderMapFragment.setOrderFilter(mEstado, mTipoCuadrilla, mZona, null, null, query,true);
@@ -332,16 +333,16 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements 
     @Override
     public void onButtonClickListner(ArrayList<String> numero) {
         //TODO: HACER EL DIALOG PARA ASIGNAR EL TRABAJO A LA CUADRILLA ESTO DE ABAJO ES UNA Prueba
-         /*   FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
             Fragment prev = getSupportFragmentManager().findFragmentByTag("AsignarconexionDialog");
             if (prev != null) {
                 ft.remove(prev);
             }
-            ft.addToBackStack(null);*/
-            mOrdenListNumero = numero;
-            orderPresenter.loadCuadrillasXTipo(mTipoCuadrilla);
-           /* DialogFragment newFragment = AsignarAConexiones.newInstance(mTipoCuadrilla,numero);
-            newFragment.show(ft, "AsignarconexionDialog");*/
+            ft.addToBackStack(null);
+            //mOrdenListNumero = numero;
+            //orderPresenter.loadCuadrillasXTipo(mTipoCuadrilla);
+            DialogFragment newFragment = AsignarAConexiones.newInstance(mTipoCuadrilla,numero);
+            newFragment.show(ft, "AsignarconexionDialog");
     }
 
     @Override

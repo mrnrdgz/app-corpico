@@ -93,13 +93,10 @@ public class OrdersPresenter implements Presenter {
         SearchSpec searchSpec = new SearchSpec(search);
         FechaSpec fechaSpec = new FechaSpec(estado, desde, hasta, estadoActual);
 
-        //CompositeSpec<Order> spec = new TipoTrabajoSpec();
-
         int i=0;
-        CompositeSpec<Order> spec;
+        CompositeSpec<Order> spec= new TipoTrabajoSpec(tiposTrabajo.get(i));
         do{
-            spec= new TipoTrabajoSpec(tiposTrabajo.get(i));
-            if(i != tiposTrabajo.size()){
+            if(i >= 1 && i <= tiposTrabajo.size()){
                 spec = (CompositeSpec<Order>) spec.or(new TipoTrabajoSpec(tiposTrabajo.get(i)));
             }
             i=i+1;
@@ -110,6 +107,8 @@ public class OrdersPresenter implements Presenter {
                 zoneSpec.and(
                         searchSpec.and(
                                 fechaSpec.and(spec))));
+
+        //Specification<Order> resultadoSpec = spec;
 
         /**
          * Luego puedes cambiar el parámetro del caso de uso y el repositorio para que

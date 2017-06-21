@@ -28,10 +28,11 @@ import ar.com.corpico.appcorpico.orders.domain.entity.Tipo_Trabajo;
 
 public class AsignarAConexiones extends DialogFragment {
     private ArrayList<String> mNumeroOT = new ArrayList<>();
-    private List<Tipo_Trabajo> mTipoCuadrillaList = new ArrayList<Tipo_Trabajo>();
+    private ArrayList<String> mTipoCuadrilla = new ArrayList<>();
+    /*private List<Tipo_Trabajo> mTipoCuadrillaList = new ArrayList<Tipo_Trabajo>();
     private ListView mCuadrillaList;
     private CuadrillaAdapter mCuadrillaAdapter;
-    private RadioButton mCuadrillaRadioButton;
+    private RadioButton mCuadrillaRadioButton;*/
     private String mCuadrilla;
     public interface OnAsignarAConexionesListener {
         void onPossitiveButtonAsignarClick(String cuadrilla, ArrayList<String> numero);// Eventos Botón Positivo
@@ -45,18 +46,12 @@ public class AsignarAConexiones extends DialogFragment {
     }
     //TODO: HAGO CON ESTE ARGUNTO PARA PROBAR...LUEGO EL ARGUMENTO CREO Q
     // DEBERIA SER ORDER PARA CUANDO USE MAS DE UNA SELLECCION
-    public static AsignarAConexiones newInstance(List<String> tipocuadrilla, ArrayList<String> numero) {
+    public static AsignarAConexiones newInstance(String tipoCuadrilla, ArrayList<String> numero) {
         AsignarAConexiones f = new AsignarAConexiones();
-        /*ArrayList<Tipo_Trabajo> tc = new ArrayList<>();
-
-        for(int i=0; i< tipocuadrilla.size(); i++){
-            tc.add(tipocuadrilla.get(i));
-        }*/
 
         Bundle args = new Bundle();
         args.putString("NUMERO", numero.get(0));
-        //args.putParcelableArrayList("TIPO_CUADRILLA",tc);
-        args.putString("TIPO_CUADRILLA", numero.get(0));
+        args.putString("TIPO_CUADRILLA", tipoCuadrilla);
 
         f.setArguments(args);
 
@@ -79,28 +74,13 @@ public class AsignarAConexiones extends DialogFragment {
         final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = getActivity().getLayoutInflater();
 
-        //ArrayList<Tipo_Trabajo> tc = new ArrayList<>();
         mNumeroOT.add(getArguments().getString("NUMERO"));
+        mTipoCuadrilla.add(getArguments().getString("TIPO_CUADRILLA"));
 
-        /*tc.addAll(getArguments().<Tipo_Trabajo>getParcelableArrayList("TIPO_CUADRILLA"));
-
-        for(int i=0; i< tc.size(); i++){
-            mTipoCuadrillaList.add(tc.get(i));
-        }*/
 
         android.view.View v = inflater.inflate(R.layout.dialog_asignar_conexiones, null);
         builder.setView(v);
         builder.setTitle("Asignar a cuadrilla");
-
-        mCuadrillaList = (ListView) v.findViewById(R.id.cuadrillaslist);
-        mCuadrillaRadioButton = (RadioButton) v.findViewById(R.id.CuadrillaradioButton);
-
-        mCuadrillaAdapter = new CuadrillaAdapter(getActivity(),new ArrayList<Tipo_Trabajo>(0));
-        mCuadrillaList.setAdapter(mCuadrillaAdapter);
-
-        mCuadrillaAdapter.clear();
-        mCuadrillaAdapter.addAll(mTipoCuadrillaList);
-        mCuadrillaAdapter.notifyDataSetChanged();
 
         Button asignar = (Button) v.findViewById(R.id.aplicar_boton);
         Button cancelar = (Button) v.findViewById(R.id.cancelar_boton);
@@ -109,12 +89,8 @@ public class AsignarAConexiones extends DialogFragment {
                 new android.view.View.OnClickListener() {
                     @Override
                     public void onClick(android.view.View v) {
-                        if (mCuadrillaRadioButton != null && mCuadrillaRadioButton.isChecked()){
-                            listener.onPossitiveButtonAsignarClick(mCuadrilla,mNumeroOT);
-                            dismiss();
-                        }else{
-                            Toast.makeText(getActivity(), "Debe seleccionar una cuadrilla", Toast.LENGTH_SHORT).show();
-                        }
+                        listener.onPossitiveButtonAsignarClick(mCuadrilla,mNumeroOT);
+                        dismiss();
                     }
                 }
         );
