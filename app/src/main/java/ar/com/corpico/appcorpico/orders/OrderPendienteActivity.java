@@ -58,6 +58,7 @@ import ar.com.corpico.appcorpico.ordersmaps.OrdersMapsFragment;
 public class OrderPendienteActivity extends NavitationDrawerActivity implements OrdersAdapter.OnAsignarListener, OrdersFilterAll.OnFilterDialogListener,DatePickerDialog.OnDateSetListener,AsignarAConexiones.OnAsignarAConexionesListener,OrdersFilter.OnOrdersFilterListener,OrdersFragment.OnViewActivityListener{
     private String mTipoCuadrilla;
     private String mZona;
+    private List<String> mTipoTrabajo = new ArrayList<>();
     private TipoCuadrillaAdapter mTipoCuadrillaAdapter;
     private OrdersFragment mOrderView;
     private OrdersMapsFragment mOrderMapView;
@@ -135,9 +136,10 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements 
         //TODO: ACA DEBERIA USAR UNA VARIABLE PARA PONER EL CASO DE USO?
         orderPresenter = new OrdersPresenter(mGetOrders, mAddOrdersState, mGetTipoCuadrilla,mGetCuadrillaxTipo,mGetTipoTrabajo,mOrderView);
         mOrderView.setPresenter(orderPresenter);
+        //mOrderMapView.setPresenter(orderPresenter);
 
         mTipoCuadrillaAdapter = new TipoCuadrillaAdapter(this,new ArrayList<Tipo_Cuadrilla>(0));
-        //mTipoCuadrillaAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        mTipoCuadrillaAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(mTipoCuadrillaAdapter);
 
         orderPresenter.loadTipoCuadrilla(mServicio);
@@ -225,7 +227,8 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements 
         int id = item.getItemId();
         switch (id) {
             case R.id.action_filtrar:
-                new OrdersFilter().newInstance(mTipoCuadrilla,mEstado,mZona).show(getSupportFragmentManager(), "OrderFilterDialog");
+                mTipoTrabajo = mOrderView.getTipoTrabajo();
+                new OrdersFilter().newInstance((ArrayList<String>) mTipoTrabajo,mEstado,mZona).show(getSupportFragmentManager(), "OrderFilterDialog");
                 break;
             case R.id.action_map:
                 mViewMap=false;
@@ -267,21 +270,22 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements 
     }
 
     @Override
-    public void onPossitiveButtonClick(String estado, String tipo, String sector, DateTime desde, DateTime hasta, Boolean estadoActual) {
+    public void onPossitiveButtonClick(String estado, ArrayList<String> tipo, String sector, DateTime desde, DateTime hasta, Boolean estadoActual) {
         OrdersFragment mOrderFragmen = (OrdersFragment) getSupportFragmentManager().findFragmentById(R.id.orders_view_container);
         mOrderFragmen.setOrderFilter(estado, tipo, sector, desde, hasta, null,estadoActual);
     }
 
     @Override
-    public void onFilterPossitiveButtonClick(String estado, String tipo, String sector, DateTime desde, DateTime hasta, Boolean estadoActual) {
+    public void onFilterPossitiveButtonClick(String estado, List<String> tipo, String sector, DateTime desde, DateTime hasta, Boolean estadoActual) {
         mZona=sector;
+        mTipoTrabajo = tipo;
         //TODO: VER PORQUE NO ANDA PARA EL MAPVIEW
         if (mViewMap){
             OrdersFragment mOrderFragmen = (OrdersFragment) getSupportFragmentManager().findFragmentById(R.id.orders_view_container);
-            mOrderFragmen.setOrderFilter(mEstado, mTipoCuadrilla, mZona, desde, hasta, null,estadoActual);
+            mOrderFragmen.setOrderFilter(mEstado, mTipoTrabajo, mZona, desde, hasta, null,estadoActual);
         }else{
             OrdersMapsFragment mOrderMapFragment = (OrdersMapsFragment)getSupportFragmentManager().findFragmentById(R.id.orders_view_container);
-            mOrderMapFragment.setOrderFilter(mEstado, mTipoCuadrilla, mZona, desde, hasta, null,estadoActual);
+            mOrderMapFragment.setOrderFilter(mEstado, mTipoTrabajo, mZona, desde, hasta, null,estadoActual);
         }
 
     }
@@ -314,10 +318,10 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements 
             //MUCHOS REGISTROS...COMO PODRIAMOS CONTROLAR ESO?
             if (mViewMap){
                 OrdersFragment mOrderFragmen = (OrdersFragment) getSupportFragmentManager().findFragmentById(R.id.orders_view_container);
-                mOrderFragmen.setOrderFilter(mEstado,mTipoCuadrilla, mZona, null, null, query,true);
+                mOrderFragmen.setOrderFilter(mEstado,mTipoTrabajo, mZona, null, null, query,true);
             }else{
                 OrdersMapsFragment mOrderMapFragment = (OrdersMapsFragment)getSupportFragmentManager().findFragmentById(R.id.orders_view_container);
-                mOrderMapFragment.setOrderFilter(mEstado, mTipoCuadrilla, mZona, null, null, query,true);
+                mOrderMapFragment.setOrderFilter(mEstado, mTipoTrabajo, mZona, null, null, query,true);
             }
         }
     }
@@ -339,8 +343,7 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements 
                 ft.remove(prev);
             }
             ft.addToBackStack(null);
-            //mOrdenListNumero = numero;
-            //orderPresenter.loadCuadrillasXTipo(mTipoCuadrilla);
+
             DialogFragment newFragment = AsignarAConexiones.newInstance(mTipoCuadrilla,numero);
             newFragment.show(ft, "AsignarconexionDialog");
     }

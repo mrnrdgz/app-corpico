@@ -13,6 +13,8 @@ import android.widget.DatePicker;
 import android.widget.Toast;
 import org.joda.time.DateTime;
 
+import java.util.ArrayList;
+
 import ar.com.corpico.appcorpico.NavitationDrawerActivity;
 import ar.com.corpico.appcorpico.R;
 import ar.com.corpico.appcorpico.orders.data.OrdersRepository;
@@ -73,7 +75,7 @@ public class OrderActivity extends NavitationDrawerActivity implements OnFilterD
         /**
          * <<create>> LoginPresenter
          */
-        OrdersPresenter orderPresenter = new OrdersPresenter(getOrders,addOrderState, getTipoCuadrilla,getCuadrillaxTipo,mGetTipoTrabajo,orderView);
+        //OrdersPresenter orderPresenter = new OrdersPresenter(getOrders,addOrderState, getTipoCuadrilla,getCuadrillaxTipo,mGetTipoTrabajo,orderView);
 
         handleIntent(getIntent());
     }
@@ -118,7 +120,7 @@ public class OrderActivity extends NavitationDrawerActivity implements OnFilterD
     }
 
     @Override
-    public void onPossitiveButtonClick(String estado, String tipo, String sector, DateTime desde, DateTime hasta,Boolean estadoActual) {
+    public void onPossitiveButtonClick(String estado, ArrayList<String> tipo, String sector, DateTime desde, DateTime hasta, Boolean estadoActual) {
         OrdersFragment mOrderFragmen = (OrdersFragment) getSupportFragmentManager().findFragmentById(R.id.orders_view_container);
         mOrderFragmen.setOrderFilter(estado, tipo, sector, desde, hasta, null,estadoActual);
     }
@@ -145,7 +147,7 @@ public class OrderActivity extends NavitationDrawerActivity implements OnFilterD
             //TODO: VER EN LA BUSQUEDA LA FEHCA...SI PONGO NULL ESTA CONTROLADO...PERO EN EL TIEMPO...PUEDE TRAER.
             //MUCHOS REGISTROS...COMO PODRIAMOS CONTROLAR ESO?
             OrdersFragment mOrderFragmen = (OrdersFragment) getSupportFragmentManager().findFragmentById(R.id.orders_view_container);
-            mOrderFragmen.setOrderFilter("Todos", "Todos", "Todos", null, null, query,false);
+            //mOrderFragmen.setOrderFilter("Todos", "Todos", "Todos", null, null, query,false);
         }
     }
 

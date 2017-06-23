@@ -47,6 +47,7 @@ public class OrdersPresenter implements Presenter {
     private GetTipoTrabajo mGetTipoTrabajo;
     private GetCuadrillaxTipo mgetCuadrillaxTipo;
     private View mOrdersView;
+    private ar.com.corpico.appcorpico.ordersmaps.View mOrdersMapView;
     private String mCuadrilla;
 
     //TODO: COMO MANEJO ACA EL CASO DE USO? SI ESTA MACHEADO EL CASO DE USO...TENGO QUE HACER UN CONSTRUCTOR POR CADA UNO?
@@ -58,9 +59,9 @@ public class OrdersPresenter implements Presenter {
         mGetTipoTrabajo = Preconditions.checkNotNull(getTipoTrabajo, "El presentador no puede ser null");
         mgetCuadrillaxTipo = Preconditions.checkNotNull(getCuadrillaxTipo, "El presentador no puede ser null");
         mOrdersView = Preconditions.checkNotNull(ordersView, "La vista no puede ser null");
-        //mOrdersView.setPresenter(this);
-        /*mOrdersMapView = ordersMapView;
-        mOrdersMapView.setPresenter(this);*/
+        mOrdersView.setPresenter(this);
+        //mOrdersMapView = ordersMapView;
+        //mOrdersMapView.setPresenter(this);
 
     }
 
@@ -133,6 +134,8 @@ public class OrdersPresenter implements Presenter {
                 if (orders.size() >= 1) {
                     // Mostrar la lista en la vista
                     mOrdersView.showOrderList(orders);
+                    //mOrdersMapView.LoadOrderMap(orders);
+
                 } else {
                     // Mostrar estado vacío
                     mOrdersView.showOrderList(orders);
@@ -166,7 +169,7 @@ public class OrdersPresenter implements Presenter {
                 // Se obtiene el valor de respuesta del caso de uso
                 AddOrdersState.ResponseValue responseValue = (AddOrdersState.ResponseValue) response;
                 // Actualiza la lista luego de hacer el cambio
-                //mOrdersView.setLoadOrderList(mCuadrilla);
+                mOrdersView.setLoadOrderList(mCuadrilla);
             }
 
             @Override
@@ -271,6 +274,7 @@ public class OrdersPresenter implements Presenter {
                 if (tipoTrabajo.size() >= 1) {
                     // Mostrar la lista en la vista
                     mOrdersView.setTipoTrabajo(tipoTrabajo);
+
                 } else {
                     // Mostrar estado vacío
                     //mOrdersView.setTipoTrabajo(tipoTrabajo);

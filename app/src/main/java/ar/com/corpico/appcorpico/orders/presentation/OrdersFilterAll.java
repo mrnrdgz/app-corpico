@@ -23,6 +23,7 @@ import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
@@ -46,7 +47,7 @@ public class OrdersFilterAll extends DialogFragment{
     }
 
     public interface OnFilterDialogListener {
-        void onPossitiveButtonClick(String estado, String tipo, String sector, DateTime desde, DateTime hasta,Boolean estadoActual);// Eventos Botón Positivo
+        void onPossitiveButtonClick(String estado, ArrayList<String> tipo, String sector, DateTime desde, DateTime hasta, Boolean estadoActual);// Eventos Botón Positivo
         void onNegativeButtonClick();// Eventos Botón Negativo
         void onFechaTextViewClick();
     }
@@ -68,7 +69,7 @@ public class OrdersFilterAll extends DialogFragment{
 
         final CheckBox mEstadoActual = (CheckBox) v.findViewById(R.id.chk_estado_actual);
         final Spinner mStateSpinner = (Spinner)v.findViewById(R.id.estado_spinner);
-        final Spinner mTipoSpinner = (Spinner)v.findViewById(R.id.tipo_spinner);
+        //final Spinner mTipoSpinner = (Spinner)v.findViewById(R.id.tipo_spinner);
         final Spinner mSectorSpinner = (Spinner)v.findViewById(R.id.sector_spinner);
         Button aplicar = (Button) v.findViewById(R.id.aplicar_boton);
         Button cancelar = (Button) v.findViewById(R.id.cancelar_boton);
@@ -84,11 +85,11 @@ public class OrdersFilterAll extends DialogFragment{
                         String mHastaString = mHastaFecha.getText().toString();
                         DateTime mDesde = DateTime.parse(mDesdeString, DateTimeFormat.forPattern("dd-MM-yyyy"));
                         DateTime mHasta = DateTime.parse(mHastaString, DateTimeFormat.forPattern("dd-MM-yyyy"));
-                        listener.onPossitiveButtonClick(mStateSpinner.getItemAtPosition(mStateSpinner.getSelectedItemPosition()).toString(),
+                        /*listener.onPossitiveButtonClick(mStateSpinner.getItemAtPosition(mStateSpinner.getSelectedItemPosition()).toString(),
                                 mTipoSpinner.getItemAtPosition(mTipoSpinner.getSelectedItemPosition()).toString(),
                                 mSectorSpinner.getItemAtPosition(mSectorSpinner.getSelectedItemPosition()).toString(),
                                 mDesde,mHasta,mEstadoActual.isChecked());
-                        dismiss();
+                        dismiss();*/
                     }
                 }
         );

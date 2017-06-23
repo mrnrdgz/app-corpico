@@ -45,7 +45,7 @@ public class TipoCuadrillaAdapter extends ArrayAdapter<Tipo_Cuadrilla> {
         /*
         Instancias del Texto y el Icono
          */
-        TextView name = (TextView) convertView.findViewById(R.id.tipo_trabajo);
+        TextView name = (TextView) convertView.findViewById(R.id.tipo_cuadrilla);
         name.setTextColor(Color.parseColor("#000000")); //Texto color Negro
         // Tipo_Trabajo actual..
         tipoCuadrilla =  getItem(position);

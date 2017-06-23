@@ -145,6 +145,7 @@ public class FuenteOrdenesServidor implements OrderStore {
         for (String number : numero) {
             for (Order order : mFakeRestOrder) {
                 if (order.getNumero().equals(number)) {
+                    //TODO: PONER EL DATO DEL USUARIO QUE HIZO ESTA ETAPA.
                     Etapa etapa = new Etapa(date, estado, "","");
                     order.addEtapas(etapa);
                 }

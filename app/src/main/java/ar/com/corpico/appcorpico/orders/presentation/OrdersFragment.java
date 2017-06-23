@@ -43,7 +43,7 @@ public class OrdersFragment extends Fragment implements ar.com.corpico.appcorpic
     private TextView mEmptyView;
     private android.view.View mProgressView;
     private String mTipoCuadrilla;
-    private List<String> mTipoTrabajo;
+    private List<String> mTipoTrabajo= new ArrayList<>();
     private String mEstado;
     private String mSector;
     private Activity mActivity;
@@ -175,7 +175,7 @@ public class OrdersFragment extends Fragment implements ar.com.corpico.appcorpic
                         }
                         return true;
                     case R.id.action_asignaracuadrilla:
-                        //mOrdersPresenter.asignarOrder(mTipoCuadrilla,list_items);
+                        mOrdersPresenter.asignarOrder(mTipoCuadrilla,list_items);
                         count=0;
                         mOrdersAdapter.clearSelection();
                         mode.finish();
@@ -217,7 +217,7 @@ public class OrdersFragment extends Fragment implements ar.com.corpico.appcorpic
             }
         });
 
-       // setLoadOrderList(mTipoCuadrilla);
+        setLoadOrderList(mTipoCuadrilla);
         return root;
     }
 
@@ -225,9 +225,7 @@ public class OrdersFragment extends Fragment implements ar.com.corpico.appcorpic
     public void setLoadOrderList(String tipocuadrilla) {
         mTipoCuadrilla=tipocuadrilla;
         if (mTipoCuadrilla!=null){
-            //if(mTipoTrabajo==null){
-                mOrdersPresenter.setLoadTipoTrabajos(mTipoCuadrilla);
-            //}
+            mOrdersPresenter.setLoadTipoTrabajos(mTipoCuadrilla);
             mOrdersPresenter.loadOrderList(mEstado,mTipoTrabajo,mSector,null,null,null,true);
         }
     }
@@ -270,8 +268,9 @@ public class OrdersFragment extends Fragment implements ar.com.corpico.appcorpic
     }
 
     @Override
-    public void setOrderFilter(String estado, String tipo, String sector, DateTime desde, DateTime hasta, String search,Boolean estadoActual) {
+    public void setOrderFilter(String estado, List<String> tipo, String sector, DateTime desde, DateTime hasta, String search,Boolean estadoActual) {
         mSector=sector;
+        mTipoTrabajo = tipo;
         mOrdersPresenter.loadOrderList(mEstado,mTipoTrabajo,mSector,desde,hasta,search,estadoActual);
     }
 
@@ -284,6 +283,11 @@ public class OrdersFragment extends Fragment implements ar.com.corpico.appcorpic
     public void showCuadrillaxTipoList(List<Tipo_Cuadrilla> listcuadrilla) {
         //TODO: ACA LLAMO A UN LISTERNER QUE ME CONECTE CON LA ACTIVITY Y LE PASO LAS CUADRILLAS
         listenerViewActivity.onShowTipoCuadrilla(listcuadrilla);
+    }
+
+    @Override
+    public List<String> getTipoTrabajo() {
+        return mTipoTrabajo;
     }
 
 }

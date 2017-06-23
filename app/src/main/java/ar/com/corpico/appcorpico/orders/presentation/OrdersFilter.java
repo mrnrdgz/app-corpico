@@ -15,6 +15,9 @@ import ar.com.corpico.appcorpico.R;
 import android.view.View;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static ar.com.corpico.appcorpico.R.id.tv_tipo;
 
 
@@ -23,25 +26,25 @@ import static ar.com.corpico.appcorpico.R.id.tv_tipo;
  */
 
 public class OrdersFilter extends DialogFragment {
-    private String mTipoTrabajo;
+    private ArrayList<String> mTipoTrabajo = new ArrayList<>();
     private String mState;
     private String mSector;
     public OrdersFilter() {
     }
     public interface OnOrdersFilterListener {
-        void onFilterPossitiveButtonClick(String estado, String tipo, String sector, DateTime desde, DateTime hasta, Boolean estadoActual);// Eventos Botón Positivo
+        void onFilterPossitiveButtonClick(String estado, List<String> tipo, String sector, DateTime desde, DateTime hasta, Boolean estadoActual);// Eventos Botón Positivo
         void onNegativeButtonClick();// Eventos Botón Negativo
         void onCargarCuadrillasListner(String tipotrabajo);
         //void loadType();
     }
 
     OnOrdersFilterListener listener;
-    public static OrdersFilter newInstance(String tipotrabajo,String estado,String sector) {
+    public static OrdersFilter newInstance(ArrayList<String> tipotrabajo, String estado, String sector) {
         OrdersFilter f = new OrdersFilter();
 
         // Supply num input as an argument.
         Bundle args = new Bundle();
-        args.putString("tipotrabajo", tipotrabajo);
+        args.putStringArrayList("tipotrabajo", tipotrabajo);
         args.putString("estado", estado);
         args.putString("sector", sector);
         f.setArguments(args);
@@ -51,7 +54,7 @@ public class OrdersFilter extends DialogFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mTipoTrabajo = getArguments().getString("tipotrabajo");
+        mTipoTrabajo = getArguments().getStringArrayList("tipotrabajo");
         mState = getArguments().getString("estado");
         mSector = getArguments().getString("sector");
     }

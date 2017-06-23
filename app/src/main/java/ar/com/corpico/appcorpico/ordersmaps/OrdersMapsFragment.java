@@ -40,7 +40,7 @@ import ar.com.corpico.appcorpico.orders.presentation.Presenter;
 public class OrdersMapsFragment extends SupportMapFragment implements OnMapReadyCallback, ar.com.corpico.appcorpico.orders.presentation.View, ar.com.corpico.appcorpico.ordersmaps.View {
     private GoogleMap mMap;
     private String mTipoCuadrilla;
-    private List<String> mTipoTrabajo;
+    private List<String> mTipoTrabajo = new ArrayList();
     private String mEstado;
     private String mSector;
     private Presenter mOrdersMapPresenter;
@@ -49,11 +49,11 @@ public class OrdersMapsFragment extends SupportMapFragment implements OnMapReady
     public OrdersMapsFragment() {
     }
 
-    public static OrdersMapsFragment newInstance(String tipotrabajo,String estado,String sector) {
+    public static OrdersMapsFragment newInstance(String tipoCuadrilla,String estado,String sector) {
         OrdersMapsFragment fragment = new OrdersMapsFragment();
         Bundle args = new Bundle();
         // TODO: Pasar los demás parámetros de la Action Bar
-        args.putString("tipotrabajo", tipotrabajo);
+        args.putString("tipoCuadrilla", tipoCuadrilla);
         args.putString("estado", estado);
         args.putString("sector", sector);
         fragment.setArguments(args);
@@ -66,10 +66,10 @@ public class OrdersMapsFragment extends SupportMapFragment implements OnMapReady
 
         if (getArguments() != null) {
             // Toman parámetros
-            //mTipoTrabajo = getArguments().getString("tipotrabajo");
+            mTipoCuadrilla = getArguments().getString("tipoCuadrilla");
             mEstado = getArguments().getString("estado");
             mSector = getArguments().getString("sector");
-            Spinner activitySpinner = (Spinner) getActivity().findViewById(R.id.spinner_toolBar);
+            //Spinner activitySpinner = (Spinner) getActivity().findViewById(R.id.spinner_toolBar);
         }
         setLoadOrderList(mTipoCuadrilla);
         getMapAsync(this);
@@ -166,7 +166,9 @@ public class OrdersMapsFragment extends SupportMapFragment implements OnMapReady
 
     @Override
     public void showOrderList(List<Order> listorder) {
-        mMap.clear();
+        if (mMap != null){
+            mMap.clear();
+        }
         LoadOrderMap(listorder);
     }
 
@@ -182,6 +184,11 @@ public class OrdersMapsFragment extends SupportMapFragment implements OnMapReady
     }
 
     @Override
+    public List<String> getTipoTrabajo() {
+        return mTipoTrabajo;
+    }
+
+    @Override
     public void showOrderError(String error) {
 
     }
@@ -193,7 +200,7 @@ public class OrdersMapsFragment extends SupportMapFragment implements OnMapReady
 
     @Override
     public void setTipoTrabajo(List<String> tipoTrabajo) {
-
+        mTipoTrabajo=tipoTrabajo;
     }
 
     @Override
@@ -207,7 +214,7 @@ public class OrdersMapsFragment extends SupportMapFragment implements OnMapReady
     }
 
     @Override
-    public void setOrderFilter(String estado, String tipo, String sector, DateTime desde, DateTime hasta, String search, Boolean estadoActual) {
+    public void setOrderFilter(String estado, List<String> tipo, String sector, DateTime desde, DateTime hasta, String search, Boolean estadoActual) {
         mSector=sector;
         mOrdersMapPresenter.loadOrderList(mEstado,mTipoTrabajo,mSector,desde,hasta,search,estadoActual);
     }
@@ -216,9 +223,7 @@ public class OrdersMapsFragment extends SupportMapFragment implements OnMapReady
     public void setLoadOrderList(String tipocuadrilla) {
         mTipoCuadrilla=tipocuadrilla;
         if (mTipoCuadrilla != null){
-            if(mTipoTrabajo==null){
-                mOrdersMapPresenter.setLoadTipoTrabajos(mTipoCuadrilla);
-            }
+            mOrdersMapPresenter.setLoadTipoTrabajos(mTipoCuadrilla);
             mOrdersMapPresenter.loadOrderList(mEstado,mTipoTrabajo,mSector,null,null,null,true);
         }
     }

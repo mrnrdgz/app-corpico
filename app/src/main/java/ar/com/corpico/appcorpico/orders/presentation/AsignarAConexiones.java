@@ -28,12 +28,8 @@ import ar.com.corpico.appcorpico.orders.domain.entity.Tipo_Trabajo;
 
 public class AsignarAConexiones extends DialogFragment {
     private ArrayList<String> mNumeroOT = new ArrayList<>();
-    private ArrayList<String> mTipoCuadrilla = new ArrayList<>();
-    /*private List<Tipo_Trabajo> mTipoCuadrillaList = new ArrayList<Tipo_Trabajo>();
-    private ListView mCuadrillaList;
-    private CuadrillaAdapter mCuadrillaAdapter;
-    private RadioButton mCuadrillaRadioButton;*/
-    private String mCuadrilla;
+    private String mTipoCuadrilla;
+
     public interface OnAsignarAConexionesListener {
         void onPossitiveButtonAsignarClick(String cuadrilla, ArrayList<String> numero);// Eventos Botón Positivo
         //LO DEJO X SI MAS ADELANTE LO TENGO QUE DEFINIR
@@ -75,12 +71,13 @@ public class AsignarAConexiones extends DialogFragment {
         LayoutInflater inflater = getActivity().getLayoutInflater();
 
         mNumeroOT.add(getArguments().getString("NUMERO"));
-        mTipoCuadrilla.add(getArguments().getString("TIPO_CUADRILLA"));
-
+        mTipoCuadrilla = (getArguments().getString("TIPO_CUADRILLA"));
+        //TODO: AGREGAR OBSERVACION?
 
         android.view.View v = inflater.inflate(R.layout.dialog_asignar_conexiones, null);
         builder.setView(v);
-        builder.setTitle("Asignar a cuadrilla");
+        builder.setTitle("Asignar a cuadrilla " + mTipoCuadrilla);
+
 
         Button asignar = (Button) v.findViewById(R.id.aplicar_boton);
         Button cancelar = (Button) v.findViewById(R.id.cancelar_boton);
@@ -89,7 +86,7 @@ public class AsignarAConexiones extends DialogFragment {
                 new android.view.View.OnClickListener() {
                     @Override
                     public void onClick(android.view.View v) {
-                        listener.onPossitiveButtonAsignarClick(mCuadrilla,mNumeroOT);
+                        listener.onPossitiveButtonAsignarClick(mTipoCuadrilla,mNumeroOT);
                         dismiss();
                     }
                 }
