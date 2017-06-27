@@ -70,7 +70,7 @@
             android:name=".orders.presentation.Detail_OT"
             android:label=""
             android:launchMode="singleTop"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar"/>
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"

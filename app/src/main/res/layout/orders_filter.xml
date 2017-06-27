@@ -12,6 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <LinearLayout
+            android:id="@+id/seccion_tipotrabajo"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
@@ -23,6 +24,7 @@
                 android:paddingTop="@dimen/edit_text_padding"
                 android:text="Tipo de Trabajo"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
+
             <CheckBox
                 android:id="@+id/chk_tipotrabajo"
                 android:layout_width="match_parent"

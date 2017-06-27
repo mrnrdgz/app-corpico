@@ -12,6 +12,8 @@ import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.Spinner;
 import org.joda.time.DateTime;
 import ar.com.corpico.appcorpico.R;
@@ -23,6 +25,7 @@ import java.util.List;
 
 import static android.R.attr.y;
 import static ar.com.corpico.appcorpico.R.id.checkbox;
+import static ar.com.corpico.appcorpico.R.id.seccion_tipotrabajo;
 import static ar.com.corpico.appcorpico.R.id.tv_tipo;
 
 
@@ -72,23 +75,29 @@ public class OrdersFilter extends DialogFragment {
     public AlertDialog onCreateOrdersFilter() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = getActivity().getLayoutInflater();
-
         android.view.View v = inflater.inflate(R.layout.orders_filter,null);
+        //LinearLayout seccionTipoTrabajo1 = (LinearLayout) findViewById(R.id.seccion_tipotrabajo);
+        MultiSpinner milti = new MultiSpinner(getActivity());
+
+
+        final ArrayList seletedTipoTrabajo=new ArrayList();
+        final ArrayList seletedZona=new ArrayList();
 
         builder.setView(v);
+
         builder.setTitle("Filtro de búsqueda");
 
         final TextView mTipoTitulo = (TextView)v.findViewById(R.id.tv_tipo);
-        //final CheckBox mTipoChk = (CheckBox) v.findViewById(R.id.chk_tipotrabajo);
+        final CheckBox mTipoChk = (CheckBox) v.findViewById(R.id.chk_tipotrabajo);
         final CheckBox mZonaChk = (CheckBox)v.findViewById(R.id.chk_zona);
-        ArrayList<CheckBox> mTipoChk1 = new ArrayList<>();
 
-        for (int i = 0; i < mTipoTrabajo.size(); i++) {
-            CheckBox mTipoChk = new CheckBox(getContext());
-            mTipoChk.setText(mTipoTrabajo.get(i).toString());
-            mTipoChk.setTextColor(Color.BLACK);
-
-            //mTipoChk.append(mTipoTrabajo.get(i).toString());
+        int i;
+        for (i=0;i<mTipoTrabajo.size();i++) {
+            CheckBox opcion = new CheckBox(getActivity());
+            opcion.setText(mTipoTrabajo.get(i).toString());
+            /*opcion.setLayoutParams(
+                    new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+            seccion_tipotrabajo.addView(opcion);*/
         }
 
         Button aplicar = (Button) v.findViewById(R.id.aplicar_boton);
