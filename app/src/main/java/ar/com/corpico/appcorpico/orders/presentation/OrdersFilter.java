@@ -2,6 +2,8 @@ package ar.com.corpico.appcorpico.orders.presentation;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -9,6 +11,7 @@ import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.Spinner;
 import org.joda.time.DateTime;
 import ar.com.corpico.appcorpico.R;
@@ -18,6 +21,8 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+import static android.R.attr.y;
+import static ar.com.corpico.appcorpico.R.id.checkbox;
 import static ar.com.corpico.appcorpico.R.id.tv_tipo;
 
 
@@ -68,21 +73,22 @@ public class OrdersFilter extends DialogFragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = getActivity().getLayoutInflater();
 
-        android.view.View v = inflater.inflate(R.layout.orders_filter, null);
+        android.view.View v = inflater.inflate(R.layout.orders_filter,null);
+
         builder.setView(v);
         builder.setTitle("Filtro de búsqueda");
 
         final TextView mTipoTitulo = (TextView)v.findViewById(R.id.tv_tipo);
-        final Spinner mTipoSpinner = (Spinner)v.findViewById(R.id.tipo_spinner);
-        final Spinner mSectorSpinner = (Spinner)v.findViewById(R.id.sector_spinner);
-        //listener.LoadTipos(mType);
-        /*if(mType.equals("Conexiones") || mType.equals("Desconexiones")){*/
-        mTipoTitulo.setVisibility(View.GONE);
-        mTipoSpinner.setVisibility(View.GONE);
-        for (int i = 0; i < mSectorSpinner.getCount(); i++) {
-            if (mSectorSpinner.getItemAtPosition(i).toString().equalsIgnoreCase(mSector)) {
-                mSectorSpinner.setSelection(i);
-            }
+        //final CheckBox mTipoChk = (CheckBox) v.findViewById(R.id.chk_tipotrabajo);
+        final CheckBox mZonaChk = (CheckBox)v.findViewById(R.id.chk_zona);
+        ArrayList<CheckBox> mTipoChk1 = new ArrayList<>();
+
+        for (int i = 0; i < mTipoTrabajo.size(); i++) {
+            CheckBox mTipoChk = new CheckBox(getContext());
+            mTipoChk.setText(mTipoTrabajo.get(i).toString());
+            mTipoChk.setTextColor(Color.BLACK);
+
+            //mTipoChk.append(mTipoTrabajo.get(i).toString());
         }
 
         Button aplicar = (Button) v.findViewById(R.id.aplicar_boton);
@@ -92,8 +98,8 @@ public class OrdersFilter extends DialogFragment {
                 new android.view.View.OnClickListener() {
                     @Override
                     public void onClick(android.view.View v) {
-                        mSector = mSectorSpinner.getItemAtPosition(mSectorSpinner.getSelectedItemPosition()).toString();
-                        listener.onFilterPossitiveButtonClick(mState,mTipoTrabajo,mSector,null,null,true);
+                        /*mSector = mSectorSpinner.getItemAtPosition(mSectorSpinner.getSelectedItemPosition()).toString();
+                        listener.onFilterPossitiveButtonClick(mState,mTipoTrabajo,mSector,null,null,true);*/
                         dismiss();
                     }
                 }
