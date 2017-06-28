@@ -110,7 +110,7 @@ public class OrdersFilterAll extends DialogFragment{
         super.onAttach(context);
 
         try {
-            listener = (OnFilterDialogListener) context;
+            listener = (OnFilterAllDialogListener) context;
 
         } catch (ClassCastException e) {
             throw new ClassCastException(

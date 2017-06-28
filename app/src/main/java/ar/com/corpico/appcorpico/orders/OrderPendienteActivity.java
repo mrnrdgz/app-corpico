@@ -50,6 +50,7 @@ import ar.com.corpico.appcorpico.orders.presentation.OrdersFilter;
 import ar.com.corpico.appcorpico.orders.presentation.OrdersFilterAll;
 import ar.com.corpico.appcorpico.orders.presentation.OrdersFragment;
 import ar.com.corpico.appcorpico.orders.presentation.OrdersPresenter;
+import ar.com.corpico.appcorpico.orders.presentation.TipoTrabajoDialog;
 import ar.com.corpico.appcorpico.ordersmaps.OrdersMapsFragment;
 
 
@@ -57,7 +58,7 @@ import ar.com.corpico.appcorpico.ordersmaps.OrdersMapsFragment;
  * Created by sistemas on 11/04/2017.
  */
 
-public class OrderPendienteActivity extends NavitationDrawerActivity implements OrdersAdapter.OnAsignarListener, OrdersFilter.OnFilterDialogListener,DatePickerDialog.OnDateSetListener,AsignarAConexiones.OnAsignarAConexionesListener,OrdersFilter.OnOrdersFilterListener,OrdersFragment.OnViewActivityListener{
+public class OrderPendienteActivity extends NavitationDrawerActivity implements OrdersAdapter.OnAsignarListener,DatePickerDialog.OnDateSetListener,AsignarAConexiones.OnAsignarAConexionesListener,OrdersFilter.OnOrdersFilterListener,OrdersFragment.OnViewActivityListener{
     private String mTipoCuadrilla;
     private String mZona;
     private List<String> mTipoTrabajo = new ArrayList<>();
@@ -230,10 +231,7 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements 
         switch (id) {
             case R.id.action_filtrar:
                 mTipoTrabajo = mOrderView.getTipoTrabajo();
-                //new OrdersFilter().newInstance((ArrayList<String>) mTipoTrabajo,mEstado,mZona).show(getSupportFragmentManager(), "OrderFilterDialog");
-                Intent intent = new Intent(this, MultiSpinner.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
+                new OrdersFilter().newInstance((ArrayList<String>) mTipoTrabajo,mEstado,mZona).show(getSupportFragmentManager(), "OrderFilterDialog");
 
                 break;
             case R.id.action_map:
@@ -307,8 +305,9 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements 
     }
 
     @Override
-    public void onTipoTrabajoTextViewClick() {
-
+    public void onTipoTrabajoTextViewClick(ArrayList<String> tipotrabajo) {
+        TipoTrabajoDialog tipoTrabajoDialog = TipoTrabajoDialog.newInstance(tipotrabajo);
+        tipoTrabajoDialog.show(getSupportFragmentManager(),"TipoTrabajoChk");
     }
 
    /* @Override
@@ -390,6 +389,11 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements 
         mTipoCuadrillaAdapter.clear();
         mTipoCuadrillaAdapter.addAll(tipoCuadrilla);
         mTipoCuadrillaAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+
     }
 
     /*@Override

@@ -12,6 +12,7 @@ import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Spinner;
@@ -19,6 +20,7 @@ import org.joda.time.DateTime;
 import ar.com.corpico.appcorpico.R;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -36,18 +38,26 @@ import static ar.com.corpico.appcorpico.R.id.tv_tipo;
  * Created by Administrador on 21/05/2017.
  */
 
-public class OrdersFilter extends DialogFragment {
+public class OrdersFilter extends DialogFragment  implements  DialogInterface.OnMultiChoiceClickListener{
     private ArrayList<String> mTipoTrabajo = new ArrayList<>();
     private String mState;
     private String mSector;
-    private TextView mTipo;
+    private TextView mTipoTitulos;
+    private TextView mZonaTitulos;
+    private ImageButton mTipoTrabajoBt;
     public OrdersFilter() {
     }
+
+    @Override
+    public void onClick(DialogInterface dialog, int which, boolean isChecked) {
+        Toast.makeText(getActivity(), "selecccion " + which , Toast.LENGTH_SHORT).show();
+    }
+
     public interface OnOrdersFilterListener {
         void onFilterPossitiveButtonClick(String estado, List<String> tipo, String sector, DateTime desde, DateTime hasta, Boolean estadoActual);// Eventos Botón Positivo
         void onNegativeButtonClick();// Eventos Botón Negativo
         void onCargarCuadrillasListner(String tipotrabajo);
-        void onTipoTrabajoTextViewClick();
+        void onTipoTrabajoTextViewClick(ArrayList<String> tipotrabajo);
     }
 
     OnOrdersFilterListener listener;
@@ -81,7 +91,7 @@ public class OrdersFilter extends DialogFragment {
         LayoutInflater inflater = getActivity().getLayoutInflater();
         android.view.View v = inflater.inflate(R.layout.orders_filter,null);
         //LinearLayout seccionTipoTrabajo1 = (LinearLayout) findViewById(R.id.seccion_tipotrabajo);
-        MultiSpinner milti = new MultiSpinner(getActivity());
+        //MultiSpinner milti = new MultiSpinner(getActivity());
 
 
         final ArrayList seletedTipoTrabajo=new ArrayList();
@@ -91,10 +101,12 @@ public class OrdersFilter extends DialogFragment {
 
         builder.setTitle("Filtro de búsqueda");
 
-        final TextView mTipoTitulo = (TextView)v.findViewById(R.id.titulo_tipo);
-        //final TextView mTipoTrabajo = (TextView)v.findViewById(R.id.tv_tipotrabajo);
+        //final TextView mTipoTitulo = (TextView)v.findViewById(R.id.titulo_tipo);
+        //final ImageButton mTipoTrabajoBt = (ImageButton)v.findViewById(R.id.tipo_trabajo);
         final TextView mZonaTitulo = (TextView)v.findViewById(R.id.titulo_zona);
-        final TextView mZona = (TextView)v.findViewById(R.id.tv_zona);
+        final ImageButton mZonaBt = (ImageButton)v.findViewById(R.id.zona);
+
+        iniciarTipoTrabajo(v);
 
 
 
@@ -143,12 +155,13 @@ public class OrdersFilter extends DialogFragment {
 
     }
     private void iniciarTipoTrabajo(android.view.View v) {
-        mTipo = (TextView)v.findViewById(R.id.tv_tipotrabajo);
-        mTipo.setOnClickListener(
+        mTipoTitulos = (TextView)v.findViewById(R.id.titulo_tipo);
+        mTipoTrabajoBt = (ImageButton)v.findViewById(R.id.tipo_trabajo);
+        mTipoTrabajoBt.setOnClickListener(
                 new android.view.View.OnClickListener() {
                     @Override
                     public void onClick(android.view.View v) {
-                        listener.onTipoTrabajoTextViewClick();
+                        listener.onTipoTrabajoTextViewClick(mTipoTrabajo);
                     }
                 }
         );

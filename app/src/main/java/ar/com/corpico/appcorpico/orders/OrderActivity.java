@@ -27,7 +27,7 @@ import ar.com.corpico.appcorpico.orders.domain.usecase.GetOrders;
 import ar.com.corpico.appcorpico.orders.domain.usecase.GetTipoTrabajo;
 import ar.com.corpico.appcorpico.orders.presentation.DateDialog;
 import ar.com.corpico.appcorpico.orders.presentation.OrdersFilterAll;
-import ar.com.corpico.appcorpico.orders.presentation.OrdersFilterAll.OnFilterDialogListener;
+import ar.com.corpico.appcorpico.orders.presentation.OrdersFilterAll.OnFilterAllDialogListener;
 import ar.com.corpico.appcorpico.orders.presentation.OrdersFragment;
 import ar.com.corpico.appcorpico.orders.presentation.OrdersPresenter;
 

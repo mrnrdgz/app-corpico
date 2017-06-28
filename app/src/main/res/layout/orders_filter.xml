@@ -16,16 +16,53 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/titulo_tipo"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="@dimen/activity_horizontal_margin"
+                android:layout_gravity="center"
+                android:orientation="horizontal">
+                <!-- Boton de acción  -->
+                <ImageButton
+                    android:id="@+id/tipo_trabajo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:padding="@dimen/button_padding"
+                    android:background="@drawable/ic_tipos_trabajos" />
+                <TextView
+                    android:id="@+id/titulo_tipo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Tipo de Trabajo"
+                    android:textAlignment="center"
+                    android:padding="@dimen/button_padding"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+                </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingTop="@dimen/edit_text_padding"
-                android:text="Tipo de Trabajo"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
+                android:padding="@dimen/activity_horizontal_margin"
+                android:orientation="horizontal">
+                <!-- Boton de acción  -->
+                <ImageButton
+                    android:id="@+id/zona"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/button_padding"
+                    android:clickable="true"
+                    android:background="@drawable/ic_zona" />
+                <TextView
+                    android:id="@+id/titulo_zona"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/button_padding"
+                    android:textAlignment="center"
+                    android:text="Zona"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+                </LinearLayout>
 
-            <TextView
+            <!--<TextView
                 android:id="@+id/tv_tipotrabajo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -49,7 +86,7 @@
                 android:paddingTop="@dimen/edit_text_padding"
                 android:inputType="textMultiLine"
                 android:text="Tipo de Trabajo"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
+                android:textAppearance="?android:attr/textAppearanceMedium" />-->
 
             <LinearLayout
                 android:layout_width="match_parent"
