@@ -20,8 +20,11 @@ import ar.com.corpico.appcorpico.R;
 import android.view.View;
 import android.widget.TextView;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 
 import static android.R.attr.y;
 import static ar.com.corpico.appcorpico.R.id.checkbox;
@@ -37,13 +40,14 @@ public class OrdersFilter extends DialogFragment {
     private ArrayList<String> mTipoTrabajo = new ArrayList<>();
     private String mState;
     private String mSector;
+    private TextView mTipo;
     public OrdersFilter() {
     }
     public interface OnOrdersFilterListener {
         void onFilterPossitiveButtonClick(String estado, List<String> tipo, String sector, DateTime desde, DateTime hasta, Boolean estadoActual);// Eventos Botón Positivo
         void onNegativeButtonClick();// Eventos Botón Negativo
         void onCargarCuadrillasListner(String tipotrabajo);
-        //void loadType();
+        void onTipoTrabajoTextViewClick();
     }
 
     OnOrdersFilterListener listener;
@@ -87,18 +91,12 @@ public class OrdersFilter extends DialogFragment {
 
         builder.setTitle("Filtro de búsqueda");
 
-        final TextView mTipoTitulo = (TextView)v.findViewById(R.id.tv_tipo);
-        final CheckBox mTipoChk = (CheckBox) v.findViewById(R.id.chk_tipotrabajo);
-        final CheckBox mZonaChk = (CheckBox)v.findViewById(R.id.chk_zona);
+        final TextView mTipoTitulo = (TextView)v.findViewById(R.id.titulo_tipo);
+        //final TextView mTipoTrabajo = (TextView)v.findViewById(R.id.tv_tipotrabajo);
+        final TextView mZonaTitulo = (TextView)v.findViewById(R.id.titulo_zona);
+        final TextView mZona = (TextView)v.findViewById(R.id.tv_zona);
 
-        int i;
-        for (i=0;i<mTipoTrabajo.size();i++) {
-            CheckBox opcion = new CheckBox(getActivity());
-            opcion.setText(mTipoTrabajo.get(i).toString());
-            /*opcion.setLayoutParams(
-                    new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
-            seccion_tipotrabajo.addView(opcion);*/
-        }
+
 
         Button aplicar = (Button) v.findViewById(R.id.aplicar_boton);
         Button cancelar = (Button) v.findViewById(R.id.cancelar_boton);
@@ -143,5 +141,16 @@ public class OrdersFilter extends DialogFragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+    }
+    private void iniciarTipoTrabajo(android.view.View v) {
+        mTipo = (TextView)v.findViewById(R.id.tv_tipotrabajo);
+        mTipo.setOnClickListener(
+                new android.view.View.OnClickListener() {
+                    @Override
+                    public void onClick(android.view.View v) {
+                        listener.onTipoTrabajoTextViewClick();
+                    }
+                }
+        );
     }
 }

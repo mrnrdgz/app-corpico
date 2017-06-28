@@ -46,13 +46,13 @@ public class OrdersFilterAll extends DialogFragment{
     public OrdersFilterAll() {
     }
 
-    public interface OnFilterDialogListener {
+    public interface OnFilterAllDialogListener {
         void onPossitiveButtonClick(String estado, ArrayList<String> tipo, String sector, DateTime desde, DateTime hasta, Boolean estadoActual);// Eventos Botón Positivo
         void onNegativeButtonClick();// Eventos Botón Negativo
         void onFechaTextViewClick();
     }
 
-    OnFilterDialogListener listener;
+    OnFilterAllDialogListener listener;
 
         @NonNull
     @Override

@@ -57,7 +57,7 @@ import ar.com.corpico.appcorpico.ordersmaps.OrdersMapsFragment;
  * Created by sistemas on 11/04/2017.
  */
 
-public class OrderPendienteActivity extends NavitationDrawerActivity implements OrdersAdapter.OnAsignarListener, OrdersFilterAll.OnFilterDialogListener,DatePickerDialog.OnDateSetListener,AsignarAConexiones.OnAsignarAConexionesListener,OrdersFilter.OnOrdersFilterListener,OrdersFragment.OnViewActivityListener{
+public class OrderPendienteActivity extends NavitationDrawerActivity implements OrdersAdapter.OnAsignarListener, OrdersFilter.OnFilterDialogListener,DatePickerDialog.OnDateSetListener,AsignarAConexiones.OnAsignarAConexionesListener,OrdersFilter.OnOrdersFilterListener,OrdersFragment.OnViewActivityListener{
     private String mTipoCuadrilla;
     private String mZona;
     private List<String> mTipoTrabajo = new ArrayList<>();
@@ -275,11 +275,11 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements 
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
+    /*@Override
     public void onPossitiveButtonClick(String estado, ArrayList<String> tipo, String sector, DateTime desde, DateTime hasta, Boolean estadoActual) {
         OrdersFragment mOrderFragmen = (OrdersFragment) getSupportFragmentManager().findFragmentById(R.id.orders_view_container);
         mOrderFragmen.setOrderFilter(estado, tipo, sector, desde, hasta, null,estadoActual);
-    }
+    }*/
 
     @Override
     public void onFilterPossitiveButtonClick(String estado, List<String> tipo, String sector, DateTime desde, DateTime hasta, Boolean estadoActual) {
@@ -307,10 +307,15 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements 
     }
 
     @Override
+    public void onTipoTrabajoTextViewClick() {
+
+    }
+
+   /* @Override
     public void onFechaTextViewClick() {
         DateDialog fechaDialog = new DateDialog();
         fechaDialog.show(getSupportFragmentManager(),"datePicker");
-    }
+    }*/
 
     @Override
     protected void onNewIntent(Intent intent) {
@@ -332,13 +337,13 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements 
         }
     }
 
-    @Override
+   /* @Override
     public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
         OrdersFilterAll fragment = (OrdersFilterAll) getSupportFragmentManager().findFragmentByTag("FilterDialog");
         if (fragment != null) {
             fragment.setDateDesdeView(i, i1, i2);
         }
-    }
+    }*/
 
     @Override
     public void onButtonClickListner(ArrayList<String> numero) {

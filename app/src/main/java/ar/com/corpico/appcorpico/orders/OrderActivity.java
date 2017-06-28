@@ -31,7 +31,7 @@ import ar.com.corpico.appcorpico.orders.presentation.OrdersFilterAll.OnFilterDia
 import ar.com.corpico.appcorpico.orders.presentation.OrdersFragment;
 import ar.com.corpico.appcorpico.orders.presentation.OrdersPresenter;
 
-public class OrderActivity extends NavitationDrawerActivity implements OnFilterDialogListener,DatePickerDialog.OnDateSetListener {
+public class OrderActivity extends NavitationDrawerActivity implements OnFilterAllDialogListener,DatePickerDialog.OnDateSetListener {
     private OrdersFilterAll dialogOrdersFilter;
 
     @Override
