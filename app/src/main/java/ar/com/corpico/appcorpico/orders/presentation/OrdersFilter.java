@@ -154,6 +154,7 @@ public class OrdersFilter extends DialogFragment  implements  DialogInterface.On
         super.onViewCreated(view, savedInstanceState);
 
     }
+    //TODO: VER ESTO
     private void iniciarTipoTrabajo(android.view.View v) {
         mTipoTitulos = (TextView)v.findViewById(R.id.titulo_tipo);
         mTipoTrabajoBt = (ImageButton)v.findViewById(R.id.tipo_trabajo);
