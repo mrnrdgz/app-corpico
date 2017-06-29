@@ -162,4 +162,15 @@ public class OrdersFilter extends DialogFragment{
                 }
         );
     }
+    public void setTipoTrabajoView(ArrayList<String> tipotrabajo) {
+        String s = "";
+        for(int i=0; i< tipotrabajo.size(); i++){
+            if(s.equals("")){
+                s = tipotrabajo.get(i);
+            } else {
+                s=  s + " - " + tipotrabajo.get(i);
+            }
+        }
+        mTipoTitulos.setText(s);
+    }
 }

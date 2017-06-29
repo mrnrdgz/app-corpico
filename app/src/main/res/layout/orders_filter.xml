@@ -34,7 +34,6 @@
                     android:id="@+id/titulo_tipo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Tipo de Trabajo"
                     android:textAlignment="center"
                     android:padding="@dimen/button_padding"
                     android:textAppearance="?android:attr/textAppearanceMedium" />

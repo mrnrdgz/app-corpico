@@ -5,6 +5,7 @@ package ar.com.corpico.appcorpico.orders.presentation;
  */
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -20,14 +21,13 @@ import java.util.ArrayList;
 public class TipoTrabajoDialog extends DialogFragment {
     private ArrayList<String> mTipoTrabajo = new ArrayList<>();
     private ArrayList<String> mTipoTrabajoSelect = new ArrayList<>();
-
+    final ArrayList itemsSeleccionados = new ArrayList();
 
     public interface TipoTrabajoListener{
         void SetTipoTrabajo(ArrayList<String> mTipoTrabajo);
     }
     TipoTrabajoListener listener;
-    public TipoTrabajoDialog() {
-    }
+
     public static TipoTrabajoDialog newInstance (ArrayList<String> tipotrabajo){
         TipoTrabajoDialog f = new TipoTrabajoDialog();
 
@@ -59,7 +59,7 @@ public class TipoTrabajoDialog extends DialogFragment {
     public AlertDialog createMultipleListDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
-        final ArrayList itemsSeleccionados = new ArrayList();
+        //final ArrayList itemsSeleccionados = new ArrayList();
 
         CharSequence[] items = new CharSequence[mTipoTrabajo.size()];
         int i;
@@ -68,7 +68,9 @@ public class TipoTrabajoDialog extends DialogFragment {
         }
 
         builder.setTitle("Tipos de Trabajo")
-                .setMultiChoiceItems(items, null, new DialogInterface.OnMultiChoiceClickListener() {
+                .setMultiChoiceItems(items, null,new DialogSelectionClickHandler())
+
+                      /*  new DialogInterface.OnMultiChoiceClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which, boolean isChecked) {
                         if (isChecked) {
@@ -79,8 +81,8 @@ public class TipoTrabajoDialog extends DialogFragment {
                             itemsSeleccionados.remove(Integer.valueOf(which));
                         }
                     }
-                })
-                .setPositiveButton("ACEPTAR",
+                });*/
+               .setPositiveButton("ACEPTAR",
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -102,5 +104,29 @@ public class TipoTrabajoDialog extends DialogFragment {
 
         return builder.create();
     }
+    public class DialogSelectionClickHandler implements
+            DialogInterface.OnMultiChoiceClickListener {
+        public void onClick(DialogInterface dialog, int which, boolean isChecked) {
+            if (isChecked) {
+                // Guardar indice seleccionado
+                itemsSeleccionados.add(which);
+            } else if (itemsSeleccionados.contains(which)) {
+                // Remover indice sin selección
+                itemsSeleccionados.remove(Integer.valueOf(which));
+            }
+        }
+    }
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
 
+        try {
+            listener = (TipoTrabajoListener) context;
+
+        } catch (ClassCastException e) {
+            throw new ClassCastException(
+                    context.toString() +
+                            " no implementó OnSimpleDialogListener");
+        }
+    }
 }

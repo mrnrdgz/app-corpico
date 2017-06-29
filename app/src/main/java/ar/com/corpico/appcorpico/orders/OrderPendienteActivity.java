@@ -62,6 +62,7 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements 
     private String mTipoCuadrilla;
     private String mZona;
     private List<String> mTipoTrabajo = new ArrayList<>();
+    private List<String> mTipoTrabajoSelected = new ArrayList<>();
     private TipoCuadrillaAdapter mTipoCuadrillaAdapter;
     private OrdersFragment mOrderView;
     private OrdersMapsFragment mOrderMapView;
@@ -231,8 +232,8 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements 
         switch (id) {
             case R.id.action_filtrar:
                 mTipoTrabajo = mOrderView.getTipoTrabajo();
+                //TODO: LO MISMO TENGO Q HACER CON LAS ZONAS
                 new OrdersFilter().newInstance((ArrayList<String>) mTipoTrabajo,mEstado,mZona).show(getSupportFragmentManager(), "OrderFilterDialog");
-
                 break;
             case R.id.action_map:
                 mViewMap=false;
@@ -305,6 +306,7 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements 
     }
 
     @Override
+    //TODO: ACA LE TENGO Q PASARLE EL QUE ESTA SESTEADO
     public void onTipoTrabajoTextViewClick(ArrayList<String> tipotrabajo) {
         TipoTrabajoDialog tipoTrabajoDialog = TipoTrabajoDialog.newInstance(tipotrabajo);
         tipoTrabajoDialog.show(getSupportFragmentManager(),"TipoTrabajoChk");
@@ -336,13 +338,13 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements 
         }
     }
 
-   /* @Override
+    @Override
     public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
         OrdersFilterAll fragment = (OrdersFilterAll) getSupportFragmentManager().findFragmentByTag("FilterDialog");
         if (fragment != null) {
             fragment.setDateDesdeView(i, i1, i2);
         }
-    }*/
+    }
 
     @Override
     public void onButtonClickListner(ArrayList<String> numero) {
@@ -392,14 +394,14 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements 
     }
 
     @Override
-    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-
-    }
-
-    @Override
-    public void SetTipoTrabajo(ArrayList<String> mTipoTrabajo) {
-         Toast.makeText(this, "TIPOS " + mTipoTrabajo , Toast.LENGTH_SHORT).show();
-        //mTipoTrabajo = tipotrabajo;
+    //TODO: LE TENDER QUE PASAR DOS PARAMETROS? UNA CON EL TIPO Y EL OTRO CON EL SELECCONADO?
+    public void SetTipoTrabajo(ArrayList<String> tipoTrabajoSelected) {
+         //Toast.makeText(this, "TIPOS " + tipoTrabajo , Toast.LENGTH_SHORT).show();
+        mTipoTrabajoSelected = tipoTrabajoSelected;
+        OrdersFilter fragment = (OrdersFilter) getSupportFragmentManager().findFragmentByTag("OrderFilterDialog");
+        if (fragment != null) {
+            fragment.setTipoTrabajoView(tipoTrabajoSelected);
+        }
     }
 
     /*@Override
