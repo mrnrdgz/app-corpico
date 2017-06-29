@@ -71,6 +71,8 @@ public class OrdersFilterAll extends DialogFragment{
         final Spinner mStateSpinner = (Spinner)v.findViewById(R.id.estado_spinner);
         //final Spinner mTipoSpinner = (Spinner)v.findViewById(R.id.tipo_spinner);
         final Spinner mSectorSpinner = (Spinner)v.findViewById(R.id.sector_spinner);
+        final ArrayList<String> mTipoProblema = new ArrayList<>();
+
         Button aplicar = (Button) v.findViewById(R.id.aplicar_boton);
         Button cancelar = (Button) v.findViewById(R.id.cancelar_boton);
 
@@ -85,11 +87,10 @@ public class OrdersFilterAll extends DialogFragment{
                         String mHastaString = mHastaFecha.getText().toString();
                         DateTime mDesde = DateTime.parse(mDesdeString, DateTimeFormat.forPattern("dd-MM-yyyy"));
                         DateTime mHasta = DateTime.parse(mHastaString, DateTimeFormat.forPattern("dd-MM-yyyy"));
-                        /*listener.onPossitiveButtonClick(mStateSpinner.getItemAtPosition(mStateSpinner.getSelectedItemPosition()).toString(),
-                                mTipoSpinner.getItemAtPosition(mTipoSpinner.getSelectedItemPosition()).toString(),
-                                mSectorSpinner.getItemAtPosition(mSectorSpinner.getSelectedItemPosition()).toString(),
+                        listener.onPossitiveButtonClick(mStateSpinner.getItemAtPosition(mStateSpinner.getSelectedItemPosition()).toString(),
+                                mTipoProblema,mSectorSpinner.getItemAtPosition(mSectorSpinner.getSelectedItemPosition()).toString(),
                                 mDesde,mHasta,mEstadoActual.isChecked());
-                        dismiss();*/
+                        dismiss();
                     }
                 }
         );

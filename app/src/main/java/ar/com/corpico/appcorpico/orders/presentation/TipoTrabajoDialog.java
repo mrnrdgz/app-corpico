@@ -19,7 +19,13 @@ import java.util.ArrayList;
  */
 public class TipoTrabajoDialog extends DialogFragment {
     private ArrayList<String> mTipoTrabajo = new ArrayList<>();
+    private ArrayList<String> mTipoTrabajoSelect = new ArrayList<>();
 
+
+    public interface TipoTrabajoListener{
+        void SetTipoTrabajo(ArrayList<String> mTipoTrabajo);
+    }
+    TipoTrabajoListener listener;
     public TipoTrabajoDialog() {
     }
     public static TipoTrabajoDialog newInstance (ArrayList<String> tipotrabajo){
@@ -74,11 +80,14 @@ public class TipoTrabajoDialog extends DialogFragment {
                         }
                     }
                 })
-                .setPositiveButton("OK",
+                .setPositiveButton("ACEPTAR",
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        //listener.onPossitiveButtonClick(itemsSeleccionados);
+                        for (int j=0; j < itemsSeleccionados.size(); j++){
+                            mTipoTrabajoSelect.add(mTipoTrabajo.get(((Integer) itemsSeleccionados.get(j))));
+                        }
+                        listener.SetTipoTrabajo(mTipoTrabajoSelect);
                         dismiss();
                     }
                 })

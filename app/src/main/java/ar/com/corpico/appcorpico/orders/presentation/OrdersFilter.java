@@ -38,7 +38,7 @@ import static ar.com.corpico.appcorpico.R.id.tv_tipo;
  * Created by Administrador on 21/05/2017.
  */
 
-public class OrdersFilter extends DialogFragment  implements  DialogInterface.OnMultiChoiceClickListener{
+public class OrdersFilter extends DialogFragment{
     private ArrayList<String> mTipoTrabajo = new ArrayList<>();
     private String mState;
     private String mSector;
@@ -46,11 +46,6 @@ public class OrdersFilter extends DialogFragment  implements  DialogInterface.On
     private TextView mZonaTitulos;
     private ImageButton mTipoTrabajoBt;
     public OrdersFilter() {
-    }
-
-    @Override
-    public void onClick(DialogInterface dialog, int which, boolean isChecked) {
-        Toast.makeText(getActivity(), "selecccion " + which , Toast.LENGTH_SHORT).show();
     }
 
     public interface OnOrdersFilterListener {
@@ -117,8 +112,8 @@ public class OrdersFilter extends DialogFragment  implements  DialogInterface.On
                 new android.view.View.OnClickListener() {
                     @Override
                     public void onClick(android.view.View v) {
-                        /*mSector = mSectorSpinner.getItemAtPosition(mSectorSpinner.getSelectedItemPosition()).toString();
-                        listener.onFilterPossitiveButtonClick(mState,mTipoTrabajo,mSector,null,null,true);*/
+                        //mSector = mSectorSpinner.getItemAtPosition(mSectorSpinner.getSelectedItemPosition()).toString();
+                        listener.onFilterPossitiveButtonClick(mState,mTipoTrabajo,mSector,null,null,true);
                         dismiss();
                     }
                 }

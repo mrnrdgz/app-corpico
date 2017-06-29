@@ -58,7 +58,7 @@ import ar.com.corpico.appcorpico.ordersmaps.OrdersMapsFragment;
  * Created by sistemas on 11/04/2017.
  */
 
-public class OrderPendienteActivity extends NavitationDrawerActivity implements OrdersAdapter.OnAsignarListener,DatePickerDialog.OnDateSetListener,AsignarAConexiones.OnAsignarAConexionesListener,OrdersFilter.OnOrdersFilterListener,OrdersFragment.OnViewActivityListener{
+public class OrderPendienteActivity extends NavitationDrawerActivity implements OrdersAdapter.OnAsignarListener,DatePickerDialog.OnDateSetListener,AsignarAConexiones.OnAsignarAConexionesListener,OrdersFilter.OnOrdersFilterListener,OrdersFragment.OnViewActivityListener,TipoTrabajoDialog.TipoTrabajoListener{
     private String mTipoCuadrilla;
     private String mZona;
     private List<String> mTipoTrabajo = new ArrayList<>();
@@ -394,6 +394,12 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements 
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
 
+    }
+
+    @Override
+    public void SetTipoTrabajo(ArrayList<String> mTipoTrabajo) {
+         Toast.makeText(this, "TIPOS " + mTipoTrabajo , Toast.LENGTH_SHORT).show();
+        //mTipoTrabajo = tipotrabajo;
     }
 
     /*@Override
