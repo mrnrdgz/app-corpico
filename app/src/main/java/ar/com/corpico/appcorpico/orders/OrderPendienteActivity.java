@@ -43,6 +43,7 @@ import ar.com.corpico.appcorpico.orders.domain.usecase.GetOrders;
 import ar.com.corpico.appcorpico.orders.domain.usecase.GetTipoTrabajo;
 import ar.com.corpico.appcorpico.orders.presentation.AsignarAConexiones;
 import ar.com.corpico.appcorpico.orders.presentation.MultiSpinner;
+import ar.com.corpico.appcorpico.orders.presentation.OrdersFilters;
 import ar.com.corpico.appcorpico.orders.presentation.TipoCuadrillaAdapter;
 import ar.com.corpico.appcorpico.orders.presentation.DateDialog;
 import ar.com.corpico.appcorpico.orders.presentation.OrdersAdapter;
@@ -233,7 +234,13 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements 
             case R.id.action_filtrar:
                 mTipoTrabajo = mOrderView.getTipoTrabajo();
                 //TODO: LO MISMO TENGO Q HACER CON LAS ZONAS
-                new OrdersFilter().newInstance((ArrayList<String>) mTipoTrabajo,mEstado,mZona).show(getSupportFragmentManager(), "OrderFilterDialog");
+                //new OrdersFilter().newInstance((ArrayList<String>) mTipoTrabajo,mEstado,mZona).show(getSupportFragmentManager(), "OrderFilterDialog");
+                Intent intent = new Intent(this, OrdersFilters.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                intent.putExtra("ESTADO",mEstado);
+                intent.putStringArrayListExtra("TIPO_TRABAJO", (ArrayList<String>) mTipoTrabajo);
+                intent.putStringArrayListExtra("TIPO_TRABAJO_SELECTED", (ArrayList<String>) mTipoTrabajoSelected);
+                startActivity(intent);
                 break;
             case R.id.action_map:
                 mViewMap=false;

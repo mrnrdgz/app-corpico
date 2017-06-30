@@ -31,6 +31,10 @@
     <string name="title_activity_main">MainActivity</string>
     <string name="emptyList">No se han encontrado resultados</string>
 
+    <string name="action_limpiar">Limpiar</string>
+    <string name="action_aplicar">Aplicar</string>
+    <string name="action_cerrar">Cerrar</string>
+
     <string name="search_hint">Buscar titular</string>
 
     <!-- TODO: Remove or change this placeholder text -->
