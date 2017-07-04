@@ -77,6 +77,7 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements 
     private String mEstado;
     private String mServicio;
     private ArrayList<String> mOrdenListNumero;
+    public final static int OPINION_REQUEST_CODE = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -240,7 +241,8 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements 
                 intent.putExtra("ESTADO",mEstado);
                 intent.putStringArrayListExtra("TIPO_TRABAJO", (ArrayList<String>) mTipoTrabajo);
                 intent.putStringArrayListExtra("TIPO_TRABAJO_SELECTED", (ArrayList<String>) mTipoTrabajoSelected);
-                startActivity(intent);
+                //startActivity(intent);
+                startActivityForResult(intent,OPINION_REQUEST_CODE);
                 break;
             case R.id.action_map:
                 mViewMap=false;
@@ -422,5 +424,17 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements 
         /*DialogFragment newFragment = AsignarAConexiones.newInstance(listtipocuadrilla,mOrdenListNumero);
         newFragment.show(ft, "AsignarconexionDialog");
     }*/
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
 
+        if (requestCode == OPINION_REQUEST_CODE) {
+            if (resultCode == RESULT_OK) {
+                mTipoTrabajoSelected = data.getStringArrayListExtra("TIPO_TRABAJO_SELECTED");
+                OrdersFragment mOrderFragmen = (OrdersFragment) getSupportFragmentManager().findFragmentById(R.id.orders_view_container);
+                mOrderFragmen.setOrderFilter(mEstado, mTipoTrabajoSelected, mZona, null, null, null,true);
+            }
+        }
+
+    }
 }

@@ -87,32 +87,32 @@ public class FuenteOrdenesServidor implements OrderStore {
         mFakeRestTipo_Trabajo.add(new Tipo_Trabajo("Conexiones","Colocacion de Medidor","Electrico"));
         mFakeRestTipo_Trabajo.add(new Tipo_Trabajo("Desconexiones","Retiro de Medidor","Electrico"));
 
-        mFakeRestTipo_Trabajo.add(new Tipo_Trabajo("varios Mañana","Cambio de Medidor","Electrico"));
-        mFakeRestTipo_Trabajo.add(new Tipo_Trabajo("varios Mañana","Inspección-Verificación","Electrico"));
-        mFakeRestTipo_Trabajo.add(new Tipo_Trabajo("varios Mañana","Verificación Lecturas","Electrico"));
-        mFakeRestTipo_Trabajo.add(new Tipo_Trabajo("varios Mañana","Desplazamiento de estructura","Electrico"));
-        mFakeRestTipo_Trabajo.add(new Tipo_Trabajo("varios Mañana","Poda de arboles","Electrico"));
+        mFakeRestTipo_Trabajo.add(new Tipo_Trabajo("Varios Mañana","Cambio de Medidor","Electrico"));
+        mFakeRestTipo_Trabajo.add(new Tipo_Trabajo("Varios Mañana","Inspección-Verificación","Electrico"));
+        mFakeRestTipo_Trabajo.add(new Tipo_Trabajo("Varios Mañana","Verificación Lecturas","Electrico"));
+        mFakeRestTipo_Trabajo.add(new Tipo_Trabajo("Varios Mañana","Desplazamiento de estructura","Electrico"));
+        mFakeRestTipo_Trabajo.add(new Tipo_Trabajo("Varios Mañana","Poda de arboles","Electrico"));
         mFakeRestTipo_Trabajo.add(new Tipo_Trabajo("Varios Mañana","Revisión de Medidor","Electrico"));
-        mFakeRestTipo_Trabajo.add(new Tipo_Trabajo("varios Mañana","Reparación de veredas","Electrico"));
-        mFakeRestTipo_Trabajo.add(new Tipo_Trabajo("varios Mañana","Cambio de Tapa","Electrico"));
+        mFakeRestTipo_Trabajo.add(new Tipo_Trabajo("Varios Mañana","Reparación de veredas","Electrico"));
+        mFakeRestTipo_Trabajo.add(new Tipo_Trabajo("Varios Mañana","Cambio de Tapa","Electrico"));
 
         mFakeRestTipo_Trabajo.add(new Tipo_Trabajo("Auxiliar","Reparación de veredas","Electrico"));
         mFakeRestTipo_Trabajo.add(new Tipo_Trabajo("Auxiliar","Cambio de Tapa","Electrico"));
 
-        mFakeRestTipo_Trabajo.add(new Tipo_Trabajo("varios Tarde","Cambio de Medidor","Electrico"));
-        mFakeRestTipo_Trabajo.add(new Tipo_Trabajo("varios Tarde","Inspección-Verificación","Electrico"));
-        mFakeRestTipo_Trabajo.add(new Tipo_Trabajo("varios Tarde","Verificación Lecturas","Electrico"));
-        mFakeRestTipo_Trabajo.add(new Tipo_Trabajo("varios Tarde","Desplazamiento de estructura","Electrico"));
-        mFakeRestTipo_Trabajo.add(new Tipo_Trabajo("varios Tarde","Poda de arboles","Electrico"));
-        mFakeRestTipo_Trabajo.add(new Tipo_Trabajo("varios Tarde","Reparación de veredas","Electrico"));
-        mFakeRestTipo_Trabajo.add(new Tipo_Trabajo("varios Tarde","Cambio de Tapa","Electrico"));
+        mFakeRestTipo_Trabajo.add(new Tipo_Trabajo("Varios Tarde","Cambio de Medidor","Electrico"));
+        mFakeRestTipo_Trabajo.add(new Tipo_Trabajo("Varios Tarde","Inspección-Verificación","Electrico"));
+        mFakeRestTipo_Trabajo.add(new Tipo_Trabajo("Varios Tarde","Verificación Lecturas","Electrico"));
+        mFakeRestTipo_Trabajo.add(new Tipo_Trabajo("Varios Tarde","Desplazamiento de estructura","Electrico"));
+        mFakeRestTipo_Trabajo.add(new Tipo_Trabajo("Varios Tarde","Poda de arboles","Electrico"));
+        mFakeRestTipo_Trabajo.add(new Tipo_Trabajo("Varios Tarde","Reparación de veredas","Electrico"));
+        mFakeRestTipo_Trabajo.add(new Tipo_Trabajo("Varios Tarde","Cambio de Tapa","Electrico"));
         mFakeRestTipo_Trabajo.add(new Tipo_Trabajo("Varios Tarde","Revisión de Medidor","Electrico"));
     }
     static {
         mFakeRestTipo_Cuadrilla.add(new Tipo_Cuadrilla("Conexiones","Electrico"));
         mFakeRestTipo_Cuadrilla.add(new Tipo_Cuadrilla("Desconexiones","Electrico"));
-        mFakeRestTipo_Cuadrilla.add(new Tipo_Cuadrilla("varios Mañana","Electrico"));
-        mFakeRestTipo_Cuadrilla.add(new Tipo_Cuadrilla("varios Tarde","Electrico"));
+        mFakeRestTipo_Cuadrilla.add(new Tipo_Cuadrilla("Varios Mañana","Electrico"));
+        mFakeRestTipo_Cuadrilla.add(new Tipo_Cuadrilla("Varios Tarde","Electrico"));
         mFakeRestTipo_Cuadrilla.add(new Tipo_Cuadrilla("Auxiliar","Electrico"));
 
     }

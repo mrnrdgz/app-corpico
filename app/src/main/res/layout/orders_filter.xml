@@ -29,6 +29,7 @@
                     android:layout_height="wrap_content"
                     android:clickable="true"
                     android:padding="@dimen/button_padding"
+                    android:backgroundTint="@color/colorAccent"
                     android:background="@drawable/ic_tipos_trabajos" />
                 <TextView
                     android:id="@+id/titulo_tipo"
@@ -36,8 +37,10 @@
                     android:layout_height="wrap_content"
                     android:textAlignment="center"
                     android:padding="@dimen/button_padding"
+                    android:textColor="@color/colorPrimary"
                     android:textAppearance="?android:attr/textAppearanceMedium" />
                 </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -50,6 +53,8 @@
                     android:layout_height="wrap_content"
                     android:padding="@dimen/button_padding"
                     android:clickable="true"
+                    android:backgroundTintMode="add"
+                    android:backgroundTint="@color/colorPrimary"
                     android:background="@drawable/ic_zona" />
                 <TextView
                     android:id="@+id/titulo_zona"
@@ -57,6 +62,7 @@
                     android:layout_height="wrap_content"
                     android:padding="@dimen/button_padding"
                     android:textAlignment="center"
+                    android:textColor="@color/colorPrimary"
                     android:text="Zona"
                     android:textAppearance="?android:attr/textAppearanceMedium" />
                 </LinearLayout>
@@ -112,5 +118,4 @@
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
-
 </LinearLayout>

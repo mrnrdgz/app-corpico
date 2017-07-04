@@ -2,13 +2,14 @@ package ar.com.corpico.appcorpico.orders.presentation;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.*;
-import android.view.View;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 
 
@@ -24,11 +25,6 @@ public class OrdersFilters extends AppCompatActivity {
     private List<String> mTipoTrabajoSelected = new ArrayList<>();
     private String mEstado;
     private CheckBox Tipo;
-
-    public interface TipoTrabajoListener{
-        void SetTipoTrabajo(ArrayList<String> mTipoTrabajo);
-    }
-    TipoTrabajoListener listener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,20 +52,27 @@ public class OrdersFilters extends AppCompatActivity {
                             LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
             Tipo.setPadding(16,16,16,16);
             seccionTiposTrabajo.addView(Tipo);
-        }
-        Tipo.setOnClickListener(new android.view.View.OnClickListener() {
-            @Override
-            public void onClick(android.view.View v) {
-                if (Tipo.isChecked()) {
-                    // Guardar indice seleccionado
-                    mTipoTrabajoSelected.add((String) Tipo.getText());
-                } else if (mTipoTrabajoSelected.contains(Tipo.getText())){
-                    // Remover indice sin selección
-                    //Arrays.binarySearch(mTipoTrabajoSelected.toArray(),Tipo.getText());
-                    mTipoTrabajoSelected.remove(Arrays.binarySearch(mTipoTrabajoSelected.toArray(),Tipo.getText()));
+            Tipo.setOnClickListener(new android.view.View.OnClickListener() {
+                @Override
+                public void onClick(android.view.View v) {
+                    if (((CheckBox) v).isChecked()) {
+                        mTipoTrabajoSelected.add((String) ((CheckBox) v).getText());
+                    }
+                    else {
+                        mTipoTrabajoSelected.remove(Arrays.binarySearch(mTipoTrabajoSelected.toArray(),(String) ((CheckBox) v).getText()));
+                    }
                 }
-            }
-        });
+                   /* if (Tipo.isChecked()) {
+                        // Guardar indice seleccionado
+                        mTipoTrabajoSelected.add((String) Tipo.getText());
+                    } else if (mTipoTrabajoSelected.contains(Tipo.getText())){
+                        // Remover indice sin selección
+                        //Arrays.binarySearch(mTipoTrabajoSelected.toArray(),Tipo.getText());
+                        mTipoTrabajoSelected.remove(Arrays.binarySearch(mTipoTrabajoSelected.toArray(),Tipo.getText()));
+                    }*/
+            });
+        }
+
         setToolbar();
     }
     private void setToolbar() {
@@ -99,27 +102,15 @@ public class OrdersFilters extends AppCompatActivity {
                 onBackPressed();
                 break;
             case R.id.action_aplicar:
-                //listener.SetTipoTrabajo();
-                OrderPendienteActivity mAct = new OrderPendienteActivity();
-                mAct.SetTipoTrabajo(mTipoTrabajo);
+                Intent databack = new Intent();
+                databack.putStringArrayListExtra("TIPO_TRABAJO_SELECT", (ArrayList<String>) mTipoTrabajoSelected);
+                setResult(RESULT_OK,databack);
+                finish();
                 break;
             case R.id.action_limpiar:
 
                 break;
         }
         return super.onOptionsItemSelected(item);
-    }
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-
-        try {
-            listener = (TipoTrabajoListener) context;
-
-        } catch (ClassCastException e) {
-            throw new ClassCastException(
-                    context.toString() +
-                            " no implementó OnSimpleDialogListener");
-        }
     }
 }
