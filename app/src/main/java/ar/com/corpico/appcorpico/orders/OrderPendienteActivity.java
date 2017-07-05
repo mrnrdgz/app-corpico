@@ -89,14 +89,6 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements 
         mServicio= "Electrico";
         final Spinner spinner = (Spinner) findViewById(R.id.spinner_toolBar);
 
-        /*mTipoCuadrillaAdapter = new TipoCuadrillaAdapter(this,new ArrayList<Tipo_Cuadrilla>(0));
-        orderPresenter.loadCuadrilla(mServicio);
-        spinner.setAdapter(mTipoCuadrillaAdapter);*/
-        //ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(this, R.layout.custom_spinner_item,getResources().getStringArray(R.array.pendientes_tipos));
-        //spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        //spinner.setAdapter(spinnerAdapter);
-
-
         mOrderView = (OrdersFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.orders_view_container);
 
@@ -157,9 +149,11 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements 
                 Tipo_Cuadrilla item = (Tipo_Cuadrilla) spinner.getSelectedItem();
                 mTipoCuadrilla=item.getTipo_cuadrilla();
                 if (mTipoCuadrilla != null && mOrderView != null && mViewMap ){
+                    mTipoTrabajoSelected = new ArrayList<>();
                     mOrderView.setLoadOrderList(mTipoCuadrilla);
                 }
                 if (mTipoCuadrilla != null && mOrderMapView != null && mViewMap==false ){
+                    mTipoTrabajoSelected = new ArrayList<>();
                     mOrderMapView.setLoadOrderList(mTipoCuadrilla);
                 }
             }
@@ -413,17 +407,6 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements 
         }
     }
 
-    /*@Override
-    public void onShowTipoCuadrilla(List<Tipo_Cuadrilla> listtipocuadrilla) {
-        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-            Fragment prev = getSupportFragmentManager().findFragmentByTag("AsignarconexionDialog");
-            if (prev != null) {
-                ft.remove(prev);
-            }
-            ft.addToBackStack(null);
-        /*DialogFragment newFragment = AsignarAConexiones.newInstance(listtipocuadrilla,mOrdenListNumero);
-        newFragment.show(ft, "AsignarconexionDialog");
-    }*/
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -431,10 +414,14 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements 
         if (requestCode == OPINION_REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
                 mTipoTrabajoSelected = data.getStringArrayListExtra("TIPO_TRABAJO_SELECTED");
-                OrdersFragment mOrderFragmen = (OrdersFragment) getSupportFragmentManager().findFragmentById(R.id.orders_view_container);
-                mOrderFragmen.setOrderFilter(mEstado, mTipoTrabajoSelected, mZona, null, null, null,true);
+                if (mViewMap){
+                    OrdersFragment mOrderFragmen = (OrdersFragment) getSupportFragmentManager().findFragmentById(R.id.orders_view_container);
+                    mOrderFragmen.setOrderFilter(mEstado, mTipoTrabajoSelected, mZona, null, null, null,true);
+                }else{
+                    OrdersMapsFragment mOrderMapFragment = (OrdersMapsFragment)getSupportFragmentManager().findFragmentById(R.id.orders_view_container);
+                    mOrderMapFragment.setOrderFilter(mEstado, mTipoTrabajoSelected, mZona, null, null, null,true);
+                }
             }
         }
-
     }
 }

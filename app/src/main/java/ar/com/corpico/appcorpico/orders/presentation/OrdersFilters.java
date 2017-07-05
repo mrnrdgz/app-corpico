@@ -22,7 +22,7 @@ import ar.com.corpico.appcorpico.orders.OrderPendienteActivity;
 
 public class OrdersFilters extends AppCompatActivity {
     private List<String> mTipoTrabajo = new ArrayList<>();
-    private ArrayList<String> mTipoTrabajoSelected = new ArrayList<>();
+    private List<String> mTipoTrabajoSelected = new ArrayList<>();
     private List<Integer> mTipoTrabajoId = new ArrayList<>();
     private String mEstado;
     private CheckBox Tipo;
@@ -35,7 +35,7 @@ public class OrdersFilters extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         mEstado = bundle.getString("ESTADO");
         mTipoTrabajo= bundle.getStringArrayList("TIPO_TRABAJO");
-        mTipoTrabajoSelected= bundle.getStringArrayList("TIPO_TRABAJO_SELECT");
+        mTipoTrabajoSelected= bundle.getStringArrayList("TIPO_TRABAJO_SELECTED");
 
         LinearLayout seccionTiposTrabajo = (LinearLayout) findViewById(R.id.Seccion_TipoTrabajo);
         for (int i=0; i< mTipoTrabajo.size(); i++) {
@@ -43,37 +43,18 @@ public class OrdersFilters extends AppCompatActivity {
             Tipo.setText(mTipoTrabajo.get(i));
             Tipo.setId(Integer.valueOf(i));
             Tipo.setOnClickListener(ckListener);
-            /*if(mTipoTrabajoSelected!=null){
+            if(mTipoTrabajoSelected!=null){
                 for(int j=0; j< mTipoTrabajoSelected.size(); j++) {
                     if(Tipo.getText().equals(mTipoTrabajoSelected.get(j))){
                         Tipo.setChecked(true);
                     }
                 }
-            }*/
+            }
             Tipo.setLayoutParams(
                     new LinearLayout.LayoutParams(
                             LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
             Tipo.setPadding(16,16,16,16);
             seccionTiposTrabajo.addView(Tipo);
-            /*Tipo.setOnClickListener(new android.view.View.OnClickListener() {
-                @Override
-                public void onClick(android.view.View v) {
-                    if (((CheckBox) v).isChecked()) {
-                        mTipoTrabajoSelected.add((String) ((CheckBox) v).getText());
-                    }
-                    else {
-                        mTipoTrabajoSelected.remove(Arrays.binarySearch(mTipoTrabajoSelected.toArray(),(String) ((CheckBox) v).getText()));
-                    }
-                }
-                   /* if (Tipo.isChecked()) {
-                        // Guardar indice seleccionado
-                        mTipoTrabajoSelected.add((String) Tipo.getText());
-                    } else if (mTipoTrabajoSelected.contains(Tipo.getText())){
-                        // Remover indice sin selección
-                        //Arrays.binarySearch(mTipoTrabajoSelected.toArray(),Tipo.getText());
-                        mTipoTrabajoSelected.remove(Arrays.binarySearch(mTipoTrabajoSelected.toArray(),Tipo.getText()));
-                    }
-            });*/
         }
 
         setToolbar();
@@ -120,9 +101,8 @@ public class OrdersFilters extends AppCompatActivity {
                 onBackPressed();
                 break;
             case R.id.action_aplicar:
-                //SetTipoSelected();
                 Intent databack = new Intent();
-                databack.putStringArrayListExtra("TIPO_TRABAJO_SELECT", (ArrayList<String>) mTipoTrabajoSelected);
+                databack.putStringArrayListExtra("TIPO_TRABAJO_SELECTED", (ArrayList<String>) mTipoTrabajoSelected);
                 setResult(RESULT_OK,databack);
                 finish();
                 break;

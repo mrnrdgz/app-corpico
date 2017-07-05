@@ -44,6 +44,7 @@ public class OrdersFragment extends Fragment implements ar.com.corpico.appcorpic
     private android.view.View mProgressView;
     private String mTipoCuadrilla;
     private List<String> mTipoTrabajo= new ArrayList<>();
+    private List<String> mTipoTrabajoSelected= new ArrayList<>();
     private String mEstado;
     private String mSector;
     private Activity mActivity;
@@ -128,17 +129,12 @@ public class OrdersFragment extends Fragment implements ar.com.corpico.appcorpic
                 if (checked){
                     count++;
                     mOrdersAdapter.setNewSelection(position);
-                   // mode.setTitle(count+" Seleccionadas");
                     Order item= (Order) mOrderList.getAdapter().getItem(position);
                     String numero = item.getNumero();
                     list_items.add(numero);
                 }else{
                     count--;
-                    /*if (count==0){
-
-                    }*/
                     mOrdersAdapter.removeSelection(position);
-                    //mode.setTitle(count+" Seleccionadas");
                     Order item= (Order) mOrderList.getAdapter().getItem(position);
                     String numero = item.getNumero();
                     list_items.remove(numero);
@@ -255,6 +251,7 @@ public class OrdersFragment extends Fragment implements ar.com.corpico.appcorpic
     @Override
     public void setTipoTrabajo(List<String> tipoTrabajo) {
         mTipoTrabajo=tipoTrabajo;
+        mTipoTrabajoSelected = new ArrayList<>();
     }
 
     @Override
@@ -270,8 +267,12 @@ public class OrdersFragment extends Fragment implements ar.com.corpico.appcorpic
     @Override
     public void setOrderFilter(String estado, List<String> tipo, String sector, DateTime desde, DateTime hasta, String search,Boolean estadoActual) {
         mSector=sector;
-        mTipoTrabajo = tipo;
-        mOrdersPresenter.loadOrderList(mEstado,mTipoTrabajo,mSector,desde,hasta,search,estadoActual);
+        if (tipo.size() == 0){
+            mTipoTrabajoSelected= mTipoTrabajo;
+        }else{
+            mTipoTrabajoSelected = tipo;
+        }
+        mOrdersPresenter.loadOrderList(mEstado,mTipoTrabajoSelected,mSector,desde,hasta,search,estadoActual);
     }
 
     @Override

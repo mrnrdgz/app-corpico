@@ -37,9 +37,10 @@ import ar.com.corpico.appcorpico.orders.presentation.Presenter;
 /**
  * Muestra el mapa
  */
-public class OrdersMapsFragment extends SupportMapFragment implements OnMapReadyCallback, ar.com.corpico.appcorpico.orders.presentation.View, ar.com.corpico.appcorpico.ordersmaps.View {
+public class OrdersMapsFragment extends SupportMapFragment implements OnMapReadyCallback, ar.com.corpico.appcorpico.orders.presentation.View {
     private GoogleMap mMap;
     private String mTipoCuadrilla;
+    private List<String> mTipoTrabajoSelected = new ArrayList();
     private List<String> mTipoTrabajo = new ArrayList();
     private String mEstado;
     private String mSector;
@@ -201,6 +202,7 @@ public class OrdersMapsFragment extends SupportMapFragment implements OnMapReady
     @Override
     public void setTipoTrabajo(List<String> tipoTrabajo) {
         mTipoTrabajo=tipoTrabajo;
+        mTipoTrabajoSelected = new ArrayList<>();
     }
 
     @Override
@@ -216,7 +218,12 @@ public class OrdersMapsFragment extends SupportMapFragment implements OnMapReady
     @Override
     public void setOrderFilter(String estado, List<String> tipo, String sector, DateTime desde, DateTime hasta, String search, Boolean estadoActual) {
         mSector=sector;
-        mOrdersMapPresenter.loadOrderList(mEstado,mTipoTrabajo,mSector,desde,hasta,search,estadoActual);
+        if (tipo.size() == 0){
+            mTipoTrabajoSelected= mTipoTrabajo;
+        }else{
+            mTipoTrabajoSelected = tipo;
+        }
+        mOrdersMapPresenter.loadOrderList(mEstado,mTipoTrabajoSelected,mSector,desde,hasta,search,estadoActual);
     }
 
     @Override
