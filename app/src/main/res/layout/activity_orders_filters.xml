@@ -28,6 +28,7 @@
 
         <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:id="@+id/detail"
+            style="@style/MyCheckBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -61,10 +62,12 @@
                 android:id="@+id/Seccion_Zona"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:theme="@style/MyCheckBox"
                 android:layout_below="@+id/titulo_zona"
                 android:orientation="vertical"
                 android:paddingStart="@dimen/activity_horizontal_margin">
             </LinearLayout>
+
         </RelativeLayout>
     </ScrollView>
 
