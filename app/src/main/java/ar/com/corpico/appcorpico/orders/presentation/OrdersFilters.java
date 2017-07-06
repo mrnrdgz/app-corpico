@@ -3,6 +3,12 @@ package ar.com.corpico.appcorpico.orders.presentation;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.support.annotation.ColorInt;
+import android.support.annotation.ColorRes;
+import android.support.v4.widget.CompoundButtonCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -40,6 +46,10 @@ public class OrdersFilters extends AppCompatActivity {
         LinearLayout seccionTiposTrabajo = (LinearLayout) findViewById(R.id.Seccion_TipoTrabajo);
         for (int i=0; i< mTipoTrabajo.size(); i++) {
             Tipo = new CheckBox(this);
+            /*int states[][] = {{android.R.attr.state_checked}, {}};
+            int colors[] = {R.color.colorAccent, Color.TRANSPARENT};
+            CompoundButtonCompat.setButtonTintList(Tipo, new ColorStateList(states, colors));*/
+
             Tipo.setText(mTipoTrabajo.get(i));
             Tipo.setId(Integer.valueOf(i));
             Tipo.setOnClickListener(ckListener);
