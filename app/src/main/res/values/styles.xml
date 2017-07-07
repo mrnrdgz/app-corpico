@@ -10,6 +10,7 @@
         <item name="actionModeStyle">@style/LStyled.ActionMode</item>
         <item name="colorControlActivated">@color/colorAccent</item>
         <item name="colorControlNormal">@color/colorAccent</item>
+        <item name="checkboxStyle">@style/MyCheckBox</item>
     </style>
     <style name="LStyled.ActionMode" parent="@style/Widget.AppCompat.ActionMode">
         <item name="background">@color/colorPrimary</item>
@@ -24,6 +25,8 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="android:checkboxStyle">@style/MyCheckBox</item>
+        <item name="checkboxStyle">@style/MyCheckBox</item>
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
@@ -31,7 +34,10 @@
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
     <style name="MyCheckBox" parent="Widget.AppCompat.CompoundButton.CheckBox">
         <item name="colorControlNormal">@android:color/black</item>
-        <item name="colorControlActivated">@android:color/holo_blue_light</item>
+        <item name="colorControlActivated">@color/colorAccent</item>
+        <item name="listChoiceBackgroundIndicator">@color/colorAccent</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:textColorSecondary">@android:color/transparent</item>
     </style>
     <style name="CheckBoxIndigo">
         <item name="colorAccent">@color/colorPrimary</item>

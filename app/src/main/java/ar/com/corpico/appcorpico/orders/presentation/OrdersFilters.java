@@ -6,13 +6,16 @@ import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.support.annotation.ColorInt;
 import android.support.annotation.ColorRes;
 import android.support.v4.widget.CompoundButtonCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.AppCompatCheckBox;
 import android.support.v7.widget.Toolbar;
+import android.util.AttributeSet;
 import android.view.*;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -44,8 +47,28 @@ public class OrdersFilters extends AppCompatActivity {
         mTipoTrabajoSelected= bundle.getStringArrayList("TIPO_TRABAJO_SELECTED");
 
         LinearLayout seccionTiposTrabajo = (LinearLayout) findViewById(R.id.Seccion_TipoTrabajo);
+        int[][] states = new int[][] {
+                new int[] { android.R.attr.state_enabled}, // enabled
+                new int[] {-android.R.attr.state_enabled}, // disabled
+                new int[] {-android.R.attr.state_checked}, // unchecked
+                new int[] { android.R.attr.state_pressed}  // pressed
+        };
+
+        int[] colors = new int[] {
+                Color.BLACK,
+                Color.RED,
+                Color.GREEN,
+                Color.BLUE
+        };
+
+        /*int state[][] = {{android.R.attr.state_checked}, {}};
+        int color[] = {color_for_state_checked, color_for_state_normal} */
+
+
+        ColorStateList myList = new ColorStateList(states, colors);
         for (int i=0; i< mTipoTrabajo.size(); i++) {
             Tipo = new CheckBox(this);
+            CompoundButtonCompat.setButtonTintList(Tipo, myList);
             Tipo.setText(mTipoTrabajo.get(i));
             Tipo.setId(Integer.valueOf(i));
             Tipo.setOnClickListener(ckListener);
