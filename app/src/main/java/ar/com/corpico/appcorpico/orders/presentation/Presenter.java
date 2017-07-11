@@ -9,7 +9,7 @@ import java.util.List;
  */
 
 public interface Presenter {
-    void loadOrderList(String estado, List<String> tipoTrabajo, String sector, DateTime desde, DateTime hasta, String search, Boolean estadoActual);
+    void loadOrderList(String estado, List<String> tipoTrabajo, List<String> zona, DateTime desde, DateTime hasta, String search, Boolean estadoActual);
     // TODO: el parametro "numero" luego lo reemplazare por List<Order>?
     void asignarOrder(String cuadrilla, List<String> listorder);
     void loadTipoCuadrilla(String servicio);

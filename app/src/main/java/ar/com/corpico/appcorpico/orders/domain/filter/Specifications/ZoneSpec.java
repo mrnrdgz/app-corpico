@@ -18,9 +18,9 @@ public class ZoneSpec extends CompositeSpec<Order> {
         if (zona == null){
             return true;
         }
-        if (zona.equals("Todos") || zona.equals(item.getZona()) ){
+        if (zona.equals("Todos")){
             return true;
         }
-        return false;
+        return zona.equals(item.getZona());
     }
 }

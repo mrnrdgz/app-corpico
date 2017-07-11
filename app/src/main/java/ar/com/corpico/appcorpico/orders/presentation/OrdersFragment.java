@@ -45,8 +45,9 @@ public class OrdersFragment extends Fragment implements ar.com.corpico.appcorpic
     private String mTipoCuadrilla;
     private List<String> mTipoTrabajo= new ArrayList<>();
     private List<String> mTipoTrabajoSelected= new ArrayList<>();
+    private List<String> mZona= new ArrayList<>();
+    private List<String> mZonaSelected= new ArrayList<>();
     private String mEstado;
-    private String mSector;
     private Activity mActivity;
     private ArrayList<String> list_items = new ArrayList<>();
     private int count;
@@ -75,13 +76,13 @@ public class OrdersFragment extends Fragment implements ar.com.corpico.appcorpic
     }
 
     //Aca va sin parametros o que parametros irian?
-    public static OrdersFragment newInstance(String tipocuadrilla,String estado,String sector) {
+    public static OrdersFragment newInstance(String tipocuadrilla,String estado, List<String> zona) {
         OrdersFragment fragment = new OrdersFragment();
         Bundle args = new Bundle();
         // TODO: Pasar los demás parámetros de la Action Bar
         args.putString("tipocuadrilla", tipocuadrilla);
         args.putString("estado", estado);
-        args.putString("sector", sector);
+        args.putStringArrayList("zona", (ArrayList<String>) zona);
         fragment.setArguments(args);
         return fragment;
     }
@@ -93,7 +94,7 @@ public class OrdersFragment extends Fragment implements ar.com.corpico.appcorpic
             // Toman parámetros
            mTipoCuadrilla = getArguments().getString("tipocuadrilla");
            mEstado= getArguments().getString("estado");
-           mSector= getArguments().getString("sector");
+           mZona= getArguments().getStringArrayList("zona");
            Spinner activitySpinner = (Spinner) getActivity().findViewById(R.id.spinner_toolBar);
         }
     }
@@ -222,7 +223,8 @@ public class OrdersFragment extends Fragment implements ar.com.corpico.appcorpic
         mTipoCuadrilla=tipocuadrilla;
         if (mTipoCuadrilla!=null){
             mOrdersPresenter.setLoadTipoTrabajos(mTipoCuadrilla);
-            mOrdersPresenter.loadOrderList(mEstado,mTipoTrabajo,mSector,null,null,null,true);
+            //TODO: ACA DEBERIA CARGAR LAS ZONAS
+            mOrdersPresenter.loadOrderList(mEstado,mTipoTrabajo,mZona,null,null,null,true);
         }
     }
     @Override
@@ -265,14 +267,18 @@ public class OrdersFragment extends Fragment implements ar.com.corpico.appcorpic
     }
 
     @Override
-    public void setOrderFilter(String estado, List<String> tipo, String sector, DateTime desde, DateTime hasta, String search,Boolean estadoActual) {
-        mSector=sector;
+    public void setOrderFilter(String estado, List<String> tipo, List<String> zona, DateTime desde, DateTime hasta, String search,Boolean estadoActual) {
         if (tipo.size() == 0){
             mTipoTrabajoSelected= mTipoTrabajo;
         }else{
             mTipoTrabajoSelected = tipo;
         }
-        mOrdersPresenter.loadOrderList(mEstado,mTipoTrabajoSelected,mSector,desde,hasta,search,estadoActual);
+        if (zona.size() == 0){
+            mZonaSelected= mZona;
+        }else{
+            mZonaSelected = zona;
+        }
+        mOrdersPresenter.loadOrderList(mEstado,mTipoTrabajoSelected,mZona,desde,hasta,search,estadoActual);
     }
 
     @Override
@@ -289,6 +295,11 @@ public class OrdersFragment extends Fragment implements ar.com.corpico.appcorpic
     @Override
     public List<String> getTipoTrabajo() {
         return mTipoTrabajo;
+    }
+
+    @Override
+    public List<String> getZona() {
+        return mZona;
     }
 
 }

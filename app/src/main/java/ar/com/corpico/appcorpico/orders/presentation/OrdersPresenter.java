@@ -66,7 +66,7 @@ public class OrdersPresenter implements Presenter {
     }
 
     @Override
-    public void loadOrderList(String estado, List<String> tiposTrabajo, String zona, DateTime desde, DateTime hasta, String search, Boolean estadoActual) {
+    public void loadOrderList(String estado, List<String> tiposTrabajo, List<String> zona, DateTime desde, DateTime hasta, String search, Boolean estadoActual) {
         // Se reciben valores de cada filtro
         //CriteriaState criteriaState = new CriteriaState(estado);
         /*CriteriaZona criteriaZona = new CriteriaZona(zona);
@@ -90,24 +90,35 @@ public class OrdersPresenter implements Presenter {
          * Aqui creo dos especificaciones compuestas y luego las compongo con and()
          */
         StateSpec stateSpec = new StateSpec(estado);
-        ZoneSpec zoneSpec = new ZoneSpec(zona);
+        //ZoneSpec zoneSpec = new ZoneSpec(zona);
         SearchSpec searchSpec = new SearchSpec(search);
         FechaSpec fechaSpec = new FechaSpec(estado, desde, hasta, estadoActual);
 
+        //Zona spec
         int i=0;
-        CompositeSpec<Order> spec= new TipoTrabajoSpec(tiposTrabajo.get(i));
+        CompositeSpec<Order> zoneSpec= new ZoneSpec(zona.get(i));
         do{
-            if(i >= 1 && i <= tiposTrabajo.size()){
-                spec = (CompositeSpec<Order>) spec.or(new TipoTrabajoSpec(tiposTrabajo.get(i)));
+            if(i >= 1 && i <= zona.size()){
+                zoneSpec = (CompositeSpec<Order>) zoneSpec.or(new ZoneSpec(zona.get(i)));
             }
             i=i+1;
+        }while(i<zona.size() );
+
+        //TipoTrabajo spec
+        int j=0;
+        CompositeSpec<Order> tipoSpec= new TipoTrabajoSpec(tiposTrabajo.get(j));
+        do{
+            if(j >= 1 && j <= tiposTrabajo.size()){
+                tipoSpec = (CompositeSpec<Order>) tipoSpec.or(new TipoTrabajoSpec(tiposTrabajo.get(j)));
+            }
+            j=j+1;
         }while(i<tiposTrabajo.size() );
 
 
         Specification<Order> resultadoSpec = stateSpec.and(
                 zoneSpec.and(
                         searchSpec.and(
-                                fechaSpec.and(spec))));
+                                fechaSpec.and(tipoSpec))));
 
         //Specification<Order> resultadoSpec = spec;
 

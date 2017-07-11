@@ -42,6 +42,8 @@ public class OrdersMapsFragment extends SupportMapFragment implements OnMapReady
     private String mTipoCuadrilla;
     private List<String> mTipoTrabajoSelected = new ArrayList();
     private List<String> mTipoTrabajo = new ArrayList();
+    private List<String> mZona = new ArrayList();
+    private List<String> mZonaSelected = new ArrayList();
     private String mEstado;
     private String mSector;
     private Presenter mOrdersMapPresenter;
@@ -50,13 +52,13 @@ public class OrdersMapsFragment extends SupportMapFragment implements OnMapReady
     public OrdersMapsFragment() {
     }
 
-    public static OrdersMapsFragment newInstance(String tipoCuadrilla,String estado,String sector) {
+    public static OrdersMapsFragment newInstance(String tipoCuadrilla, String estado, List<String> zona) {
         OrdersMapsFragment fragment = new OrdersMapsFragment();
         Bundle args = new Bundle();
         // TODO: Pasar los demás parámetros de la Action Bar
         args.putString("tipoCuadrilla", tipoCuadrilla);
         args.putString("estado", estado);
-        args.putString("sector", sector);
+        args.putStringArrayList("zona", (ArrayList<String>) zona);
         fragment.setArguments(args);
         return fragment;
     }
@@ -69,7 +71,7 @@ public class OrdersMapsFragment extends SupportMapFragment implements OnMapReady
             // Toman parámetros
             mTipoCuadrilla = getArguments().getString("tipoCuadrilla");
             mEstado = getArguments().getString("estado");
-            mSector = getArguments().getString("sector");
+            mZona = getArguments().getStringArrayList("zona");
             //Spinner activitySpinner = (Spinner) getActivity().findViewById(R.id.spinner_toolBar);
         }
         setLoadOrderList(mTipoCuadrilla);
@@ -190,6 +192,11 @@ public class OrdersMapsFragment extends SupportMapFragment implements OnMapReady
     }
 
     @Override
+    public List<String> getZona() {
+        return mZona;
+    }
+
+    @Override
     public void showOrderError(String error) {
 
     }
@@ -216,14 +223,18 @@ public class OrdersMapsFragment extends SupportMapFragment implements OnMapReady
     }
 
     @Override
-    public void setOrderFilter(String estado, List<String> tipo, String sector, DateTime desde, DateTime hasta, String search, Boolean estadoActual) {
-        mSector=sector;
+    public void setOrderFilter(String estado, List<String> tipo, List<String> zona, DateTime desde, DateTime hasta, String search, Boolean estadoActual) {
         if (tipo.size() == 0){
             mTipoTrabajoSelected= mTipoTrabajo;
         }else{
             mTipoTrabajoSelected = tipo;
         }
-        mOrdersMapPresenter.loadOrderList(mEstado,mTipoTrabajoSelected,mSector,desde,hasta,search,estadoActual);
+        if (zona.size() == 0){
+            mZonaSelected= mZona;
+        }else{
+            mZonaSelected = zona;
+        }
+        mOrdersMapPresenter.loadOrderList(mEstado,mTipoTrabajoSelected,mZona,desde,hasta,search,estadoActual);
     }
 
     @Override
@@ -231,7 +242,7 @@ public class OrdersMapsFragment extends SupportMapFragment implements OnMapReady
         mTipoCuadrilla=tipocuadrilla;
         if (mTipoCuadrilla != null){
             mOrdersMapPresenter.setLoadTipoTrabajos(mTipoCuadrilla);
-            mOrdersMapPresenter.loadOrderList(mEstado,mTipoTrabajo,mSector,null,null,null,true);
+            mOrdersMapPresenter.loadOrderList(mEstado,mTipoTrabajo,mZona,null,null,null,true);
         }
     }
 

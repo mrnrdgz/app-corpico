@@ -33,8 +33,13 @@ public class OrdersFilters extends AppCompatActivity {
     private List<String> mTipoTrabajo = new ArrayList<>();
     private List<String> mTipoTrabajoSelected = new ArrayList<>();
     private List<Integer> mTipoTrabajoId = new ArrayList<>();
+    private List<String> mZona = new ArrayList<>();
+    private List<String> mZonaSelected = new ArrayList<>();
+    private List<Integer> mZonaId = new ArrayList<>();
     private String mEstado;
     private CheckBox Tipo;
+    private CheckBox Zona;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,9 +50,11 @@ public class OrdersFilters extends AppCompatActivity {
         mEstado = bundle.getString("ESTADO");
         mTipoTrabajo= bundle.getStringArrayList("TIPO_TRABAJO");
         mTipoTrabajoSelected= bundle.getStringArrayList("TIPO_TRABAJO_SELECTED");
+        mZona= bundle.getStringArrayList("ZONA");
+        mZonaSelected= bundle.getStringArrayList("ZONA_SELECTED");
 
         LinearLayout seccionTiposTrabajo = (LinearLayout) findViewById(R.id.Seccion_TipoTrabajo);
-        int[][] states = new int[][] {
+        /*int[][] states = new int[][] {
                 new int[] { android.R.attr.state_enabled}, // enabled
                 new int[] {-android.R.attr.state_enabled}, // disabled
                 new int[] {-android.R.attr.state_checked}, // unchecked
@@ -59,19 +66,19 @@ public class OrdersFilters extends AppCompatActivity {
                 Color.RED,
                 Color.GREEN,
                 Color.BLUE
-        };
+        };*/
 
         /*int state[][] = {{android.R.attr.state_checked}, {}};
         int color[] = {color_for_state_checked, color_for_state_normal} */
 
 
-        ColorStateList myList = new ColorStateList(states, colors);
+        //ColorStateList myList = new ColorStateList(states, colors);
         for (int i=0; i< mTipoTrabajo.size(); i++) {
             Tipo = new CheckBox(this);
-            CompoundButtonCompat.setButtonTintList(Tipo, myList);
+            //CompoundButtonCompat.setButtonTintList(Tipo, myList);
             Tipo.setText(mTipoTrabajo.get(i));
             Tipo.setId(Integer.valueOf(i));
-            Tipo.setOnClickListener(ckListener);
+            Tipo.setOnClickListener(ckListenerTipo);
             if(mTipoTrabajoSelected!=null){
                 for(int j=0; j< mTipoTrabajoSelected.size(); j++) {
                     if(Tipo.getText().equals(mTipoTrabajoSelected.get(j))){
@@ -85,10 +92,30 @@ public class OrdersFilters extends AppCompatActivity {
             Tipo.setPadding(16,16,16,16);
             seccionTiposTrabajo.addView(Tipo);
         }
+        LinearLayout seccionZona = (LinearLayout) findViewById(R.id.Seccion_Zona);
+        for (int i=0; i< mZona.size(); i++) {
+            Zona = new CheckBox(this);
+            //CompoundButtonCompat.setButtonTintList(Tipo, myList);
+            Zona.setText(mZona.get(i));
+            Zona.setId(Integer.valueOf(i));
+            Zona.setOnClickListener(ckListenerZona);
+            if(mZonaSelected!=null){
+                for(int j=0; j< mZonaSelected.size(); j++) {
+                    if(Zona.getText().equals(mZonaSelected.get(j))){
+                        Zona.setChecked(true);
+                    }
+                }
+            }
+            Zona.setLayoutParams(
+                    new LinearLayout.LayoutParams(
+                            LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+            Zona.setPadding(16,16,16,16);
+            seccionTiposTrabajo.addView(Zona);
+        }
 
         setToolbar();
     }
-    private android.view.View.OnClickListener ckListener = new android.view.View.OnClickListener() {
+    private android.view.View.OnClickListener ckListenerTipo = new android.view.View.OnClickListener() {
         @Override
         public void onClick(android.view.View v) {
             int id = v.getId();
@@ -99,6 +126,21 @@ public class OrdersFilters extends AppCompatActivity {
             }else{
                 mTipoTrabajoId.remove(new Integer(id));
                 mTipoTrabajoSelected.remove(mTipoTrabajo.get(id));
+            }
+        }
+    };
+
+    private android.view.View.OnClickListener ckListenerZona = new android.view.View.OnClickListener() {
+        @Override
+        public void onClick(android.view.View v) {
+            int id = v.getId();
+            boolean checked = ((CheckBox) v).isChecked();
+            if(checked){
+                mZonaId.add(id);
+                mZonaSelected.add(mZona.get(id).toString());
+            }else{
+                mZonaId.remove(new Integer(id));
+                mZonaSelected.remove(mZona.get(id));
             }
         }
     };

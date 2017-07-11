@@ -42,6 +42,7 @@ public class OrdersFilter extends DialogFragment{
     private ArrayList<String> mTipoTrabajo = new ArrayList<>();
     private String mState;
     private String mSector;
+    private ArrayList<String> mZona = new ArrayList<>();
     private TextView mTipoTitulos;
     private TextView mZonaTitulos;
     private ImageButton mTipoTrabajoBt;
@@ -49,21 +50,21 @@ public class OrdersFilter extends DialogFragment{
     }
 
     public interface OnOrdersFilterListener {
-        void onFilterPossitiveButtonClick(String estado, List<String> tipo, String sector, DateTime desde, DateTime hasta, Boolean estadoActual);// Eventos Botón Positivo
+        void onFilterPossitiveButtonClick(String estado, List<String> tipo, List<String> zona, DateTime desde, DateTime hasta, Boolean estadoActual);// Eventos Botón Positivo
         void onNegativeButtonClick();// Eventos Botón Negativo
         void onCargarCuadrillasListner(String tipotrabajo);
         void onTipoTrabajoTextViewClick(ArrayList<String> tipotrabajo);
     }
 
     OnOrdersFilterListener listener;
-    public static OrdersFilter newInstance(ArrayList<String> tipotrabajo, String estado, String sector) {
+    public static OrdersFilter newInstance(ArrayList<String> tipotrabajo, String estado, ArrayList<String>  zona) {
         OrdersFilter f = new OrdersFilter();
 
         // Supply num input as an argument.
         Bundle args = new Bundle();
         args.putStringArrayList("tipotrabajo", tipotrabajo);
         args.putString("estado", estado);
-        args.putString("sector", sector);
+        args.putStringArrayList("zona", zona);
         f.setArguments(args);
 
         return f;
@@ -73,7 +74,7 @@ public class OrdersFilter extends DialogFragment{
         super.onCreate(savedInstanceState);
         mTipoTrabajo = getArguments().getStringArrayList("tipotrabajo");
         mState = getArguments().getString("estado");
-        mSector = getArguments().getString("sector");
+        mZona = getArguments().getStringArrayList("zona");
     }
     @NonNull
     @Override
@@ -113,7 +114,7 @@ public class OrdersFilter extends DialogFragment{
                     @Override
                     public void onClick(android.view.View v) {
                         //mSector = mSectorSpinner.getItemAtPosition(mSectorSpinner.getSelectedItemPosition()).toString();
-                        listener.onFilterPossitiveButtonClick(mState,mTipoTrabajo,mSector,null,null,true);
+                        listener.onFilterPossitiveButtonClick(mState,mTipoTrabajo,mZona,null,null,true);
                         dismiss();
                     }
                 }

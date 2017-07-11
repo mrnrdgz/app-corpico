@@ -61,9 +61,10 @@ import ar.com.corpico.appcorpico.ordersmaps.OrdersMapsFragment;
 
 public class OrderPendienteActivity extends NavitationDrawerActivity implements OrdersAdapter.OnAsignarListener,DatePickerDialog.OnDateSetListener,AsignarAConexiones.OnAsignarAConexionesListener,OrdersFilter.OnOrdersFilterListener,OrdersFragment.OnViewActivityListener,TipoTrabajoDialog.TipoTrabajoListener{
     private String mTipoCuadrilla;
-    private String mZona;
     private List<String> mTipoTrabajo = new ArrayList<>();
+    private List<String> mZona = new ArrayList<>();
     private List<String> mTipoTrabajoSelected = new ArrayList<>();
+    private List<String> mZonaSelected = new ArrayList<>();
     private TipoCuadrillaAdapter mTipoCuadrillaAdapter;
     private OrdersFragment mOrderView;
     private OrdersMapsFragment mOrderMapView;
@@ -228,6 +229,7 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements 
         switch (id) {
             case R.id.action_filtrar:
                 mTipoTrabajo = mOrderView.getTipoTrabajo();
+                mZona = mOrderView.getZona();
                 //TODO: LO MISMO TENGO Q HACER CON LAS ZONAS
                 //new OrdersFilter().newInstance((ArrayList<String>) mTipoTrabajo,mEstado,mZona).show(getSupportFragmentManager(), "OrderFilterDialog");
                 Intent intent = new Intent(this, OrdersFilters.class);
@@ -235,6 +237,8 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements 
                 intent.putExtra("ESTADO",mEstado);
                 intent.putStringArrayListExtra("TIPO_TRABAJO", (ArrayList<String>) mTipoTrabajo);
                 intent.putStringArrayListExtra("TIPO_TRABAJO_SELECTED", (ArrayList<String>) mTipoTrabajoSelected);
+                intent.putStringArrayListExtra("ZONA", (ArrayList<String>) mZona);
+                intent.putStringArrayListExtra("ZONA_SELECTED", (ArrayList<String>) mZonaSelected);
                 //startActivity(intent);
                 startActivityForResult(intent,OPINION_REQUEST_CODE);
                 break;
@@ -284,8 +288,8 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements 
     }*/
 
     @Override
-    public void onFilterPossitiveButtonClick(String estado, List<String> tipo, String sector, DateTime desde, DateTime hasta, Boolean estadoActual) {
-        mZona=sector;
+    public void onFilterPossitiveButtonClick(String estado, List<String> tipo, List<String> zona, DateTime desde, DateTime hasta, Boolean estadoActual) {
+        mZona=zona;
         mTipoTrabajo = tipo;
         //TODO: VER PORQUE NO ANDA PARA EL MAPVIEW
         if (mViewMap){
@@ -414,12 +418,13 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements 
         if (requestCode == OPINION_REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
                 mTipoTrabajoSelected = data.getStringArrayListExtra("TIPO_TRABAJO_SELECTED");
+                mZonaSelected = data.getStringArrayListExtra("ZONA_SELECTED");
                 if (mViewMap){
                     OrdersFragment mOrderFragmen = (OrdersFragment) getSupportFragmentManager().findFragmentById(R.id.orders_view_container);
-                    mOrderFragmen.setOrderFilter(mEstado, mTipoTrabajoSelected, mZona, null, null, null,true);
+                    mOrderFragmen.setOrderFilter(mEstado, mTipoTrabajoSelected, mZonaSelected, null, null, null,true);
                 }else{
                     OrdersMapsFragment mOrderMapFragment = (OrdersMapsFragment)getSupportFragmentManager().findFragmentById(R.id.orders_view_container);
-                    mOrderMapFragment.setOrderFilter(mEstado, mTipoTrabajoSelected, mZona, null, null, null,true);
+                    mOrderMapFragment.setOrderFilter(mEstado, mTipoTrabajoSelected, mZonaSelected, null, null, null,true);
                 }
             }
         }
