@@ -41,6 +41,7 @@ import ar.com.corpico.appcorpico.orders.domain.usecase.GetCuadrillaxTipo;
 import ar.com.corpico.appcorpico.orders.domain.usecase.GetTipoCuadrilla;
 import ar.com.corpico.appcorpico.orders.domain.usecase.GetOrders;
 import ar.com.corpico.appcorpico.orders.domain.usecase.GetTipoTrabajo;
+import ar.com.corpico.appcorpico.orders.domain.usecase.GetZonas;
 import ar.com.corpico.appcorpico.orders.presentation.AsignarAConexiones;
 import ar.com.corpico.appcorpico.orders.presentation.MultiSpinner;
 import ar.com.corpico.appcorpico.orders.presentation.OrdersFilters;
@@ -71,6 +72,7 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements 
     private GetOrders mGetOrders;
     private GetTipoCuadrilla mGetTipoCuadrilla;
     private GetTipoTrabajo mGetTipoTrabajo;
+    private GetZonas mGetZona;
     private AddOrdersState mAddOrdersState;
     private GetCuadrillaxTipo mGetCuadrillaxTipo;
     private boolean mViewMap = true;
@@ -128,12 +130,13 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements 
         mGetTipoCuadrilla = new GetTipoCuadrilla(repository);
         mGetTipoTrabajo = new GetTipoTrabajo(repository);
         mGetCuadrillaxTipo = new GetCuadrillaxTipo(repository);
+        mGetZona = new GetZonas(repository);
 
         /**
          * <<create>> Caso de uso Presenter
          */
         //TODO: ACA DEBERIA USAR UNA VARIABLE PARA PONER EL CASO DE USO?
-        orderPresenter = new OrdersPresenter(mGetOrders, mAddOrdersState, mGetTipoCuadrilla,mGetCuadrillaxTipo,mGetTipoTrabajo,mOrderView);
+        orderPresenter = new OrdersPresenter(mGetOrders, mAddOrdersState, mGetTipoCuadrilla,mGetCuadrillaxTipo,mGetTipoTrabajo,mGetZona,mOrderView);
         mOrderView.setPresenter(orderPresenter);
         //mOrderMapView.setPresenter(orderPresenter);
 
@@ -255,7 +258,7 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements 
                     ft.replace(R.id.orders_view_container, mOrderMapView,"OrderViewMap")
                             //.addToBackStack("OrderViewMap")
                             .commit();
-                    orderPresenter = new OrdersPresenter(mGetOrders, mAddOrdersState, mGetTipoCuadrilla,mGetCuadrillaxTipo,mGetTipoTrabajo,mOrderMapView);
+                    orderPresenter = new OrdersPresenter(mGetOrders, mAddOrdersState, mGetTipoCuadrilla,mGetCuadrillaxTipo,mGetTipoTrabajo,mGetZona,mOrderMapView);
                     mOrderMapView.setPresenter(orderPresenter);
                 }
                 break;
@@ -270,7 +273,7 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements 
                     ft.replace(R.id.orders_view_container, mOrderView,"OrderView")
                             //.addToBackStack("OrderView")
                             .commit();
-                    orderPresenter = new OrdersPresenter(mGetOrders, mAddOrdersState, mGetTipoCuadrilla,mGetCuadrillaxTipo,mGetTipoTrabajo,mOrderView);
+                    orderPresenter = new OrdersPresenter(mGetOrders, mAddOrdersState, mGetTipoCuadrilla,mGetCuadrillaxTipo,mGetTipoTrabajo,mGetZona,mOrderView);
                     mOrderView.setPresenter(orderPresenter);
                 }
                 break;

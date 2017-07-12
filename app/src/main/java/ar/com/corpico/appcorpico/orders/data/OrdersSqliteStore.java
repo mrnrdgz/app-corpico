@@ -33,4 +33,9 @@ public class OrdersSqliteStore implements OrderStore {
     public void getTipoTrabajo(GetTipoTrabajoStoreCallBack callback, Criteria filter) {
 
     }
+
+    @Override
+    public void getZona(GetZonaStoreCallBack callback, Criteria filter) {
+
+    }
 }

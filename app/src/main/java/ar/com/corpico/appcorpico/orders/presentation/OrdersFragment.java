@@ -256,6 +256,12 @@ public class OrdersFragment extends Fragment implements ar.com.corpico.appcorpic
         mTipoTrabajoSelected = new ArrayList<>();
     }
 
+
+    @Override
+    public void setZonas(List<String> zona) {
+        mZona=zona;
+        mZonaSelected = new ArrayList<>();
+    }
     @Override
     public void showOrdesEmpty() {
         mOrderList.setEmptyView(mEmptyView);

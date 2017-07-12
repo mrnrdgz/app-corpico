@@ -13,6 +13,7 @@ public class TipoTrabajoSpec extends CompositeSpec<Order> {
     private String tiposTrabajo;
 
     public TipoTrabajoSpec(String tiposTrabajo) {
+
         this.tiposTrabajo = tiposTrabajo;
     }
 

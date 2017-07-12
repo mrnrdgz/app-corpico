@@ -8,6 +8,7 @@ import java.util.List;
 import ar.com.corpico.appcorpico.orders.domain.entity.Order;
 import ar.com.corpico.appcorpico.orders.domain.entity.Tipo_Cuadrilla;
 import ar.com.corpico.appcorpico.orders.domain.entity.Tipo_Trabajo;
+import ar.com.corpico.appcorpico.orders.domain.entity.Zona;
 import ar.com.corpico.appcorpico.orders.domain.filter.Criteria;
 import ar.com.corpico.appcorpico.orders.domain.filter.Specifications.Specification;
 
@@ -115,5 +116,22 @@ public class OrdersRepository implements IOrdersRepository {
         };
 
         mOrdersRestStore.getTipoTrabajo(callback1, filter);
+    }
+    @Override
+    public void findZona(final ZonaRepositoryCallBack callback, Criteria filter) {
+        OrderStore.GetZonaStoreCallBack callback1 = new OrderStore.GetZonaStoreCallBack() {
+            @Override
+            public void onSuccess(List<Zona> zona) {
+                // TODO: Guardar datos en SQLite. Posible método save()/insert()/add()
+                callback.onSuccess(zona);
+            }
+
+            @Override
+            public void onError(String error) {
+                callback.onError(error);
+            }
+        };
+
+        mOrdersRestStore.getZona(callback1, filter);
     }
 }

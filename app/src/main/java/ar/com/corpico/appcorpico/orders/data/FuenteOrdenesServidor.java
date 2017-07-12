@@ -16,6 +16,7 @@ import ar.com.corpico.appcorpico.orders.domain.entity.Tipo_Cuadrilla;
 import ar.com.corpico.appcorpico.orders.domain.entity.Etapa;
 import ar.com.corpico.appcorpico.orders.domain.entity.Order;
 import ar.com.corpico.appcorpico.orders.domain.entity.Tipo_Trabajo;
+import ar.com.corpico.appcorpico.orders.domain.entity.Zona;
 import ar.com.corpico.appcorpico.orders.domain.filter.Criteria;
 import ar.com.corpico.appcorpico.orders.domain.filter.Specifications.Specification;
 
@@ -42,6 +43,7 @@ public class FuenteOrdenesServidor implements OrderStore {
     private static final ArrayList<Etapa> mFakeRestEtapa8 = new ArrayList<>();
     private static final ArrayList<Etapa> mFakeRestEtapa9 = new ArrayList<>();
     private static final ArrayList<Etapa> mFakeRestEtapa10 = new ArrayList<>();
+    private static final ArrayList<Zona> mFakeRestZona= new ArrayList<>();
 
     static {
         mFakeRestEtapa.add(new Etapa("2017-01-23T00:00:00.000-03:00", "Pendiente", "Nada",""));
@@ -116,6 +118,14 @@ public class FuenteOrdenesServidor implements OrderStore {
         mFakeRestTipo_Cuadrilla.add(new Tipo_Cuadrilla("Auxiliar","Electrico"));
 
     }
+    static {
+        mFakeRestZona.add(new Zona("Conexiones"));
+        mFakeRestZona.add(new Zona("Desconexiones"));
+        mFakeRestZona.add(new Zona("Varios Mañan"));
+        mFakeRestZona.add(new Zona("Varios Tarde"));
+        mFakeRestZona.add(new Zona("Auxiliar"));
+
+    }
     @Override
     public void getOrders(final GetCallback callback, final Specification filter) {
         Handler handler = new Handler();
@@ -166,5 +176,9 @@ public class FuenteOrdenesServidor implements OrderStore {
     @Override
     public void getTipoTrabajo(GetTipoTrabajoStoreCallBack callback, Criteria filter) {
         callback.onSuccess(filter.match(mFakeRestTipo_Trabajo));
+    }
+    @Override
+    public void getZona(GetZonaStoreCallBack callback, Criteria filter) {
+        callback.onSuccess(filter.match(mFakeRestZona));
     }
 }

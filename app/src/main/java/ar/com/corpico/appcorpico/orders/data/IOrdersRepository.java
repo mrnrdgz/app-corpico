@@ -6,6 +6,7 @@ import java.util.List;
 import ar.com.corpico.appcorpico.orders.domain.entity.Tipo_Cuadrilla;
 import ar.com.corpico.appcorpico.orders.domain.entity.Order;
 import ar.com.corpico.appcorpico.orders.domain.entity.Tipo_Trabajo;
+import ar.com.corpico.appcorpico.orders.domain.entity.Zona;
 import ar.com.corpico.appcorpico.orders.domain.filter.Criteria;
 import ar.com.corpico.appcorpico.orders.domain.filter.Specifications.Specification;
 
@@ -33,6 +34,11 @@ public interface IOrdersRepository {
     void findTipoTrabajo(TipoTrabajoRepositoryCallBack callback, Criteria filter);
     interface TipoTrabajoRepositoryCallBack {
         void onSuccess(List<Tipo_Trabajo> tipoTrabajo);
+        void onError(String error);
+    }
+    void findZona(ZonaRepositoryCallBack callback, Criteria filter);
+    interface ZonaRepositoryCallBack {
+        void onSuccess(List<Zona> zona);
         void onError(String error);
     }
 }

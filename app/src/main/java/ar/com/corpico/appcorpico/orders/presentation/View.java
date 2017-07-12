@@ -22,6 +22,7 @@ public interface View {
     void showOrderError(String error);
     void setPresenter(Presenter presenter);
     void setTipoTrabajo(List<String> tipoTrabajo);
+    void setZonas(List<String> zona);
     void showOrdesEmpty();
     void showProgressIndicator(boolean show);
     void setOrderFilter(String estado, List<String> tipo, List<String> zona, DateTime desde, DateTime hasta, String search, Boolean estadoActual);

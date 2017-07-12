@@ -213,6 +213,12 @@ public class OrdersMapsFragment extends SupportMapFragment implements OnMapReady
     }
 
     @Override
+    public void setZonas(List<String> zona) {
+        mZona=zona;
+        mZonaSelected = new ArrayList<>();
+    }
+
+    @Override
     public void showOrdesEmpty() {
 
     }

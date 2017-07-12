@@ -33,6 +33,7 @@ import ar.com.corpico.appcorpico.orders.domain.usecase.GetTipoCuadrilla;
 import ar.com.corpico.appcorpico.orders.domain.usecase.GetTipoCuadrilla;
 import ar.com.corpico.appcorpico.orders.domain.usecase.GetOrders;
 import ar.com.corpico.appcorpico.orders.domain.usecase.GetTipoTrabajo;
+import ar.com.corpico.appcorpico.orders.domain.usecase.GetZonas;
 
 import static android.icu.lang.UCharacter.GraphemeClusterBreak.T;
 
@@ -45,6 +46,7 @@ public class OrdersPresenter implements Presenter {
     private GetOrders mgetOrders;
     private GetTipoCuadrilla mGetTipoCuadrilla;
     private GetTipoTrabajo mGetTipoTrabajo;
+    private GetZonas mGetZona;
     private GetCuadrillaxTipo mgetCuadrillaxTipo;
     private View mOrdersView;
     private ar.com.corpico.appcorpico.ordersmaps.View mOrdersMapView;
@@ -52,11 +54,12 @@ public class OrdersPresenter implements Presenter {
 
     //TODO: COMO MANEJO ACA EL CASO DE USO? SI ESTA MACHEADO EL CASO DE USO...TENGO QUE HACER UN CONSTRUCTOR POR CADA UNO?
     //O LO PUEDO PONER COMO VARIABLE AL TIPO?
-    public OrdersPresenter(GetOrders getOrders, AddOrdersState addOrdersState, GetTipoCuadrilla getTipoCuadrilla, GetCuadrillaxTipo getCuadrillaxTipo, GetTipoTrabajo getTipoTrabajo, View ordersView) {
+    public OrdersPresenter(GetOrders getOrders, AddOrdersState addOrdersState, GetTipoCuadrilla getTipoCuadrilla, GetCuadrillaxTipo getCuadrillaxTipo, GetTipoTrabajo getTipoTrabajo, GetZonas getZona, View ordersView) {
         maddOrdersState = Preconditions.checkNotNull(addOrdersState, "El presentador no puede ser null");
         mgetOrders = Preconditions.checkNotNull(getOrders, "El presentador no puede ser null");
         mGetTipoCuadrilla = Preconditions.checkNotNull(getTipoCuadrilla, "El presentador no puede ser null");
         mGetTipoTrabajo = Preconditions.checkNotNull(getTipoTrabajo, "El presentador no puede ser null");
+        mGetZona = Preconditions.checkNotNull(getZona, "El presentador no puede ser null");
         mgetCuadrillaxTipo = Preconditions.checkNotNull(getCuadrillaxTipo, "El presentador no puede ser null");
         mOrdersView = Preconditions.checkNotNull(ordersView, "La vista no puede ser null");
         mOrdersView.setPresenter(this);
@@ -67,9 +70,13 @@ public class OrdersPresenter implements Presenter {
 
     @Override
     public void loadOrderList(String estado, List<String> tiposTrabajo, List<String> zona, DateTime desde, DateTime hasta, String search, Boolean estadoActual) {
+        CompositeSpec<Order> zoneSpec;
+        Specification<Order> resultadoSpec;
         // Se reciben valores de cada filtro
         //CriteriaState criteriaState = new CriteriaState(estado);
         /*CriteriaZona criteriaZona = new CriteriaZona(zona);
+
+
 
 
         // TODO: Crear OR criteria con los tipos de trabajo
@@ -94,15 +101,19 @@ public class OrdersPresenter implements Presenter {
         SearchSpec searchSpec = new SearchSpec(search);
         FechaSpec fechaSpec = new FechaSpec(estado, desde, hasta, estadoActual);
 
-        //Zona spec
-        int i=0;
-        CompositeSpec<Order> zoneSpec= new ZoneSpec(zona.get(i));
-        do{
-            if(i >= 1 && i <= zona.size()){
-                zoneSpec = (CompositeSpec<Order>) zoneSpec.or(new ZoneSpec(zona.get(i)));
-            }
-            i=i+1;
-        }while(i<zona.size() );
+        if (zona.size() > 0 ){
+            //Zona spec
+            int i=0;
+            zoneSpec= new ZoneSpec(zona.get(i));
+            do{
+                if(i >= 1 && i <= zona.size()){
+                    zoneSpec = (CompositeSpec<Order>) zoneSpec.or(new ZoneSpec(zona.get(i)));
+                }
+                i=i+1;
+            }while(i<zona.size() );
+        }else{
+            zoneSpec=null;
+        }
 
         //TipoTrabajo spec
         int j=0;
@@ -112,13 +123,19 @@ public class OrdersPresenter implements Presenter {
                 tipoSpec = (CompositeSpec<Order>) tipoSpec.or(new TipoTrabajoSpec(tiposTrabajo.get(j)));
             }
             j=j+1;
-        }while(i<tiposTrabajo.size() );
+        }while(j<tiposTrabajo.size() );
 
+        if (zoneSpec == null) {
+            resultadoSpec = stateSpec.and(
+                            searchSpec.and(
+                                    fechaSpec.and(tipoSpec)));
+        }else{
+            resultadoSpec = stateSpec.and(
+                    zoneSpec.and(
+                            searchSpec.and(
+                                    fechaSpec.and(tipoSpec))));
+        }
 
-        Specification<Order> resultadoSpec = stateSpec.and(
-                zoneSpec.and(
-                        searchSpec.and(
-                                fechaSpec.and(tipoSpec))));
 
         //Specification<Order> resultadoSpec = spec;
 
@@ -301,6 +318,42 @@ public class OrdersPresenter implements Presenter {
             }
         };
         mGetTipoTrabajo.execute(requestValues, useCaseCallback);
+    }
+    @Override
+    public void setLoadZonas(String zona) {
+        CriteriaZona criteriaZona = new CriteriaZona(zona);
+
+        GetZonas.RequestValues requestValues = new GetZonas.RequestValues(criteriaZona);
+
+        UseCase.UseCaseCallback useCaseCallback = new UseCase.UseCaseCallback() {
+            @Override
+            public void onSuccess(Object response) {
+                // Ocultar indicador de progreso
+                //mOrdersView.showProgressIndicator(false);
+                // Se obtiene el valor de respuesta del caso de uso
+                GetZonas.ResponseValue responseValue = (GetZonas.ResponseValue) response;
+
+                // ¿La lista tiene uno o más elementos?
+                List<String> zonas = responseValue.getZonas();
+                if (zonas.size() >= 1) {
+                    // Mostrar la lista en la vista
+                    mOrdersView.setZonas(zonas);
+
+                } else {
+                    // Mostrar estado vacío
+                    //mOrdersView.setTipoTrabajo(tipoTrabajo);
+                    mOrdersView.showOrdesEmpty();
+                }
+            }
+
+            @Override
+            public void onError(String error) {
+                // Ocultar indicador de progreso
+                mOrdersView.showProgressIndicator(false);
+                mOrdersView.showOrderError(error);
+            }
+        };
+        mGetZona.execute(requestValues, useCaseCallback);
     }
 
 }
