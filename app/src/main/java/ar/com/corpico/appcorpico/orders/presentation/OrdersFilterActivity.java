@@ -29,7 +29,7 @@ import java.util.List;
 import ar.com.corpico.appcorpico.R;
 import ar.com.corpico.appcorpico.orders.OrderPendienteActivity;
 
-public class OrdersFilters extends AppCompatActivity {
+public class OrdersFilterActivity extends AppCompatActivity {
     private List<String> mTipoTrabajo = new ArrayList<>();
     private List<String> mTipoTrabajoSelected = new ArrayList<>();
     private List<Integer> mTipoTrabajoId = new ArrayList<>();
@@ -37,7 +37,7 @@ public class OrdersFilters extends AppCompatActivity {
     private List<String> mZonaSelected = new ArrayList<>();
     private List<Integer> mZonaId = new ArrayList<>();
     private String mEstado;
-    private CheckBox Tipo;
+    private AppCompatCheckBox Tipo;
     private CheckBox Zona;
 
 
@@ -66,7 +66,7 @@ public class OrdersFilters extends AppCompatActivity {
                 Color.RED,
                 Color.GREEN,
                 Color.BLUE
-        };*/
+        };
 
         /*int state[][] = {{android.R.attr.state_checked}, {}};
         int color[] = {color_for_state_checked, color_for_state_normal} */
@@ -74,8 +74,9 @@ public class OrdersFilters extends AppCompatActivity {
 
         //ColorStateList myList = new ColorStateList(states, colors);
         for (int i=0; i< mTipoTrabajo.size(); i++) {
-            Tipo = new CheckBox(this);
+            Tipo = new AppCompatCheckBox(this);
             //CompoundButtonCompat.setButtonTintList(Tipo, myList);
+            setAppCompatCheckBoxColors((AppCompatCheckBox) Tipo,Color.BLACK,Color.GREEN);
             Tipo.setText(mTipoTrabajo.get(i));
             Tipo.setId(Integer.valueOf(i));
             Tipo.setOnClickListener(ckListenerTipo);
@@ -114,6 +115,11 @@ public class OrdersFilters extends AppCompatActivity {
         }
 
         setToolbar();
+    }
+    public static void setAppCompatCheckBoxColors(final AppCompatCheckBox _checkbox, final int _uncheckedColor, final int _checkedColor) {
+        int[][] states = new int[][]{new int[]{-android.R.attr.state_checked}, new int[]{android.R.attr.state_checked}};
+        int[] colors = new int[]{_uncheckedColor, _checkedColor};
+        _checkbox.setSupportButtonTintList(new ColorStateList(states, colors));
     }
     private android.view.View.OnClickListener ckListenerTipo = new android.view.View.OnClickListener() {
         @Override

@@ -30,12 +30,10 @@ import java.util.List;
 
 import ar.com.corpico.appcorpico.NavitationDrawerActivity;
 import ar.com.corpico.appcorpico.R;
-import ar.com.corpico.appcorpico.home.HomeActivity;
 import ar.com.corpico.appcorpico.orders.data.OrdersRepository;
 import ar.com.corpico.appcorpico.orders.data.FuenteOrdenesServidor;
 import ar.com.corpico.appcorpico.orders.data.OrdersSqliteStore;
 import ar.com.corpico.appcorpico.orders.domain.entity.Tipo_Cuadrilla;
-import ar.com.corpico.appcorpico.orders.domain.entity.Tipo_Trabajo;
 import ar.com.corpico.appcorpico.orders.domain.usecase.AddOrdersState;
 import ar.com.corpico.appcorpico.orders.domain.usecase.GetCuadrillaxTipo;
 import ar.com.corpico.appcorpico.orders.domain.usecase.GetTipoCuadrilla;
@@ -43,10 +41,8 @@ import ar.com.corpico.appcorpico.orders.domain.usecase.GetOrders;
 import ar.com.corpico.appcorpico.orders.domain.usecase.GetTipoTrabajo;
 import ar.com.corpico.appcorpico.orders.domain.usecase.GetZonas;
 import ar.com.corpico.appcorpico.orders.presentation.AsignarAConexiones;
-import ar.com.corpico.appcorpico.orders.presentation.MultiSpinner;
-import ar.com.corpico.appcorpico.orders.presentation.OrdersFilters;
+import ar.com.corpico.appcorpico.orders.presentation.OrdersFilterActivity;
 import ar.com.corpico.appcorpico.orders.presentation.TipoCuadrillaAdapter;
-import ar.com.corpico.appcorpico.orders.presentation.DateDialog;
 import ar.com.corpico.appcorpico.orders.presentation.OrdersAdapter;
 import ar.com.corpico.appcorpico.orders.presentation.OrdersFilter;
 import ar.com.corpico.appcorpico.orders.presentation.OrdersFilterAll;
@@ -235,7 +231,7 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements 
                 mZona = mOrderView.getZona();
                 //TODO: LO MISMO TENGO Q HACER CON LAS ZONAS
                 //new OrdersFilter().newInstance((ArrayList<String>) mTipoTrabajo,mEstado,mZona).show(getSupportFragmentManager(), "OrderFilterDialog");
-                Intent intent = new Intent(this, OrdersFilters.class);
+                Intent intent = new Intent(this, OrdersFilterActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 intent.putExtra("ESTADO",mEstado);
                 intent.putStringArrayListExtra("TIPO_TRABAJO", (ArrayList<String>) mTipoTrabajo);
