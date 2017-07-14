@@ -73,16 +73,16 @@ public class FuenteOrdenesServidor implements OrderStore {
     }
 
     static {
-        mFakeRestOrder.add(new Order("839127", "2", "Retiro de Medidor", "Por Morosidad", mFakeRestEtapa3, "15514", "1", "Luisa Gonzalez", "Pasaje Rivero 957", "General Pico", "", "35.6630S", "63.7608W", "Nada"));
-        mFakeRestOrder.add(new Order("839128", "3", "Cambio de Medidor", "Trabado", mFakeRestEtapa, "22814", "1", "Jorgelina Rodriguez", "Calle 531", "General Pico", "", "35.6562S", "63.7537W", "Algo"));
-        mFakeRestOrder.add(new Order("839129", "3", "Colocacion de Medidor", "Suministro Nuevo", mFakeRestEtapa6, "24429", "7", "Gustavo Turienzo", "Calle 29", "General Pico", "", "35.6657S", "63.7494W", "Todo"));
-        mFakeRestOrder.add(new Order("839130", "4", "Retiro de Medidor", "Solicitud del Cliente", mFakeRestEtapa7, "55472", "1", "Gonzalo Fernandez", "Calle 18", "General Pico", "", "35.6601S", "63.7690W", "Siempre"));
-        mFakeRestOrder.add(new Order("839131", "1", "Retiro de Medidor", "Por Morosidad", mFakeRestEtapa8, "40462", "2", "Antonella Privitera", "Calle 28", "General Pico", "", "35.6538S", "63.7528W", "Nunca"));
-        mFakeRestOrder.add(new Order("839132", "2", "Retiro de Medidor", "Por Morosidad", mFakeRestEtapa9, "17495", "1", "Juan Perez", "Pasaje Rivero 957", "General Pico", "", "35.6629S", "63.7476W", "Nada"));
-        mFakeRestOrder.add(new Order("839133", "3", "Cambio de Medidor", "Solic. Energia Prepaga", mFakeRestEtapa4, "6377", "1", "Rodrigo Nieto", "Calle 531", "General Pico", "", "35.6788S", "63.7530W", "Algo"));
-        mFakeRestOrder.add(new Order("839134", "4", "Colocacion de Medidor", "Regularizacion de Deuda", mFakeRestEtapa10, "44345", "1", "Jose Ferrando", "Calle 29", "General Pico", "", "35.6678S", "63.7555W", "Todo"));
-        mFakeRestOrder.add(new Order("839135", "4", "Retiro de Medidor", "Solicitud del Cliente", mFakeRestEtapa5, "42352", "1", "Fabio Gomez", "Calle 18", "General Pico", "", "35.6810S", "63.7491W", "Siempre"));
-        mFakeRestOrder.add(new Order("839136", "1", "Retiro de Medidor", "Por Morosidad", mFakeRestEtapa2, "20484", "1", "Maria Gallo", "Calle 28", "General Pico", "", "35.6598S", "63.7498W", "Nunca"));
+        mFakeRestOrder.add(new Order("839127", "Zona 2", "Retiro de Medidor", "Por Morosidad", mFakeRestEtapa3, "15514", "1", "Luisa Gonzalez", "Pasaje Rivero 957", "General Pico", "", "35.6630S", "63.7608W", "Nada"));
+        mFakeRestOrder.add(new Order("839128", "Zona 3", "Cambio de Medidor", "Trabado", mFakeRestEtapa, "22814", "1", "Jorgelina Rodriguez", "Calle 531", "General Pico", "", "35.6562S", "63.7537W", "Algo"));
+        mFakeRestOrder.add(new Order("839129", "Zona 3", "Colocacion de Medidor", "Suministro Nuevo", mFakeRestEtapa6, "24429", "7", "Gustavo Turienzo", "Calle 29", "General Pico", "", "35.6657S", "63.7494W", "Todo"));
+        mFakeRestOrder.add(new Order("839130", "Zona 4", "Retiro de Medidor", "Solicitud del Cliente", mFakeRestEtapa7, "55472", "1", "Gonzalo Fernandez", "Calle 18", "General Pico", "", "35.6601S", "63.7690W", "Siempre"));
+        mFakeRestOrder.add(new Order("839131", "Zona 1", "Retiro de Medidor", "Por Morosidad", mFakeRestEtapa8, "40462", "2", "Antonella Privitera", "Calle 28", "General Pico", "", "35.6538S", "63.7528W", "Nunca"));
+        mFakeRestOrder.add(new Order("839132", "Zona 2", "Retiro de Medidor", "Por Morosidad", mFakeRestEtapa9, "17495", "1", "Juan Perez", "Pasaje Rivero 957", "General Pico", "", "35.6629S", "63.7476W", "Nada"));
+        mFakeRestOrder.add(new Order("839133", "Zona 3", "Cambio de Medidor", "Solic. Energia Prepaga", mFakeRestEtapa4, "6377", "1", "Rodrigo Nieto", "Calle 531", "General Pico", "", "35.6788S", "63.7530W", "Algo"));
+        mFakeRestOrder.add(new Order("839134", "Zona 4", "Colocacion de Medidor", "Regularizacion de Deuda", mFakeRestEtapa10, "44345", "1", "Jose Ferrando", "Calle 29", "General Pico", "", "35.6678S", "63.7555W", "Todo"));
+        mFakeRestOrder.add(new Order("839135", "Zona 4", "Retiro de Medidor", "Solicitud del Cliente", mFakeRestEtapa5, "42352", "1", "Fabio Gomez", "Calle 18", "General Pico", "", "35.6810S", "63.7491W", "Siempre"));
+        mFakeRestOrder.add(new Order("839136", "Zona 1", "Retiro de Medidor", "Por Morosidad", mFakeRestEtapa2, "20484", "1", "Maria Gallo", "Calle 28", "General Pico", "", "35.6598S", "63.7498W", "Nunca"));
     }
 
     static {
@@ -119,11 +119,11 @@ public class FuenteOrdenesServidor implements OrderStore {
 
     }
     static {
-        mFakeRestZona.add(new Zona("Conexiones"));
-        mFakeRestZona.add(new Zona("Desconexiones"));
-        mFakeRestZona.add(new Zona("Varios Mañan"));
-        mFakeRestZona.add(new Zona("Varios Tarde"));
-        mFakeRestZona.add(new Zona("Auxiliar"));
+        mFakeRestZona.add(new Zona("Zona 1"));
+        mFakeRestZona.add(new Zona("Zona 2"));
+        mFakeRestZona.add(new Zona("Zona 3"));
+        mFakeRestZona.add(new Zona("Zona 4"));
+        mFakeRestZona.add(new Zona("Zona 5"));
 
     }
     @Override
@@ -178,7 +178,7 @@ public class FuenteOrdenesServidor implements OrderStore {
         callback.onSuccess(filter.match(mFakeRestTipo_Trabajo));
     }
     @Override
-    public void getZona(GetZonaStoreCallBack callback, Criteria filter) {
-        callback.onSuccess(filter.match(mFakeRestZona));
+    public void getZona(GetZonaStoreCallBack callback) {
+        callback.onSuccess(mFakeRestZona);
     }
 }

@@ -35,7 +35,7 @@ public class OrdersSqliteStore implements OrderStore {
     }
 
     @Override
-    public void getZona(GetZonaStoreCallBack callback, Criteria filter) {
+    public void getZona(GetZonaStoreCallBack callback) {
 
     }
 }

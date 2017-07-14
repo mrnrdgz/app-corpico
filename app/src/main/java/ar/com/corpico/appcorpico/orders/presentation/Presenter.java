@@ -15,6 +15,6 @@ public interface Presenter {
     void loadTipoCuadrilla(String servicio);
     void loadCuadrillasXTipo(String tipotrabajo);
     void setLoadTipoTrabajos(String cuadrilla);
-    void setLoadZonas(String zona);
+    void setLoadZonas();
 
 }

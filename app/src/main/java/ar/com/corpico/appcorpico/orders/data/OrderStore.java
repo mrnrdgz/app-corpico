@@ -37,7 +37,7 @@ public interface OrderStore {
         void onSuccess(List<Tipo_Trabajo> tipoTrabajo);
         void onError(String error);
     }
-    void getZona(GetZonaStoreCallBack callback, Criteria filter);
+    void getZona(GetZonaStoreCallBack callback);
     interface GetZonaStoreCallBack{
         void onSuccess(List<Zona> zona);
         void onError(String error);

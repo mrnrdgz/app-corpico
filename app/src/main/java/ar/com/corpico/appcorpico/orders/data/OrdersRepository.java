@@ -118,7 +118,8 @@ public class OrdersRepository implements IOrdersRepository {
         mOrdersRestStore.getTipoTrabajo(callback1, filter);
     }
     @Override
-    public void findZona(final ZonaRepositoryCallBack callback, Criteria filter) {
+    //public void findZona(final ZonaRepositoryCallBack callback, Criteria filter) {
+    public void findZona(final ZonaRepositoryCallBack callback) {
         OrderStore.GetZonaStoreCallBack callback1 = new OrderStore.GetZonaStoreCallBack() {
             @Override
             public void onSuccess(List<Zona> zona) {
@@ -132,6 +133,6 @@ public class OrdersRepository implements IOrdersRepository {
             }
         };
 
-        mOrdersRestStore.getZona(callback1, filter);
+        mOrdersRestStore.getZona(callback1);
     }
 }

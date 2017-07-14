@@ -115,7 +115,6 @@ public class OrdersPresenter implements Presenter {
             zoneSpec=null;
         }
 
-        //TipoTrabajo spec
         int j=0;
         CompositeSpec<Order> tipoSpec= new TipoTrabajoSpec(tiposTrabajo.get(j));
         do{
@@ -320,10 +319,11 @@ public class OrdersPresenter implements Presenter {
         mGetTipoTrabajo.execute(requestValues, useCaseCallback);
     }
     @Override
-    public void setLoadZonas(String zona) {
-        CriteriaZona criteriaZona = new CriteriaZona(zona);
+    public void setLoadZonas() {
+        //CriteriaZona criteriaZona = new CriteriaZona();
 
-        GetZonas.RequestValues requestValues = new GetZonas.RequestValues(criteriaZona);
+        //GetZonas.RequestValues requestValues = new GetZonas.RequestValues(criteriaZona);
+        GetZonas.RequestValues requestValues = new GetZonas.RequestValues();
 
         UseCase.UseCaseCallback useCaseCallback = new UseCase.UseCaseCallback() {
             @Override

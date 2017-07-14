@@ -5,6 +5,7 @@ import java.util.List;
 
 import ar.com.corpico.appcorpico.orders.domain.entity.Etapa;
 import ar.com.corpico.appcorpico.orders.domain.entity.Order;
+import ar.com.corpico.appcorpico.orders.domain.entity.Zona;
 
 import static android.R.attr.order;
 
@@ -12,30 +13,31 @@ import static android.R.attr.order;
  * Created by Administrador on 08/01/2017.
  */
 
-public class CriteriaZona implements Criteria<Order> {
+public class CriteriaZona implements Criteria<Zona> {
     private final String zona;
+
 
     public CriteriaZona(String zona) {
         this.zona = zona;
     }
 
     @Override
-    public List<Order> match(List<Order> orders) {
-        List<Order> filteredOrders = new ArrayList<>();
+    public List<Zona> match(List<Zona> zonas) {
+        List<Zona> filteredZonas = new ArrayList<>();
         if (zona==null){
-            filteredOrders = orders;
-            return filteredOrders;
+            filteredZonas = zonas;
+            return filteredZonas;
         }
         if (!zona.equals("Todos") && zona!=null ){
-            for (Order order : orders) {
-                if (order.getZona().equals(zona)) {
-                    filteredOrders.add(order);
+            for (Zona zona : zonas) {
+                if (zona.getZona().equals(zona)) {
+                    filteredZonas.add(zona);
                 }
             }
         }if (zona.equals("Todos")){
-            filteredOrders = orders;
+            filteredZonas = zonas;
         }
-        return filteredOrders;
+        return filteredZonas;
     }
 
 

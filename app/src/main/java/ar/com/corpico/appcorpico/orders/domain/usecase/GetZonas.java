@@ -45,7 +45,8 @@ public class GetZonas extends UseCase<GetZonas.RequestValues, GetZonas.ResponseV
         };
 
 
-        mOrdersRepository.findZona(findCallback, requestValues.getFilter());
+        //mOrdersRepository.findZona(findCallback, requestValues.getFilter());
+        mOrdersRepository.findZona(findCallback);
     }
 
     public static final class RequestValues implements UseCase.RequestValues {

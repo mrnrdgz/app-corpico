@@ -36,7 +36,7 @@ public interface IOrdersRepository {
         void onSuccess(List<Tipo_Trabajo> tipoTrabajo);
         void onError(String error);
     }
-    void findZona(ZonaRepositoryCallBack callback, Criteria filter);
+    void findZona(ZonaRepositoryCallBack callback);
     interface ZonaRepositoryCallBack {
         void onSuccess(List<Zona> zona);
         void onError(String error);

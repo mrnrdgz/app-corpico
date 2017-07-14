@@ -38,7 +38,7 @@ public class OrdersFilterActivity extends AppCompatActivity {
     private List<Integer> mZonaId = new ArrayList<>();
     private String mEstado;
     private AppCompatCheckBox Tipo;
-    private CheckBox Zona;
+    private AppCompatCheckBox Zona;
 
 
     @Override
@@ -95,8 +95,8 @@ public class OrdersFilterActivity extends AppCompatActivity {
         }
         LinearLayout seccionZona = (LinearLayout) findViewById(R.id.Seccion_Zona);
         for (int i=0; i< mZona.size(); i++) {
-            Zona = new CheckBox(this);
-            //CompoundButtonCompat.setButtonTintList(Tipo, myList);
+            Zona = new AppCompatCheckBox(this);
+            setAppCompatCheckBoxColors((AppCompatCheckBox) Zona,Color.BLACK,Color.GREEN);
             Zona.setText(mZona.get(i));
             Zona.setId(Integer.valueOf(i));
             Zona.setOnClickListener(ckListenerZona);
@@ -111,7 +111,7 @@ public class OrdersFilterActivity extends AppCompatActivity {
                     new LinearLayout.LayoutParams(
                             LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
             Zona.setPadding(16,16,16,16);
-            seccionTiposTrabajo.addView(Zona);
+            seccionZona.addView(Zona);
         }
 
         setToolbar();
@@ -180,11 +180,27 @@ public class OrdersFilterActivity extends AppCompatActivity {
             case R.id.action_aplicar:
                 Intent databack = new Intent();
                 databack.putStringArrayListExtra("TIPO_TRABAJO_SELECTED", (ArrayList<String>) mTipoTrabajoSelected);
+                databack.putStringArrayListExtra("ZONA_SELECTED", (ArrayList<String>) mZonaSelected);
                 setResult(RESULT_OK,databack);
                 finish();
                 break;
             case R.id.action_limpiar:
-
+                if(mZonaSelected!=null) {
+                    for (int j = 0; j < mZonaSelected.size(); j++) {
+                        if (Zona.getText().equals(mZonaSelected.get(j))) {
+                            Zona.setChecked(false);
+                        }
+                    }
+                }
+                if(mTipoTrabajoSelected!=null){
+                    for(int j=0; j< mTipoTrabajoSelected.size(); j++) {
+                        if(Tipo.getText().equals(mTipoTrabajoSelected.get(j))){
+                            Tipo.setChecked(false);
+                        }
+                    }
+                }
+                //mTipoTrabajoSelected = new ArrayList<>();
+                //mZonaSelected =new ArrayList<>();
                 break;
         }
         return super.onOptionsItemSelected(item);

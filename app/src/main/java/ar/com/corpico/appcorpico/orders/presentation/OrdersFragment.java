@@ -223,7 +223,7 @@ public class OrdersFragment extends Fragment implements ar.com.corpico.appcorpic
         mTipoCuadrilla=tipocuadrilla;
         if (mTipoCuadrilla!=null){
             mOrdersPresenter.setLoadTipoTrabajos(mTipoCuadrilla);
-            //TODO: ACA DEBERIA CARGAR LAS ZONAS
+            mOrdersPresenter.setLoadZonas();
             mOrdersPresenter.loadOrderList(mEstado,mTipoTrabajo,mZona,null,null,null,true);
         }
     }
