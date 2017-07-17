@@ -39,7 +39,8 @@ public class OrdersFilterActivity extends AppCompatActivity {
     private String mEstado;
     private AppCompatCheckBox Tipo;
     private AppCompatCheckBox Zona;
-
+    private LinearLayout seccionZona;
+    private LinearLayout seccionTiposTrabajo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +54,7 @@ public class OrdersFilterActivity extends AppCompatActivity {
         mZona= bundle.getStringArrayList("ZONA");
         mZonaSelected= bundle.getStringArrayList("ZONA_SELECTED");
 
-        LinearLayout seccionTiposTrabajo = (LinearLayout) findViewById(R.id.Seccion_TipoTrabajo);
+        seccionTiposTrabajo = (LinearLayout) findViewById(R.id.Seccion_TipoTrabajo);
         /*int[][] states = new int[][] {
                 new int[] { android.R.attr.state_enabled}, // enabled
                 new int[] {-android.R.attr.state_enabled}, // disabled
@@ -93,7 +94,7 @@ public class OrdersFilterActivity extends AppCompatActivity {
             Tipo.setPadding(16,16,16,16);
             seccionTiposTrabajo.addView(Tipo);
         }
-        LinearLayout seccionZona = (LinearLayout) findViewById(R.id.Seccion_Zona);
+        seccionZona = (LinearLayout) findViewById(R.id.Seccion_Zona);
         for (int i=0; i< mZona.size(); i++) {
             Zona = new AppCompatCheckBox(this);
             setAppCompatCheckBoxColors((AppCompatCheckBox) Zona,Color.BLACK,Color.GREEN);
@@ -187,19 +188,28 @@ public class OrdersFilterActivity extends AppCompatActivity {
                 finish();
                 break;
             case R.id.action_limpiar:
-                /*for (int i=0; i< mZona.size(); i++) {
-                    Zona.setOnClickListener(ckListenerZona);
+                for (int i=0; i< mZona.size(); i++) {
+                    Zona.setId(i);
+                    Zona.callOnClick();
                 }
-                mZonaSelected =new ArrayList<>();
+                //mZonaSelected =new ArrayList<>();
                 for (int i=0; i< mTipoTrabajo.size(); i++) {
-                    Tipo.setOnClickListener(ckListenerTipo);
-                }*/
-                mTipoTrabajoSelected = new ArrayList<>();
-                mZonaSelected =new ArrayList<>();
-                //finish();
-                //super.onRestart();
-                onRestart();
-                //startActivity(getIntent());
+                    Tipo.setId(i);
+                    Tipo.callOnClick();
+                }
+                //mTipoTrabajoSelected = new ArrayList<>();
+                //mZonaSelected =new ArrayList<>();
+                Tipo.invalidate();
+                Zona.invalidate();
+                seccionTiposTrabajo.invalidate();
+                seccionZona.invalidate();
+
+                /*Intent intent = new Intent();
+                intent.putStringArrayListExtra("ZONA_SELECTED", (ArrayList<String>) mZonaSelected);
+                intent.putStringArrayListExtra("TIPO_TRABAJO_SELECTED", (ArrayList<String>) mTipoTrabajoSelected);
+                setResult(RESULT_CANCELED,intent);
+                finish();*/
+
                 break;
         }
         return super.onOptionsItemSelected(item);

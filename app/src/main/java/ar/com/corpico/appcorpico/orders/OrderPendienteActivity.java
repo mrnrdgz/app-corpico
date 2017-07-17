@@ -418,6 +418,12 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements 
             if (resultCode == RESULT_OK) {
                 mTipoTrabajoSelected = data.getStringArrayListExtra("TIPO_TRABAJO_SELECTED");
                 mZonaSelected = data.getStringArrayListExtra("ZONA_SELECTED");
+                /*if(mTipoTrabajoSelected.size()==0){
+                    mTipoTrabajoSelected=mTipoTrabajo;
+                }
+                if(mZonaSelected.size()==0){
+                    mZonaSelected=mZona;
+                }*/
                 if (mViewMap){
                     OrdersFragment mOrderFragmen = (OrdersFragment) getSupportFragmentManager().findFragmentById(R.id.orders_view_container);
                     mOrderFragmen.setOrderFilter(mEstado, mTipoTrabajoSelected, mZonaSelected, null, null, null,true);
@@ -425,6 +431,19 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements 
                     OrdersMapsFragment mOrderMapFragment = (OrdersMapsFragment)getSupportFragmentManager().findFragmentById(R.id.orders_view_container);
                     mOrderMapFragment.setOrderFilter(mEstado, mTipoTrabajoSelected, mZonaSelected, null, null, null,true);
                 }
+            }
+            if (resultCode == RESULT_CANCELED) {
+                mTipoTrabajoSelected = data.getStringArrayListExtra("TIPO_TRABAJO_SELECTED");
+                mZonaSelected = data.getStringArrayListExtra("ZONA_SELECTED");
+                Intent intent = new Intent(this, OrdersFilterActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                intent.putExtra("ESTADO",mEstado);
+                intent.putStringArrayListExtra("TIPO_TRABAJO", (ArrayList<String>) mTipoTrabajo);
+                intent.putStringArrayListExtra("TIPO_TRABAJO_SELECTED", (ArrayList<String>) mTipoTrabajoSelected);
+                intent.putStringArrayListExtra("ZONA", (ArrayList<String>) mZona);
+                intent.putStringArrayListExtra("ZONA_SELECTED", (ArrayList<String>) mZonaSelected);
+                //startActivity(intent);
+                startActivityForResult(intent,OPINION_REQUEST_CODE);
             }
         }
     }
