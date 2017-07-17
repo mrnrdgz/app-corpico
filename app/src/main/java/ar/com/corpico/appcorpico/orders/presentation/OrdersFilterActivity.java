@@ -100,6 +100,7 @@ public class OrdersFilterActivity extends AppCompatActivity {
             Zona.setText(mZona.get(i));
             Zona.setId(Integer.valueOf(i));
             Zona.setOnClickListener(ckListenerZona);
+
             if(mZonaSelected!=null){
                 for(int j=0; j< mZonaSelected.size(); j++) {
                     if(Zona.getText().equals(mZonaSelected.get(j))){
@@ -147,6 +148,7 @@ public class OrdersFilterActivity extends AppCompatActivity {
             }else{
                 mZonaId.remove(new Integer(id));
                 mZonaSelected.remove(mZona.get(id));
+                ((CheckBox) v).setChecked(false);
             }
         }
     };
@@ -185,22 +187,19 @@ public class OrdersFilterActivity extends AppCompatActivity {
                 finish();
                 break;
             case R.id.action_limpiar:
-                if(mZonaSelected!=null) {
-                    for (int j = 0; j < mZonaSelected.size(); j++) {
-                        if (Zona.getText().equals(mZonaSelected.get(j))) {
-                            Zona.setChecked(false);
-                        }
-                    }
+                /*for (int i=0; i< mZona.size(); i++) {
+                    Zona.setOnClickListener(ckListenerZona);
                 }
-                if(mTipoTrabajoSelected!=null){
-                    for(int j=0; j< mTipoTrabajoSelected.size(); j++) {
-                        if(Tipo.getText().equals(mTipoTrabajoSelected.get(j))){
-                            Tipo.setChecked(false);
-                        }
-                    }
-                }
-                //mTipoTrabajoSelected = new ArrayList<>();
-                //mZonaSelected =new ArrayList<>();
+                mZonaSelected =new ArrayList<>();
+                for (int i=0; i< mTipoTrabajo.size(); i++) {
+                    Tipo.setOnClickListener(ckListenerTipo);
+                }*/
+                mTipoTrabajoSelected = new ArrayList<>();
+                mZonaSelected =new ArrayList<>();
+                //finish();
+                //super.onRestart();
+                onRestart();
+                //startActivity(getIntent());
                 break;
         }
         return super.onOptionsItemSelected(item);
