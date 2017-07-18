@@ -274,6 +274,7 @@ public class OrdersFragment extends Fragment implements ar.com.corpico.appcorpic
 
     @Override
     public void setOrderFilter(String estado, List<String> tipo, List<String> zona, DateTime desde, DateTime hasta, String search,Boolean estadoActual) {
+        //TODO: VER DE PONER OTRA VARIABLE O COMO HACERLO XQ SINO ME DEJA MARCADOS TODOS LOS CHECKS PARA LA PROXIMA
         if (tipo.size() == 0){
             mTipoTrabajoSelected= mTipoTrabajo;
         }else{

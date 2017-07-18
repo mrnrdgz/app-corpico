@@ -432,7 +432,7 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements 
                     mOrderMapFragment.setOrderFilter(mEstado, mTipoTrabajoSelected, mZonaSelected, null, null, null,true);
                 }
             }
-            if (resultCode == RESULT_CANCELED) {
+           /* if (resultCode == RESULT_CANCELED) {
                 mTipoTrabajoSelected = data.getStringArrayListExtra("TIPO_TRABAJO_SELECTED");
                 mZonaSelected = data.getStringArrayListExtra("ZONA_SELECTED");
                 Intent intent = new Intent(this, OrdersFilterActivity.class);
@@ -444,7 +444,7 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements 
                 intent.putStringArrayListExtra("ZONA_SELECTED", (ArrayList<String>) mZonaSelected);
                 //startActivity(intent);
                 startActivityForResult(intent,OPINION_REQUEST_CODE);
-            }
+            }*/
         }
     }
 }

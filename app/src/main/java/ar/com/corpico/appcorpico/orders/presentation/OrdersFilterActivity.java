@@ -37,8 +37,8 @@ public class OrdersFilterActivity extends AppCompatActivity {
     private List<String> mZonaSelected = new ArrayList<>();
     private List<Integer> mZonaId = new ArrayList<>();
     private String mEstado;
-    private AppCompatCheckBox Tipo;
-    private AppCompatCheckBox Zona;
+    private static AppCompatCheckBox Tipo;
+    private static AppCompatCheckBox Zona;
     private LinearLayout seccionZona;
     private LinearLayout seccionTiposTrabajo;
 
@@ -134,6 +134,8 @@ public class OrdersFilterActivity extends AppCompatActivity {
             }else{
                 mTipoTrabajoId.remove(new Integer(id));
                 mTipoTrabajoSelected.remove(mTipoTrabajo.get(id));
+                ((CheckBox) v).setChecked(false);
+                 v.invalidate();
             }
         }
     };
@@ -150,11 +152,12 @@ public class OrdersFilterActivity extends AppCompatActivity {
                 mZonaId.remove(new Integer(id));
                 mZonaSelected.remove(mZona.get(id));
                 ((CheckBox) v).setChecked(false);
+                 v.invalidate();
             }
         }
     };
 
-    private void setToolbar() {
+private void setToolbar() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         final ActionBar ab = getSupportActionBar();
@@ -188,17 +191,21 @@ public class OrdersFilterActivity extends AppCompatActivity {
                 finish();
                 break;
             case R.id.action_limpiar:
-                for (int i=0; i< mZona.size(); i++) {
-                    Zona.setId(i);
+                for (int i=0; i< mZonaId.size(); i++) {
+                    Zona.setId(mZonaId.get(i));
                     Zona.callOnClick();
+                    //Zona.toggle();
+                    Zona.invalidate();
                 }
                 //mZonaSelected =new ArrayList<>();
-                for (int i=0; i< mTipoTrabajo.size(); i++) {
-                    Tipo.setId(i);
+                for (int i=0; i< mTipoTrabajoId.size(); i++) {
+                    Tipo.setId(mTipoTrabajoId.get(i));
                     Tipo.callOnClick();
+                    //Tipo.toggle();
+                    Tipo.invalidate();
                 }
-                //mTipoTrabajoSelected = new ArrayList<>();
-                //mZonaSelected =new ArrayList<>();
+                mTipoTrabajoSelected = new ArrayList<>();
+                mZonaSelected =new ArrayList<>();
                 Tipo.invalidate();
                 Zona.invalidate();
                 seccionTiposTrabajo.invalidate();
