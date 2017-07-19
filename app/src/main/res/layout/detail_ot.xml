@@ -26,10 +26,12 @@
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_weight="50"
+        android:scaleType="centerCrop"
         map:cameraZoom="16"
-        tools:context=".orders.presentation.Detail_OT" />
+        tools:context=".orders.presentation.OrderDetailActivity" />
 
+    <!-- Hero View -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -37,183 +39,174 @@
         android:elevation="2dp"
         android:orientation="horizontal"
         android:padding="@dimen/activity_horizontal_margin">
-        <!-- Hero View -->
-        <LinearLayout
-            android:layout_width="match_parent"
+
+        <TextView
+            android:id="@+id/numero_text"
+            style="@style/TextAppearance.AppCompat.Title.Inverse"
+            android:layout_weight="1"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:background="@color/colorPrimary"
-            android:elevation="2dp"
-            android:orientation="horizontal"
+            android:text="Numero"
+            android:textIsSelectable="true" />
+        <TextView
+            android:id="@+id/fecha_text"
+            style="@style/TextAppearance.AppCompat.Title.Inverse"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Fecha"
+            android:textIsSelectable="true" />
+
+    </LinearLayout>
+
+    <!-- Contenido -->
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="70">
+
+        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/detail"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="70"
             android:padding="@dimen/activity_horizontal_margin">
 
-            <TextView
-                android:id="@+id/numero_text"
-                style="@style/TextAppearance.AppCompat.Title.Inverse"
-                android:layout_weight="1"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="Numero"
-                android:textIsSelectable="true" />
-            <TextView
-                android:id="@+id/fecha_text"
-                style="@style/TextAppearance.AppCompat.Title.Inverse"
-                android:layout_weight="1"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="Fecha"
-                android:textIsSelectable="true" />
-
-        </LinearLayout>
-
-        <!-- Contenido -->
-        <ScrollView
-            android:id="@+id/scrollView"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:layout_weight="70">
-
-            <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:id="@+id/detail"
+            <!-- Card 1 -->
+            <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/card1"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="70"
-                android:padding="@dimen/activity_horizontal_margin">
+                android:layout_height="150dp"
+                card_view:cardElevation="4dp"
+                card_view:cardUseCompatPadding="true">
 
-                <!-- Card 1 -->
-                <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
-                    android:id="@+id/card1"
+                <RelativeLayout
+                    android:id="@+id/content1"
                     android:layout_width="match_parent"
-                    android:layout_height="150dp"
-                    card_view:cardElevation="4dp"
-                    card_view:cardUseCompatPadding="true">
-
-                    <RelativeLayout
-                        android:id="@+id/content1"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:padding="@dimen/activity_horizontal_margin">
-                        <!-- Etiqueta de la estado -->
-                        <TextView
-                            android:id="@+id/estado_label"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@+id/estado_text"
-                            android:layout_centerVertical="true"
-                            android:text="Estado"
-                            android:textAppearance="?android:attr/textAppearanceSmall" />
-
-                        <!-- Texto de la estado -->
-                        <TextView
-                            android:id="@+id/estado_text"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentLeft="true"
-                            android:textAppearance="?android:attr/textAppearanceLarge"
-                            android:text="Estado"
-                            android:textColor="@color/colorPrimary" />
-
-
-                        <!-- Label del técnico -->
-                        <TextView
-                            android:id="@+id/tipo_label"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentLeft="true"
-                            android:layout_alignParentStart="true"
-                            android:layout_below="@+id/tipo_text"
-                            android:text="Tipo"
-                            android:textAppearance="?android:attr/textAppearanceSmall" />
-
-                        <TextView
-                            android:id="@+id/tipo_text"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignLeft="@+id/estado_label"
-                            android:layout_alignStart="@+id/estado_label"
-                            android:layout_below="@+id/estado_label"
-                            android:layout_centerVertical="true"
-                            android:layout_marginTop="16dp"
-                            android:text="Tipo"
-                            android:textAppearance="?android:attr/textAppearanceLarge"
-                            android:textColor="@color/colorPrimary" />
-
-                        <TextView
-                            android:id="@+id/sector_label"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentEnd="true"
-                            android:layout_alignParentRight="true"
-                            android:layout_alignTop="@+id/tipo_label"
-                            android:text="Sector"
-                            android:textAppearance="?android:attr/textAppearanceSmall" />
-
-                        <TextView
-                            android:id="@+id/sector_text"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true"
-                            android:layout_alignTop="@+id/tipo_text"
-                            android:textAppearance="?android:attr/textAppearanceLarge"
-                            android:text="Sector"
-                            android:textColor="@color/colorPrimary" />
-
-                    </RelativeLayout>
-                </android.support.v7.widget.CardView>
-
-                <!-- Card 2 -->
-                <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
-                    android:id="@+id/card2"
-                    android:layout_width="match_parent"
-                    android:layout_height="150dp"
-                    android:layout_below="@+id/card1"
-                    android:layout_marginTop="@dimen/margin_top_between_cards"
-                    card_view:cardElevation="4dp"
-                    card_view:cardUseCompatPadding="true">
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:padding="@dimen/activity_horizontal_margin">
-
-                        <!-- Etiqueta de la descripción -->
-                        <TextView
-                            android:id="@+id/observacion_label"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentLeft="true"
-                            android:layout_alignParentStart="true"
-                            android:text="Observación"
-                            android:textAppearance="?android:attr/textAppearanceLarge"
-                            android:textColor="@color/colorPrimary" />
-
-                        <!-- Texto de la descripción -->
-                        <TextView
-                            android:id="@+id/observacion_text"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentLeft="true"
-                            android:layout_alignParentStart="true"
-                            android:layout_below="@+id/observacion_label"
-                            android:textAppearance="?android:attr/textAppearanceSmall" />
-                    </RelativeLayout>
-                </android.support.v7.widget.CardView>
-                <!-- Card 3 -->
-                <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
-                    android:id="@+id/card3"
-                    android:layout_width="match_parent"
-                    android:layout_height="150dp"
-                    android:layout_below="@+id/card2"
-                    android:layout_marginTop="@dimen/margin_top_between_cards"
-                    card_view:cardElevation="4dp"
-                    card_view:cardUseCompatPadding="true">
-                    <Gallery
-                        android:id="@+id/simpleGallery"
-                        android:layout_width="fill_parent"
+                    android:layout_height="match_parent"
+                    android:padding="@dimen/activity_horizontal_margin">
+                    <!-- Etiqueta de la estado -->
+                    <TextView
+                        android:id="@+id/estado_label"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="100dp"
-                        android:unselectedAlpha="0.80" />
-                </android.support.v7.widget.CardView>
-            </RelativeLayout>
-        </ScrollView>
-    </LinearLayout>
+                        android:layout_below="@+id/estado_text"
+                        android:layout_centerVertical="true"
+                        android:text="Estado"
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                    <!-- Texto de la estado -->
+                    <TextView
+                        android:id="@+id/estado_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:text="Estado"
+                        android:textColor="@color/colorPrimary" />
+
+
+                    <!-- Label del técnico -->
+                    <TextView
+                        android:id="@+id/tipo_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_below="@+id/tipo_text"
+                        android:text="Tipo"
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                    <TextView
+                        android:id="@+id/tipo_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignLeft="@+id/estado_label"
+                        android:layout_alignStart="@+id/estado_label"
+                        android:layout_below="@+id/estado_label"
+                        android:layout_centerVertical="true"
+                        android:layout_marginTop="16dp"
+                        android:text="Tipo"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textColor="@color/colorPrimary" />
+
+                    <TextView
+                        android:id="@+id/sector_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignTop="@+id/tipo_label"
+                        android:text="Sector"
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                    <TextView
+                        android:id="@+id/sector_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignTop="@+id/tipo_text"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:text="Sector"
+                        android:textColor="@color/colorPrimary" />
+
+                </RelativeLayout>
+            </android.support.v7.widget.CardView>
+
+            <!-- Card 2 -->
+            <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/card2"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:layout_below="@+id/card1"
+                android:layout_marginTop="@dimen/margin_top_between_cards"
+                card_view:cardElevation="4dp"
+                card_view:cardUseCompatPadding="true">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="@dimen/activity_horizontal_margin">
+
+                    <!-- Etiqueta de la descripción -->
+                    <TextView
+                        android:id="@+id/observacion_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:text="Observación"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textColor="@color/colorPrimary" />
+
+                    <!-- Texto de la descripción -->
+                    <TextView
+                        android:id="@+id/observacion_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_below="@+id/observacion_label"
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
+                </RelativeLayout>
+            </android.support.v7.widget.CardView>
+            <!-- Card 3 -->
+            <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/card3"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:layout_below="@+id/card2"
+                android:layout_marginTop="@dimen/margin_top_between_cards"
+                card_view:cardElevation="4dp"
+                card_view:cardUseCompatPadding="true">
+                <Gallery
+                    android:id="@+id/simpleGallery"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="100dp"
+                    android:unselectedAlpha="0.80" />
+            </android.support.v7.widget.CardView>
+        </RelativeLayout>
+    </ScrollView>
 </LinearLayout>

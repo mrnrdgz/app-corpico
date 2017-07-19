@@ -3,9 +3,7 @@ package ar.com.corpico.appcorpico.orders.presentation;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.Toolbar;
 import android.view.ActionMode;
 import android.view.LayoutInflater;
@@ -28,7 +26,6 @@ import java.util.List;
 import ar.com.corpico.appcorpico.R;
 import ar.com.corpico.appcorpico.orders.domain.entity.Tipo_Cuadrilla;
 import ar.com.corpico.appcorpico.orders.domain.entity.Order;
-import ar.com.corpico.appcorpico.orders.domain.entity.Tipo_Trabajo;
 
 import static android.view.View.GONE;
 
@@ -200,7 +197,7 @@ public class OrdersFragment extends Fragment implements ar.com.corpico.appcorpic
             @Override
             public void onItemClick(AdapterView<?> adapterView, android.view.View view, int i, long l) {
                 //Order currentOrder = mOrdersAdapter.getItem(i);
-                Intent intent = new Intent(getActivity(), Detail_OT.class);
+                Intent intent = new Intent(getActivity(), OrderDetailActivity.class);
 
                 Order currentOrder = (Order)mOrderList.getAdapter().getItem(i);
 
