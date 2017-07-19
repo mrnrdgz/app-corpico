@@ -37,7 +37,7 @@ public class OrderDetailActivity extends AppCompatActivity implements OnMapReady
     private GoogleMap mMap;
     private static final int LOCATION_REQUEST_CODE = 1;
     private SupportMapFragment mMapFragment;
-
+//TODO: CONTROLAR
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
