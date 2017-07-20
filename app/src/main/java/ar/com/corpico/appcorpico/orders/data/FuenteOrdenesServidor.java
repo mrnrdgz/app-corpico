@@ -43,9 +43,12 @@ public class FuenteOrdenesServidor implements OrderStore {
     private static final ArrayList<Etapa> mFakeRestEtapa8 = new ArrayList<>();
     private static final ArrayList<Etapa> mFakeRestEtapa9 = new ArrayList<>();
     private static final ArrayList<Etapa> mFakeRestEtapa10 = new ArrayList<>();
+    //private static final ArrayList<Accion_Etapa> mFakeRestTipo_Accion = new ArrayList<>();
+
     private static final ArrayList<Zona> mFakeRestZona= new ArrayList<>();
 
     static {
+        //TODO: PONER LAS ACCIONES REALIZADAS COMO UNA LISTA DE STRING
         mFakeRestEtapa.add(new Etapa("2017-01-23T00:00:00.000-03:00", "Pendiente", "Nada",""));
         mFakeRestEtapa6.add(new Etapa("2017-01-23T00:00:00.000-03:00", "Pendiente", "xxx",""));
         mFakeRestEtapa7.add(new Etapa("2017-01-23T00:00:00.000-03:00", "Pendiente", "zzzz",""));
@@ -118,6 +121,14 @@ public class FuenteOrdenesServidor implements OrderStore {
         mFakeRestTipo_Cuadrilla.add(new Tipo_Cuadrilla("Auxiliar","Electrico"));
 
     }
+    /*static {
+        mFakeRestTipo_Accion.add(new ("Cambio de Medidor","Rotutra de tapa"));
+        mFakeRestTipo_Accion.add(new ("Cambio de Medidor","Rotura disyuntor"));
+        /*mFakeRestTipo_Accion.add(new Tipo_Cuadrilla("Varios Mañana","Electrico"));
+        mFakeRestTipo_Accion.add(new Tipo_Cuadrilla("Varios Tarde","Electrico"));
+        mFakeRestTipo_Accion.add(new Tipo_Cuadrilla("Auxiliar","Electrico"));
+
+    }*/
     static {
         mFakeRestZona.add(new Zona("Zona 1"));
         mFakeRestZona.add(new Zona("Zona 2"));

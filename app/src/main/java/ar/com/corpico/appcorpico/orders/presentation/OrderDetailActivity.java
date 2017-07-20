@@ -37,7 +37,7 @@ public class OrderDetailActivity extends AppCompatActivity implements OnMapReady
     private GoogleMap mMap;
     private static final int LOCATION_REQUEST_CODE = 1;
     private SupportMapFragment mMapFragment;
-//TODO: CONTROLAR
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,6 +68,7 @@ public class OrderDetailActivity extends AppCompatActivity implements OnMapReady
                 .findFragmentById(R.id.map);
         mMapFragment.getMapAsync(this);
     }
+
     private void setToolbar() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -129,13 +130,6 @@ public class OrderDetailActivity extends AppCompatActivity implements OnMapReady
         }
         mMap.getUiSettings().setZoomControlsEnabled(true);
 
-        /*LatLng pico = new LatLng(-35.666667, -63.733333);
-        CameraPosition cameraPosition = new CameraPosition.Builder()
-                .target(pico)
-                .zoom(15)
-                .build();
-        mMap.moveCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));*/
-
         LatLng mLatLng = new LatLng(-35.6657,-63.7494);
         mMap.addMarker(new MarkerOptions()
                 .position(mLatLng)
@@ -172,25 +166,5 @@ public class OrderDetailActivity extends AppCompatActivity implements OnMapReady
             }
 
         }
-    }
-    public void LoadOrderGeo(Double lat, Double lng){
-            Double mLat,mLng;
-
-            mLat = lat;
-            mLng = lng;
-
-            LatLng mLatLng = new LatLng(mLat,mLng);
-
-            mMap.addMarker(new MarkerOptions()
-                    .position(mLatLng)
-                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW)));
-                    //.title(order.getTitular() + " - " + order.getDomicilio()));
-
-            CameraPosition cameraPosition = CameraPosition.builder()
-                    .target(mLatLng)
-                    .zoom(14)
-                    .build();
-
-            mMap.moveCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
     }
 }

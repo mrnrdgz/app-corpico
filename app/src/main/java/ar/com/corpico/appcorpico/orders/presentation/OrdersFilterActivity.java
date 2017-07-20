@@ -28,6 +28,9 @@ import java.util.List;
 
 import ar.com.corpico.appcorpico.R;
 import ar.com.corpico.appcorpico.orders.OrderPendienteActivity;
+import ar.com.corpico.appcorpico.orders.domain.entity.Zona;
+
+import static java.security.AccessController.getContext;
 
 public class OrdersFilterActivity extends AppCompatActivity {
     private List<String> mTipoTrabajo = new ArrayList<>();
@@ -37,8 +40,9 @@ public class OrdersFilterActivity extends AppCompatActivity {
     private List<String> mZonaSelected = new ArrayList<>();
     private List<Integer> mZonaId = new ArrayList<>();
     private String mEstado;
-    private static AppCompatCheckBox Tipo;
-    private static AppCompatCheckBox Zona;
+    private ArrayList<AppCompatCheckBox> TipoTrabajoChk;
+    private CheckBox[] mTipo;
+    private ArrayList<AppCompatCheckBox> ZonaChk;
     private LinearLayout seccionZona;
     private LinearLayout seccionTiposTrabajo;
 
@@ -54,54 +58,46 @@ public class OrdersFilterActivity extends AppCompatActivity {
         mZona= bundle.getStringArrayList("ZONA");
         mZonaSelected= bundle.getStringArrayList("ZONA_SELECTED");
 
+        //LAYOUT para los CheckBox Tipos de Trabajos
         seccionTiposTrabajo = (LinearLayout) findViewById(R.id.Seccion_TipoTrabajo);
-        /*int[][] states = new int[][] {
-                new int[] { android.R.attr.state_enabled}, // enabled
-                new int[] {-android.R.attr.state_enabled}, // disabled
-                new int[] {-android.R.attr.state_checked}, // unchecked
-                new int[] { android.R.attr.state_pressed}  // pressed
-        };
 
-        int[] colors = new int[] {
-                Color.BLACK,
-                Color.RED,
-                Color.GREEN,
-                Color.BLUE
-        };
-
-        /*int state[][] = {{android.R.attr.state_checked}, {}};
-        int color[] = {color_for_state_checked, color_for_state_normal} */
-
-
-        //ColorStateList myList = new ColorStateList(states, colors);
+        //CHECKBOX para Tipos de Trabajo
+        //TipoTrabajoChk = new aAppCompatCheckBox(this);
+        mTipo= new CheckBox[mTipoTrabajo.size()];
         for (int i=0; i< mTipoTrabajo.size(); i++) {
-            Tipo = new AppCompatCheckBox(this);
-            //CompoundButtonCompat.setButtonTintList(Tipo, myList);
-            setAppCompatCheckBoxColors((AppCompatCheckBox) Tipo,Color.BLACK,Color.GREEN);
-            Tipo.setText(mTipoTrabajo.get(i));
-            Tipo.setId(Integer.valueOf(i));
-            Tipo.setOnClickListener(ckListenerTipo);
+            //setAppCompatCheckBoxColors((AppCompatCheckBox) Tipo,Color.BLACK,Color.GREEN);
+            mTipo[i]= new CheckBox(this);
+            mTipo[i].setText(mTipoTrabajo.get(i));
+            mTipo[i].setId(Integer.valueOf(i));
+            mTipo[i].setOnClickListener(ckListenerTipo);
+            //Marca los Tipos de Trabajo que estan seleccionados previamente
             if(mTipoTrabajoSelected!=null){
                 for(int j=0; j< mTipoTrabajoSelected.size(); j++) {
-                    if(Tipo.getText().equals(mTipoTrabajoSelected.get(j))){
-                        Tipo.setChecked(true);
+                    if(mTipo[i].getText().equals(mTipoTrabajoSelected.get(j))){
+                        mTipo[i].setChecked(true);
                     }
                 }
             }
-            Tipo.setLayoutParams(
+            //Define Layout
+            mTipo[i].setLayoutParams(
                     new LinearLayout.LayoutParams(
                             LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
-            Tipo.setPadding(16,16,16,16);
-            seccionTiposTrabajo.addView(Tipo);
+            mTipo[i].setPadding(16,16,16,16);
+            //Agrega los CHECBBOX al Layout
+            seccionTiposTrabajo.addView(mTipo[i]);
         }
+
+        //LAYOUT para los CheckBox Zona
         seccionZona = (LinearLayout) findViewById(R.id.Seccion_Zona);
-        for (int i=0; i< mZona.size(); i++) {
+
+        //CHECKBOX para Zona
+        /*for (int i=0; i< mZona.size(); i++) {
             Zona = new AppCompatCheckBox(this);
             setAppCompatCheckBoxColors((AppCompatCheckBox) Zona,Color.BLACK,Color.GREEN);
             Zona.setText(mZona.get(i));
             Zona.setId(Integer.valueOf(i));
             Zona.setOnClickListener(ckListenerZona);
-
+            //Marca las Zonas que estan seleccionados previamente
             if(mZonaSelected!=null){
                 for(int j=0; j< mZonaSelected.size(); j++) {
                     if(Zona.getText().equals(mZonaSelected.get(j))){
@@ -109,20 +105,24 @@ public class OrdersFilterActivity extends AppCompatActivity {
                     }
                 }
             }
+            //Define Layout
             Zona.setLayoutParams(
                     new LinearLayout.LayoutParams(
                             LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
             Zona.setPadding(16,16,16,16);
+            //Agrega los CHECBBOX al Layout
             seccionZona.addView(Zona);
-        }
+        }*/
 
         setToolbar();
     }
+    //Funcion para setear los colores de checkbox
     public static void setAppCompatCheckBoxColors(final AppCompatCheckBox _checkbox, final int _uncheckedColor, final int _checkedColor) {
         int[][] states = new int[][]{new int[]{-android.R.attr.state_checked}, new int[]{android.R.attr.state_checked}};
         int[] colors = new int[]{_uncheckedColor, _checkedColor};
         _checkbox.setSupportButtonTintList(new ColorStateList(states, colors));
     }
+    //Evento click de checkbox Tipo
     private android.view.View.OnClickListener ckListenerTipo = new android.view.View.OnClickListener() {
         @Override
         public void onClick(android.view.View v) {
@@ -135,11 +135,10 @@ public class OrdersFilterActivity extends AppCompatActivity {
                 mTipoTrabajoId.remove(new Integer(id));
                 mTipoTrabajoSelected.remove(mTipoTrabajo.get(id));
                 ((CheckBox) v).setChecked(false);
-                 v.invalidate();
             }
         }
     };
-
+    //Evento click de checkbox Zona
     private android.view.View.OnClickListener ckListenerZona = new android.view.View.OnClickListener() {
         @Override
         public void onClick(android.view.View v) {
@@ -191,31 +190,17 @@ private void setToolbar() {
                 finish();
                 break;
             case R.id.action_limpiar:
-                for (int i=0; i< mZonaId.size(); i++) {
-                    Zona.setId(mZonaId.get(i));
-                    Zona.callOnClick();
-                    //Zona.toggle();
-                    Zona.invalidate();
-                }
+                /*for (int i=0; i< mZonaId.size(); i++) {
+                    Zona.setChecked(false);
+
+
+                }*/
                 //mZonaSelected =new ArrayList<>();
                 for (int i=0; i< mTipoTrabajoId.size(); i++) {
-                    Tipo.setId(mTipoTrabajoId.get(i));
-                    Tipo.callOnClick();
-                    //Tipo.toggle();
-                    Tipo.invalidate();
+                    mTipo[i].setChecked(false);
                 }
                 mTipoTrabajoSelected = new ArrayList<>();
                 mZonaSelected =new ArrayList<>();
-                Tipo.invalidate();
-                Zona.invalidate();
-                seccionTiposTrabajo.invalidate();
-                seccionZona.invalidate();
-
-                /*Intent intent = new Intent();
-                intent.putStringArrayListExtra("ZONA_SELECTED", (ArrayList<String>) mZonaSelected);
-                intent.putStringArrayListExtra("TIPO_TRABAJO_SELECTED", (ArrayList<String>) mTipoTrabajoSelected);
-                setResult(RESULT_CANCELED,intent);
-                finish();*/
 
                 break;
         }
