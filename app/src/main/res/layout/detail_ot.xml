@@ -73,7 +73,7 @@
             android:layout_weight="70"
             android:padding="@dimen/activity_horizontal_margin">
 
-            <!-- Card 1 -->
+            <!-- Card Orden -->
             <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/card1"
                 android:layout_width="match_parent"
@@ -132,29 +132,29 @@
                         android:textColor="@color/colorPrimary" />
 
                     <TextView
-                        android:id="@+id/sector_label"
+                        android:id="@+id/zona_label"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
                         android:layout_alignParentRight="true"
                         android:layout_alignTop="@+id/tipo_label"
-                        android:text="Sector"
+                        android:text="zona"
                         android:textAppearance="?android:attr/textAppearanceSmall" />
 
                     <TextView
-                        android:id="@+id/sector_text"
+                        android:id="@+id/zona_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:layout_alignTop="@+id/tipo_text"
                         android:textAppearance="?android:attr/textAppearanceLarge"
-                        android:text="Sector"
+                        android:text="zona"
                         android:textColor="@color/colorPrimary" />
 
                 </RelativeLayout>
             </android.support.v7.widget.CardView>
 
-            <!-- Card 2 -->
+            <!-- Card Asociado -->
             <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/card2"
                 android:layout_width="match_parent"
@@ -191,7 +191,8 @@
                         android:textAppearance="?android:attr/textAppearanceSmall" />
                 </RelativeLayout>
             </android.support.v7.widget.CardView>
-            <!-- Card 3 -->
+
+            <!-- Card Servicio -->
             <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/card3"
                 android:layout_width="match_parent"
@@ -207,6 +208,83 @@
                     android:layout_marginTop="100dp"
                     android:unselectedAlpha="0.80" />
             </android.support.v7.widget.CardView>
+
+            <!-- Card Datos Tecnicos -->
+            <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/card4"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:layout_below="@+id/card3"
+                android:layout_marginTop="@dimen/margin_top_between_cards"
+                card_view:cardElevation="4dp"
+                card_view:cardUseCompatPadding="true">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="@dimen/activity_horizontal_margin">
+
+                    <!-- Etiqueta de la descripción -->
+                    <TextView
+                        android:id="@+id/x_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:text="Observación"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textColor="@color/colorPrimary" />
+
+                    <!-- Texto de la descripción -->
+                    <TextView
+                        android:id="@+id/xx_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_below="@+id/x_label"
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
+                </RelativeLayout>
+            </android.support.v7.widget.CardView>
+
+            <!-- Card Datos Observaviones -->
+            <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/card5"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:layout_below="@+id/card4"
+                android:layout_marginTop="@dimen/margin_top_between_cards"
+                card_view:cardElevation="4dp"
+                card_view:cardUseCompatPadding="true">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="@dimen/activity_horizontal_margin">
+
+                    <!-- Etiqueta de la descripción -->
+                    <TextView
+                        android:id="@+id/y_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:text="Observación"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textColor="@color/colorPrimary" />
+
+                    <!-- Texto de la descripción -->
+                    <TextView
+                        android:id="@+id/yy_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_below="@+id/y_label"
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
+                </RelativeLayout>
+            </android.support.v7.widget.CardView>
+
         </RelativeLayout>
     </ScrollView>
 </LinearLayout>

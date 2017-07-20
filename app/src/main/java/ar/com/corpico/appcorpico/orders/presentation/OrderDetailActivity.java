@@ -48,7 +48,9 @@ public class OrderDetailActivity extends AppCompatActivity implements OnMapReady
         TextView fecha = (TextView)this.findViewById(R.id.fecha_text);
         TextView estado = (TextView)this.findViewById(R.id.estado_text);
         TextView tipo = (TextView)this.findViewById(R.id.tipo_text);
-        TextView sector = (TextView)this.findViewById(R.id.sector_text);
+        TextView zona = (TextView)this.findViewById(R.id.zona_text);
+        //TextView lat = (TextView)this.findViewById(R.id.lat_text);
+        //TextView lng = (TextView)this.findViewById(R.id.lng_text);
         TextView observacion = (TextView)this.findViewById(R.id.observacion_text);
         Gallery simpleGallery = (Gallery) findViewById(R.id.simpleGallery);
 
@@ -56,12 +58,14 @@ public class OrderDetailActivity extends AppCompatActivity implements OnMapReady
         Intent intent=getIntent();
         Bundle extras =intent.getExtras();
         if (extras != null) {
-            numero.setText((String)extras.get("Numero"));
-            fecha.setText((String)extras.get("Fecha"));
-            estado.setText((String)extras.get("Estado"));
-            tipo.setText((String)extras.get("Tipo_Trabajo"));
-            sector.setText((String)extras.get("Sector"));
-            observacion.setText((String)extras.get("Observacion"));
+            numero.setText((String)extras.get("NUMERO"));
+            fecha.setText((String)extras.get("FECHA"));
+            //TODO: HACER VARIABLE EL ESTADO PARA QUE ME SIRVA EL DETALLE EN OTRAS ACTIVITYS (EL ESTADO ME REFLEJA EL COLOR DE EL ICON DE LA UBICACION)
+            estado.setText((String)extras.get("ESTADO"));
+            tipo.setText((String)extras.get("TIPO_TRABAJO"));
+            zona.setText((String)extras.get("ZONA"));
+
+            observacion.setText((String)extras.get("OBSERVACION"));
         }
 
         mMapFragment = (SupportMapFragment) getSupportFragmentManager()

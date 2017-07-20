@@ -13,6 +13,7 @@ import static android.R.attr.order;
  * Created by Administrador on 07/01/2017.
  */
 public class Order {
+    private String mFechaSolicitud;
     private String mNumero;
     private String mZona;
     private String mTipo_Trabajo;
@@ -30,9 +31,10 @@ public class Order {
     private String mState;
     private Etapa mCurrentEtapa;
 
-    public Order(String Numero, String Zona, String Tipo_Trabajo, String Motivo, ArrayList<Etapa> Etapas, String Asociado,
+    public Order(String FechaSolicitud, String Numero, String Zona, String Tipo_Trabajo, String Motivo, ArrayList<Etapa> Etapas, String Asociado,
                  String Suministro, String Titular, String Domicilio, String Localidad, String Anexo, String Latitud, String Longitud,
                  String Observacion) {
+        this.mFechaSolicitud = FechaSolicitud;
         this.mNumero = Numero;
         this.mZona = Zona;
         this.mTipo_Trabajo = Tipo_Trabajo;
@@ -47,6 +49,14 @@ public class Order {
         this.mLatitud = Latitud;
         this.mLongitud = Longitud;
         this.mObservacion = Observacion;
+    }
+
+    public String getmFechaSolicitud() {
+        return mFechaSolicitud;
+    }
+
+    public void setmFechaSolicitud(String mFechaSolicitud) {
+        this.mFechaSolicitud = mFechaSolicitud;
     }
 
     public String getNumero() {
@@ -187,6 +197,7 @@ public class Order {
 
     public String toString(){
         return "Order={" +
+                "Fecha_Solicitud = '" + mFechaSolicitud + '\'' +
                 "Numero = '" + mNumero + '\'' +
                 "Zona = '" + mZona + '\'' +
                 "Tipo_Trabajo = '" + mTipo_Trabajo + '\'' +

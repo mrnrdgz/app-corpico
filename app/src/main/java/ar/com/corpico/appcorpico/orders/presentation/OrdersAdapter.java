@@ -85,13 +85,15 @@ public class OrdersAdapter extends ArrayAdapter<Order> {
         final TextView titular = (TextView) convertView.findViewById(R.id.titular_text);
         TextView domicilio = (TextView) convertView.findViewById(R.id.domicilio_text);
         TextView tipo = (TextView) convertView.findViewById(R.id.tipo_text);
-        ImageButton imageButton = (ImageButton) convertView.findViewById(R.id.button);
+        TextView fecha = (TextView) convertView.findViewById(R.id.fechaSolicitud_text);
+        //ImageButton imageButton = (ImageButton) convertView.findViewById(R.id.button);
 
         indicator.setFocusable(false);
         titular.setFocusable(false);
         domicilio.setFocusable(false);
         tipo.setFocusable(false);
-        imageButton.setFocusable(true);
+        fecha.setFocusable(false);
+        /*imageButton.setFocusable(true);
 
         if (hideAsignarButton){
             imageButton.setVisibility(View.INVISIBLE);
@@ -107,7 +109,7 @@ public class OrdersAdapter extends ArrayAdapter<Order> {
                 listenerAdapter.onButtonClickListner(aux);
             }
             }
-        });
+        });*/
 
         // Orden actual..
         order =  getItem(position);
@@ -116,6 +118,11 @@ public class OrdersAdapter extends ArrayAdapter<Order> {
         titular.setText(order.getTitular());
         domicilio.setText(order.getDomicilio());
         tipo.setText(order.getTipo_Trabajo());
+
+        String dia = order.getmFechaSolicitud().substring(8,10);
+        String mes = order.getmFechaSolicitud().substring(5,7);
+        String ano = order.getmFechaSolicitud().substring(0,4);
+        fecha.setText(dia + "/" + mes + "/" + ano);
 
         String estado = order.getCurrentState(order.getEtapas());
 

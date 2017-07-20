@@ -54,7 +54,7 @@
         android:layout_below="@+id/domicilio_text"
         android:layout_toRightOf="@+id/indicator" />
 
-    <!-- Boton de acción  -->
+    <!-- Boton de acción
     <ImageButton
         android:id="@+id/button"
         android:layout_width="wrap_content"
@@ -64,6 +64,18 @@
         android:focusable="true"
         android:focusableInTouchMode="true"
         android:clickable="true"
-        android:background="@drawable/ic_orders" />
+        android:background="@drawable/ic_orders" /> -->
+    <!-- Titular que realizará la activida -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Fecha Solicitud"
+        android:id="@+id/fechaSolicitud_text"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:layout_above="@+id/tipo_text"
+        android:layout_alignParentEnd="true" />
+
 
 </RelativeLayout>
