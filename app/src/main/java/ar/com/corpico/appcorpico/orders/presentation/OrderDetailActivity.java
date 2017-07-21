@@ -6,7 +6,6 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -26,22 +25,19 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import ar.com.corpico.appcorpico.R;
-import ar.com.corpico.appcorpico.orders.domain.entity.Order;
-import ar.com.corpico.appcorpico.ordersmaps.OrdersMapsFragment;
 
 public class OrderDetailActivity extends AppCompatActivity implements OnMapReadyCallback {
     private GoogleMap mMap;
     private static final int LOCATION_REQUEST_CODE = 1;
     private SupportMapFragment mMapFragment;
+    private String mLat;
+    private String mLng;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.detail_ot);
+        setContentView(R.layout.activity_orders_detail);
 
         // Obtención de views
         TextView numero = (TextView)this.findViewById(R.id.numero_text);
@@ -49,7 +45,7 @@ public class OrderDetailActivity extends AppCompatActivity implements OnMapReady
         TextView estado = (TextView)this.findViewById(R.id.estado_text);
         TextView tipo = (TextView)this.findViewById(R.id.tipo_text);
         TextView zona = (TextView)this.findViewById(R.id.zona_text);
-        //TextView lat = (TextView)this.findViewById(R.id.lat_text);
+        //String lat = (TextView)this.findViewById(R.id.lat_text);
         //TextView lng = (TextView)this.findViewById(R.id.lng_text);
         TextView observacion = (TextView)this.findViewById(R.id.observacion_text);
         Gallery simpleGallery = (Gallery) findViewById(R.id.simpleGallery);
@@ -58,13 +54,21 @@ public class OrderDetailActivity extends AppCompatActivity implements OnMapReady
         Intent intent=getIntent();
         Bundle extras =intent.getExtras();
         if (extras != null) {
-            numero.setText((String)extras.get("NUMERO"));
-            fecha.setText((String)extras.get("FECHA"));
+            numero.setText("Nº " + (String)extras.get("NUMERO"));
+            //fecha.setText((String)extras.get("FECHA"));
+
+            String mFecha = (String)extras.get("FECHA");
+            String dia = mFecha.substring(8,10);
+            String mes = mFecha.substring(5,7);
+            String ano = mFecha.substring(0,4);
+            fecha.setText(dia + "/" + mes + "/" + ano);
+
             //TODO: HACER VARIABLE EL ESTADO PARA QUE ME SIRVA EL DETALLE EN OTRAS ACTIVITYS (EL ESTADO ME REFLEJA EL COLOR DE EL ICON DE LA UBICACION)
             estado.setText((String)extras.get("ESTADO"));
             tipo.setText((String)extras.get("TIPO_TRABAJO"));
             zona.setText((String)extras.get("ZONA"));
-
+            mLat=(String)extras.get("LAT");
+            mLng=(String)extras.get("LNG");
             observacion.setText((String)extras.get("OBSERVACION"));
         }
 
@@ -117,7 +121,7 @@ public class OrderDetailActivity extends AppCompatActivity implements OnMapReady
         uiSettings.setTiltGesturesEnabled(true);
 
         mMap.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+        /*if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED) {
             mMap.setMyLocationEnabled(true);
         } else {
@@ -132,9 +136,13 @@ public class OrderDetailActivity extends AppCompatActivity implements OnMapReady
                         LOCATION_REQUEST_CODE);
             }
         }
-        mMap.getUiSettings().setZoomControlsEnabled(true);
+        //mMap.getUiSettings().setZoomControlsEnabled(true);*/
+        Double mLt,mLn;
 
-        LatLng mLatLng = new LatLng(-35.6657,-63.7494);
+        mLt = new Double(mLat.substring(0,7)).doubleValue()*-1;
+        mLn = new Double(mLng.substring(0,7)).doubleValue()*-1;
+
+        LatLng mLatLng = new LatLng(mLt,mLn);
         mMap.addMarker(new MarkerOptions()
                 .position(mLatLng)
                 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW)));

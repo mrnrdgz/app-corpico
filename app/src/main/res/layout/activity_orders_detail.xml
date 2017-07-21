@@ -33,28 +33,27 @@
 
     <!-- Hero View -->
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorPrimary"
         android:elevation="2dp"
         android:orientation="horizontal"
         android:padding="@dimen/activity_horizontal_margin">
-
+        <!--android:layout_weight="1"
+                   android:layout_width="0dp"-->
         <TextView
             android:id="@+id/numero_text"
             style="@style/TextAppearance.AppCompat.Title.Inverse"
-            android:layout_weight="1"
-            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
             android:text="Numero"
             android:textIsSelectable="true" />
         <TextView
             android:id="@+id/fecha_text"
             style="@style/TextAppearance.AppCompat.Title.Inverse"
-            android:layout_weight="1"
-            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Fecha"
+            android:layout_width="fill_parent"
+            android:gravity="right"
             android:textIsSelectable="true" />
 
     </LinearLayout>

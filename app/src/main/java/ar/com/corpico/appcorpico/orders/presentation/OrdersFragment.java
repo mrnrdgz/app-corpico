@@ -202,7 +202,7 @@ public class OrdersFragment extends Fragment implements ar.com.corpico.appcorpic
                 Order currentOrder = (Order)mOrderList.getAdapter().getItem(i);
 
                 intent.putExtra("NUMERO",currentOrder.getNumero().toString());
-                //intent.putExtra("Fecha",currentOrder.getFecha().toString());
+                intent.putExtra("FECHA",currentOrder.getmFechaSolicitud().toString());
                 intent.putExtra("ETAPA",currentOrder.getEtapas().toString());
                 intent.putExtra("TIPO_TRABAJO",currentOrder.getTipo_Trabajo().toString());
                 intent.putExtra("ZONA",currentOrder.getZona().toString());
