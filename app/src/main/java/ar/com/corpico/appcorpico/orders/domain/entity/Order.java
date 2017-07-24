@@ -25,6 +25,15 @@ public class Order {
     private String mDomicilio;
     private String mLocalidad;
     private String mAnexo;
+    private String mTipo_Usuario;
+    private String mTarifa;
+    private String mPotencia_Declarada;
+    private String mMedidor;
+    private String mMarca;
+    private String mModelo;
+    private String mFactorM;
+    private String mCapacidad;
+    private String mTension;
     private String mLatitud;
     private String mLongitud;
     private String mObservacion;
@@ -32,8 +41,9 @@ public class Order {
     private Etapa mCurrentEtapa;
 
     public Order(String FechaSolicitud, String Numero, String Zona, String Tipo_Trabajo, String Motivo, ArrayList<Etapa> Etapas, String Asociado,
-                 String Suministro, String Titular, String Domicilio, String Localidad, String Anexo, String Latitud, String Longitud,
-                 String Observacion) {
+                 String Suministro, String Titular, String Domicilio, String Localidad, String Anexo, String Tipo_Usuario,
+                 String Tarifa,String Potencia_Declarada, String Medidor, String Marca, String Modelo, String FactorM, String Capacidad,
+                 String Tension, String Latitud, String Longitud,String Observacion) {
         this.mFechaSolicitud = FechaSolicitud;
         this.mNumero = Numero;
         this.mZona = Zona;
@@ -44,11 +54,93 @@ public class Order {
         this.mSuministro = Suministro;
         this.mTitular = Titular;
         this.mDomicilio = Domicilio;
-        this.mLatitud=Localidad;
+        this.mLocalidad=Localidad;
         this.mAnexo=Anexo;
+        this.mTipo_Usuario=Tipo_Usuario;
+        this.mTarifa=Tarifa;
+        this.mPotencia_Declarada=Potencia_Declarada;
+        this.mMedidor=Medidor;
+        this.mMarca=Marca;
+        this.mModelo=Modelo;
+        this.mFactorM=FactorM;
+        this.mCapacidad=Capacidad;
+        this.mTension=Tension;
         this.mLatitud = Latitud;
         this.mLongitud = Longitud;
         this.mObservacion = Observacion;
+    }
+
+    public String getPotencia_Declarada() {
+        return mPotencia_Declarada;
+    }
+
+    public void setPotencia_Declarada(String Potencia_Declarada) {
+        this.mPotencia_Declarada = Potencia_Declarada;
+    }
+
+    public String getMedidor() {
+        return mMedidor;
+    }
+
+    public void setMedidor(String Medidor) {
+        this.mMedidor = Medidor;
+    }
+
+    public String getMarca() {
+        return mMarca;
+    }
+
+    public void setMarca(String Marca) {
+        this.mMarca = Marca;
+    }
+
+    public String getModelo() {
+        return mModelo;
+    }
+
+    public void setModelo(String Modelo) {
+        this.mModelo = Modelo;
+    }
+
+    public String getFactorM() {
+        return mFactorM;
+    }
+
+    public void setFactorM(String FactorM) {
+        this.mFactorM = FactorM;
+    }
+
+    public String getCapacidad() {
+        return mCapacidad;
+    }
+
+    public void setCapacidad(String Capacidad) {
+        this.mCapacidad = Capacidad;
+    }
+
+    public String getTension() {
+        return mTension;
+    }
+
+    public void setTension(String Tension) {
+        this.mTension = Tension;
+    }
+
+    public String getTipo_Usuario() {
+        return mTipo_Usuario;
+
+    }
+
+    public void setTipo_Usuario(String Tipo_Usuario) {
+        this.mTipo_Usuario = Tipo_Usuario;
+    }
+
+    public String getTarifa() {
+        return mTarifa;
+    }
+
+    public void setTarifa(String Tarifa) {
+        this.mTarifa = Tarifa;
     }
 
     public String getmFechaSolicitud() {

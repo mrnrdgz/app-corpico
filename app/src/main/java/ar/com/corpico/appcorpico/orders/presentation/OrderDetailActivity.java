@@ -42,20 +42,30 @@ public class OrderDetailActivity extends AppCompatActivity implements OnMapReady
         // Obtención de views
         TextView numero = (TextView)this.findViewById(R.id.numero_text);
         TextView fecha = (TextView)this.findViewById(R.id.fecha_text);
-        TextView estado = (TextView)this.findViewById(R.id.estado_text);
-        TextView tipo = (TextView)this.findViewById(R.id.tipo_text);
-        TextView zona = (TextView)this.findViewById(R.id.zona_text);
-        //String lat = (TextView)this.findViewById(R.id.lat_text);
-        //TextView lng = (TextView)this.findViewById(R.id.lng_text);
+        TextView motivo = (TextView)this.findViewById(R.id.motivo_text);
+        TextView tipoTrabajo = (TextView)this.findViewById(R.id.tipotrabajo_text);
+        TextView titular = (TextView)this.findViewById(R.id.titular_text);
+        TextView asociado = (TextView)this.findViewById(R.id.asociado_text);
+        TextView domicilio = (TextView)this.findViewById(R.id.domicilio_text);
+        TextView anexo = (TextView)this.findViewById(R.id.anexo_text);
+        TextView tipousuario = (TextView)this.findViewById(R.id.tipousuario_text);
+        TextView tarifa = (TextView)this.findViewById(R.id.tarifa_text);
+        TextView potenciadeclarada = (TextView)this.findViewById(R.id.potenciadeclarada_text);
+        TextView medidor = (TextView)this.findViewById(R.id.medidor_text);
+        TextView marca = (TextView)this.findViewById(R.id.marca_text);
+        TextView modelo = (TextView)this.findViewById(R.id.modelo_text);
+        TextView factorM = (TextView)this.findViewById(R.id.factorm_text);
+        TextView capacidad = (TextView)this.findViewById(R.id.capacidad_text);
+        TextView tension = (TextView)this.findViewById(R.id.tension_text);
+
         TextView observacion = (TextView)this.findViewById(R.id.observacion_text);
-        Gallery simpleGallery = (Gallery) findViewById(R.id.simpleGallery);
+        //Gallery simpleGallery = (Gallery) findViewById(R.id.simpleGallery);
 
         setToolbar();
         Intent intent=getIntent();
         Bundle extras =intent.getExtras();
         if (extras != null) {
-            numero.setText("Nº " + (String)extras.get("NUMERO"));
-            //fecha.setText((String)extras.get("FECHA"));
+            numero.setText("Orden Nº " + (String)extras.get("NUMERO"));
 
             String mFecha = (String)extras.get("FECHA");
             String dia = mFecha.substring(8,10);
@@ -64,9 +74,23 @@ public class OrderDetailActivity extends AppCompatActivity implements OnMapReady
             fecha.setText(dia + "/" + mes + "/" + ano);
 
             //TODO: HACER VARIABLE EL ESTADO PARA QUE ME SIRVA EL DETALLE EN OTRAS ACTIVITYS (EL ESTADO ME REFLEJA EL COLOR DE EL ICON DE LA UBICACION)
-            estado.setText((String)extras.get("ESTADO"));
-            tipo.setText((String)extras.get("TIPO_TRABAJO"));
-            zona.setText((String)extras.get("ZONA"));
+            //estado.setText((String)extras.get("ESTADO"));
+            tipoTrabajo.setText((String)extras.get("TIPO_TRABAJO"));
+            motivo.setText((String)extras.get("MOTIVO"));
+            titular.setText((String)extras.get("TITULAR"));
+            asociado.setText((String)extras.get("ASOCIADO"));
+            domicilio.setText((String)extras.get("DOMICILIO"));
+            anexo.setText((String)extras.get("ANEXO"));
+            tipousuario.setText((String)extras.get("TIPO_USUARIO"));
+            tarifa.setText((String)extras.get("TARIFA"));
+            potenciadeclarada.setText((String)extras.get("POTENCIA_DECLARADA"));
+            medidor.setText((String)extras.get("MEDIDOR"));
+            marca.setText((String)extras.get("MARCA"));
+            modelo.setText((String)extras.get("MODELO"));
+            factorM.setText((String)extras.get("FACTOR_M"));
+            capacidad.setText((String)extras.get("CAPACIDAD"));
+            tension.setText((String)extras.get("TENSION"));
+
             mLat=(String)extras.get("LAT");
             mLng=(String)extras.get("LNG");
             observacion.setText((String)extras.get("OBSERVACION"));
@@ -101,10 +125,7 @@ public class OrderDetailActivity extends AppCompatActivity implements OnMapReady
             case android.R.id.home:
                 onBackPressed();
                 break;
-            case R.id.action_editarOrder:
-
-                break;
-            case R.id.action_photoOrder:
+            case R.id.action_asignaracuadrilla:
 
                 break;
             case R.id.action_settings:

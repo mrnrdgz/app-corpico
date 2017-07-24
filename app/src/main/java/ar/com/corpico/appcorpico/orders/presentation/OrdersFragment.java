@@ -205,7 +205,21 @@ public class OrdersFragment extends Fragment implements ar.com.corpico.appcorpic
                 intent.putExtra("FECHA",currentOrder.getmFechaSolicitud().toString());
                 intent.putExtra("ETAPA",currentOrder.getEtapas().toString());
                 intent.putExtra("TIPO_TRABAJO",currentOrder.getTipo_Trabajo().toString());
-                intent.putExtra("ZONA",currentOrder.getZona().toString());
+                intent.putExtra("MOTIVO",currentOrder.getMotivo().toString());
+                intent.putExtra("TITULAR",currentOrder.getTitular().toString());
+                intent.putExtra("ASOCIADO",currentOrder.getAsociado().toString()+ "/" + currentOrder.getSuministro().toString());
+                intent.putExtra("DOMICILIO",currentOrder.getDomicilio().toString());
+                intent.putExtra("ANEXO",currentOrder.getAnexo().toString());
+                intent.putExtra("TIPO_USUARIO",currentOrder.getTipo_Usuario().toString());
+                intent.putExtra("TARIFA",currentOrder.getTarifa().toString());
+                intent.putExtra("POTENCIA_DECLARADA",currentOrder.getPotencia_Declarada().toString());
+                intent.putExtra("MEDIDOR",currentOrder.getMedidor().toString());
+                intent.putExtra("MARCA",currentOrder.getMarca().toString());
+                intent.putExtra("MODELO",currentOrder.getModelo().toString());
+                intent.putExtra("FACTOR_M",currentOrder.getFactorM().toString());
+                intent.putExtra("CAPACIDAD",currentOrder.getCapacidad().toString());
+                intent.putExtra("TENSION",currentOrder.getTension().toString());
+
                 intent.putExtra("LAT",currentOrder.getLatitud().toString());
                 intent.putExtra("LNG",currentOrder.getLongitud().toString());
                 intent.putExtra("OBSERVACION",currentOrder.getObservacion().toString());

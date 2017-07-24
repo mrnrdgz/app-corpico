@@ -85,70 +85,47 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:padding="@dimen/activity_horizontal_margin">
-                    <!-- Etiqueta de la estado -->
+                    <!-- Texto Tipo de Trabajo  -->
                     <TextView
-                        android:id="@+id/estado_label"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/estado_text"
-                        android:layout_centerVertical="true"
-                        android:text="Estado"
-                        android:textAppearance="?android:attr/textAppearanceSmall" />
-
-                    <!-- Texto de la estado -->
-                    <TextView
-                        android:id="@+id/estado_text"
+                        android:id="@+id/tipotrabajo_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentLeft="true"
                         android:textAppearance="?android:attr/textAppearanceLarge"
-                        android:text="Estado"
+                        android:text="Tipo de Trabajo"
                         android:textColor="@color/colorPrimary" />
-
-
-                    <!-- Label del técnico -->
+                    <!-- Etiqueta Tipo de Trabajo  -->
                     <TextView
-                        android:id="@+id/tipo_label"
+                        android:id="@+id/tipotrabajo_label"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentLeft="true"
-                        android:layout_alignParentStart="true"
-                        android:layout_below="@+id/tipo_text"
-                        android:text="Tipo"
+                        android:layout_below="@+id/tipotrabajo_text"
+                        android:layout_centerVertical="true"
+                        android:text="Tipo de Trabajo"
                         android:textAppearance="?android:attr/textAppearanceSmall" />
 
+                    <!-- Texto de Motivo-->
                     <TextView
-                        android:id="@+id/tipo_text"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignLeft="@+id/estado_label"
-                        android:layout_alignStart="@+id/estado_label"
-                        android:layout_below="@+id/estado_label"
-                        android:layout_centerVertical="true"
-                        android:layout_marginTop="16dp"
-                        android:text="Tipo"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
-                        android:textColor="@color/colorPrimary" />
-
-                    <TextView
-                        android:id="@+id/zona_label"
+                        android:id="@+id/motivo_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
                         android:layout_alignParentRight="true"
-                        android:layout_alignTop="@+id/tipo_label"
-                        android:text="zona"
-                        android:textAppearance="?android:attr/textAppearanceSmall" />
+                        android:layout_alignTop="@+id/tipotrabajo_text"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:text="Motivo"
+                        android:textColor="@color/colorPrimary" />
 
+                    <!-- Label Motivo-->
                     <TextView
-                        android:id="@+id/zona_text"
+                        android:id="@+id/tipo_label"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
                         android:layout_alignParentRight="true"
-                        android:layout_alignTop="@+id/tipo_text"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
-                        android:text="zona"
-                        android:textColor="@color/colorPrimary" />
+                        android:layout_alignTop="@+id/tipotrabajo_label"
+                        android:text="Motivo"
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
 
                 </RelativeLayout>
             </android.support.v7.widget.CardView>
@@ -168,26 +145,91 @@
                     android:layout_height="match_parent"
                     android:padding="@dimen/activity_horizontal_margin">
 
-                    <!-- Etiqueta de la descripción -->
+                    <!-- Texto Titular  -->
                     <TextView
-                        android:id="@+id/observacion_label"
+                        android:id="@+id/titular_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentLeft="true"
-                        android:layout_alignParentStart="true"
-                        android:text="Observación"
                         android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:text="Titular"
+                        android:textColor="@color/colorPrimary" />
+                    <!-- Etiqueta Titular  -->
+                    <TextView
+                        android:id="@+id/titular_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/titular_text"
+                        android:layout_centerVertical="true"
+                        android:text="Titular"
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                    <!-- Texto de Asociado-->
+                    <TextView
+                        android:id="@+id/asociado_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignTop="@+id/titular_text"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:text="Asociado"
                         android:textColor="@color/colorPrimary" />
 
-                    <!-- Texto de la descripción -->
+                    <!-- Label Asociado-->
                     <TextView
-                        android:id="@+id/observacion_text"
+                        android:id="@+id/asociado_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignTop="@+id/titular_label"
+                        android:text="Asociado"
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                    <!-- Texto Domicilio  -->
+                    <TextView
+                        android:id="@+id/domicilio_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentLeft="true"
-                        android:layout_alignParentStart="true"
-                        android:layout_below="@+id/observacion_label"
+                        android:layout_below="@+id/titular_label"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:text="Domicilio"
+                        android:textColor="@color/colorPrimary" />
+                    <!-- Etiqueta Domicilio  -->
+                    <TextView
+                        android:id="@+id/domicilio_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/domicilio_text"
+                        android:layout_centerVertical="true"
+                        android:text="Domicilio"
                         android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                    <!-- Texto Anexo-->
+                    <TextView
+                        android:id="@+id/anexo_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignTop="@+id/domicilio_text"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:text="Anexo"
+                        android:textColor="@color/colorPrimary" />
+
+                    <!-- Label Anexo-->
+                    <TextView
+                        android:id="@+id/anexo_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignTop="@+id/domicilio_label"
+                        android:text="Anexo"
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
+
                 </RelativeLayout>
             </android.support.v7.widget.CardView>
 
@@ -200,19 +242,81 @@
                 android:layout_marginTop="@dimen/margin_top_between_cards"
                 card_view:cardElevation="4dp"
                 card_view:cardUseCompatPadding="true">
-                <Gallery
-                    android:id="@+id/simpleGallery"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="100dp"
-                    android:unselectedAlpha="0.80" />
+                <RelativeLayout
+                    android:id="@+id/content3"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="@dimen/activity_horizontal_margin">
+
+                    <!-- Texto Tipo de Usuario  -->
+                    <TextView
+                        android:id="@+id/tipousuario_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:text="Tipo de Usuario"
+                        android:textColor="@color/colorPrimary" />
+                    <!-- Etiqueta Tipo de Usuario  -->
+                    <TextView
+                        android:id="@+id/tipousuario_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/tipousuario_text"
+                        android:layout_centerVertical="true"
+                        android:text="Tipo de Usuario"
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                    <!-- Texto de Tarifa-->
+                    <TextView
+                        android:id="@+id/tarifa_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignTop="@+id/tipousuario_text"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:text="Tarifa"
+                        android:textColor="@color/colorPrimary" />
+
+                    <!-- Label Tarifa-->
+                    <TextView
+                        android:id="@+id/tarifa_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignTop="@+id/tipousuario_label"
+                        android:text="Tarifa"
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
+                    <!-- Texto Potencia Declarada  -->
+                    <TextView
+                        android:id="@+id/potenciadeclarada_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_below="@+id/tipousuario_label"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:text="Modelo"
+                        android:textColor="@color/colorPrimary" />
+
+                    <!-- Etiqueta Potencia Declarada  -->
+                    <TextView
+                        android:id="@+id/potenciadeclarada_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/potenciadeclarada_text"
+                        android:layout_centerVertical="true"
+                        android:text="Potencia Declarada"
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
+                </RelativeLayout>
             </android.support.v7.widget.CardView>
 
             <!-- Card Datos Tecnicos -->
             <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/card4"
                 android:layout_width="match_parent"
-                android:layout_height="150dp"
+                android:layout_height="225dp"
                 android:layout_below="@+id/card3"
                 android:layout_marginTop="@dimen/margin_top_between_cards"
                 card_view:cardElevation="4dp"
@@ -223,26 +327,141 @@
                     android:layout_height="match_parent"
                     android:padding="@dimen/activity_horizontal_margin">
 
-                    <!-- Etiqueta de la descripción -->
+                    <!-- Texto Medidor  -->
                     <TextView
-                        android:id="@+id/x_label"
+                        android:id="@+id/medidor_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentLeft="true"
-                        android:layout_alignParentStart="true"
-                        android:text="Observación"
                         android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:text="Medidor"
+                        android:textColor="@color/colorPrimary" />
+                    <!-- Etiqueta Medidor  -->
+                    <TextView
+                        android:id="@+id/medidor_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/medidor_text"
+                        android:layout_centerVertical="true"
+                        android:text="Nº Medidor"
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                    <!-- Texto de Marca-->
+                    <TextView
+                        android:id="@+id/marca_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignTop="@+id/medidor_text"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:text="Marca"
                         android:textColor="@color/colorPrimary" />
 
-                    <!-- Texto de la descripción -->
+
+                    <!-- Label Marca-->
                     <TextView
-                        android:id="@+id/xx_text"
+                        android:id="@+id/marca_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignTop="@+id/medidor_label"
+                        android:text="Marca"
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                    <!-- Texto Modelo  -->
+                    <TextView
+                        android:id="@+id/modelo_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentLeft="true"
-                        android:layout_alignParentStart="true"
-                        android:layout_below="@+id/x_label"
+                        android:layout_below="@+id/medidor_label"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:text="Modelo"
+                        android:textColor="@color/colorPrimary" />
+
+                    <!-- Etiqueta Modelo  -->
+                    <TextView
+                        android:id="@+id/modelo_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/modelo_text"
+                        android:layout_centerVertical="true"
+                        android:text="Modelo"
                         android:textAppearance="?android:attr/textAppearanceSmall" />
+
+
+                    <!-- Texto Factor H  -->
+                    <TextView
+                        android:id="@+id/factorm_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_below="@+id/marca_label"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:text="Factor H"
+                        android:textColor="@color/colorPrimary" />
+
+                    <!-- Etiqueta Factor H -->
+                    <TextView
+                        android:id="@+id/factorm_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/factorm_text"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:text="Factor H"
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+
+                    <!-- Texto de Capacidad-->
+                    <TextView
+                        android:id="@+id/capacidad_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/modelo_label"
+                        android:layout_centerVertical="true"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:text="Capacidad"
+                        android:textColor="@color/colorPrimary" />
+
+
+                    <!-- Label Capacidad-->
+                    <TextView
+                        android:id="@+id/capacidad_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_below="@+id/capacidad_text"
+                        android:text="Capacidad"
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+
+                    <!-- Texto Tension -->
+                    <TextView
+                        android:id="@+id/tension_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_below="@+id/factorm_label"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:text="Tension"
+                        android:textColor="@color/colorPrimary" />
+
+                    <!-- Label Tension-->
+                    <TextView
+                        android:id="@+id/tension_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignTop="@+id/capacidad_label"
+                        android:text="Tensión"
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
+
                 </RelativeLayout>
             </android.support.v7.widget.CardView>
 
@@ -261,9 +480,9 @@
                     android:layout_height="match_parent"
                     android:padding="@dimen/activity_horizontal_margin">
 
-                    <!-- Etiqueta de la descripción -->
+                    <!-- Texto de Observacion -->
                     <TextView
-                        android:id="@+id/y_label"
+                        android:id="@+id/observacion_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentLeft="true"
@@ -272,14 +491,15 @@
                         android:textAppearance="?android:attr/textAppearanceLarge"
                         android:textColor="@color/colorPrimary" />
 
-                    <!-- Texto de la descripción -->
+                    <!-- Etiquieta de Observacion -->
                     <TextView
-                        android:id="@+id/yy_text"
+                        android:id="@+id/observacion_label"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentLeft="true"
                         android:layout_alignParentStart="true"
-                        android:layout_below="@+id/y_label"
+                        android:text="Observación"
+                        android:layout_below="@+id/observacion_text"
                         android:textAppearance="?android:attr/textAppearanceSmall" />
                 </RelativeLayout>
             </android.support.v7.widget.CardView>

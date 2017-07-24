@@ -23,6 +23,7 @@
     </string>
     <string name="action_filtrar">Filtrar</string>
     <string name="action_editar">Editar</string>
+    <string name="action_asignaracuadrilla">Asignar</string>
     <string name="action_photo">Foto</string>
     <string name="filtrar_boton">Aplicar</string>
     <string name="cancelar_boton">Cancelar</string>
