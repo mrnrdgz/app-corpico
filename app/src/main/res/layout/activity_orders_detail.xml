@@ -38,7 +38,9 @@
         android:background="@color/colorPrimary"
         android:elevation="2dp"
         android:orientation="horizontal"
-        android:padding="@dimen/activity_horizontal_margin">
+        android:paddingTop="10dp"
+        android:paddingLeft="24dp"
+        android:paddingRight="24dp">
         <!--android:layout_weight="1"
                    android:layout_width="0dp"-->
         <TextView
@@ -55,7 +57,31 @@
             android:layout_width="fill_parent"
             android:gravity="right"
             android:textIsSelectable="true" />
-
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:elevation="2dp"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp"
+        android:paddingLeft="24dp"
+        android:paddingRight="24dp"
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/tipotrabajo_text"
+            style="@style/TextAppearance.AppCompat.Title.Inverse"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="Tipo de Trabajo"
+            android:textIsSelectable="true" />
+        <TextView
+            android:id="@+id/motivo_text"
+            style="@style/TextAppearance.AppCompat.Title.Inverse"
+            android:layout_height="wrap_content"
+            android:layout_width="fill_parent"
+            android:gravity="right"
+            android:textIsSelectable="true" />
     </LinearLayout>
 
     <!-- Contenido -->
@@ -72,39 +98,39 @@
             android:layout_weight="70"
             android:padding="@dimen/activity_horizontal_margin">
 
-            <!-- Card Orden -->
-            <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
-                android:id="@+id/card1"
-                android:layout_width="match_parent"
-                android:layout_height="150dp"
-                card_view:cardElevation="4dp"
-                card_view:cardUseCompatPadding="true">
+            <!-- Card Orden-->
+            <!--  <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                 android:id="@+id/card1"
+                 android:layout_width="match_parent"
+                 android:layout_height="150dp"
+                 card_view:cardElevation="4dp"
+                 card_view:cardUseCompatPadding="true">
 
-                <RelativeLayout
-                    android:id="@+id/content1"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:padding="@dimen/activity_horizontal_margin">
-                    <!-- Texto Tipo de Trabajo  -->
-                    <TextView
-                        android:id="@+id/tipotrabajo_text"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentLeft="true"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
-                        android:text="Tipo de Trabajo"
-                        android:textColor="@color/colorPrimary" />
-                    <!-- Etiqueta Tipo de Trabajo  -->
-                    <TextView
-                        android:id="@+id/tipotrabajo_label"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/tipotrabajo_text"
-                        android:layout_centerVertical="true"
-                        android:text="Tipo de Trabajo"
-                        android:textAppearance="?android:attr/textAppearanceSmall" />
+                 <RelativeLayout
+                     android:id="@+id/content1"
+                     android:layout_width="match_parent"
+                     android:layout_height="match_parent"
+                     android:padding="@dimen/activity_horizontal_margin">-->
+                     <!-- Texto Tipo de Trabajo-->
+            <!--<TextView
+                android:id="@+id/tipotrabajo_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                style="@style/TextAppearance.AppCompat.Title.Inverse"
+                android:textColor="@color/colorPrimary"
+                android:text="Tipo de Trabajo" />-->
+            <!-- Etiqueta Tipo de Trabajo
+            <TextView
+                android:id="@+id/tipotrabajo_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tipotrabajo_text"
+                android:layout_centerVertical="true"
+                android:text="Tipo de Trabajo"
+                android:textAppearance="?android:attr/textAppearanceSmall" />-->
 
-                    <!-- Texto de Motivo-->
+                    <!-- Texto de Motivo
                     <TextView
                         android:id="@+id/motivo_text"
                         android:layout_width="wrap_content"
@@ -112,11 +138,11 @@
                         android:layout_alignParentEnd="true"
                         android:layout_alignParentRight="true"
                         android:layout_alignTop="@+id/tipotrabajo_text"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        style="@style/TextAppearance.AppCompat.Title.Inverse"
                         android:text="Motivo"
-                        android:textColor="@color/colorPrimary" />
+                        android:textColor="@color/colorPrimary" />-->
 
-                    <!-- Label Motivo-->
+                    <!-- Label Motivo
                     <TextView
                         android:id="@+id/tipo_label"
                         android:layout_width="wrap_content"
@@ -128,14 +154,14 @@
                         android:textAppearance="?android:attr/textAppearanceSmall" />
 
                 </RelativeLayout>
-            </android.support.v7.widget.CardView>
+            </android.support.v7.widget.CardView>-->
 
-            <!-- Card Asociado -->
+            <!-- Card Asociado android:layout_below="@+id/card1"-->
             <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/card2"
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
-                android:layout_below="@+id/card1"
+
                 android:layout_marginTop="@dimen/margin_top_between_cards"
                 card_view:cardElevation="4dp"
                 card_view:cardUseCompatPadding="true">
@@ -151,9 +177,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentLeft="true"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        style="@style/TextAppearance.AppCompat.Title.Inverse"
                         android:text="Titular"
-                        android:textColor="@color/colorPrimary" />
+                        android:textColor="@android:color/black" />
                     <!-- Etiqueta Titular  -->
                     <TextView
                         android:id="@+id/titular_label"
@@ -172,9 +198,9 @@
                         android:layout_alignParentEnd="true"
                         android:layout_alignParentRight="true"
                         android:layout_alignTop="@+id/titular_text"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
-                        android:text="Asociado"
-                        android:textColor="@color/colorPrimary" />
+                        style="@style/TextAppearance.AppCompat.Title.Inverse"
+                        android:textColor="@android:color/black"
+                        android:text="Asociado" />
 
                     <!-- Label Asociado-->
                     <TextView
@@ -194,7 +220,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentLeft="true"
                         android:layout_below="@+id/titular_label"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        style="@style/TextAppearance.AppCompat.Title.Inverse"
                         android:text="Domicilio"
                         android:textColor="@color/colorPrimary" />
                     <!-- Etiqueta Domicilio  -->
@@ -215,7 +241,7 @@
                         android:layout_alignParentEnd="true"
                         android:layout_alignParentRight="true"
                         android:layout_alignTop="@+id/domicilio_text"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        style="@style/TextAppearance.AppCompat.Title.Inverse"
                         android:text="Anexo"
                         android:textColor="@color/colorPrimary" />
 
@@ -254,7 +280,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentLeft="true"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        style="@style/TextAppearance.AppCompat.Title.Inverse"
                         android:text="Tipo de Usuario"
                         android:textColor="@color/colorPrimary" />
                     <!-- Etiqueta Tipo de Usuario  -->
@@ -275,7 +301,7 @@
                         android:layout_alignParentEnd="true"
                         android:layout_alignParentRight="true"
                         android:layout_alignTop="@+id/tipousuario_text"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        style="@style/TextAppearance.AppCompat.Title.Inverse"
                         android:text="Tarifa"
                         android:textColor="@color/colorPrimary" />
 
@@ -296,7 +322,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentLeft="true"
                         android:layout_below="@+id/tipousuario_label"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        style="@style/TextAppearance.AppCompat.Title.Inverse"
                         android:text="Modelo"
                         android:textColor="@color/colorPrimary" />
 
@@ -333,7 +359,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentLeft="true"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        style="@style/TextAppearance.AppCompat.Title.Inverse"
                         android:text="Medidor"
                         android:textColor="@color/colorPrimary" />
                     <!-- Etiqueta Medidor  -->
@@ -354,7 +380,7 @@
                         android:layout_alignParentEnd="true"
                         android:layout_alignParentRight="true"
                         android:layout_alignTop="@+id/medidor_text"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        style="@style/TextAppearance.AppCompat.Title.Inverse"
                         android:text="Marca"
                         android:textColor="@color/colorPrimary" />
 
@@ -377,7 +403,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentLeft="true"
                         android:layout_below="@+id/medidor_label"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        style="@style/TextAppearance.AppCompat.Title.Inverse"
                         android:text="Modelo"
                         android:textColor="@color/colorPrimary" />
 
@@ -400,7 +426,7 @@
                         android:layout_alignParentEnd="true"
                         android:layout_alignParentRight="true"
                         android:layout_below="@+id/marca_label"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        style="@style/TextAppearance.AppCompat.Title.Inverse"
                         android:text="Factor H"
                         android:textColor="@color/colorPrimary" />
 
@@ -423,7 +449,7 @@
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/modelo_label"
                         android:layout_centerVertical="true"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        style="@style/TextAppearance.AppCompat.Title.Inverse"
                         android:text="Capacidad"
                         android:textColor="@color/colorPrimary" />
 
@@ -447,7 +473,7 @@
                         android:layout_alignParentEnd="true"
                         android:layout_alignParentRight="true"
                         android:layout_below="@+id/factorm_label"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        style="@style/TextAppearance.AppCompat.Title.Inverse"
                         android:text="Tension"
                         android:textColor="@color/colorPrimary" />
 
@@ -488,7 +514,7 @@
                         android:layout_alignParentLeft="true"
                         android:layout_alignParentStart="true"
                         android:text="Observación"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        style="@style/TextAppearance.AppCompat.Title.Inverse"
                         android:textColor="@color/colorPrimary" />
 
                     <!-- Etiquieta de Observacion -->
