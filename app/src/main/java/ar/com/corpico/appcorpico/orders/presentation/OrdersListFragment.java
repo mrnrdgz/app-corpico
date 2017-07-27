@@ -26,6 +26,7 @@ import java.util.List;
 import ar.com.corpico.appcorpico.R;
 import ar.com.corpico.appcorpico.orders.domain.entity.Tipo_Cuadrilla;
 import ar.com.corpico.appcorpico.orders.domain.entity.Order;
+import ar.com.corpico.appcorpico.ordersDetail.presentation.OrderDetailActivity;
 
 import static android.view.View.GONE;
 
@@ -261,6 +262,7 @@ public class OrdersListFragment extends Fragment implements ar.com.corpico.appco
 
     @Override
     public void setPresenter(Presenter presenter) {
+
         mOrdersPresenter = presenter;
     }
 

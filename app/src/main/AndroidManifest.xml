@@ -65,7 +65,7 @@
                 android:resource="@xml/searchable" />
         </activity>
         <activity
-            android:name=".orders.presentation.OrderDetailActivity"
+            android:name=".ordersDetail.presentation.OrderDetailActivity"
             android:label=""
             android:launchMode="singleTop"
             android:theme="@style/AppTheme.NoActionBar" />

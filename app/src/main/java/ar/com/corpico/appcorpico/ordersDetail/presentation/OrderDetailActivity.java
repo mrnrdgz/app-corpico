@@ -1,4 +1,4 @@
-package ar.com.corpico.appcorpico.orders.presentation;
+package ar.com.corpico.appcorpico.ordersDetail.presentation;
 
 import android.Manifest;
 import android.content.Intent;
@@ -27,10 +27,17 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import ar.com.corpico.appcorpico.R;
+import ar.com.corpico.appcorpico.orders.data.FuenteOrdenesServidor;
+import ar.com.corpico.appcorpico.orders.data.OrdersRepository;
+import ar.com.corpico.appcorpico.orders.data.OrdersSqliteStore;
+import ar.com.corpico.appcorpico.orders.domain.usecase.AddOrdersState;
+import ar.com.corpico.appcorpico.orders.presentation.AsignarAConexionesDialog;
 
-public class OrderDetailActivity extends AppCompatActivity implements OnMapReadyCallback,AsignarAConexionesDialog.OnAsignarAConexionesListener {
+
+public class OrderDetailActivity extends AppCompatActivity implements AsignarAConexionesDetailDialog.OnAsignarAConexionesDetailListener,ar.com.corpico.appcorpico.ordersDetail.presentation.View, OnMapReadyCallback {
     private GoogleMap mMap;
     private static final int LOCATION_REQUEST_CODE = 1;
     private SupportMapFragment mMapFragment;
@@ -38,12 +45,21 @@ public class OrderDetailActivity extends AppCompatActivity implements OnMapReady
     private String mLng;
     private ArrayList<String> mNumero = new ArrayList<>();
     private String mTipoCuadrilla;
+    private AddOrdersState mAddOrdersState;
+    private ar.com.corpico.appcorpico.ordersDetail.presentation.OrdersDetailPresenter mOrdersDetailPresenter;
 
-    public interface OnAsignarAConexionesDetalleListener {
-        void onDetallePossitiveButtonAsignarClick(String cuadrilla, ArrayList<String> numero);// Eventos Botón Positivo
+
+    @Override
+    public void setPresenter(Presenter presenterDetail) {
+        mOrdersDetailPresenter = (OrdersDetailPresenter) presenterDetail;
     }
 
-    OnAsignarAConexionesDetalleListener listener;
+    @Override
+    public void setAsignarOrder(String cuadrilla, List<String> listorder) {
+        mOrdersDetailPresenter.asignarOrder(cuadrilla,listorder);
+
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -108,6 +124,26 @@ public class OrderDetailActivity extends AppCompatActivity implements OnMapReady
             observacion.setText((String)extras.get("OBSERVACION"));
         }
 
+        /**
+         * <<create>> Almacénes
+         */
+        FuenteOrdenesServidor restStore = new FuenteOrdenesServidor();
+        OrdersSqliteStore sqliteStore = new OrdersSqliteStore();
+
+        /**
+         * <<create>> SessionsRepository
+         */
+        OrdersRepository repository = OrdersRepository.getInstance(restStore);
+
+        /**
+         * <<create>> CaseUser
+         */
+        //TODO: ACA DEBERIA USAR UNA VARIABLE PARA PONER EL CASO DE USO?
+        mAddOrdersState = new AddOrdersState(repository);
+
+        mOrdersDetailPresenter = new OrdersDetailPresenter(mAddOrdersState,this);
+        this.setPresenter(mOrdersDetailPresenter);
+
         mMapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mMapFragment.getMapAsync(this);
@@ -145,7 +181,7 @@ public class OrderDetailActivity extends AppCompatActivity implements OnMapReady
                 }
                 ft.addToBackStack(null);
 
-                DialogFragment newFragment = AsignarAConexionesDialog.newInstance(mTipoCuadrilla,mNumero);
+                DialogFragment newFragment = AsignarAConexionesDetailDialog.newInstance(mTipoCuadrilla,mNumero);
                 newFragment.show(ft, "AsignarconexionDialog");
                 break;
             case R.id.action_settings:
@@ -223,7 +259,8 @@ public class OrderDetailActivity extends AppCompatActivity implements OnMapReady
 
     @Override
     public void onPossitiveButtonAsignarClick(String cuadrilla, ArrayList<String> numero) {
-        listener.onDetallePossitiveButtonAsignarClick(cuadrilla,numero);
+        //this.setAsignarOrder(cuadrilla,numero);
+        mOrdersDetailPresenter.asignarOrder(cuadrilla,numero);
     }
 
     @Override
@@ -231,4 +268,9 @@ public class OrderDetailActivity extends AppCompatActivity implements OnMapReady
 
     }
 
+    @Override
+    public void closeDetail(String cuadrilla) {
+        this.finish();
+
+    }
 }

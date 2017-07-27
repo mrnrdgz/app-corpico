@@ -41,7 +41,6 @@ import ar.com.corpico.appcorpico.orders.domain.usecase.GetOrders;
 import ar.com.corpico.appcorpico.orders.domain.usecase.GetTipoTrabajo;
 import ar.com.corpico.appcorpico.orders.domain.usecase.GetZonas;
 import ar.com.corpico.appcorpico.orders.presentation.AsignarAConexionesDialog;
-import ar.com.corpico.appcorpico.orders.presentation.OrderDetailActivity;
 import ar.com.corpico.appcorpico.orders.presentation.OrdersFilterActivity;
 import ar.com.corpico.appcorpico.orders.presentation.TipoCuadrillaAdapter;
 import ar.com.corpico.appcorpico.orders.presentation.OrdersAdapter;
@@ -57,7 +56,7 @@ import ar.com.corpico.appcorpico.orders.presentation.OrdersMapsFragment;
  * Created by sistemas on 11/04/2017.
  */
 
-public class OrderPendienteActivity extends NavitationDrawerActivity implements OrdersAdapter.OnAsignarListener,DatePickerDialog.OnDateSetListener,AsignarAConexionesDialog.OnAsignarAConexionesListener,OrdersFilter.OnOrdersFilterListener,OrdersListFragment.OnViewActivityListener,TipoTrabajoDialog.TipoTrabajoListener, OrderDetailActivity.OnAsignarAConexionesDetalleListener {
+public class OrderPendienteActivity extends NavitationDrawerActivity implements AsignarAConexionesDialog.OnAsignarAConexionesListener,OrdersAdapter.OnAsignarListener,DatePickerDialog.OnDateSetListener,OrdersFilter.OnOrdersFilterListener,OrdersListFragment.OnViewActivityListener,TipoTrabajoDialog.TipoTrabajoListener{
     private String mTipoCuadrilla;
     private List<String> mTipoTrabajo = new ArrayList<>();
     private List<String> mZona = new ArrayList<>();
@@ -449,8 +448,4 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements 
         }
     }
 
-    @Override
-    public void onDetallePossitiveButtonAsignarClick(String cuadrilla, ArrayList<String> numero) {
-        mOrderView.setAsignarOrder(cuadrilla,numero);
-    }
 }
