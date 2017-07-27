@@ -49,7 +49,7 @@ public class OrdersPresenter implements Presenter {
     private GetZonas mGetZona;
     private GetCuadrillaxTipo mgetCuadrillaxTipo;
     private View mOrdersView;
-    private ar.com.corpico.appcorpico.ordersmaps.View mOrdersMapView;
+    //private ar.com.corpico.appcorpico.ordersmaps.View mOrdersMapView;
     private String mCuadrilla;
 
     //TODO: COMO MANEJO ACA EL CASO DE USO? SI ESTA MACHEADO EL CASO DE USO...TENGO QUE HACER UN CONSTRUCTOR POR CADA UNO?

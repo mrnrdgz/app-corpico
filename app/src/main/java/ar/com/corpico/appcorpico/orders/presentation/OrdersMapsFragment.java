@@ -1,4 +1,4 @@
-package ar.com.corpico.appcorpico.ordersmaps;
+package ar.com.corpico.appcorpico.orders.presentation;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
@@ -9,7 +9,6 @@ import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -27,11 +26,8 @@ import org.joda.time.DateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import ar.com.corpico.appcorpico.R;
 import ar.com.corpico.appcorpico.orders.domain.entity.Tipo_Cuadrilla;
 import ar.com.corpico.appcorpico.orders.domain.entity.Order;
-import ar.com.corpico.appcorpico.orders.domain.entity.Tipo_Trabajo;
-import ar.com.corpico.appcorpico.orders.presentation.Presenter;
 
 
 /**

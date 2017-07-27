@@ -3,30 +3,21 @@ package ar.com.corpico.appcorpico.orders.presentation;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
 import android.view.*;
-import android.view.View;
 import android.widget.Button;
-import android.widget.ListView;
-import android.widget.RadioButton;
-import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
 
 import ar.com.corpico.appcorpico.R;
-import ar.com.corpico.appcorpico.orders.domain.entity.Tipo_Cuadrilla;
-import ar.com.corpico.appcorpico.orders.domain.entity.Tipo_Trabajo;
 
 /**
  * Created by sistemas on 17/04/2017.
  */
 
-public class AsignarAConexiones extends DialogFragment {
+public class AsignarAConexionesDialog extends DialogFragment {
     private ArrayList<String> mNumeroOT = new ArrayList<>();
     private String mTipoCuadrilla;
 
@@ -38,12 +29,12 @@ public class AsignarAConexiones extends DialogFragment {
 
     OnAsignarAConexionesListener listener;
 
-    public AsignarAConexiones() {
+    public AsignarAConexionesDialog() {
     }
     //TODO: HAGO CON ESTE ARGUNTO PARA PROBAR...LUEGO EL ARGUMENTO CREO Q
     // DEBERIA SER ORDER PARA CUANDO USE MAS DE UNA SELLECCION
-    public static AsignarAConexiones newInstance(String tipoCuadrilla, ArrayList<String> numero) {
-        AsignarAConexiones f = new AsignarAConexiones();
+    public static AsignarAConexionesDialog newInstance(String tipoCuadrilla, ArrayList<String> numero) {
+        AsignarAConexionesDialog f = new AsignarAConexionesDialog();
 
         Bundle args = new Bundle();
         args.putString("NUMERO", numero.get(0));

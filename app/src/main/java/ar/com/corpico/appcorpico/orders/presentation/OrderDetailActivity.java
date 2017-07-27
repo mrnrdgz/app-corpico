@@ -6,12 +6,13 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
+import android.support.v4.app.DialogFragment;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.*;
-import android.widget.Gallery;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,15 +26,24 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.util.ArrayList;
+
 import ar.com.corpico.appcorpico.R;
 
-public class OrderDetailActivity extends AppCompatActivity implements OnMapReadyCallback {
+public class OrderDetailActivity extends AppCompatActivity implements OnMapReadyCallback,AsignarAConexionesDialog.OnAsignarAConexionesListener {
     private GoogleMap mMap;
     private static final int LOCATION_REQUEST_CODE = 1;
     private SupportMapFragment mMapFragment;
     private String mLat;
     private String mLng;
+    private ArrayList<String> mNumero = new ArrayList<>();
+    private String mTipoCuadrilla;
 
+    public interface OnAsignarAConexionesDetalleListener {
+        void onDetallePossitiveButtonAsignarClick(String cuadrilla, ArrayList<String> numero);// Eventos Botón Positivo
+    }
+
+    OnAsignarAConexionesDetalleListener listener;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,6 +76,8 @@ public class OrderDetailActivity extends AppCompatActivity implements OnMapReady
         Bundle extras =intent.getExtras();
         if (extras != null) {
             numero.setText("Orden Nº " + (String)extras.get("NUMERO"));
+            mNumero.add((String)extras.get("NUMERO"));
+            mTipoCuadrilla= (String)extras.get("TIPO_CUADRILLA");
 
             String mFecha = (String)extras.get("FECHA");
             String dia = mFecha.substring(8,10);
@@ -126,7 +138,15 @@ public class OrderDetailActivity extends AppCompatActivity implements OnMapReady
                 onBackPressed();
                 break;
             case R.id.action_asignaracuadrilla:
+                FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+                Fragment prev = getSupportFragmentManager().findFragmentByTag("AsignarconexionDialog");
+                if (prev != null) {
+                    ft.remove(prev);
+                }
+                ft.addToBackStack(null);
 
+                DialogFragment newFragment = AsignarAConexionesDialog.newInstance(mTipoCuadrilla,mNumero);
+                newFragment.show(ft, "AsignarconexionDialog");
                 break;
             case R.id.action_settings:
                 break;
@@ -200,4 +220,15 @@ public class OrderDetailActivity extends AppCompatActivity implements OnMapReady
 
         }
     }
+
+    @Override
+    public void onPossitiveButtonAsignarClick(String cuadrilla, ArrayList<String> numero) {
+        listener.onDetallePossitiveButtonAsignarClick(cuadrilla,numero);
+    }
+
+    @Override
+    public void onNegativeButtonAsignarClick() {
+
+    }
+
 }

@@ -33,7 +33,7 @@ import static android.view.View.GONE;
  * Created by Administrador on 07/01/2017.
  */
 
-public class OrdersFragment extends Fragment implements ar.com.corpico.appcorpico.orders.presentation.View{
+public class OrdersListFragment extends Fragment implements ar.com.corpico.appcorpico.orders.presentation.View{
     private Presenter mOrdersPresenter;
     private ListView mOrderList;
     private OrdersAdapter mOrdersAdapter;
@@ -52,7 +52,7 @@ public class OrdersFragment extends Fragment implements ar.com.corpico.appcorpic
 
     private OrdersAdapter.OnAsignarListener listener;
 
-    public OrdersFragment() {
+    public OrdersListFragment() {
         // Required empty public constructor
     }
 
@@ -73,8 +73,8 @@ public class OrdersFragment extends Fragment implements ar.com.corpico.appcorpic
     }
 
     //Aca va sin parametros o que parametros irian?
-    public static OrdersFragment newInstance(String tipocuadrilla,String estado, List<String> zona) {
-        OrdersFragment fragment = new OrdersFragment();
+    public static OrdersListFragment newInstance(String tipocuadrilla, String estado, List<String> zona) {
+        OrdersListFragment fragment = new OrdersListFragment();
         Bundle args = new Bundle();
         // TODO: Pasar los demás parámetros de la Action Bar
         args.putString("tipocuadrilla", tipocuadrilla);
@@ -201,6 +201,7 @@ public class OrdersFragment extends Fragment implements ar.com.corpico.appcorpic
 
                 Order currentOrder = (Order)mOrderList.getAdapter().getItem(i);
 
+                intent.putExtra("TIPO_CUADRILLA",mTipoCuadrilla);
                 intent.putExtra("NUMERO",currentOrder.getNumero().toString());
                 intent.putExtra("FECHA",currentOrder.getmFechaSolicitud().toString());
                 intent.putExtra("ETAPA",currentOrder.getEtapas().toString());

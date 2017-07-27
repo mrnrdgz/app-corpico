@@ -40,6 +40,8 @@ public class Order {
     private String mState;
     private Etapa mCurrentEtapa;
 
+    private DetalleMedidor mDetalleMedidor;
+
     public Order(String FechaSolicitud, String Numero, String Zona, String Tipo_Trabajo, String Motivo, ArrayList<Etapa> Etapas, String Asociado,
                  String Suministro, String Titular, String Domicilio, String Localidad, String Anexo, String Tipo_Usuario,
                  String Tarifa,String Potencia_Declarada, String Medidor, String Marca, String Modelo, String FactorM, String Capacidad,
@@ -305,5 +307,9 @@ public class Order {
                 "Longitud = '" + mLongitud + '\'' +
                 "Observacion = '" + mObservacion + '\'' +
                 '}';
+    }
+
+    public String getNumeroMedidor(){
+        return mDetalleMedidor.getmNumero();
     }
 }
