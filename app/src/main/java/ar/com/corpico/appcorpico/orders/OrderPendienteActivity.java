@@ -410,6 +410,19 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements 
     }
 
     @Override
+    public void onAsignarCuadrillaContextual(String cuadrilla, ArrayList<String> numeros) {
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        Fragment prev = getSupportFragmentManager().findFragmentByTag("AsignarconexionDialog");
+        if (prev != null) {
+            ft.remove(prev);
+        }
+        ft.addToBackStack(null);
+
+        DialogFragment newFragment = AsignarAConexionesDialog.newInstance(mTipoCuadrilla,numeros);
+        newFragment.show(ft, "AsignarconexionDialog");
+    }
+
+    @Override
     //TODO: LE TENDER QUE PASAR DOS PARAMETROS? UNA CON EL TIPO Y EL OTRO CON EL SELECCONADO?
     public void SetTipoTrabajo(ArrayList<String> tipoTrabajoSelected) {
          //Toast.makeText(this, "TIPOS " + tipoTrabajo , Toast.LENGTH_SHORT).show();
@@ -428,12 +441,7 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements 
             if (resultCode == RESULT_OK) {
                 mTipoTrabajoSelected = data.getStringArrayListExtra("TIPO_TRABAJO_SELECTED");
                 mZonaSelected = data.getStringArrayListExtra("ZONA_SELECTED");
-                /*if(mTipoTrabajoSelected.size()==0){
-                    mTipoTrabajoSelected=mTipoTrabajo;
-                }
-                if(mZonaSelected.size()==0){
-                    mZonaSelected=mZona;
-                }*/
+
                 if (mViewMap){
                     OrdersListFragment mOrderFragmen = (OrdersListFragment) getSupportFragmentManager().findFragmentById(R.id.orders_view_container);
                     mOrderFragmen.setOrderFilter(mEstado, mTipoTrabajoSelected, mZonaSelected, null, null, null,true);
@@ -442,19 +450,6 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements 
                     mOrderMapFragment.setOrderFilter(mEstado, mTipoTrabajoSelected, mZonaSelected, null, null, null,true);
                 }
             }
-           /* if (resultCode == RESULT_CANCELED) {
-                mTipoTrabajoSelected = data.getStringArrayListExtra("TIPO_TRABAJO_SELECTED");
-                mZonaSelected = data.getStringArrayListExtra("ZONA_SELECTED");
-                Intent intent = new Intent(this, OrdersFilterActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                intent.putExtra("ESTADO",mEstado);
-                intent.putStringArrayListExtra("TIPO_TRABAJO", (ArrayList<String>) mTipoTrabajo);
-                intent.putStringArrayListExtra("TIPO_TRABAJO_SELECTED", (ArrayList<String>) mTipoTrabajoSelected);
-                intent.putStringArrayListExtra("ZONA", (ArrayList<String>) mZona);
-                intent.putStringArrayListExtra("ZONA_SELECTED", (ArrayList<String>) mZonaSelected);
-                //startActivity(intent);
-                startActivityForResult(intent,OPINION_REQUEST_CODE);
-            }*/
         }
     }
 

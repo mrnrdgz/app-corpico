@@ -11,7 +11,7 @@ import java.util.List;
 public interface Presenter {
     void loadOrderList(String estado, List<String> tipoTrabajo, List<String> zona, DateTime desde, DateTime hasta, String search, Boolean estadoActual);
     // TODO: el parametro "numero" luego lo reemplazare por List<Order>?
-    void asignarOrder(String cuadrilla, List<String> listorder);
+    void asignarOrder(String cuadrilla, List<String> listorder,String observacion);
     void loadTipoCuadrilla(String servicio);
     void loadCuadrillasXTipo(String tipotrabajo);
     void setLoadTipoTrabajos(String cuadrilla);

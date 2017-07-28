@@ -24,21 +24,23 @@ public class AddOrdersState extends UseCase<AddOrdersState.RequestValues, AddOrd
     @Override
     public void execute(RequestValues requestValues, final UseCaseCallback callb) {
 
-        mOrdersRepository.addOrderState(requestValues.getStateName(), (ArrayList<String>) requestValues.getOrderNumber());
+        mOrdersRepository.addOrderState(requestValues.getStateName(), (ArrayList<String>) requestValues.getOrderNumber(),requestValues.getObservation());
         callb.onSuccess(new ResponseValue());
     }
 
     public static final class RequestValues implements UseCase.RequestValues {
         private List<String> orderNumber;
         private String stateName;
+        private String observation;
 
 
         public RequestValues() {
         }
 
-        public RequestValues(String stateName,List<String> orderNumber) {
+        public RequestValues(String stateName,List<String> orderNumber, String observation) {
             this.orderNumber = orderNumber;
             this.stateName = stateName;
+            this.observation=observation;
             // Validar lógica
         }
 
@@ -48,6 +50,9 @@ public class AddOrdersState extends UseCase<AddOrdersState.RequestValues, AddOrd
 
         public String getStateName() {
             return stateName;
+        }
+        public String getObservation(){
+            return observation;
         }
     }
 

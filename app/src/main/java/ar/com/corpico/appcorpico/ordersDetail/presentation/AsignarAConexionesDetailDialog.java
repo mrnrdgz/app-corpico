@@ -4,10 +4,12 @@ import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.widget.Button;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -21,11 +23,12 @@ import ar.com.corpico.appcorpico.orders.domain.usecase.AddOrdersState;
 public class AsignarAConexionesDetailDialog extends DialogFragment {
     private ArrayList<String> mNumeroOT = new ArrayList<>();
     private String mTipoCuadrilla;
+    private String mObservation;
     private AddOrdersState mAddOrdersState;
     private OrdersDetailPresenter presenter;
 
     public interface OnAsignarAConexionesDetailListener {
-        void onPossitiveButtonAsignarClick(String cuadrilla, ArrayList<String> numero);// Eventos Botón Positivo
+        void onPossitiveButtonAsignarClick(String cuadrilla, ArrayList<String> numero, String observacion);// Eventos Botón Positivo
         //LO DEJO X SI MAS ADELANTE LO TENGO QUE DEFINIR
         void onNegativeButtonAsignarClick();// Eventos Botón Negativo
     }
@@ -73,6 +76,8 @@ public class AsignarAConexionesDetailDialog extends DialogFragment {
         builder.setTitle("Asignar a cuadrilla " + mTipoCuadrilla);
 
 
+        final TextView mObservation = (TextView) v.findViewById(R.id.observacion_text);
+        TextInputLayout mFloatLabelObservacion = (TextInputLayout) v.findViewById(R.id.float_label_observacion);
         Button asignar = (Button) v.findViewById(R.id.aplicar_boton);
         Button cancelar = (Button) v.findViewById(R.id.cancelar_boton);
 
@@ -80,7 +85,7 @@ public class AsignarAConexionesDetailDialog extends DialogFragment {
                 new android.view.View.OnClickListener() {
                     @Override
                     public void onClick(android.view.View v) {
-                        listener.onPossitiveButtonAsignarClick(mTipoCuadrilla,mNumeroOT);
+                        listener.onPossitiveButtonAsignarClick(mTipoCuadrilla,mNumeroOT,mObservation.getText().toString());
                         dismiss();
                     }
                 }

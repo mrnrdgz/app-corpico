@@ -7,5 +7,5 @@ import java.util.List;
  */
 
 public interface Presenter {
-    void asignarOrder(String cuadrilla, List<String> listorder);
+    void asignarOrder(String cuadrilla, List<String> listorder,String observacion);
 }

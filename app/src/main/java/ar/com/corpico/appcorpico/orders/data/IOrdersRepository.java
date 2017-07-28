@@ -20,7 +20,7 @@ public interface IOrdersRepository {
         void onSuccess(List<Order> orders);
         void onError(String error);
     }
-    void addOrderState(String estado, ArrayList<String> numero);
+    void addOrderState(String estado, ArrayList<String> numero,String observacion);
     void findCuadrilla(CuadrillaxTipoRepositoryCallBack callback, Criteria filter);
     interface CuadrillaxTipoRepositoryCallBack {
         void onSuccess(List<Tipo_Trabajo> tipocuadrilla);

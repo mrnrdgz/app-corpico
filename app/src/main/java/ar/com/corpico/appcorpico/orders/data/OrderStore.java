@@ -21,7 +21,7 @@ public interface OrderStore {
         void onSuccess(List<Order> orders);
         void onError(String error);
     }
-    void addOrderEtape(String estado, ArrayList<String> numero);
+    void addOrderEtape(String estado, ArrayList<String> numero,String observacion);
     void getCuadrillaxTipo(GetCuadrillaxTipoStoreCallBack callback, Criteria filter);
     interface GetCuadrillaxTipoStoreCallBack{
         void onSuccess(List<Tipo_Trabajo> tipoCuadrilla);

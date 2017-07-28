@@ -158,7 +158,7 @@ public class FuenteOrdenesServidor implements OrderStore {
     }
 
     @Override
-    public void addOrderEtape(String estado, ArrayList<String> numero) {
+    public void addOrderEtape(String estado, ArrayList<String> numero, String observacion) {
         final Calendar c = Calendar.getInstance();
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ");
         String date = df.format(Calendar.getInstance().getTime());
@@ -167,7 +167,7 @@ public class FuenteOrdenesServidor implements OrderStore {
             for (Order order : mFakeRestOrder) {
                 if (order.getNumero().equals(number)) {
                     //TODO: PONER EL DATO DEL USUARIO QUE HIZO ESTA ETAPA.
-                    Etapa etapa = new Etapa(date, estado, "","");
+                    Etapa etapa = new Etapa(date, estado, observacion,"");
                     order.addEtapas(etapa);
                 }
             }

@@ -55,8 +55,8 @@ public class OrderDetailActivity extends AppCompatActivity implements AsignarACo
     }
 
     @Override
-    public void setAsignarOrder(String cuadrilla, List<String> listorder) {
-        mOrdersDetailPresenter.asignarOrder(cuadrilla,listorder);
+    public void setAsignarOrder(String cuadrilla, List<String> listorder, String observacion) {
+        mOrdersDetailPresenter.asignarOrder(cuadrilla,listorder,observacion);
 
     }
 
@@ -258,9 +258,9 @@ public class OrderDetailActivity extends AppCompatActivity implements AsignarACo
     }
 
     @Override
-    public void onPossitiveButtonAsignarClick(String cuadrilla, ArrayList<String> numero) {
+    public void onPossitiveButtonAsignarClick(String cuadrilla, ArrayList<String> numero,String observacion) {
         //this.setAsignarOrder(cuadrilla,numero);
-        mOrdersDetailPresenter.asignarOrder(cuadrilla,numero);
+        mOrdersDetailPresenter.asignarOrder(cuadrilla,numero,observacion);
     }
 
     @Override

@@ -16,7 +16,7 @@ public class OrdersSqliteStore implements OrderStore {
     }
 
     @Override
-    public void addOrderEtape( String estado,ArrayList<String> numero) {
+    public void addOrderEtape( String estado,ArrayList<String> numero, String observacion) {
 
     }
 

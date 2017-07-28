@@ -13,7 +13,9 @@
     <!-- Strings related to login -->
     <string name="prompt_email">Código de usuario</string>
     <string name="prompt_password">Contraseña</string>
+    <string name="prompt_observacion">Observación</string>
     <string name="action_sign_in">Iniciar sesión</string>
+    <string name="action_observacion">Escribir observación</string>
     <string name="error_invalid_email">This email address is invalid</string>
     <string name="error_invalid_password">This password is too short</string>
     <string name="error_incorrect_password">This password is incorrect</string>

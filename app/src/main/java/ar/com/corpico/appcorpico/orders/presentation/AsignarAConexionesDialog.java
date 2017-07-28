@@ -4,10 +4,13 @@ import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
 import android.view.*;
+import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -37,7 +40,7 @@ public class AsignarAConexionesDialog extends DialogFragment {
         AsignarAConexionesDialog f = new AsignarAConexionesDialog();
 
         Bundle args = new Bundle();
-        args.putString("NUMERO", numero.get(0));
+        args.putStringArrayList("NUMERO", numero);
         args.putString("TIPO_CUADRILLA", tipoCuadrilla);
 
         f.setArguments(args);
@@ -61,7 +64,7 @@ public class AsignarAConexionesDialog extends DialogFragment {
         final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = getActivity().getLayoutInflater();
 
-        mNumeroOT.add(getArguments().getString("NUMERO"));
+        mNumeroOT = (getArguments().getStringArrayList("NUMERO"));
         mTipoCuadrilla = (getArguments().getString("TIPO_CUADRILLA"));
         //TODO: AGREGAR OBSERVACION?
 
@@ -69,7 +72,10 @@ public class AsignarAConexionesDialog extends DialogFragment {
         builder.setView(v);
         builder.setTitle("Asignar a cuadrilla " + mTipoCuadrilla);
 
-
+        final TextView mObservation = (TextView) v.findViewById(R.id.observacion_text);
+        TextInputLayout mFloatLabelObservacion = (TextInputLayout) v.findViewById(R.id.float_label_observacion);
+        mObservation.setVisibility(View.INVISIBLE);
+        mFloatLabelObservacion.setVisibility(View.INVISIBLE);
         Button asignar = (Button) v.findViewById(R.id.aplicar_boton);
         Button cancelar = (Button) v.findViewById(R.id.cancelar_boton);
 

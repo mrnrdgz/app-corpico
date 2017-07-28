@@ -149,7 +149,7 @@ public class OrdersAdapter extends ArrayAdapter<Order> {
 
 
         if (mSelection.contains(position)) {
-            convertView.setBackgroundColor(ContextCompat.getColor(getContext(),  R.color.colorAccent));
+            convertView.setBackgroundColor(ContextCompat.getColor(getContext(),  R.color.colorMark));
         }
 
         return convertView;

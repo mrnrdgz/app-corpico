@@ -1,9 +1,12 @@
 package ar.com.corpico.appcorpico.orders.presentation;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.Toolbar;
 import android.view.ActionMode;
 import android.view.LayoutInflater;
@@ -22,10 +25,12 @@ import org.joda.time.DateTime;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.StringTokenizer;
 
 import ar.com.corpico.appcorpico.R;
 import ar.com.corpico.appcorpico.orders.domain.entity.Tipo_Cuadrilla;
 import ar.com.corpico.appcorpico.orders.domain.entity.Order;
+import ar.com.corpico.appcorpico.ordersDetail.presentation.AsignarAConexionesDetailDialog;
 import ar.com.corpico.appcorpico.ordersDetail.presentation.OrderDetailActivity;
 
 import static android.view.View.GONE;
@@ -60,6 +65,7 @@ public class OrdersListFragment extends Fragment implements ar.com.corpico.appco
    public interface OnViewActivityListener {
         void onShowTipoCuadrilla(List<Tipo_Cuadrilla> listorder);
         //void onShowTipoCuadrilla(List<Tipo_Cuadrilla> listtipocuadrilla);
+       void onAsignarCuadrillaContextual(String cuadrilla, ArrayList<String> numeros);
    }
 
     private OnViewActivityListener listenerViewActivity;
@@ -170,9 +176,10 @@ public class OrdersListFragment extends Fragment implements ar.com.corpico.appco
                         }
                         return true;
                     case R.id.action_asignaracuadrilla:
-                        mOrdersPresenter.asignarOrder(mTipoCuadrilla,list_items);
+                        listenerViewActivity.onAsignarCuadrillaContextual(mTipoCuadrilla,list_items);
+                        /*mOrdersPresenter.asignarOrder(mTipoCuadrilla,list_items,"");
                         count=0;
-                        mOrdersAdapter.clearSelection();
+                        mOrdersAdapter.clearSelection();*/
                         mode.finish();
                         return true;
                     default:
@@ -244,7 +251,7 @@ public class OrdersListFragment extends Fragment implements ar.com.corpico.appco
     }
     @Override
     public void setAsignarOrder(String cuadrilla, List<String> listorder) {
-        mOrdersPresenter.asignarOrder(cuadrilla,listorder);
+        mOrdersPresenter.asignarOrder(cuadrilla,listorder,"");
     }
 
     @Override
