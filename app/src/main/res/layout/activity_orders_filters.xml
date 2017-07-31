@@ -28,15 +28,64 @@
 
         <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:id="@+id/detail"
+            xmlns:tools="http://schemas.android.com/tools"
             style="@style/MyCheckBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tv_desde"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:padding="@dimen/edit_text_padding"
+                android:layout_marginLeft="@dimen/edit_text_padding"
+                android:text="Desde"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+            <TextView
+                android:id="@+id/desde_text"
+                style="@android:style/Widget.DeviceDefault.Light.Spinner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="@dimen/edit_text_padding"
+                android:layout_below="@+id/tv_desde"
+                android:padding="@dimen/edit_text_padding"
+                android:text="Small Text"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                tools:clickable="true" />
+            <TextView
+                android:id="@+id/tv_hasta"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentStart="@+id/hasta_text"
+                android:layout_marginEnd="@dimen/edit_text_padding"
+                android:layout_alignTop="@+id/tv_desde"
+                android:padding="@dimen/edit_text_padding"
+                android:text="Hasta"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+            <TextView
+                android:id="@+id/hasta_text"
+                style="@android:style/Widget.DeviceDefault.Light.Spinner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="@dimen/edit_text_padding"
+                android:layout_alignParentRight="true"
+                android:padding="@dimen/edit_text_padding"
+                android:layout_alignTop="@+id/desde_text"
+                android:text="Small Text"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                tools:clickable="true" />
 
             <TextView
                 android:id="@+id/titulo_tipo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/button_padding"
+                android:layout_below="@+id/desde_text"
                 android:text="Tipo de Trabajos"
                 android:textColor="@color/colorPrimary"
                 android:textAppearance="?android:attr/textAppearanceMedium" />

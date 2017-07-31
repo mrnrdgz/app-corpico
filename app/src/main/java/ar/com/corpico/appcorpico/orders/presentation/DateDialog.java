@@ -32,6 +32,4 @@ public class DateDialog extends DialogFragment {
                     month,
                     day);
         }
-
-
 }
