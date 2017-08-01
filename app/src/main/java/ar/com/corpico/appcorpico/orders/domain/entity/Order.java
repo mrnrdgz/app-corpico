@@ -145,11 +145,11 @@ public class Order {
         this.mTarifa = Tarifa;
     }
 
-    public String getmFechaSolicitud() {
+    public String getFechaSolicitud() {
         return mFechaSolicitud;
     }
 
-    public void setmFechaSolicitud(String mFechaSolicitud) {
+    public void setFechaSolicitud(String mFechaSolicitud) {
         this.mFechaSolicitud = mFechaSolicitud;
     }
 

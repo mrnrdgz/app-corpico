@@ -25,6 +25,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 
+import org.joda.time.DateTime;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -38,7 +40,8 @@ import ar.com.corpico.appcorpico.orders.domain.entity.Zona;
 
 import static java.security.AccessController.getContext;
 
-public class OrdersFilterActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener{
+public class OrdersFilterActivity extends AppCompatActivity {
+        //implements DatePickerDialog.OnDateSetListener{
     private List<String> mTipoTrabajo = new ArrayList<>();
     private List<String> mTipoTrabajoSelected = new ArrayList<>();
     private List<Integer> mTipoTrabajoId = new ArrayList<>();
@@ -46,12 +49,17 @@ public class OrdersFilterActivity extends AppCompatActivity implements DatePicke
     private List<String> mZonaSelected = new ArrayList<>();
     private List<Integer> mZonaId = new ArrayList<>();
     private String mEstado;
+    private DateTime mFechaDesdeSelected;
+    private DateTime mFechaHastaSelected;
     private AppCompatCheckBox[] TipoTrabajoChk;
     private AppCompatCheckBox[] ZonaChk;
     private LinearLayout seccionZona;
     private LinearLayout seccionTiposTrabajo;
-    TextView mDesdeFecha;
-    TextView mHastaFecha;
+    private TextView mDesdeFecha;
+    private TextView mHastaFecha;
+    private DatePickerDialog.OnDateSetListener dpd;
+    private DatePickerDialog.OnDateSetListener dph;
+    private Calendar cal = Calendar.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +72,8 @@ public class OrdersFilterActivity extends AppCompatActivity implements DatePicke
         mTipoTrabajoSelected= bundle.getStringArrayList("TIPO_TRABAJO_SELECTED");
         mZona= bundle.getStringArrayList("ZONA");
         mZonaSelected= bundle.getStringArrayList("ZONA_SELECTED");
+        mFechaDesdeSelected= (DateTime) bundle.getSerializable("FECHA_DESDE_SELECTED");
+        mFechaHastaSelected= (DateTime) bundle.getSerializable("FECHA_HASTA_SELECTED");
 
         mDesdeFecha = (TextView) this.findViewById(R.id.desde_text);
         Calendar c = Calendar.getInstance();
@@ -73,11 +83,21 @@ public class OrdersFilterActivity extends AppCompatActivity implements DatePicke
                 new android.view.View.OnClickListener() {
                     @Override
                     public void onClick(android.view.View v) {
-                        DateDialog fechaDialogDesde = new DateDialog();
-                        fechaDialogDesde.show(getSupportFragmentManager(),"datePickerDesde");
+                        new DatePickerDialog(OrdersFilterActivity.this, dpd,
+                                cal.get(Calendar.YEAR), cal.get(Calendar.MONTH),
+                                cal.get(Calendar.DAY_OF_MONTH)).show();
+
                     }
                 }
         );
+        dpd = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int monthofyear,
+                                  int dayofmonth) {
+                setDateDesdeView(year,monthofyear,dayofmonth);
+
+            }
+        };
         mHastaFecha = (TextView) this.findViewById(R.id.hasta_text);
         Calendar d = Calendar.getInstance();
         SimpleDateFormat format1 = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
@@ -86,12 +106,28 @@ public class OrdersFilterActivity extends AppCompatActivity implements DatePicke
                 new android.view.View.OnClickListener() {
                     @Override
                     public void onClick(android.view.View v) {
-                        DateDialog fechaDialogHasta = new DateDialog();
-                        fechaDialogHasta.show(getSupportFragmentManager(),"datePickerHasta");
+                        new DatePickerDialog(OrdersFilterActivity.this, dph,
+                                cal.get(Calendar.YEAR), cal.get(Calendar.MONTH),
+                                cal.get(Calendar.DAY_OF_MONTH)).show();
+
                     }
                 }
         );
 
+        dph = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int monthofyear,
+                                  int dayofmonth) {
+                setDateHastaView(year,monthofyear,dayofmonth);
+
+            }
+        };
+        if(mFechaDesdeSelected==null){
+            mFechaDesdeSelected = new DateTime(c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH), 0, 0, 0, 0);
+        }
+        if(mFechaHastaSelected==null){
+            mFechaHastaSelected = new DateTime(c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH), 0, 0, 0, 0);
+        }
         //LAYOUT para los CheckBox Tipos de Trabajos
         seccionTiposTrabajo = (LinearLayout) findViewById(R.id.Seccion_TipoTrabajo);
 
@@ -220,6 +256,8 @@ private void setToolbar() {
                 Intent databack = new Intent();
                 databack.putStringArrayListExtra("TIPO_TRABAJO_SELECTED", (ArrayList<String>) mTipoTrabajoSelected);
                 databack.putStringArrayListExtra("ZONA_SELECTED", (ArrayList<String>) mZonaSelected);
+                databack.putExtra("FECHA_DESDE_SELECTED", mFechaDesdeSelected);
+                databack.putExtra("FECHA_HASTA_SELECTED", mFechaHastaSelected);
                 setResult(RESULT_OK,databack);
                 finish();
                 break;
@@ -246,25 +284,29 @@ private void setToolbar() {
         return (ArrayList<String>) mTipoTrabajoSelected;
     }
 
-    @Override
+   /* @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
         if(view.getTag().equals("datePickerDesde")){
             setDateDesdeView(year, month,dayOfMonth );
+
         }
         if(view.getTag().equals("datePickerHasta")){
             setDateHastaView(year, month,dayOfMonth );
         }
-    }
+    }*/
     public void setDateDesdeView(int year, int monthOfYear, int dayOfMonth) {
         Calendar c = Calendar.getInstance();
         c.set(year, monthOfYear, dayOfMonth);
         SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
         mDesdeFecha.setText(format.format(c.getTime()));
+        mFechaDesdeSelected= new  DateTime(year, monthOfYear, dayOfMonth, 0, 0, 0, 0);
     }
+
     public void setDateHastaView(int year, int monthOfYear, int dayOfMonth) {
         Calendar c = Calendar.getInstance();
         c.set(year, monthOfYear, dayOfMonth);
         SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
         mHastaFecha.setText(format.format(c.getTime()));
+        mFechaHastaSelected=new  DateTime(year, monthOfYear, dayOfMonth, 0, 0, 0, 0);
     }
 }

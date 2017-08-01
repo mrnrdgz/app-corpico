@@ -119,9 +119,9 @@ public class OrdersAdapter extends ArrayAdapter<Order> {
         domicilio.setText(order.getDomicilio());
         tipo.setText(order.getTipo_Trabajo());
 
-        String dia = order.getmFechaSolicitud().substring(8,10);
-        String mes = order.getmFechaSolicitud().substring(5,7);
-        String ano = order.getmFechaSolicitud().substring(0,4);
+        String dia = order.getFechaSolicitud().substring(8,10);
+        String mes = order.getFechaSolicitud().substring(5,7);
+        String ano = order.getFechaSolicitud().substring(0,4);
         fecha.setText(dia + "/" + mes + "/" + ano);
 
         String estado = order.getCurrentState(order.getEtapas());

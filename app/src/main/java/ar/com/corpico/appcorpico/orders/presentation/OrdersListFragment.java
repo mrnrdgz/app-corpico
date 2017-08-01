@@ -211,7 +211,7 @@ public class OrdersListFragment extends Fragment implements ar.com.corpico.appco
 
                 intent.putExtra("TIPO_CUADRILLA",mTipoCuadrilla);
                 intent.putExtra("NUMERO",currentOrder.getNumero().toString());
-                intent.putExtra("FECHA",currentOrder.getmFechaSolicitud().toString());
+                intent.putExtra("FECHA",currentOrder.getFechaSolicitud().toString());
                 intent.putExtra("ETAPA",currentOrder.getEtapas().toString());
                 intent.putExtra("TIPO_TRABAJO",currentOrder.getTipo_Trabajo().toString());
                 intent.putExtra("MOTIVO",currentOrder.getMotivo().toString());

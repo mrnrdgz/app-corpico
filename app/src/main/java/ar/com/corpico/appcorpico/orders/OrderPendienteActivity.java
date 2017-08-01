@@ -62,6 +62,8 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements 
     private List<String> mZona = new ArrayList<>();
     private List<String> mTipoTrabajoSelected = new ArrayList<>();
     private List<String> mZonaSelected = new ArrayList<>();
+    private DateTime mFechaDesdeSelected;
+    private DateTime mFechaHastaSelected;
     private TipoCuadrillaAdapter mTipoCuadrillaAdapter;
     private OrdersListFragment mOrderView;
     private OrdersMapsFragment mOrderMapView;
@@ -441,13 +443,15 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements 
             if (resultCode == RESULT_OK) {
                 mTipoTrabajoSelected = data.getStringArrayListExtra("TIPO_TRABAJO_SELECTED");
                 mZonaSelected = data.getStringArrayListExtra("ZONA_SELECTED");
+                mFechaDesdeSelected= (DateTime) data.getSerializableExtra("FECHA_DESDE_SELECTED");
+                mFechaHastaSelected= (DateTime) data.getSerializableExtra("FECHA_HASTA_SELECTED");
 
                 if (mViewMap){
                     OrdersListFragment mOrderFragmen = (OrdersListFragment) getSupportFragmentManager().findFragmentById(R.id.orders_view_container);
-                    mOrderFragmen.setOrderFilter(mEstado, mTipoTrabajoSelected, mZonaSelected, null, null, null,true);
+                    mOrderFragmen.setOrderFilter(mEstado, mTipoTrabajoSelected, mZonaSelected, mFechaDesdeSelected, mFechaHastaSelected, null,true);
                 }else{
                     OrdersMapsFragment mOrderMapFragment = (OrdersMapsFragment)getSupportFragmentManager().findFragmentById(R.id.orders_view_container);
-                    mOrderMapFragment.setOrderFilter(mEstado, mTipoTrabajoSelected, mZonaSelected, null, null, null,true);
+                    mOrderMapFragment.setOrderFilter(mEstado, mTipoTrabajoSelected, mZonaSelected, mFechaDesdeSelected, mFechaHastaSelected, null,true);
                 }
             }
         }

@@ -68,6 +68,15 @@ public class FechaSpec extends CompositeSpec<Order>  {
          }
         Interval interval = new Interval(desde,hasta);
         DateTime fechaEtapa = new DateTime(etapaActual.getFecha());
-        return interval.contains(fechaEtapa) && estadoActual && etapaActual.getEstado().equals(estado) ;
+        /*if(interval.contains(fechaEtapa)){
+         if(fechaEtapa.equals(desde)){
+            return true;
+        }else{
+            return false;
+        }*/
+
+        //return interval.contains(fechaEtapa) && estadoActual && etapaActual.getEstado().equals(estado) ;
+        Boolean b =interval.contains(fechaEtapa);
+         return b;
     }
 }
