@@ -135,7 +135,6 @@ public class OrdersPresenter implements Presenter {
                                     fechaSpec.and(tipoSpec))));
         }
 
-
         //Specification<Order> resultadoSpec = spec;
 
         /**

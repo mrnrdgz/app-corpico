@@ -42,19 +42,23 @@ public class OrdersMapsFragment extends SupportMapFragment implements OnMapReady
     private List<String> mZonaSelected = new ArrayList();
     private String mEstado;
     private String mSector;
+    private DateTime mDesde =new DateTime();
+    private DateTime mHasta;
     private Presenter mOrdersMapPresenter;
     private static final int LOCATION_REQUEST_CODE = 1;
 
     public OrdersMapsFragment() {
     }
 
-    public static OrdersMapsFragment newInstance(String tipoCuadrilla, String estado, List<String> zona) {
+    public static OrdersMapsFragment newInstance(String tipoCuadrilla, String estado, List<String> zona,DateTime desde, DateTime hasta) {
         OrdersMapsFragment fragment = new OrdersMapsFragment();
         Bundle args = new Bundle();
         // TODO: Pasar los demás parámetros de la Action Bar
         args.putString("tipoCuadrilla", tipoCuadrilla);
         args.putString("estado", estado);
         args.putStringArrayList("zona", (ArrayList<String>) zona);
+        args.putSerializable("desde", desde);
+        args.putSerializable("hasta", hasta);
         fragment.setArguments(args);
         return fragment;
     }
@@ -68,6 +72,8 @@ public class OrdersMapsFragment extends SupportMapFragment implements OnMapReady
             mTipoCuadrilla = getArguments().getString("tipoCuadrilla");
             mEstado = getArguments().getString("estado");
             mZona = getArguments().getStringArrayList("zona");
+            mDesde = (DateTime) getArguments().get("desde");
+            mHasta = (DateTime) getArguments().get("hasta");
             //Spinner activitySpinner = (Spinner) getActivity().findViewById(R.id.spinner_toolBar);
         }
         setLoadOrderList(mTipoCuadrilla);
@@ -244,7 +250,7 @@ public class OrdersMapsFragment extends SupportMapFragment implements OnMapReady
         mTipoCuadrilla=tipocuadrilla;
         if (mTipoCuadrilla != null){
             mOrdersMapPresenter.setLoadTipoTrabajos(mTipoCuadrilla);
-            mOrdersMapPresenter.loadOrderList(mEstado,mTipoTrabajo,mZona,null,null,null,true);
+            mOrdersMapPresenter.loadOrderList(mEstado,mTipoTrabajo,mZona,mDesde,mHasta,null,true);
         }
     }
 

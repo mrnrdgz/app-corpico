@@ -75,8 +75,8 @@ public class FechaSpec extends CompositeSpec<Order>  {
             return false;
         }*/
 
-        //return interval.contains(fechaEtapa) && estadoActual && etapaActual.getEstado().equals(estado) ;
-        Boolean b =interval.contains(fechaEtapa);
-         return b;
+        return interval.contains(fechaEtapa) && estadoActual && etapaActual.getEstado().equals(estado) ;
+        //Boolean b =interval.contains(fechaEtapa);
+        // return b;
     }
 }

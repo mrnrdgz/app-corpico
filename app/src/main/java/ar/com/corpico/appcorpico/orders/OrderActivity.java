@@ -44,7 +44,7 @@ public class OrderActivity extends NavitationDrawerActivity implements OnFilterA
                 .findFragmentById(R.id.orders_view_container);
 
         if (orderView == null) {
-            orderView = OrdersListFragment.newInstance("Todas","Todos",null);
+            orderView = OrdersListFragment.newInstance("Todas","Todos",null,null,null);
 
             getSupportFragmentManager()
                     .beginTransaction()

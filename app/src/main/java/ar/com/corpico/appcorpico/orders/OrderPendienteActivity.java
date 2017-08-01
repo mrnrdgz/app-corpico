@@ -94,7 +94,7 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements 
                 .findFragmentById(R.id.orders_view_container);
 
         if (mOrderView == null) {
-            mOrderView = OrdersListFragment.newInstance(mTipoCuadrilla,mEstado,mZona);
+            mOrderView = OrdersListFragment.newInstance(mTipoCuadrilla,mEstado,mZona,mFechaDesdeSelected,mFechaHastaSelected);
 
             getSupportFragmentManager().beginTransaction()
             .add(R.id.orders_view_container, mOrderView,"OrderView")
@@ -240,6 +240,8 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements 
                 intent.putStringArrayListExtra("TIPO_TRABAJO_SELECTED", (ArrayList<String>) mTipoTrabajoSelected);
                 intent.putStringArrayListExtra("ZONA", (ArrayList<String>) mZona);
                 intent.putStringArrayListExtra("ZONA_SELECTED", (ArrayList<String>) mZonaSelected);
+                intent.putExtra("FECHA_DESDE_SELECTED",  mFechaDesdeSelected);
+                intent.putExtra("FECHA_HASTA_SELECTED",  mFechaHastaSelected);
                 //startActivity(intent);
                 startActivityForResult(intent,OPINION_REQUEST_CODE);
                 break;
@@ -252,7 +254,7 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements 
                 Fragment fragment = fm.findFragmentById(R.id.orders_view_container);
                 if(!(fragment instanceof OrdersMapsFragment)){
                     // TODO: SI es de estipo, entonces...
-                    mOrderMapView = OrdersMapsFragment.newInstance(mTipoCuadrilla,mEstado,mZona);
+                    mOrderMapView = OrdersMapsFragment.newInstance(mTipoCuadrilla,mEstado,mZona,mFechaDesdeSelected,mFechaHastaSelected);
                     ft.replace(R.id.orders_view_container, mOrderMapView,"OrderViewMap")
                             //.addToBackStack("OrderViewMap")
                             .commit();
@@ -267,7 +269,7 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements 
                 ft = getSupportFragmentManager().beginTransaction();
                 Fragment fragment1 = fm.findFragmentById(R.id.orders_view_container);
                 if(!(fragment1 instanceof OrdersListFragment)){
-                    mOrderView = OrdersListFragment.newInstance(mTipoCuadrilla,mEstado,mZona);
+                    mOrderView = OrdersListFragment.newInstance(mTipoCuadrilla,mEstado,mZona,mFechaDesdeSelected,mFechaHastaSelected);
                     ft.replace(R.id.orders_view_container, mOrderView,"OrderView")
                             //.addToBackStack("OrderView")
                             .commit();
@@ -348,10 +350,12 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements 
             //MUCHOS REGISTROS...COMO PODRIAMOS CONTROLAR ESO?
             if (mViewMap){
                 OrdersListFragment mOrderFragmen = (OrdersListFragment) getSupportFragmentManager().findFragmentById(R.id.orders_view_container);
-                mOrderFragmen.setOrderFilter(mEstado,mTipoTrabajo, mZona, null, null, query,true);
+                //mOrderFragmen.setOrderFilter(mEstado,mTipoTrabajo, mZona, null, null, query,true);
+                mOrderFragmen.setOrderFilter(mEstado,mTipoTrabajo, mZona, mFechaDesdeSelected, mFechaHastaSelected, query,true);
             }else{
                 OrdersMapsFragment mOrderMapFragment = (OrdersMapsFragment)getSupportFragmentManager().findFragmentById(R.id.orders_view_container);
-                mOrderMapFragment.setOrderFilter(mEstado, mTipoTrabajo, mZona, null, null, query,true);
+                //mOrderMapFragment.setOrderFilter(mEstado, mTipoTrabajo, mZona, null, null, query,true);
+                mOrderMapFragment.setOrderFilter(mEstado, mTipoTrabajo, mZona, mFechaDesdeSelected, mFechaHastaSelected, query,true);
             }
         }
     }

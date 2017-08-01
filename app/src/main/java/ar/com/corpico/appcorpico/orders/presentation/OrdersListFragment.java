@@ -33,6 +33,7 @@ import ar.com.corpico.appcorpico.orders.domain.entity.Order;
 import ar.com.corpico.appcorpico.ordersDetail.presentation.AsignarAConexionesDetailDialog;
 import ar.com.corpico.appcorpico.ordersDetail.presentation.OrderDetailActivity;
 
+import static android.R.attr.fragment;
 import static android.view.View.GONE;
 
 /**
@@ -50,6 +51,8 @@ public class OrdersListFragment extends Fragment implements ar.com.corpico.appco
     private List<String> mTipoTrabajoSelected= new ArrayList<>();
     private List<String> mZona= new ArrayList<>();
     private List<String> mZonaSelected= new ArrayList<>();
+    private DateTime mDesde;
+    private DateTime mHasta;
     private String mEstado;
     private Activity mActivity;
     private ArrayList<String> list_items = new ArrayList<>();
@@ -80,13 +83,15 @@ public class OrdersListFragment extends Fragment implements ar.com.corpico.appco
     }
 
     //Aca va sin parametros o que parametros irian?
-    public static OrdersListFragment newInstance(String tipocuadrilla, String estado, List<String> zona) {
+    public static OrdersListFragment newInstance(String tipocuadrilla, String estado, List<String> zona,DateTime desde, DateTime hasta){
         OrdersListFragment fragment = new OrdersListFragment();
         Bundle args = new Bundle();
-        // TODO: Pasar los demás parámetros de la Action Bar
         args.putString("tipocuadrilla", tipocuadrilla);
         args.putString("estado", estado);
         args.putStringArrayList("zona", (ArrayList<String>) zona);
+        args.putSerializable("desde", desde);
+        args.putSerializable("hasta", hasta);
+
         fragment.setArguments(args);
         return fragment;
     }
@@ -99,6 +104,8 @@ public class OrdersListFragment extends Fragment implements ar.com.corpico.appco
            mTipoCuadrilla = getArguments().getString("tipocuadrilla");
            mEstado= getArguments().getString("estado");
            mZona= getArguments().getStringArrayList("zona");
+           mDesde = (DateTime) getArguments().get("desde");
+           mHasta = (DateTime) getArguments().get("hasta");
            Spinner activitySpinner = (Spinner) getActivity().findViewById(R.id.spinner_toolBar);
         }
     }
@@ -246,7 +253,7 @@ public class OrdersListFragment extends Fragment implements ar.com.corpico.appco
         if (mTipoCuadrilla!=null){
             mOrdersPresenter.setLoadTipoTrabajos(mTipoCuadrilla);
             mOrdersPresenter.setLoadZonas();
-            mOrdersPresenter.loadOrderList(mEstado,mTipoTrabajo,mZona,null,null,null,true);
+            mOrdersPresenter.loadOrderList(mEstado,mTipoTrabajo,mZona,mDesde,mHasta,null,true);
         }
     }
     @Override
@@ -308,7 +315,9 @@ public class OrdersListFragment extends Fragment implements ar.com.corpico.appco
         }else{
             mZonaSelected = zona;
         }
-        mOrdersPresenter.loadOrderList(mEstado,mTipoTrabajoSelected,mZona,desde,hasta,search,estadoActual);
+        mDesde=desde;
+        mHasta=hasta;
+        mOrdersPresenter.loadOrderList(mEstado,mTipoTrabajoSelected,mZona,mDesde,mHasta,search,estadoActual);
     }
 
     @Override
