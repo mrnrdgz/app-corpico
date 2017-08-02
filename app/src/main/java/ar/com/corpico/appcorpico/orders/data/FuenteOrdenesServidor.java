@@ -51,9 +51,9 @@ public class FuenteOrdenesServidor implements OrderStore {
         //TODO: PONER LAS ACCIONES REALIZADAS COMO UNA LISTA DE STRING
         mFakeRestEtapa.add(new Etapa("2017-01-23T00:00:00.000-03:00", "Pendiente", "Nada",""));
         mFakeRestEtapa6.add(new Etapa("2017-01-23T00:00:00.000-03:00", "Pendiente", "xxx",""));
-        mFakeRestEtapa7.add(new Etapa("2017-01-23T00:00:00.000-03:00", "Pendiente", "zzzz",""));
+        mFakeRestEtapa7.add(new Etapa("2017-02-23T00:00:00.000-03:00", "Pendiente", "zzzz",""));
         mFakeRestEtapa8.add(new Etapa("2017-01-23T00:00:00.000-03:00", "Pendiente", "www",""));
-        mFakeRestEtapa9.add(new Etapa("2017-01-23T00:00:00.000-03:00", "Pendiente", "sss",""));
+        mFakeRestEtapa9.add(new Etapa("2017-03-23T00:00:00.000-03:00", "Pendiente", "sss",""));
         mFakeRestEtapa10.add(new Etapa("2017-01-23T00:00:00.000-03:00", "Culminada", "yyy",""));
 
         mFakeRestEtapa1.add(new Etapa("2017-01-23T00:00:00.000-03:00", "Pendiente", "Nada",""));

@@ -19,6 +19,7 @@ public interface View {
     void showCuadrillaxTipoList(List<Tipo_Cuadrilla> listcuadrilla);
     List<String> getTipoTrabajo();
     List<String> getZona();
+    void cleanData();
     void showOrderError(String error);
     void setPresenter(Presenter presenter);
     void setTipoTrabajo(List<String> tipoTrabajo);

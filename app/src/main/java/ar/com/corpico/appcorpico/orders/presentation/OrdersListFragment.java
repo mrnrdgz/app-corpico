@@ -253,7 +253,18 @@ public class OrdersListFragment extends Fragment implements ar.com.corpico.appco
         if (mTipoCuadrilla!=null){
             mOrdersPresenter.setLoadTipoTrabajos(mTipoCuadrilla);
             mOrdersPresenter.setLoadZonas();
-            mOrdersPresenter.loadOrderList(mEstado,mTipoTrabajo,mZona,mDesde,mHasta,null,true);
+            if(mTipoTrabajoSelected.size()==0 && mZonaSelected.size()==0){
+                mOrdersPresenter.loadOrderList(mEstado,mTipoTrabajo,mZona,mDesde,mHasta,null,true);
+            }
+            if(mTipoTrabajoSelected.size()!=0 && mZonaSelected.size()==0){
+                mOrdersPresenter.loadOrderList(mEstado,mTipoTrabajoSelected,mZona,mDesde,mHasta,null,true);
+            }
+            if(mTipoTrabajoSelected.size()==0 && mZonaSelected.size()!=0){
+                mOrdersPresenter.loadOrderList(mEstado,mTipoTrabajoSelected,mZonaSelected,mDesde,mHasta,null,true);
+            }
+            if(mTipoTrabajoSelected.size()!=0 && mZonaSelected.size()!=0){
+                mOrdersPresenter.loadOrderList(mEstado,mTipoTrabajoSelected,mZonaSelected,mDesde,mHasta,null,true);
+            }
         }
     }
     @Override
@@ -283,14 +294,14 @@ public class OrdersListFragment extends Fragment implements ar.com.corpico.appco
     @Override
     public void setTipoTrabajo(List<String> tipoTrabajo) {
         mTipoTrabajo=tipoTrabajo;
-        mTipoTrabajoSelected = new ArrayList<>();
+        //mTipoTrabajoSelected = new ArrayList<>();
     }
 
 
     @Override
     public void setZonas(List<String> zona) {
         mZona=zona;
-        mZonaSelected = new ArrayList<>();
+        //mZonaSelected = new ArrayList<>();
     }
     @Override
     public void showOrdesEmpty() {
@@ -339,6 +350,14 @@ public class OrdersListFragment extends Fragment implements ar.com.corpico.appco
     @Override
     public List<String> getZona() {
         return mZona;
+    }
+
+    @Override
+    public void cleanData() {
+        mDesde=null;
+        mHasta=null;
+        mZonaSelected=new ArrayList<>();
+        mTipoTrabajoSelected=new ArrayList<>();
     }
 
 }

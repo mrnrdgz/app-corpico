@@ -76,9 +76,15 @@ public class OrdersFilterActivity extends AppCompatActivity {
         mFechaHastaSelected= (DateTime) bundle.getSerializable("FECHA_HASTA_SELECTED");
 
         mDesdeFecha = (TextView) this.findViewById(R.id.desde_text);
-        Calendar c = Calendar.getInstance();
-        SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
-        mDesdeFecha.setText(format.format(c.getTime()));
+        if(mFechaDesdeSelected!=null){
+            Calendar c = mFechaDesdeSelected.toGregorianCalendar();
+            SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
+            mDesdeFecha.setText(format.format(c.getTime()));
+        }else{
+            Calendar c = Calendar.getInstance();
+            SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
+            mDesdeFecha.setText(format.format(c.getTime()));
+        }
         mDesdeFecha.setOnClickListener(
                 new android.view.View.OnClickListener() {
                     @Override
@@ -99,9 +105,15 @@ public class OrdersFilterActivity extends AppCompatActivity {
             }
         };
         mHastaFecha = (TextView) this.findViewById(R.id.hasta_text);
-        Calendar d = Calendar.getInstance();
-        SimpleDateFormat format1 = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
-        mHastaFecha.setText(format1.format(d.getTime()));
+        if(mFechaHastaSelected!=null){
+            Calendar c = mFechaHastaSelected.toGregorianCalendar();
+            SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
+            mHastaFecha.setText(format.format(c.getTime()));
+        }else{
+            Calendar c = Calendar.getInstance();
+            SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
+            mHastaFecha.setText(format.format(c.getTime()));
+        }
         mHastaFecha.setOnClickListener(
                 new android.view.View.OnClickListener() {
                     @Override
@@ -123,10 +135,10 @@ public class OrdersFilterActivity extends AppCompatActivity {
             }
         };
         if(mFechaDesdeSelected==null){
-            mFechaDesdeSelected = new DateTime(c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH), 0, 0, 0, 0);
+            mFechaDesdeSelected=new DateTime(DateTime.now());
         }
         if(mFechaHastaSelected==null){
-            mFechaHastaSelected = new DateTime(c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH), 0, 0, 0, 0);
+            mFechaHastaSelected=new DateTime(DateTime.now());
         }
         //LAYOUT para los CheckBox Tipos de Trabajos
         seccionTiposTrabajo = (LinearLayout) findViewById(R.id.Seccion_TipoTrabajo);
@@ -270,7 +282,10 @@ private void setToolbar() {
                     ZonaChk[i].setChecked(false);
                 }
                 mZonaSelected =new ArrayList<>();
-
+                Calendar c = mFechaHastaSelected.toGregorianCalendar();
+                SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
+                mDesdeFecha.setText(format.format(c.getTime()));
+                mHastaFecha.setText(format.format(c.getTime()));
                 break;
         }
         return super.onOptionsItemSelected(item);
@@ -299,7 +314,8 @@ private void setToolbar() {
         c.set(year, monthOfYear, dayOfMonth);
         SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
         mDesdeFecha.setText(format.format(c.getTime()));
-        mFechaDesdeSelected= new  DateTime(year, monthOfYear, dayOfMonth, 0, 0, 0, 0);
+        //mFechaDesdeSelected= new  DateTime(year, monthOfYear, dayOfMonth, 0, 0, 0, 0);
+        mFechaDesdeSelected= new DateTime(c);
     }
 
     public void setDateHastaView(int year, int monthOfYear, int dayOfMonth) {
@@ -307,6 +323,7 @@ private void setToolbar() {
         c.set(year, monthOfYear, dayOfMonth);
         SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
         mHastaFecha.setText(format.format(c.getTime()));
-        mFechaHastaSelected=new  DateTime(year, monthOfYear, dayOfMonth, 0, 0, 0, 0);
+        //mFechaHastaSelected=new  DateTime(year, monthOfYear, dayOfMonth, 0, 0, 0, 0);
+        mFechaHastaSelected = new DateTime(c);
     }
 }

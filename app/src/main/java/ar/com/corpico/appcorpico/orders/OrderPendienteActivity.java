@@ -152,10 +152,18 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements 
                 mTipoCuadrilla=item.getTipo_cuadrilla();
                 if (mTipoCuadrilla != null && mOrderView != null && mViewMap ){
                     mTipoTrabajoSelected = new ArrayList<>();
+                    mFechaDesdeSelected = null;
+                    mFechaHastaSelected = null;
+                    mZonaSelected= new ArrayList<>();
+                    mOrderView.cleanData();
                     mOrderView.setLoadOrderList(mTipoCuadrilla);
                 }
                 if (mTipoCuadrilla != null && mOrderMapView != null && mViewMap==false ){
                     mTipoTrabajoSelected = new ArrayList<>();
+                    mFechaDesdeSelected = null;
+                    mFechaHastaSelected = null;
+                    mZonaSelected= new ArrayList<>();
+                    mOrderMapView.cleanData();
                     mOrderMapView.setLoadOrderList(mTipoCuadrilla);
                 }
             }
@@ -240,8 +248,8 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements 
                 intent.putStringArrayListExtra("TIPO_TRABAJO_SELECTED", (ArrayList<String>) mTipoTrabajoSelected);
                 intent.putStringArrayListExtra("ZONA", (ArrayList<String>) mZona);
                 intent.putStringArrayListExtra("ZONA_SELECTED", (ArrayList<String>) mZonaSelected);
-                intent.putExtra("FECHA_DESDE_SELECTED",  mFechaDesdeSelected);
-                intent.putExtra("FECHA_HASTA_SELECTED",  mFechaHastaSelected);
+                intent.putExtra("FECHA_DESDE_SELECTED", mFechaDesdeSelected);
+                intent.putExtra("FECHA_HASTA_SELECTED", mFechaHastaSelected);
                 //startActivity(intent);
                 startActivityForResult(intent,OPINION_REQUEST_CODE);
                 break;
@@ -304,13 +312,15 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements 
     public void onFilterPossitiveButtonClick(String estado, List<String> tipo, List<String> zona, DateTime desde, DateTime hasta, Boolean estadoActual) {
         mZona=zona;
         mTipoTrabajo = tipo;
+        mFechaDesdeSelected = desde;
+        mFechaHastaSelected=hasta;
         //TODO: VER PORQUE NO ANDA PARA EL MAPVIEW
         if (mViewMap){
             OrdersListFragment mOrderFragmen = (OrdersListFragment) getSupportFragmentManager().findFragmentById(R.id.orders_view_container);
-            mOrderFragmen.setOrderFilter(mEstado, mTipoTrabajo, mZona, desde, hasta, null,estadoActual);
+            mOrderFragmen.setOrderFilter(mEstado, mTipoTrabajo, mZona, mFechaDesdeSelected, mFechaHastaSelected, null,estadoActual);
         }else{
             OrdersMapsFragment mOrderMapFragment = (OrdersMapsFragment)getSupportFragmentManager().findFragmentById(R.id.orders_view_container);
-            mOrderMapFragment.setOrderFilter(mEstado, mTipoTrabajo, mZona, desde, hasta, null,estadoActual);
+            mOrderMapFragment.setOrderFilter(mEstado, mTipoTrabajo, mZona, mFechaDesdeSelected, mFechaHastaSelected, null,estadoActual);
         }
 
     }

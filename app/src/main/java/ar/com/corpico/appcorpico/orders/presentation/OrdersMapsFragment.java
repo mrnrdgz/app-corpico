@@ -42,8 +42,8 @@ public class OrdersMapsFragment extends SupportMapFragment implements OnMapReady
     private List<String> mZonaSelected = new ArrayList();
     private String mEstado;
     private String mSector;
-    private DateTime mDesde =new DateTime();
-    private DateTime mHasta;
+    private DateTime mDesde = new DateTime();
+    private DateTime mHasta = new DateTime();
     private Presenter mOrdersMapPresenter;
     private static final int LOCATION_REQUEST_CODE = 1;
 
@@ -76,7 +76,7 @@ public class OrdersMapsFragment extends SupportMapFragment implements OnMapReady
             mHasta = (DateTime) getArguments().get("hasta");
             //Spinner activitySpinner = (Spinner) getActivity().findViewById(R.id.spinner_toolBar);
         }
-        setLoadOrderList(mTipoCuadrilla);
+        //setLoadOrderList(mTipoCuadrilla);
         getMapAsync(this);
 
     }
@@ -135,14 +135,14 @@ public class OrdersMapsFragment extends SupportMapFragment implements OnMapReady
                             LOCATION_REQUEST_CODE);
                 }
             }
-            mMap.getUiSettings().setZoomControlsEnabled(true);
+            /*mMap.getUiSettings().setZoomControlsEnabled(true);
 
            LatLng pico = new LatLng(-35.666667, -63.733333);
            CameraPosition cameraPosition = new CameraPosition.Builder()
                    .target(pico)
                    .zoom(15)
                    .build();
-           mMap.moveCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+           mMap.moveCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));*/
 
     }
 
@@ -199,6 +199,14 @@ public class OrdersMapsFragment extends SupportMapFragment implements OnMapReady
     }
 
     @Override
+    public void cleanData() {
+        mDesde=null;
+        mHasta=null;
+        mZonaSelected=new ArrayList<>();
+        mTipoTrabajoSelected=new ArrayList<>();
+    }
+
+    @Override
     public void showOrderError(String error) {
 
     }
@@ -211,13 +219,13 @@ public class OrdersMapsFragment extends SupportMapFragment implements OnMapReady
     @Override
     public void setTipoTrabajo(List<String> tipoTrabajo) {
         mTipoTrabajo=tipoTrabajo;
-        mTipoTrabajoSelected = new ArrayList<>();
+        //mTipoTrabajoSelected = new ArrayList<>();
     }
 
     @Override
     public void setZonas(List<String> zona) {
         mZona=zona;
-        mZonaSelected = new ArrayList<>();
+        //mZonaSelected = new ArrayList<>();
     }
 
     @Override
@@ -242,15 +250,29 @@ public class OrdersMapsFragment extends SupportMapFragment implements OnMapReady
         }else{
             mZonaSelected = zona;
         }
-        mOrdersMapPresenter.loadOrderList(mEstado,mTipoTrabajoSelected,mZona,desde,hasta,search,estadoActual);
+        mDesde=desde;
+        mHasta=hasta;
+        mOrdersMapPresenter.loadOrderList(mEstado,mTipoTrabajoSelected,mZona,mDesde,mHasta,search,estadoActual);
     }
 
     @Override
     public void setLoadOrderList(String tipocuadrilla) {
         mTipoCuadrilla=tipocuadrilla;
-        if (mTipoCuadrilla != null){
+        if (mTipoCuadrilla!=null){
             mOrdersMapPresenter.setLoadTipoTrabajos(mTipoCuadrilla);
-            mOrdersMapPresenter.loadOrderList(mEstado,mTipoTrabajo,mZona,mDesde,mHasta,null,true);
+            mOrdersMapPresenter.setLoadZonas();
+            if(mTipoTrabajoSelected.size()==0 && mZonaSelected.size()==0){
+                mOrdersMapPresenter.loadOrderList(mEstado,mTipoTrabajo,mZona,mDesde,mHasta,null,true);
+            }
+            if(mTipoTrabajoSelected.size()!=0 && mZonaSelected.size()==0){
+                mOrdersMapPresenter.loadOrderList(mEstado,mTipoTrabajoSelected,mZona,mDesde,mHasta,null,true);
+            }
+            if(mTipoTrabajoSelected.size()==0 && mZonaSelected.size()!=0){
+                mOrdersMapPresenter.loadOrderList(mEstado,mTipoTrabajoSelected,mZonaSelected,mDesde,mHasta,null,true);
+            }
+            if(mTipoTrabajoSelected.size()!=0 && mZonaSelected.size()!=0){
+                mOrdersMapPresenter.loadOrderList(mEstado,mTipoTrabajoSelected,mZonaSelected,mDesde,mHasta,null,true);
+            }
         }
     }
 
