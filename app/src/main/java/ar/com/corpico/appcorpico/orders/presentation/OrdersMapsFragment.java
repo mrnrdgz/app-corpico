@@ -76,7 +76,7 @@ public class OrdersMapsFragment extends SupportMapFragment implements OnMapReady
             mHasta = (DateTime) getArguments().get("hasta");
             //Spinner activitySpinner = (Spinner) getActivity().findViewById(R.id.spinner_toolBar);
         }
-        //setLoadOrderList(mTipoCuadrilla);
+        setLoadOrderList(mTipoCuadrilla);
         getMapAsync(this);
 
     }
@@ -135,14 +135,14 @@ public class OrdersMapsFragment extends SupportMapFragment implements OnMapReady
                             LOCATION_REQUEST_CODE);
                 }
             }
-            /*mMap.getUiSettings().setZoomControlsEnabled(true);
+            mMap.getUiSettings().setZoomControlsEnabled(true);
 
            LatLng pico = new LatLng(-35.666667, -63.733333);
            CameraPosition cameraPosition = new CameraPosition.Builder()
                    .target(pico)
                    .zoom(15)
                    .build();
-           mMap.moveCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));*/
+           mMap.moveCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
 
     }
 
@@ -171,7 +171,7 @@ public class OrdersMapsFragment extends SupportMapFragment implements OnMapReady
 
     @Override
     public void showOrderList(List<Order> listorder) {
-        if (mMap != null){
+        if (mMap != null) {
             mMap.clear();
         }
         LoadOrderMap(listorder);

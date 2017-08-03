@@ -39,13 +39,15 @@ public class Order {
     private String mObservacion;
     private String mState;
     private Etapa mCurrentEtapa;
+    //private DateTime mTurno;
+    private String mTurno;
 
     private DetalleMedidor mDetalleMedidor;
 
     public Order(String FechaSolicitud, String Numero, String Zona, String Tipo_Trabajo, String Motivo, ArrayList<Etapa> Etapas, String Asociado,
                  String Suministro, String Titular, String Domicilio, String Localidad, String Anexo, String Tipo_Usuario,
                  String Tarifa,String Potencia_Declarada, String Medidor, String Marca, String Modelo, String FactorM, String Capacidad,
-                 String Tension, String Latitud, String Longitud,String Observacion) {
+                 String Tension, String Latitud, String Longitud,String Observacion,String Turno) {
         this.mFechaSolicitud = FechaSolicitud;
         this.mNumero = Numero;
         this.mZona = Zona;
@@ -70,8 +72,23 @@ public class Order {
         this.mLatitud = Latitud;
         this.mLongitud = Longitud;
         this.mObservacion = Observacion;
+        this.mTurno=Turno;
     }
 
+    public String getTurno() {
+        return mTurno;
+    }
+    /*public DateTime getTurno() {
+        return mTurno;
+    }
+
+    public void setTurno(DateTime Turno) {
+        this.mTurno = Turno;
+    }*/
+
+    public void setTurno(String Turno) {
+        this.mTurno = Turno;
+    }
     public String getPotencia_Declarada() {
         return mPotencia_Declarada;
     }
@@ -306,6 +323,7 @@ public class Order {
                 "Latitud = '" + mLatitud + '\'' +
                 "Longitud = '" + mLongitud + '\'' +
                 "Observacion = '" + mObservacion + '\'' +
+                "Turno = '" + mTurno + '\'' +
                 '}';
     }
 

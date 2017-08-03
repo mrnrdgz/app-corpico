@@ -301,6 +301,7 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements 
     protected void onRestart() {
         super.onRestart();
         mOrderView.setLoadOrderList(mTipoCuadrilla);
+        mOrderMapView.setLoadOrderList(mTipoCuadrilla);
     }
     /*@Override
     public void onPossitiveButtonClick(String estado, ArrayList<String> tipo, String sector, DateTime desde, DateTime hasta, Boolean estadoActual) {
