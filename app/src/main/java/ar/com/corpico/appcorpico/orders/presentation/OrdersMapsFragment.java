@@ -19,6 +19,7 @@ import com.google.android.gms.maps.UiSettings;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import org.joda.time.DateTime;
@@ -46,6 +47,7 @@ public class OrdersMapsFragment extends SupportMapFragment implements OnMapReady
     private DateTime mHasta = new DateTime();
     private Presenter mOrdersMapPresenter;
     private static final int LOCATION_REQUEST_CODE = 1;
+    private Marker marker;
 
     public OrdersMapsFragment() {
     }
@@ -76,9 +78,8 @@ public class OrdersMapsFragment extends SupportMapFragment implements OnMapReady
             mHasta = (DateTime) getArguments().get("hasta");
             //Spinner activitySpinner = (Spinner) getActivity().findViewById(R.id.spinner_toolBar);
         }
-        setLoadOrderList(mTipoCuadrilla);
         getMapAsync(this);
-
+        //setLoadOrderList(mTipoCuadrilla);
     }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -137,10 +138,11 @@ public class OrdersMapsFragment extends SupportMapFragment implements OnMapReady
             }
             mMap.getUiSettings().setZoomControlsEnabled(true);
 
-           LatLng pico = new LatLng(-35.666667, -63.733333);
+           //LatLng pico = new LatLng(-35.666667, -63.733333);
+           LatLng pico = new LatLng(-35.658103, -63.757882);
            CameraPosition cameraPosition = new CameraPosition.Builder()
                    .target(pico)
-                   .zoom(15)
+                   .zoom(14)
                    .build();
            mMap.moveCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
 
@@ -154,18 +156,22 @@ public class OrdersMapsFragment extends SupportMapFragment implements OnMapReady
             mLng = new Double((order.getLongitud().substring(0,7))).doubleValue()*-1;
 
             LatLng mLatLng = new LatLng(mLat,mLng);
-
-            mMap.addMarker(new MarkerOptions()
+            marker = mMap.addMarker(new MarkerOptions()
                     .position(mLatLng)
                     .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW))
                     .title(order.getTitular() + " - " + order.getDomicilio()));
 
-            CameraPosition cameraPosition = CameraPosition.builder()
+            /*mMap.addMarker(new MarkerOptions()
+                    .position(mLatLng)
+                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW))
+                    .title(order.getTitular() + " - " + order.getDomicilio()));*/
+
+            /*CameraPosition cameraPosition = CameraPosition.builder()
                     .target(mLatLng)
                     .zoom(14)
                     .build();
 
-            mMap.moveCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+            mMap.moveCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));*/
         }
     }
 
@@ -173,6 +179,9 @@ public class OrdersMapsFragment extends SupportMapFragment implements OnMapReady
     public void showOrderList(List<Order> listorder) {
         if (mMap != null) {
             mMap.clear();
+        }
+        if (marker != null){
+            marker.remove();
         }
         LoadOrderMap(listorder);
     }
@@ -252,7 +261,7 @@ public class OrdersMapsFragment extends SupportMapFragment implements OnMapReady
         }
         mDesde=desde;
         mHasta=hasta;
-        mOrdersMapPresenter.loadOrderList(mEstado,mTipoTrabajoSelected,mZona,mDesde,mHasta,search,estadoActual);
+        mOrdersMapPresenter.loadOrderList(mEstado,mTipoTrabajoSelected,mZonaSelected,mDesde,mHasta,search,estadoActual);
     }
 
     @Override
@@ -268,7 +277,7 @@ public class OrdersMapsFragment extends SupportMapFragment implements OnMapReady
                 mOrdersMapPresenter.loadOrderList(mEstado,mTipoTrabajoSelected,mZona,mDesde,mHasta,null,true);
             }
             if(mTipoTrabajoSelected.size()==0 && mZonaSelected.size()!=0){
-                mOrdersMapPresenter.loadOrderList(mEstado,mTipoTrabajoSelected,mZonaSelected,mDesde,mHasta,null,true);
+                mOrdersMapPresenter.loadOrderList(mEstado,mTipoTrabajo,mZonaSelected,mDesde,mHasta,null,true);
             }
             if(mTipoTrabajoSelected.size()!=0 && mZonaSelected.size()!=0){
                 mOrdersMapPresenter.loadOrderList(mEstado,mTipoTrabajoSelected,mZonaSelected,mDesde,mHasta,null,true);

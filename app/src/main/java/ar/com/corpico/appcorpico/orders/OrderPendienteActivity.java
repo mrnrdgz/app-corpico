@@ -300,8 +300,11 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements 
     @Override
     protected void onRestart() {
         super.onRestart();
-        mOrderView.setLoadOrderList(mTipoCuadrilla);
-        mOrderMapView.setLoadOrderList(mTipoCuadrilla);
+        if (mViewMap){
+            mOrderView.setLoadOrderList(mTipoCuadrilla);
+        }else {
+            mOrderMapView.setLoadOrderList(mTipoCuadrilla);
+        }
     }
     /*@Override
     public void onPossitiveButtonClick(String estado, ArrayList<String> tipo, String sector, DateTime desde, DateTime hasta, Boolean estadoActual) {
@@ -461,13 +464,14 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements 
                 mFechaDesdeSelected= (DateTime) data.getSerializableExtra("FECHA_DESDE_SELECTED");
                 mFechaHastaSelected= (DateTime) data.getSerializableExtra("FECHA_HASTA_SELECTED");
 
-                if (mViewMap){
+                //TODO: VER ACA XQ ESTO PUEDE QUE FUNCIONE PERO DEBO ACTUALIZAR EL VALOR DE LAS VARIABLES DE LA VISTA
+                /*if (mViewMap){
                     OrdersListFragment mOrderFragmen = (OrdersListFragment) getSupportFragmentManager().findFragmentById(R.id.orders_view_container);
                     mOrderFragmen.setOrderFilter(mEstado, mTipoTrabajoSelected, mZonaSelected, mFechaDesdeSelected, mFechaHastaSelected, null,true);
                 }else{
                     OrdersMapsFragment mOrderMapFragment = (OrdersMapsFragment)getSupportFragmentManager().findFragmentById(R.id.orders_view_container);
                     mOrderMapFragment.setOrderFilter(mEstado, mTipoTrabajoSelected, mZonaSelected, mFechaDesdeSelected, mFechaHastaSelected, null,true);
-                }
+                }*/
             }
         }
     }

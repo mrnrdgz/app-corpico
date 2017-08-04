@@ -260,7 +260,7 @@ public class OrdersListFragment extends Fragment implements ar.com.corpico.appco
                 mOrdersPresenter.loadOrderList(mEstado,mTipoTrabajoSelected,mZona,mDesde,mHasta,null,true);
             }
             if(mTipoTrabajoSelected.size()==0 && mZonaSelected.size()!=0){
-                mOrdersPresenter.loadOrderList(mEstado,mTipoTrabajoSelected,mZonaSelected,mDesde,mHasta,null,true);
+                mOrdersPresenter.loadOrderList(mEstado,mTipoTrabajo,mZonaSelected,mDesde,mHasta,null,true);
             }
             if(mTipoTrabajoSelected.size()!=0 && mZonaSelected.size()!=0){
                 mOrdersPresenter.loadOrderList(mEstado,mTipoTrabajoSelected,mZonaSelected,mDesde,mHasta,null,true);
@@ -287,7 +287,6 @@ public class OrdersListFragment extends Fragment implements ar.com.corpico.appco
 
     @Override
     public void setPresenter(Presenter presenter) {
-
         mOrdersPresenter = presenter;
     }
 
@@ -328,7 +327,7 @@ public class OrdersListFragment extends Fragment implements ar.com.corpico.appco
         }
         mDesde=desde;
         mHasta=hasta;
-        mOrdersPresenter.loadOrderList(mEstado,mTipoTrabajoSelected,mZona,mDesde,mHasta,search,estadoActual);
+        mOrdersPresenter.loadOrderList(mEstado,mTipoTrabajoSelected,mZonaSelected,mDesde,mHasta,search,estadoActual);
     }
 
     @Override
