@@ -94,7 +94,7 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements 
                 .findFragmentById(R.id.orders_view_container);
 
         if (mOrderView == null) {
-            mOrderView = OrdersListFragment.newInstance(mTipoCuadrilla,mEstado,mZona,mFechaDesdeSelected,mFechaHastaSelected);
+            mOrderView = OrdersListFragment.newInstance(mTipoCuadrilla,mEstado, new ArrayList<>(), mZona,mFechaDesdeSelected,mFechaHastaSelected);
 
             getSupportFragmentManager().beginTransaction()
             .add(R.id.orders_view_container, mOrderView,"OrderView")
@@ -277,7 +277,7 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements 
                 ft = getSupportFragmentManager().beginTransaction();
                 Fragment fragment1 = fm.findFragmentById(R.id.orders_view_container);
                 if(!(fragment1 instanceof OrdersListFragment)){
-                    mOrderView = OrdersListFragment.newInstance(mTipoCuadrilla,mEstado,mZona,mFechaDesdeSelected,mFechaHastaSelected);
+                    mOrderView = OrdersListFragment.newInstance(mTipoCuadrilla,mEstado, new ArrayList<>(), mZona,mFechaDesdeSelected,mFechaHastaSelected);
                     ft.replace(R.id.orders_view_container, mOrderView,"OrderView")
                             //.addToBackStack("OrderView")
                             .commit();

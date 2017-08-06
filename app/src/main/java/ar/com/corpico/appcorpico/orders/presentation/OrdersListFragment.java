@@ -35,6 +35,15 @@ import static android.view.View.GONE;
 
 public class OrdersListFragment extends Fragment implements OrdersListMvp.View {
 
+    // Keys de argumentos
+    public static final String ARG_TIPO_CUADRILLA = "orders.tipo_cuadrilla";
+    public static final String ARG_ESTADO = "orders.estado";
+    public static final String ARG_ZONAS_SELECCIONADAS = "orders.zonas_seleccionadas";
+    public static final String ARG_FECHA_INICIO = "orders.fecha_inicio";
+    public static final String ARG_FECHA_FIN = "orders.fecha_fin";
+    private static final String ARG_TIPOS_TRABAJO_SELECCIONADOS = "orders.tipos_trabajo_seleccionados";
+
+
     // Dependencias
     private OrdersListMvp.Presenter mOrdersPresenter;
 
@@ -57,48 +66,30 @@ public class OrdersListFragment extends Fragment implements OrdersListMvp.View {
 
     private ArrayList<String> list_items = new ArrayList<>();
 
-    private boolean hideAsignarButton;
-
     // Lógica
     private int count;
 
     private OrdersAdapter.OnAsignarListener listener;
 
+
     public OrdersListFragment() {
         // Required empty public constructor
     }
 
-    public interface OnViewActivityListener {
-        void onShowTipoCuadrilla(List<Tipo_Cuadrilla> listorder);
-
-        //void onShowTipoCuadrilla(List<Tipo_Cuadrilla> listtipocuadrilla);
-        void onAsignarCuadrillaContextual(String cuadrilla, ArrayList<String> numeros);
-    }
-
-    private OnViewActivityListener listenerViewActivity;
-
-
-    public void setActivityListener(OnViewActivityListener listener) {
-        this.listenerViewActivity = listener;
-    }
-
-    public void setListener(OrdersAdapter.OnAsignarListener listener) {
-        this.listener = listener;
-    }
-
     public static OrdersListFragment newInstance(
-            String tipocuadrilla, String estado,
-            List<String> zona, DateTime desde,
-            DateTime hasta) {
+            String tipoCuadrilla, String estado,
+            ArrayList<String> tiposTrabajoSeleccionados, List<String> zonasSeleccionadas,
+            DateTime fechaInicio, DateTime fechaFin) {
 
         OrdersListFragment fragment = new OrdersListFragment();
         Bundle args = new Bundle();
 
-        args.putString("tipocuadrilla", tipocuadrilla);
-        args.putString("estado", estado);
-        args.putStringArrayList("zona", (ArrayList<String>) zona);
-        args.putSerializable("desde", desde);
-        args.putSerializable("hasta", hasta);
+        args.putString(ARG_TIPO_CUADRILLA, tipoCuadrilla);
+        args.putString(ARG_ESTADO, estado);
+        args.putStringArrayList(ARG_ZONAS_SELECCIONADAS, (ArrayList<String>) zonasSeleccionadas);
+        args.putStringArrayList(ARG_TIPOS_TRABAJO_SELECCIONADOS, tiposTrabajoSeleccionados);
+        args.putSerializable(ARG_FECHA_INICIO, fechaInicio);
+        args.putSerializable(ARG_FECHA_FIN, fechaFin);
 
         fragment.setArguments(args);
         return fragment;
@@ -107,14 +98,16 @@ public class OrdersListFragment extends Fragment implements OrdersListMvp.View {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
+        Bundle arguments = getArguments();
+
+        if (arguments != null) {
             // Toman parámetros
-            mTipoCuadrilla = getArguments().getString("tipocuadrilla");
-            mEstado = getArguments().getString("estado");
-            mZona = getArguments().getStringArrayList("zona");
-            mFechaInicio = (DateTime) getArguments().get("desde");
-            mFechaFin = (DateTime) getArguments().get("hasta");
-            Spinner activitySpinner = (Spinner) getActivity().findViewById(R.id.spinner_toolBar);
+            mTipoCuadrilla = arguments.getString(ARG_TIPO_CUADRILLA);
+            mEstado = arguments.getString(ARG_ESTADO);
+            mTiposTrabajoSeleccionados = arguments.getStringArrayList(ARG_TIPOS_TRABAJO_SELECCIONADOS);
+            mZonasSeleccionadas = arguments.getStringArrayList(ARG_ZONAS_SELECCIONADAS);
+            mFechaInicio = (DateTime) arguments.get(ARG_FECHA_INICIO);
+            mFechaFin = (DateTime) arguments.get(ARG_FECHA_FIN);
         }
     }
 
@@ -253,6 +246,26 @@ public class OrdersListFragment extends Fragment implements OrdersListMvp.View {
         setLoadOrderList(mTipoCuadrilla);
         return root;
     }
+
+    public interface OnViewActivityListener {
+        void onShowTipoCuadrilla(List<Tipo_Cuadrilla> listorder);
+
+        //void onShowTipoCuadrilla(List<Tipo_Cuadrilla> listtipocuadrilla);
+        void onAsignarCuadrillaContextual(String cuadrilla, ArrayList<String> numeros);
+
+
+    }
+
+    private OnViewActivityListener listenerViewActivity;
+
+    public void setActivityListener(OnViewActivityListener listener) {
+        this.listenerViewActivity = listener;
+    }
+
+    public void setListener(OrdersAdapter.OnAsignarListener listener) {
+        this.listener = listener;
+    }
+
 
     @Override
     public void setLoadOrderList(String tipoCuadrilla) {
