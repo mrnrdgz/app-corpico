@@ -65,7 +65,7 @@ public class OrderActivity extends NavitationDrawerActivity implements OnFilterA
         /**
          * <<create>> LoginUser
          */
-        GetOrders getOrders = new GetOrders(repository);
+        GetOrders getOrders = new GetOrders(repository, null);
         AddOrdersState addOrderState = new AddOrdersState(repository);
         GetTipoCuadrilla getTipoCuadrilla = new GetTipoCuadrilla(repository);
         GetCuadrillaxTipo getCuadrillaxTipo= new GetCuadrillaxTipo(repository);

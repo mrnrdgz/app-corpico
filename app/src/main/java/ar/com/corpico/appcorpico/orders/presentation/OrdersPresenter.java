@@ -38,13 +38,15 @@ public class OrdersPresenter implements OrdersListMvp.Presenter {
     private GetTipoTrabajo mGetTipoTrabajo;
     private GetZonas mGetZona;
     private GetCuadrillaxTipo mgetCuadrillaxTipo;
+
     private OrdersListMvp.View mOrdersView;
-    //private ar.com.corpico.appcorpico.ordersmaps.View mOrdersMapView;
     private String mCuadrilla;
 
-    //TODO: COMO MANEJO ACA EL CASO DE USO? SI ESTA MACHEADO EL CASO DE USO...TENGO QUE HACER UN CONSTRUCTOR POR CADA UNO?
-    //O LO PUEDO PONER COMO VARIABLE AL TIPO?
-    public OrdersPresenter(GetOrders getOrders, AddOrdersState addOrdersState, GetTipoCuadrilla getTipoCuadrilla, GetCuadrillaxTipo getCuadrillaxTipo, GetTipoTrabajo getTipoTrabajo, GetZonas getZona, OrdersListMvp.View ordersView) {
+    public OrdersPresenter(GetOrders getOrders, AddOrdersState addOrdersState,
+                           GetTipoCuadrilla getTipoCuadrilla, GetCuadrillaxTipo getCuadrillaxTipo,
+                           GetTipoTrabajo getTipoTrabajo, GetZonas getZona,
+                           OrdersListMvp.View ordersView) {
+
         maddOrdersState = Preconditions.checkNotNull(addOrdersState, "El presentador no puede ser null");
         mgetOrders = Preconditions.checkNotNull(getOrders, "El presentador no puede ser null");
         mGetTipoCuadrilla = Preconditions.checkNotNull(getTipoCuadrilla, "El presentador no puede ser null");
@@ -53,9 +55,6 @@ public class OrdersPresenter implements OrdersListMvp.Presenter {
         mgetCuadrillaxTipo = Preconditions.checkNotNull(getCuadrillaxTipo, "El presentador no puede ser null");
         mOrdersView = Preconditions.checkNotNull(ordersView, "La vista no puede ser null");
         mOrdersView.setPresenter(this);
-        //mOrdersMapView = ordersMapView;
-        //mOrdersMapView.setPresenter(this);
-
     }
 
     @Override
@@ -66,26 +65,6 @@ public class OrdersPresenter implements OrdersListMvp.Presenter {
 
         CompositeSpec<Order> zoneSpec;
         Specification<Order> resultadoSpec;
-        // Se reciben valores de cada filtro
-        //CriteriaState criteriaState = new CriteriaState(estado);
-        /*CriteriaZona criteriaZona = new CriteriaZona(zona);
-
-
-
-
-        // TODO: Crear OR criteria con los tipos de trabajo
-        for (String tipoTrabajo: tiposTrabajo){
-            CriteriaTipoTrabajo criteria = new CriteriaTipoTrabajo(tipoTrabajo);
-            OrCriteria orCriteria = new OrCriteria(criteria, )
-        }
-
-        OrderCriteriaFecha criteriaFecha = new OrderCriteriaFecha(estado,desde,hasta,estadoActual);
-        CriteriaSearch criteriaSearch = new CriteriaSearch(search);
-
-        AndCriteria andCriteria = new AndCriteria(
-                 new AndCriteria(criteriaZona,criteriaTipoTrabajo),
-                 new AndCriteria(criteriaFecha,criteriaSearch)
-                );*/
 
         /**
          * Aqui creo dos especificaciones compuestas y luego las compongo con and()
@@ -137,8 +116,11 @@ public class OrdersPresenter implements OrdersListMvp.Presenter {
          * Collections2.filter()
          */
         mOrdersView.showProgressIndicator(true);
+
         // Parámetro #1
-        GetOrders.RequestValues requestValues = new GetOrders.RequestValues(resultadoSpec);
+        GetOrders.RequestValues requestValues = new GetOrders.RequestValues(
+                tipoCuadrilla, estado, tiposTrabajo, zona, desde, hasta, search, estadoActual
+        );
 
         // Parámetro #2
         UseCase.UseCaseCallback useCaseCallback = new UseCase.UseCaseCallback() {
@@ -189,7 +171,8 @@ public class OrdersPresenter implements OrdersListMvp.Presenter {
                 // Se obtiene el valor de respuesta del caso de uso
                 AddOrdersState.ResponseValue responseValue = (AddOrdersState.ResponseValue) response;
                 // Actualiza la lista luego de hacer el cambio
-                mOrdersView.setLoadOrderList(mCuadrilla);
+
+                // loadOrders();
             }
 
             @Override
@@ -291,6 +274,8 @@ public class OrdersPresenter implements OrdersListMvp.Presenter {
 
                 // ¿La lista tiene uno o más elementos?
                 List<String> tipoTrabajo = responseValue.getTipoTrabajo();
+
+
                 if (tipoTrabajo.size() >= 1) {
                     // Mostrar la lista en la vista
                     mOrdersView.setTipoTrabajo(tipoTrabajo);
@@ -311,6 +296,7 @@ public class OrdersPresenter implements OrdersListMvp.Presenter {
         };
         mGetTipoTrabajo.execute(requestValues, useCaseCallback);
     }
+
     @Override
     public void setLoadZonas() {
         //CriteriaZona criteriaZona = new CriteriaZona();

@@ -122,7 +122,7 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements 
          * <<create>> CaseUser
          */
         //TODO: ACA DEBERIA USAR UNA VARIABLE PARA PONER EL CASO DE USO?
-        mGetOrders = new GetOrders(repository);
+        mGetOrders = new GetOrders(repository, null);
         mAddOrdersState = new AddOrdersState(repository);
 
         mGetTipoCuadrilla = new GetTipoCuadrilla(repository);
