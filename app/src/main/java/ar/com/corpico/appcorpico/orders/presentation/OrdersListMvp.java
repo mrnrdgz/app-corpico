@@ -18,17 +18,13 @@ public interface OrdersListMvp {
         void showOrderList(List<Order> listorder);
         void showTipoCuadrillaList(List<Tipo_Cuadrilla> listorder);
         void showCuadrillaxTipoList(List<Tipo_Cuadrilla> listcuadrilla);
-        List<String> getTipoTrabajo();
-        List<String> getZona();
-        void cleanData();
+
         void showOrderError(String error);
         void setPresenter(Presenter presenter);
-        void setTipoTrabajo(List<String> tipoTrabajo);
-        void setZonas(List<String> zona);
+
         void showOrdesEmpty();
         void showProgressIndicator(boolean show);
-        void setOrderFilter(String estado, List<String> tipo, List<String> zona, DateTime desde, DateTime hasta, String search, Boolean estadoActual);
-        void setLoadOrderList(String tipo);
+
         // TODO: el parametro "numero" luego lo reemplazare por List<Order>?
         //public void setAsignarOrder(String cuadrilla, String numero);
         void setAsignarOrder(String cuadrilla, List<String> listorder);
@@ -38,8 +34,9 @@ public interface OrdersListMvp {
 
 
     interface Presenter {
-        void loadOrderList(String estado, List<String> tipoTrabajo, List<String> zona, DateTime desde, DateTime hasta, String search, Boolean estadoActual);
-        // TODO: el parametro "numero" luego lo reemplazare por List<Order>?
+        void loadOrders(String tipoCuadrilla, String estado, List<String> tipoTrabajo,
+                        List<String> zona, DateTime desde, DateTime hasta, String search,
+                        Boolean estadoActual);
         void asignarOrder(String cuadrilla, List<String> listorder, String observacion);
         void loadTipoCuadrilla(String servicio);
         void loadCuadrillasXTipo(String tipotrabajo);

@@ -59,10 +59,10 @@ public class OrdersPresenter implements OrdersListMvp.Presenter {
     }
 
     @Override
-    public void loadOrderList(String estado, List<String> tiposTrabajo,
-                              List<String> zona, DateTime desde,
-                              DateTime hasta, String search,
-                              Boolean estadoActual) {
+    public void loadOrders(String tipoCuadrilla, String estado, List<String> tiposTrabajo,
+                           List<String> zona, DateTime desde,
+                           DateTime hasta, String search,
+                           Boolean estadoActual) {
 
         CompositeSpec<Order> zoneSpec;
         Specification<Order> resultadoSpec;

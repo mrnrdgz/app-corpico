@@ -194,17 +194,6 @@ public class OrdersMapsFragment extends SupportMapFragment implements OnMapReady
 
     }
 
-    @Override
-    public List<String> getTipoTrabajo() {
-        return mTipoTrabajo;
-    }
-
-    @Override
-    public List<String> getZona() {
-        return mZona;
-    }
-
-    @Override
     public void cleanData() {
         mDesde=null;
         mHasta=null;
@@ -223,18 +212,6 @@ public class OrdersMapsFragment extends SupportMapFragment implements OnMapReady
     }
 
     @Override
-    public void setTipoTrabajo(List<String> tipoTrabajo) {
-        mTipoTrabajo=tipoTrabajo;
-        //mTipoTrabajoSelected = new ArrayList<>();
-    }
-
-    @Override
-    public void setZonas(List<String> zona) {
-        mZona=zona;
-        //mZonaSelected = new ArrayList<>();
-    }
-
-    @Override
     public void showOrdesEmpty() {
 
     }
@@ -244,7 +221,6 @@ public class OrdersMapsFragment extends SupportMapFragment implements OnMapReady
 
     }
 
-    @Override
     public void setOrderFilter(String estado, List<String> tipo, List<String> zona, DateTime desde, DateTime hasta, String search, Boolean estadoActual) {
         if (tipo.size() == 0){
             mTipoTrabajoSelected= mTipoTrabajo;
@@ -258,26 +234,25 @@ public class OrdersMapsFragment extends SupportMapFragment implements OnMapReady
         }
         mDesde=desde;
         mHasta=hasta;
-        mOrdersMapPresenter.loadOrderList(mEstado,mTipoTrabajoSelected,mZonaSelected,mDesde,mHasta,search,estadoActual);
+        mOrdersMapPresenter.loadOrders("", mEstado,mTipoTrabajoSelected,mZonaSelected,mDesde,mHasta,search,estadoActual);
     }
 
-    @Override
     public void setLoadOrderList(String tipocuadrilla) {
         mTipoCuadrilla=tipocuadrilla;
         if (mTipoCuadrilla!=null){
             mOrdersMapPresenter.setLoadTipoTrabajos(mTipoCuadrilla);
             mOrdersMapPresenter.setLoadZonas();
             if(mTipoTrabajoSelected.size()==0 && mZonaSelected.size()==0){
-                mOrdersMapPresenter.loadOrderList(mEstado,mTipoTrabajo,mZona,mDesde,mHasta,null,true);
+                mOrdersMapPresenter.loadOrders("", mEstado,mTipoTrabajo,mZona,mDesde,mHasta,null,true);
             }
             if(mTipoTrabajoSelected.size()!=0 && mZonaSelected.size()==0){
-                mOrdersMapPresenter.loadOrderList(mEstado,mTipoTrabajoSelected,mZona,mDesde,mHasta,null,true);
+                mOrdersMapPresenter.loadOrders("", mEstado,mTipoTrabajoSelected,mZona,mDesde,mHasta,null,true);
             }
             if(mTipoTrabajoSelected.size()==0 && mZonaSelected.size()!=0){
-                mOrdersMapPresenter.loadOrderList(mEstado,mTipoTrabajo,mZonaSelected,mDesde,mHasta,null,true);
+                mOrdersMapPresenter.loadOrders("", mEstado,mTipoTrabajo,mZonaSelected,mDesde,mHasta,null,true);
             }
             if(mTipoTrabajoSelected.size()!=0 && mZonaSelected.size()!=0){
-                mOrdersMapPresenter.loadOrderList(mEstado,mTipoTrabajoSelected,mZonaSelected,mDesde,mHasta,null,true);
+                mOrdersMapPresenter.loadOrders("", mEstado,mTipoTrabajoSelected,mZonaSelected,mDesde,mHasta,null,true);
             }
         }
     }

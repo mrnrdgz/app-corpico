@@ -3,19 +3,20 @@ package ar.com.corpico.appcorpico.orders.presentation;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.Toolbar;
 import android.view.ActionMode;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.common.base.Preconditions;
 
 import org.joda.time.DateTime;
 
@@ -52,7 +53,7 @@ public class OrdersListFragment extends Fragment implements OrdersListMvp.View {
     private ListView mOrderList;
     private OrdersAdapter mOrdersAdapter;
     private TextView mEmptyView;
-    private android.view.View mProgressView;
+    private View mProgressView;
 
 
     // Argumentos
@@ -112,9 +113,9 @@ public class OrdersListFragment extends Fragment implements OrdersListMvp.View {
     }
 
     @Override
-    public android.view.View onCreateView(LayoutInflater inflater, ViewGroup container,
-                                          Bundle savedInstanceState) {
-        android.view.View root = inflater.inflate(R.layout.orders_list_frag, container, false);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View root = inflater.inflate(R.layout.orders_list_frag, container, false);
 
         // Obtención de referencias UI
         mOrderList = (ListView) root.findViewById(R.id.orders_list);
@@ -130,9 +131,6 @@ public class OrdersListFragment extends Fragment implements OrdersListMvp.View {
 
         mOrderList.setFocusable(false);
 
-        // Tomar referencia de la Actividad contenedora del fragmento para encontrar la toolbar
-        // con el indicador que tiene en su layout
-        Toolbar activityToolbar = (Toolbar) getActivity().findViewById(R.id.toolbar);
 
         mOrderList.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
         mOrderList.setMultiChoiceModeListener(new AbsListView.MultiChoiceModeListener() {
@@ -202,15 +200,11 @@ public class OrdersListFragment extends Fragment implements OrdersListMvp.View {
             }
         });
 
-        //Infla las cabeceras de OrderList
-        //LayoutInflater minflater = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        //android.view.View headerView = minflater.inflate(R.layout.list_cabecera_order, null);
-        //mOrderList.addHeaderView(headerView);
-
+        // TODO: Eliminar extras hacia el detalle y cargar la orden desde ese mismo lugar
         mOrderList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             //mOrderList.setOnItemClickLister()(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> adapterView, android.view.View view, int i, long l) {
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 //Order currentOrder = mOrdersAdapter.getItem(i);
                 Intent intent = new Intent(getActivity(), OrderDetailActivity.class);
 
@@ -243,8 +237,14 @@ public class OrdersListFragment extends Fragment implements OrdersListMvp.View {
             }
         });
 
-        setLoadOrderList(mTipoCuadrilla);
         return root;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        mOrdersPresenter.loadOrders(mTipoCuadrilla, mEstado, mTiposTrabajoSeleccionados,
+                mZonasSeleccionadas, mFechaInicio, mFechaFin, null, true);
     }
 
     public interface OnViewActivityListener {
@@ -268,30 +268,6 @@ public class OrdersListFragment extends Fragment implements OrdersListMvp.View {
 
 
     @Override
-    public void setLoadOrderList(String tipoCuadrilla) {
-        mTipoCuadrilla = tipoCuadrilla;
-
-        if (mTipoCuadrilla != null) {
-
-            mOrdersPresenter.setLoadTipoTrabajos(mTipoCuadrilla);
-            mOrdersPresenter.setLoadZonas();
-
-            if (mTiposTrabajoSeleccionados.size() == 0 && mZonasSeleccionadas.size() == 0) {
-                mOrdersPresenter.loadOrderList(mEstado, mTipoTrabajo, mZona, mFechaInicio, mFechaFin, null, true);
-            }
-            if (mTiposTrabajoSeleccionados.size() != 0 && mZonasSeleccionadas.size() == 0) {
-                mOrdersPresenter.loadOrderList(mEstado, mTiposTrabajoSeleccionados, mZona, mFechaInicio, mFechaFin, null, true);
-            }
-            if (mTiposTrabajoSeleccionados.size() == 0 && mZonasSeleccionadas.size() != 0) {
-                mOrdersPresenter.loadOrderList(mEstado, mTipoTrabajo, mZonasSeleccionadas, mFechaInicio, mFechaFin, null, true);
-            }
-            if (mTiposTrabajoSeleccionados.size() != 0 && mZonasSeleccionadas.size() != 0) {
-                mOrdersPresenter.loadOrderList(mEstado, mTiposTrabajoSeleccionados, mZonasSeleccionadas, mFechaInicio, mFechaFin, null, true);
-            }
-        }
-    }
-
-    @Override
     public void setAsignarOrder(String cuadrilla, List<String> listorder) {
         mOrdersPresenter.asignarOrder(cuadrilla, listorder, "");
     }
@@ -311,19 +287,9 @@ public class OrdersListFragment extends Fragment implements OrdersListMvp.View {
 
     @Override
     public void setPresenter(OrdersListMvp.Presenter presenter) {
-        mOrdersPresenter = presenter;
+        mOrdersPresenter = Preconditions.checkNotNull(presenter, "mOrdersPresenter no puede ser null");
     }
 
-    @Override
-    public void setTipoTrabajo(List<String> tipoTrabajo) {
-        //mTiposTrabajoSeleccionados = new ArrayList<>();
-    }
-
-
-    @Override
-    public void setZonas(List<String> zona) {
-        //mZonasSeleccionadas = new ArrayList<>();
-    }
 
     @Override
     public void showOrdesEmpty() {
@@ -332,25 +298,7 @@ public class OrdersListFragment extends Fragment implements OrdersListMvp.View {
 
     @Override
     public void showProgressIndicator(boolean show) {
-        mProgressView.setVisibility(show ? android.view.View.VISIBLE : GONE);
-    }
-
-    @Override
-    public void setOrderFilter(String estado, List<String> tipo, List<String> zona, DateTime desde, DateTime hasta, String search, Boolean estadoActual) {
-        //TODO: VER DE PONER OTRA VARIABLE O COMO HACERLO XQ SINO ME DEJA MARCADOS TODOS LOS CHECKS PARA LA PROXIMA
-        if (tipo.size() == 0) {
-            mTiposTrabajoSeleccionados = mTipoTrabajo;
-        } else {
-            mTiposTrabajoSeleccionados = tipo;
-        }
-        if (zona.size() == 0) {
-            mZonasSeleccionadas = mZona;
-        } else {
-            mZonasSeleccionadas = zona;
-        }
-        mFechaInicio = desde;
-        mFechaFin = hasta;
-        mOrdersPresenter.loadOrderList(mEstado, mTiposTrabajoSeleccionados, mZonasSeleccionadas, mFechaInicio, mFechaFin, search, estadoActual);
+        mProgressView.setVisibility(show ? View.VISIBLE : GONE);
     }
 
     @Override
@@ -362,24 +310,6 @@ public class OrdersListFragment extends Fragment implements OrdersListMvp.View {
     public void showCuadrillaxTipoList(List<Tipo_Cuadrilla> listcuadrilla) {
         //TODO: ACA LLAMO A UN LISTERNER QUE ME CONECTE CON LA ACTIVITY Y LE PASO LAS CUADRILLAS
         listenerViewActivity.onShowTipoCuadrilla(listcuadrilla);
-    }
-
-    @Override
-    public List<String> getTipoTrabajo() {
-        return mTipoTrabajo;
-    }
-
-    @Override
-    public List<String> getZona() {
-        return mZona;
-    }
-
-    @Override
-    public void cleanData() {
-        mFechaInicio = null;
-        mFechaFin = null;
-        mZonasSeleccionadas = new ArrayList<>();
-        mTiposTrabajoSeleccionados = new ArrayList<>();
     }
 
 }
