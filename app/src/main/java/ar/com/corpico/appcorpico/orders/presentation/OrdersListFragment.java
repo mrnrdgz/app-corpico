@@ -1,12 +1,8 @@
 package ar.com.corpico.appcorpico.orders.presentation;
 
-import android.app.Activity;
-import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.Toolbar;
 import android.view.ActionMode;
 import android.view.LayoutInflater;
@@ -25,24 +21,22 @@ import org.joda.time.DateTime;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.StringTokenizer;
 
 import ar.com.corpico.appcorpico.R;
 import ar.com.corpico.appcorpico.orders.domain.entity.Tipo_Cuadrilla;
 import ar.com.corpico.appcorpico.orders.domain.entity.Order;
-import ar.com.corpico.appcorpico.ordersDetail.presentation.AsignarAConexionesDetailDialog;
 import ar.com.corpico.appcorpico.ordersDetail.presentation.OrderDetailActivity;
 
-import static android.R.attr.fragment;
 import static android.view.View.GONE;
 
 /**
- * Created by Administrador on 07/01/2017.
+ * Fragmento para lista de ordenes
  */
 
-public class OrdersListFragment extends Fragment implements ar.com.corpico.appcorpico.orders.presentation.View {
+public class OrdersListFragment extends Fragment implements OrdersListMvp.View {
+
     // Dependencias
-    private Presenter mOrdersPresenter;
+    private OrdersListMvp.Presenter mOrdersPresenter;
 
 
     // Views
@@ -54,16 +48,15 @@ public class OrdersListFragment extends Fragment implements ar.com.corpico.appco
 
     // Argumentos
     private String mTipoCuadrilla;
-    private List<String> mTipoTrabajo = new ArrayList<>();
-    private List<String> mTipoTrabajoSelected = new ArrayList<>();
-    private List<String> mZona = new ArrayList<>();
-    private List<String> mZonaSelected = new ArrayList<>();
     private String mEstado;
-    private DateTime mDesde;
-    private DateTime mHasta;
+    private List<String> mTiposTrabajoSeleccionados;
+    private List<String> mZonasSeleccionadas;
+    private DateTime mFechaInicio;
+    private DateTime mFechaFin;
 
 
     private ArrayList<String> list_items = new ArrayList<>();
+
     private boolean hideAsignarButton;
 
     // Lógica
@@ -119,8 +112,8 @@ public class OrdersListFragment extends Fragment implements ar.com.corpico.appco
             mTipoCuadrilla = getArguments().getString("tipocuadrilla");
             mEstado = getArguments().getString("estado");
             mZona = getArguments().getStringArrayList("zona");
-            mDesde = (DateTime) getArguments().get("desde");
-            mHasta = (DateTime) getArguments().get("hasta");
+            mFechaInicio = (DateTime) getArguments().get("desde");
+            mFechaFin = (DateTime) getArguments().get("hasta");
             Spinner activitySpinner = (Spinner) getActivity().findViewById(R.id.spinner_toolBar);
         }
     }
@@ -270,17 +263,17 @@ public class OrdersListFragment extends Fragment implements ar.com.corpico.appco
             mOrdersPresenter.setLoadTipoTrabajos(mTipoCuadrilla);
             mOrdersPresenter.setLoadZonas();
 
-            if (mTipoTrabajoSelected.size() == 0 && mZonaSelected.size() == 0) {
-                mOrdersPresenter.loadOrderList(mEstado, mTipoTrabajo, mZona, mDesde, mHasta, null, true);
+            if (mTiposTrabajoSeleccionados.size() == 0 && mZonasSeleccionadas.size() == 0) {
+                mOrdersPresenter.loadOrderList(mEstado, mTipoTrabajo, mZona, mFechaInicio, mFechaFin, null, true);
             }
-            if (mTipoTrabajoSelected.size() != 0 && mZonaSelected.size() == 0) {
-                mOrdersPresenter.loadOrderList(mEstado, mTipoTrabajoSelected, mZona, mDesde, mHasta, null, true);
+            if (mTiposTrabajoSeleccionados.size() != 0 && mZonasSeleccionadas.size() == 0) {
+                mOrdersPresenter.loadOrderList(mEstado, mTiposTrabajoSeleccionados, mZona, mFechaInicio, mFechaFin, null, true);
             }
-            if (mTipoTrabajoSelected.size() == 0 && mZonaSelected.size() != 0) {
-                mOrdersPresenter.loadOrderList(mEstado, mTipoTrabajo, mZonaSelected, mDesde, mHasta, null, true);
+            if (mTiposTrabajoSeleccionados.size() == 0 && mZonasSeleccionadas.size() != 0) {
+                mOrdersPresenter.loadOrderList(mEstado, mTipoTrabajo, mZonasSeleccionadas, mFechaInicio, mFechaFin, null, true);
             }
-            if (mTipoTrabajoSelected.size() != 0 && mZonaSelected.size() != 0) {
-                mOrdersPresenter.loadOrderList(mEstado, mTipoTrabajoSelected, mZonaSelected, mDesde, mHasta, null, true);
+            if (mTiposTrabajoSeleccionados.size() != 0 && mZonasSeleccionadas.size() != 0) {
+                mOrdersPresenter.loadOrderList(mEstado, mTiposTrabajoSeleccionados, mZonasSeleccionadas, mFechaInicio, mFechaFin, null, true);
             }
         }
     }
@@ -304,21 +297,19 @@ public class OrdersListFragment extends Fragment implements ar.com.corpico.appco
     }
 
     @Override
-    public void setPresenter(Presenter presenter) {
+    public void setPresenter(OrdersListMvp.Presenter presenter) {
         mOrdersPresenter = presenter;
     }
 
     @Override
     public void setTipoTrabajo(List<String> tipoTrabajo) {
-        mTipoTrabajo = tipoTrabajo;
-        //mTipoTrabajoSelected = new ArrayList<>();
+        //mTiposTrabajoSeleccionados = new ArrayList<>();
     }
 
 
     @Override
     public void setZonas(List<String> zona) {
-        mZona = zona;
-        //mZonaSelected = new ArrayList<>();
+        //mZonasSeleccionadas = new ArrayList<>();
     }
 
     @Override
@@ -335,18 +326,18 @@ public class OrdersListFragment extends Fragment implements ar.com.corpico.appco
     public void setOrderFilter(String estado, List<String> tipo, List<String> zona, DateTime desde, DateTime hasta, String search, Boolean estadoActual) {
         //TODO: VER DE PONER OTRA VARIABLE O COMO HACERLO XQ SINO ME DEJA MARCADOS TODOS LOS CHECKS PARA LA PROXIMA
         if (tipo.size() == 0) {
-            mTipoTrabajoSelected = mTipoTrabajo;
+            mTiposTrabajoSeleccionados = mTipoTrabajo;
         } else {
-            mTipoTrabajoSelected = tipo;
+            mTiposTrabajoSeleccionados = tipo;
         }
         if (zona.size() == 0) {
-            mZonaSelected = mZona;
+            mZonasSeleccionadas = mZona;
         } else {
-            mZonaSelected = zona;
+            mZonasSeleccionadas = zona;
         }
-        mDesde = desde;
-        mHasta = hasta;
-        mOrdersPresenter.loadOrderList(mEstado, mTipoTrabajoSelected, mZonaSelected, mDesde, mHasta, search, estadoActual);
+        mFechaInicio = desde;
+        mFechaFin = hasta;
+        mOrdersPresenter.loadOrderList(mEstado, mTiposTrabajoSeleccionados, mZonasSeleccionadas, mFechaInicio, mFechaFin, search, estadoActual);
     }
 
     @Override
@@ -372,10 +363,10 @@ public class OrdersListFragment extends Fragment implements ar.com.corpico.appco
 
     @Override
     public void cleanData() {
-        mDesde = null;
-        mHasta = null;
-        mZonaSelected = new ArrayList<>();
-        mTipoTrabajoSelected = new ArrayList<>();
+        mFechaInicio = null;
+        mFechaFin = null;
+        mZonasSeleccionadas = new ArrayList<>();
+        mTiposTrabajoSeleccionados = new ArrayList<>();
     }
 
 }

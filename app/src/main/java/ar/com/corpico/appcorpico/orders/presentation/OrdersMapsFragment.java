@@ -34,7 +34,7 @@ import ar.com.corpico.appcorpico.orders.domain.entity.Order;
 /**
  * Muestra el mapa
  */
-public class OrdersMapsFragment extends SupportMapFragment implements OnMapReadyCallback, ar.com.corpico.appcorpico.orders.presentation.View {
+public class OrdersMapsFragment extends SupportMapFragment implements OnMapReadyCallback, OrdersListMvp.View {
     private GoogleMap mMap;
     private String mTipoCuadrilla;
     private List<String> mTipoTrabajoSelected = new ArrayList();
@@ -45,7 +45,7 @@ public class OrdersMapsFragment extends SupportMapFragment implements OnMapReady
     private String mSector;
     private DateTime mDesde = new DateTime();
     private DateTime mHasta = new DateTime();
-    private Presenter mOrdersMapPresenter;
+    private OrdersListMvp.Presenter mOrdersMapPresenter;
     private static final int LOCATION_REQUEST_CODE = 1;
     private Marker marker;
 
@@ -218,7 +218,7 @@ public class OrdersMapsFragment extends SupportMapFragment implements OnMapReady
     }
 
     @Override
-    public void setPresenter(Presenter presenter) {
+    public void setPresenter(OrdersListMvp.Presenter presenter) {
         mOrdersMapPresenter=presenter;
     }
 

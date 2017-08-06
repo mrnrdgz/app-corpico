@@ -1,7 +1,5 @@
 package ar.com.corpico.appcorpico.orders.presentation;
 
-import android.widget.GridLayout;
-
 import com.google.common.base.Preconditions;
 
 import org.joda.time.DateTime;
@@ -12,14 +10,9 @@ import ar.com.corpico.appcorpico.UseCase;
 import ar.com.corpico.appcorpico.orders.domain.entity.Order;
 import ar.com.corpico.appcorpico.orders.domain.entity.Tipo_Cuadrilla;
 import ar.com.corpico.appcorpico.orders.domain.entity.Tipo_Trabajo;
-import ar.com.corpico.appcorpico.orders.domain.filter.AndCriteria;
 import ar.com.corpico.appcorpico.orders.domain.filter.CriteriaCuadrilla;
 import ar.com.corpico.appcorpico.orders.domain.filter.CriteriaCuadrillaTipo;
 import ar.com.corpico.appcorpico.orders.domain.filter.CriteriaTipoTrabajo;
-import ar.com.corpico.appcorpico.orders.domain.filter.CriteriaSearch;
-import ar.com.corpico.appcorpico.orders.domain.filter.CriteriaZona;
-import ar.com.corpico.appcorpico.orders.domain.filter.OrCriteria;
-import ar.com.corpico.appcorpico.orders.domain.filter.OrderCriteriaFecha;
 import ar.com.corpico.appcorpico.orders.domain.filter.Specifications.CompositeSpec;
 import ar.com.corpico.appcorpico.orders.domain.filter.Specifications.FechaSpec;
 import ar.com.corpico.appcorpico.orders.domain.filter.Specifications.SearchSpec;
@@ -30,31 +23,28 @@ import ar.com.corpico.appcorpico.orders.domain.filter.Specifications.ZoneSpec;
 import ar.com.corpico.appcorpico.orders.domain.usecase.AddOrdersState;
 import ar.com.corpico.appcorpico.orders.domain.usecase.GetCuadrillaxTipo;
 import ar.com.corpico.appcorpico.orders.domain.usecase.GetTipoCuadrilla;
-import ar.com.corpico.appcorpico.orders.domain.usecase.GetTipoCuadrilla;
 import ar.com.corpico.appcorpico.orders.domain.usecase.GetOrders;
 import ar.com.corpico.appcorpico.orders.domain.usecase.GetTipoTrabajo;
 import ar.com.corpico.appcorpico.orders.domain.usecase.GetZonas;
-
-import static android.icu.lang.UCharacter.GraphemeClusterBreak.T;
 
 /**
  * Created by Administrador on 06/01/2017.
  */
 
-public class OrdersPresenter implements Presenter {
+public class OrdersPresenter implements OrdersListMvp.Presenter {
     private AddOrdersState maddOrdersState;
     private GetOrders mgetOrders;
     private GetTipoCuadrilla mGetTipoCuadrilla;
     private GetTipoTrabajo mGetTipoTrabajo;
     private GetZonas mGetZona;
     private GetCuadrillaxTipo mgetCuadrillaxTipo;
-    private View mOrdersView;
+    private OrdersListMvp.View mOrdersView;
     //private ar.com.corpico.appcorpico.ordersmaps.View mOrdersMapView;
     private String mCuadrilla;
 
     //TODO: COMO MANEJO ACA EL CASO DE USO? SI ESTA MACHEADO EL CASO DE USO...TENGO QUE HACER UN CONSTRUCTOR POR CADA UNO?
     //O LO PUEDO PONER COMO VARIABLE AL TIPO?
-    public OrdersPresenter(GetOrders getOrders, AddOrdersState addOrdersState, GetTipoCuadrilla getTipoCuadrilla, GetCuadrillaxTipo getCuadrillaxTipo, GetTipoTrabajo getTipoTrabajo, GetZonas getZona, View ordersView) {
+    public OrdersPresenter(GetOrders getOrders, AddOrdersState addOrdersState, GetTipoCuadrilla getTipoCuadrilla, GetCuadrillaxTipo getCuadrillaxTipo, GetTipoTrabajo getTipoTrabajo, GetZonas getZona, OrdersListMvp.View ordersView) {
         maddOrdersState = Preconditions.checkNotNull(addOrdersState, "El presentador no puede ser null");
         mgetOrders = Preconditions.checkNotNull(getOrders, "El presentador no puede ser null");
         mGetTipoCuadrilla = Preconditions.checkNotNull(getTipoCuadrilla, "El presentador no puede ser null");
