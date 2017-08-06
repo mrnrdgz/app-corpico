@@ -180,9 +180,6 @@ public class OrdersMapsFragment extends SupportMapFragment implements OnMapReady
         if (mMap != null) {
             mMap.clear();
         }
-        if (marker != null){
-            marker.remove();
-        }
         LoadOrderMap(listorder);
     }
 

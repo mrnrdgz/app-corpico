@@ -40,24 +40,34 @@ import static android.view.View.GONE;
  * Created by Administrador on 07/01/2017.
  */
 
-public class OrdersListFragment extends Fragment implements ar.com.corpico.appcorpico.orders.presentation.View{
+public class OrdersListFragment extends Fragment implements ar.com.corpico.appcorpico.orders.presentation.View {
+    // Dependencias
     private Presenter mOrdersPresenter;
+
+
+    // Views
     private ListView mOrderList;
     private OrdersAdapter mOrdersAdapter;
     private TextView mEmptyView;
     private android.view.View mProgressView;
+
+
+    // Argumentos
     private String mTipoCuadrilla;
-    private List<String> mTipoTrabajo= new ArrayList<>();
-    private List<String> mTipoTrabajoSelected= new ArrayList<>();
-    private List<String> mZona= new ArrayList<>();
-    private List<String> mZonaSelected= new ArrayList<>();
+    private List<String> mTipoTrabajo = new ArrayList<>();
+    private List<String> mTipoTrabajoSelected = new ArrayList<>();
+    private List<String> mZona = new ArrayList<>();
+    private List<String> mZonaSelected = new ArrayList<>();
+    private String mEstado;
     private DateTime mDesde;
     private DateTime mHasta;
-    private String mEstado;
-    private Activity mActivity;
+
+
     private ArrayList<String> list_items = new ArrayList<>();
-    private int count;
     private boolean hideAsignarButton;
+
+    // Lógica
+    private int count;
 
     private OrdersAdapter.OnAsignarListener listener;
 
@@ -65,27 +75,32 @@ public class OrdersListFragment extends Fragment implements ar.com.corpico.appco
         // Required empty public constructor
     }
 
-   public interface OnViewActivityListener {
+    public interface OnViewActivityListener {
         void onShowTipoCuadrilla(List<Tipo_Cuadrilla> listorder);
+
         //void onShowTipoCuadrilla(List<Tipo_Cuadrilla> listtipocuadrilla);
-       void onAsignarCuadrillaContextual(String cuadrilla, ArrayList<String> numeros);
-   }
+        void onAsignarCuadrillaContextual(String cuadrilla, ArrayList<String> numeros);
+    }
 
     private OnViewActivityListener listenerViewActivity;
 
 
     public void setActivityListener(OnViewActivityListener listener) {
-        this.listenerViewActivity=listener;
+        this.listenerViewActivity = listener;
     }
 
     public void setListener(OrdersAdapter.OnAsignarListener listener) {
-        this.listener=listener;
+        this.listener = listener;
     }
 
-    //Aca va sin parametros o que parametros irian?
-    public static OrdersListFragment newInstance(String tipocuadrilla, String estado, List<String> zona,DateTime desde, DateTime hasta){
+    public static OrdersListFragment newInstance(
+            String tipocuadrilla, String estado,
+            List<String> zona, DateTime desde,
+            DateTime hasta) {
+
         OrdersListFragment fragment = new OrdersListFragment();
         Bundle args = new Bundle();
+
         args.putString("tipocuadrilla", tipocuadrilla);
         args.putString("estado", estado);
         args.putStringArrayList("zona", (ArrayList<String>) zona);
@@ -101,12 +116,12 @@ public class OrdersListFragment extends Fragment implements ar.com.corpico.appco
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             // Toman parámetros
-           mTipoCuadrilla = getArguments().getString("tipocuadrilla");
-           mEstado= getArguments().getString("estado");
-           mZona= getArguments().getStringArrayList("zona");
-           mDesde = (DateTime) getArguments().get("desde");
-           mHasta = (DateTime) getArguments().get("hasta");
-           Spinner activitySpinner = (Spinner) getActivity().findViewById(R.id.spinner_toolBar);
+            mTipoCuadrilla = getArguments().getString("tipocuadrilla");
+            mEstado = getArguments().getString("estado");
+            mZona = getArguments().getStringArrayList("zona");
+            mDesde = (DateTime) getArguments().get("desde");
+            mHasta = (DateTime) getArguments().get("hasta");
+            Spinner activitySpinner = (Spinner) getActivity().findViewById(R.id.spinner_toolBar);
         }
     }
 
@@ -121,7 +136,7 @@ public class OrdersListFragment extends Fragment implements ar.com.corpico.appco
         mProgressView = root.findViewById(R.id.orders_progress);
 
         mOrderList.setTextFilterEnabled(true);
-        mOrdersAdapter = new OrdersAdapter(getActivity(),new ArrayList<Order>(0));
+        mOrdersAdapter = new OrdersAdapter(getActivity(), new ArrayList<Order>(0));
         mOrderList.setAdapter(mOrdersAdapter);
 
         //SETEA LA ESCUCHA PARA EL BOTON ASIGNAR A CUADRILLA
@@ -138,16 +153,16 @@ public class OrdersListFragment extends Fragment implements ar.com.corpico.appco
             @Override
             public void onItemCheckedStateChanged(ActionMode mode, int position,
                                                   long id, boolean checked) {
-                if (checked){
+                if (checked) {
                     count++;
                     mOrdersAdapter.setNewSelection(position);
-                    Order item= (Order) mOrderList.getAdapter().getItem(position);
+                    Order item = (Order) mOrderList.getAdapter().getItem(position);
                     String numero = item.getNumero();
                     list_items.add(numero);
-                }else{
+                } else {
                     count--;
                     mOrdersAdapter.removeSelection(position);
-                    Order item= (Order) mOrderList.getAdapter().getItem(position);
+                    Order item = (Order) mOrderList.getAdapter().getItem(position);
                     String numero = item.getNumero();
                     list_items.remove(numero);
                 }
@@ -172,18 +187,17 @@ public class OrdersListFragment extends Fragment implements ar.com.corpico.appco
 
             @Override
             public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
-                switch(item.getItemId())
-                {
+                switch (item.getItemId()) {
                     case R.id.select_all:
-                        count=0;
+                        count = 0;
                         mOrdersAdapter.clearSelection();
                         list_items.clear();
-                        for ( int i=0; i < mOrderList.getAdapter().getCount(); i++) {
+                        for (int i = 0; i < mOrderList.getAdapter().getCount(); i++) {
                             mOrderList.setItemChecked(i, true);
                         }
                         return true;
                     case R.id.action_asignaracuadrilla:
-                        listenerViewActivity.onAsignarCuadrillaContextual(mTipoCuadrilla,list_items);
+                        listenerViewActivity.onAsignarCuadrillaContextual(mTipoCuadrilla, list_items);
                         /*mOrdersPresenter.asignarOrder(mTipoCuadrilla,list_items,"");
                         count=0;
                         mOrdersAdapter.clearSelection();*/
@@ -214,31 +228,31 @@ public class OrdersListFragment extends Fragment implements ar.com.corpico.appco
                 //Order currentOrder = mOrdersAdapter.getItem(i);
                 Intent intent = new Intent(getActivity(), OrderDetailActivity.class);
 
-                Order currentOrder = (Order)mOrderList.getAdapter().getItem(i);
+                Order currentOrder = (Order) mOrderList.getAdapter().getItem(i);
 
-                intent.putExtra("TIPO_CUADRILLA",mTipoCuadrilla);
-                intent.putExtra("NUMERO",currentOrder.getNumero().toString());
-                intent.putExtra("FECHA",currentOrder.getFechaSolicitud().toString());
-                intent.putExtra("ETAPA",currentOrder.getEtapas().toString());
-                intent.putExtra("TIPO_TRABAJO",currentOrder.getTipo_Trabajo().toString());
-                intent.putExtra("MOTIVO",currentOrder.getMotivo().toString());
-                intent.putExtra("TITULAR",currentOrder.getTitular().toString());
-                intent.putExtra("ASOCIADO",currentOrder.getAsociado().toString()+ "/" + currentOrder.getSuministro().toString());
-                intent.putExtra("DOMICILIO",currentOrder.getDomicilio().toString());
-                intent.putExtra("ANEXO",currentOrder.getAnexo().toString());
-                intent.putExtra("TIPO_USUARIO",currentOrder.getTipo_Usuario().toString());
-                intent.putExtra("TARIFA",currentOrder.getTarifa().toString());
-                intent.putExtra("POTENCIA_DECLARADA",currentOrder.getPotencia_Declarada().toString());
-                intent.putExtra("MEDIDOR",currentOrder.getMedidor().toString());
-                intent.putExtra("MARCA",currentOrder.getMarca().toString());
-                intent.putExtra("MODELO",currentOrder.getModelo().toString());
-                intent.putExtra("FACTOR_M",currentOrder.getFactorM().toString());
-                intent.putExtra("CAPACIDAD",currentOrder.getCapacidad().toString());
-                intent.putExtra("TENSION",currentOrder.getTension().toString());
+                intent.putExtra("TIPO_CUADRILLA", mTipoCuadrilla);
+                intent.putExtra("NUMERO", currentOrder.getNumero().toString());
+                intent.putExtra("FECHA", currentOrder.getFechaSolicitud().toString());
+                intent.putExtra("ETAPA", currentOrder.getEtapas().toString());
+                intent.putExtra("TIPO_TRABAJO", currentOrder.getTipo_Trabajo().toString());
+                intent.putExtra("MOTIVO", currentOrder.getMotivo().toString());
+                intent.putExtra("TITULAR", currentOrder.getTitular().toString());
+                intent.putExtra("ASOCIADO", currentOrder.getAsociado().toString() + "/" + currentOrder.getSuministro().toString());
+                intent.putExtra("DOMICILIO", currentOrder.getDomicilio().toString());
+                intent.putExtra("ANEXO", currentOrder.getAnexo().toString());
+                intent.putExtra("TIPO_USUARIO", currentOrder.getTipo_Usuario().toString());
+                intent.putExtra("TARIFA", currentOrder.getTarifa().toString());
+                intent.putExtra("POTENCIA_DECLARADA", currentOrder.getPotencia_Declarada().toString());
+                intent.putExtra("MEDIDOR", currentOrder.getMedidor().toString());
+                intent.putExtra("MARCA", currentOrder.getMarca().toString());
+                intent.putExtra("MODELO", currentOrder.getModelo().toString());
+                intent.putExtra("FACTOR_M", currentOrder.getFactorM().toString());
+                intent.putExtra("CAPACIDAD", currentOrder.getCapacidad().toString());
+                intent.putExtra("TENSION", currentOrder.getTension().toString());
 
-                intent.putExtra("LAT",currentOrder.getLatitud().toString());
-                intent.putExtra("LNG",currentOrder.getLongitud().toString());
-                intent.putExtra("OBSERVACION",currentOrder.getObservacion().toString());
+                intent.putExtra("LAT", currentOrder.getLatitud().toString());
+                intent.putExtra("LNG", currentOrder.getLongitud().toString());
+                intent.putExtra("OBSERVACION", currentOrder.getObservacion().toString());
                 startActivity(intent);
             }
         });
@@ -248,28 +262,32 @@ public class OrdersListFragment extends Fragment implements ar.com.corpico.appco
     }
 
     @Override
-    public void setLoadOrderList(String tipocuadrilla) {
-        mTipoCuadrilla=tipocuadrilla;
-        if (mTipoCuadrilla!=null){
+    public void setLoadOrderList(String tipoCuadrilla) {
+        mTipoCuadrilla = tipoCuadrilla;
+
+        if (mTipoCuadrilla != null) {
+
             mOrdersPresenter.setLoadTipoTrabajos(mTipoCuadrilla);
             mOrdersPresenter.setLoadZonas();
-            if(mTipoTrabajoSelected.size()==0 && mZonaSelected.size()==0){
-                mOrdersPresenter.loadOrderList(mEstado,mTipoTrabajo,mZona,mDesde,mHasta,null,true);
+
+            if (mTipoTrabajoSelected.size() == 0 && mZonaSelected.size() == 0) {
+                mOrdersPresenter.loadOrderList(mEstado, mTipoTrabajo, mZona, mDesde, mHasta, null, true);
             }
-            if(mTipoTrabajoSelected.size()!=0 && mZonaSelected.size()==0){
-                mOrdersPresenter.loadOrderList(mEstado,mTipoTrabajoSelected,mZona,mDesde,mHasta,null,true);
+            if (mTipoTrabajoSelected.size() != 0 && mZonaSelected.size() == 0) {
+                mOrdersPresenter.loadOrderList(mEstado, mTipoTrabajoSelected, mZona, mDesde, mHasta, null, true);
             }
-            if(mTipoTrabajoSelected.size()==0 && mZonaSelected.size()!=0){
-                mOrdersPresenter.loadOrderList(mEstado,mTipoTrabajo,mZonaSelected,mDesde,mHasta,null,true);
+            if (mTipoTrabajoSelected.size() == 0 && mZonaSelected.size() != 0) {
+                mOrdersPresenter.loadOrderList(mEstado, mTipoTrabajo, mZonaSelected, mDesde, mHasta, null, true);
             }
-            if(mTipoTrabajoSelected.size()!=0 && mZonaSelected.size()!=0){
-                mOrdersPresenter.loadOrderList(mEstado,mTipoTrabajoSelected,mZonaSelected,mDesde,mHasta,null,true);
+            if (mTipoTrabajoSelected.size() != 0 && mZonaSelected.size() != 0) {
+                mOrdersPresenter.loadOrderList(mEstado, mTipoTrabajoSelected, mZonaSelected, mDesde, mHasta, null, true);
             }
         }
     }
+
     @Override
     public void setAsignarOrder(String cuadrilla, List<String> listorder) {
-        mOrdersPresenter.asignarOrder(cuadrilla,listorder,"");
+        mOrdersPresenter.asignarOrder(cuadrilla, listorder, "");
     }
 
     @Override
@@ -292,16 +310,17 @@ public class OrdersListFragment extends Fragment implements ar.com.corpico.appco
 
     @Override
     public void setTipoTrabajo(List<String> tipoTrabajo) {
-        mTipoTrabajo=tipoTrabajo;
+        mTipoTrabajo = tipoTrabajo;
         //mTipoTrabajoSelected = new ArrayList<>();
     }
 
 
     @Override
     public void setZonas(List<String> zona) {
-        mZona=zona;
+        mZona = zona;
         //mZonaSelected = new ArrayList<>();
     }
+
     @Override
     public void showOrdesEmpty() {
         mOrderList.setEmptyView(mEmptyView);
@@ -313,21 +332,21 @@ public class OrdersListFragment extends Fragment implements ar.com.corpico.appco
     }
 
     @Override
-    public void setOrderFilter(String estado, List<String> tipo, List<String> zona, DateTime desde, DateTime hasta, String search,Boolean estadoActual) {
+    public void setOrderFilter(String estado, List<String> tipo, List<String> zona, DateTime desde, DateTime hasta, String search, Boolean estadoActual) {
         //TODO: VER DE PONER OTRA VARIABLE O COMO HACERLO XQ SINO ME DEJA MARCADOS TODOS LOS CHECKS PARA LA PROXIMA
-        if (tipo.size() == 0){
-            mTipoTrabajoSelected= mTipoTrabajo;
-        }else{
+        if (tipo.size() == 0) {
+            mTipoTrabajoSelected = mTipoTrabajo;
+        } else {
             mTipoTrabajoSelected = tipo;
         }
-        if (zona.size() == 0){
-            mZonaSelected= mZona;
-        }else{
+        if (zona.size() == 0) {
+            mZonaSelected = mZona;
+        } else {
             mZonaSelected = zona;
         }
-        mDesde=desde;
-        mHasta=hasta;
-        mOrdersPresenter.loadOrderList(mEstado,mTipoTrabajoSelected,mZonaSelected,mDesde,mHasta,search,estadoActual);
+        mDesde = desde;
+        mHasta = hasta;
+        mOrdersPresenter.loadOrderList(mEstado, mTipoTrabajoSelected, mZonaSelected, mDesde, mHasta, search, estadoActual);
     }
 
     @Override
@@ -353,10 +372,10 @@ public class OrdersListFragment extends Fragment implements ar.com.corpico.appco
 
     @Override
     public void cleanData() {
-        mDesde=null;
-        mHasta=null;
-        mZonaSelected=new ArrayList<>();
-        mTipoTrabajoSelected=new ArrayList<>();
+        mDesde = null;
+        mHasta = null;
+        mZonaSelected = new ArrayList<>();
+        mTipoTrabajoSelected = new ArrayList<>();
     }
 
 }
