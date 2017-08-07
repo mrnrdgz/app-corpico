@@ -10,7 +10,13 @@ import ar.com.corpico.appcorpico.UseCase;
 import ar.com.corpico.appcorpico.orders.data.IOrdersRepository;
 import ar.com.corpico.appcorpico.orders.domain.entity.Order;
 import ar.com.corpico.appcorpico.orders.domain.filter.Criteria;
+import ar.com.corpico.appcorpico.orders.domain.filter.CriteriaTipoTrabajo;
+import ar.com.corpico.appcorpico.orders.domain.filter.Specifications.CompositeSpec;
+import ar.com.corpico.appcorpico.orders.domain.filter.Specifications.FechaSpec;
+import ar.com.corpico.appcorpico.orders.domain.filter.Specifications.SearchSpec;
 import ar.com.corpico.appcorpico.orders.domain.filter.Specifications.Specification;
+import ar.com.corpico.appcorpico.orders.domain.filter.Specifications.StateSpec;
+import ar.com.corpico.appcorpico.orders.domain.filter.Specifications.TipoTrabajoSpec;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -25,16 +31,30 @@ public class GetOrders extends UseCase<GetOrders.RequestValues, GetOrders.Respon
 
     public GetOrders(IOrdersRepository ordersRepository, GetTipoTrabajo getTipoTrabajo) {
         this.mOrdersRepository = ordersRepository;
-        mGetTipoTrabajo = Preconditions.checkNotNull(getTipoTrabajo);
+        //mGetTipoTrabajo = Preconditions.checkNotNull(getTipoTrabajo);
+        //TODO: XQ NECESITAMOS PASARLE A ESTE PASO DE USO LOS TIPOSDETRABAJO SI LO ESTAMOS SACANDO AHI?
+        mGetTipoTrabajo = getTipoTrabajo;
     }
 
     @Override
     public void execute(RequestValues requestValues, final UseCaseCallback callback) {
         // TODO: Obtener filtros del paquete de entrada y formar especificación total
         String estado = requestValues.getEstado();
+        String tipoCuadrilla = requestValues.getTipoCuadrilla();
+        //TODO: Ver la definicion de Zona
+        DateTime desde = requestValues.getDesde();
+        DateTime hasta = requestValues.getHasta();
+        String search = requestValues.getSearch();
+        Boolean estadoActual = requestValues.getEstadoActual();
+
+        //Especificacion
+        final StateSpec estadoSpec = new StateSpec(estado);
+        final SearchSpec busquedaSpec = new SearchSpec(search);
+        final FechaSpec fechasSpec = new FechaSpec(estado, desde, hasta, estadoActual);
 
         // TODO: Consultar tipos de trabajo
-        mGetTipoTrabajo.execute(new GetTipoTrabajo.RequestValues(null), new UseCaseCallback() {
+        CriteriaTipoTrabajo criteriaTipoTrabajo = new CriteriaTipoTrabajo(tipoCuadrilla);
+        mGetTipoTrabajo.execute(new GetTipoTrabajo.RequestValues(criteriaTipoTrabajo), new UseCaseCallback() {
             @Override
             public void onSuccess(Object response) {
                 GetTipoTrabajo.ResponseValue responseValue = (GetTipoTrabajo.ResponseValue) response;
@@ -42,7 +62,20 @@ public class GetOrders extends UseCase<GetOrders.RequestValues, GetOrders.Respon
                 List<String> tiposTrabajo = responseValue.getTipoTrabajo();
                 // TODO: Crear especificacion de tipos de trabajo
 
+                int j=0;
+                CompositeSpec<Order> tipoSpec= new TipoTrabajoSpec(tiposTrabajo.get(j));
+                do{
+                    if(j >= 1 && j <= tiposTrabajo.size()){
+                        tipoSpec = (CompositeSpec<Order>) tipoSpec.or(new TipoTrabajoSpec(tiposTrabajo.get(j)));
+                    }
+                    j=j+1;
+                }while(j<tiposTrabajo.size() );
 
+                //Especificacion general
+                final Specification<Order> resultadoSpec;
+                resultadoSpec = estadoSpec.and(
+                        busquedaSpec.and(
+                                fechasSpec.and(tipoSpec)));
                 // TODO: Cargar ordenes
                 mOrdersRepository.findOrder(
                         new IOrdersRepository.OrdersRepositoryCallback() {
@@ -57,7 +90,7 @@ public class GetOrders extends UseCase<GetOrders.RequestValues, GetOrders.Respon
                                 callback.onError(error);
                             }
                         },
-                        requestValues.getFilter()); // TODO : Cambiar por espeicficacion total
+                        resultadoSpec); // TODO : Cambiar por espeicficacion total
             }
 
             @Override

@@ -44,7 +44,7 @@ public class OrderActivity extends NavitationDrawerActivity implements OnFilterA
                 .findFragmentById(R.id.orders_view_container);
 
         if (orderView == null) {
-            orderView = OrdersListFragment.newInstance("Todas","Todos", new ArrayList<>(), null,null,null);
+            //orderView = OrdersListFragment.newInstance("Todas","Todos", new ArrayList<>(), null,null,null);
 
             getSupportFragmentManager()
                     .beginTransaction()
@@ -121,7 +121,7 @@ public class OrderActivity extends NavitationDrawerActivity implements OnFilterA
     @Override
     public void onPossitiveButtonClick(String estado, ArrayList<String> tipo, ArrayList<String> zona, DateTime desde, DateTime hasta, Boolean estadoActual) {
         OrdersListFragment mOrderFragmen = (OrdersListFragment) getSupportFragmentManager().findFragmentById(R.id.orders_view_container);
-        mOrderFragmen.setOrderFilter(estado, tipo, zona, desde, hasta, null,estadoActual);
+        //mOrderFragmen.setOrderFilter(estado, tipo, zona, desde, hasta, null,estadoActual);
     }
 
     @Override

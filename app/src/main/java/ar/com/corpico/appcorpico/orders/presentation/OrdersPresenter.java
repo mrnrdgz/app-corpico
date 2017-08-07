@@ -42,17 +42,19 @@ public class OrdersPresenter implements OrdersListMvp.Presenter {
     private OrdersListMvp.View mOrdersView;
     private String mCuadrilla;
 
-    public OrdersPresenter(GetOrders getOrders, AddOrdersState addOrdersState,
+    /*public OrdersPresenter(GetOrders getOrders, AddOrdersState addOrdersState,
                            GetTipoCuadrilla getTipoCuadrilla, GetCuadrillaxTipo getCuadrillaxTipo,
                            GetTipoTrabajo getTipoTrabajo, GetZonas getZona,
+                           OrdersListMvp.View ordersView) {*/
+    public OrdersPresenter(GetOrders getOrders, GetTipoCuadrilla getTipoCuadrilla,
                            OrdersListMvp.View ordersView) {
 
-        maddOrdersState = Preconditions.checkNotNull(addOrdersState, "El presentador no puede ser null");
+        //maddOrdersState = Preconditions.checkNotNull(addOrdersState, "El presentador no puede ser null");
         mgetOrders = Preconditions.checkNotNull(getOrders, "El presentador no puede ser null");
         mGetTipoCuadrilla = Preconditions.checkNotNull(getTipoCuadrilla, "El presentador no puede ser null");
-        mGetTipoTrabajo = Preconditions.checkNotNull(getTipoTrabajo, "El presentador no puede ser null");
-        mGetZona = Preconditions.checkNotNull(getZona, "El presentador no puede ser null");
-        mgetCuadrillaxTipo = Preconditions.checkNotNull(getCuadrillaxTipo, "El presentador no puede ser null");
+        //mGetTipoTrabajo = Preconditions.checkNotNull(getTipoTrabajo, "El presentador no puede ser null");
+        //mGetZona = Preconditions.checkNotNull(getZona, "El presentador no puede ser null");
+        //mgetCuadrillaxTipo = Preconditions.checkNotNull(getCuadrillaxTipo, "El presentador no puede ser null");
         mOrdersView = Preconditions.checkNotNull(ordersView, "La vista no puede ser null");
         mOrdersView.setPresenter(this);
     }
@@ -63,19 +65,14 @@ public class OrdersPresenter implements OrdersListMvp.Presenter {
                            DateTime hasta, String search,
                            Boolean estadoActual) {
 
-        CompositeSpec<Order> zoneSpec;
+        /*CompositeSpec<Order> zoneSpec;
         Specification<Order> resultadoSpec;
 
-        /**
-         * Aqui creo dos especificaciones compuestas y luego las compongo con and()
-         */
         StateSpec stateSpec = new StateSpec(estado);
-        //ZoneSpec zoneSpec = new ZoneSpec(zona);
         SearchSpec searchSpec = new SearchSpec(search);
         FechaSpec fechaSpec = new FechaSpec(estado, desde, hasta, estadoActual);
 
         if (zona.size() > 0 ){
-            //Zona spec
             int i=0;
             zoneSpec= new ZoneSpec(zona.get(i));
             do{
@@ -106,7 +103,7 @@ public class OrdersPresenter implements OrdersListMvp.Presenter {
                     zoneSpec.and(
                             searchSpec.and(
                                     fechaSpec.and(tipoSpec))));
-        }
+        }*/
 
         //Specification<Order> resultadoSpec = spec;
 
@@ -278,7 +275,7 @@ public class OrdersPresenter implements OrdersListMvp.Presenter {
 
                 if (tipoTrabajo.size() >= 1) {
                     // Mostrar la lista en la vista
-                    mOrdersView.setTipoTrabajo(tipoTrabajo);
+                    //mOrdersView.setTipoTrabajo(tipoTrabajo);
 
                 } else {
                     // Mostrar estado vacío
@@ -316,7 +313,7 @@ public class OrdersPresenter implements OrdersListMvp.Presenter {
                 List<String> zonas = responseValue.getZonas();
                 if (zonas.size() >= 1) {
                     // Mostrar la lista en la vista
-                    mOrdersView.setZonas(zonas);
+                   // mOrdersView.setZonas(zonas);
 
                 } else {
                     // Mostrar estado vacío

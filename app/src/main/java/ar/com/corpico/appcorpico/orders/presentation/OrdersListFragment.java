@@ -79,7 +79,7 @@ public class OrdersListFragment extends Fragment implements OrdersListMvp.View {
 
     public static OrdersListFragment newInstance(
             String tipoCuadrilla, String estado,
-            ArrayList<String> tiposTrabajoSeleccionados, List<String> zonasSeleccionadas,
+            ArrayList<String> tiposTrabajoSeleccionados, ArrayList<String> zonasSeleccionadas,
             DateTime fechaInicio, DateTime fechaFin) {
 
         OrdersListFragment fragment = new OrdersListFragment();

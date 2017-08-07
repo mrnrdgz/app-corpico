@@ -57,14 +57,18 @@ import ar.com.corpico.appcorpico.orders.presentation.OrdersMapsFragment;
  */
 
 public class OrderPendienteActivity extends NavitationDrawerActivity implements AsignarAConexionesDialog.OnAsignarAConexionesListener,OrdersAdapter.OnAsignarListener,DatePickerDialog.OnDateSetListener,OrdersFilter.OnOrdersFilterListener,OrdersListFragment.OnViewActivityListener,TipoTrabajoDialog.TipoTrabajoListener{
-    private String mTipoCuadrilla;
-    private List<String> mTipoTrabajo = new ArrayList<>();
-    private List<String> mZona = new ArrayList<>();
-    private List<String> mTipoTrabajoSelected = new ArrayList<>();
-    private List<String> mZonaSelected = new ArrayList<>();
-    private DateTime mFechaDesdeSelected;
-    private DateTime mFechaHastaSelected;
+    //Key Argumentos
+    public static final String ARG_ESTADO = "orders.estado";
+    public static final String ARG_SERVICIO = "orders.servicio";
+
+    //Argumentos
+    private String mEstado;
+    private String mServicio;
+
+    //Views
     private TipoCuadrillaAdapter mTipoCuadrillaAdapter;
+
+    //Dependencias
     private OrdersListFragment mOrderView;
     private OrdersMapsFragment mOrderMapView;
     private GetOrders mGetOrders;
@@ -75,37 +79,52 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements 
     private GetCuadrillaxTipo mGetCuadrillaxTipo;
     private boolean mViewMap = true;
     private OrdersPresenter orderPresenter;
-    private String mEstado;
-    private String mServicio;
-    private ArrayList<String> mOrdenListNumero;
+
+    //key respuesta del Intent para el filtrado
     public final static int OPINION_REQUEST_CODE = 1;
+
+    //TODO: ver si van
+    private String mTipoCuadrilla;
+
+    private List<String> mTipoTrabajo = new ArrayList<>();
+    private List<String> mZona = new ArrayList<>();
+    private List<String> mTipoTrabajoSelected = new ArrayList<>();
+    private List<String> mZonaSelected = new ArrayList<>();
+    private DateTime mFechaDesdeSelected;
+    private DateTime mFechaHastaSelected;
+
+    private ArrayList<String> mOrdenListNumero;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.orders_list_act);
-        Bundle bundle = getIntent().getExtras();
-        mEstado= bundle.getString("estado");
 
-        mServicio= "Electrico";
+        Bundle args = getIntent().getExtras();
+        mEstado= args.getString(ARG_ESTADO);
+        mServicio= args.getString(ARG_SERVICIO);
+        //"Electrico";
+
         final Spinner spinner = (Spinner) findViewById(R.id.spinner_toolBar);
 
         mOrderView = (OrdersListFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.orders_view_container);
 
         if (mOrderView == null) {
-            mOrderView = OrdersListFragment.newInstance(mTipoCuadrilla,mEstado, new ArrayList<>(), mZona,mFechaDesdeSelected,mFechaHastaSelected);
+            //mOrderView = OrdersListFragment.newInstance(mTipoCuadrilla,mEstado, new ArrayList<>(), mZona,mFechaDesdeSelected,mFechaHastaSelected);
+            mOrderView = OrdersListFragment.newInstance("",mEstado, new ArrayList<String>(), new ArrayList<String>(),null,null);
 
             getSupportFragmentManager().beginTransaction()
-            .add(R.id.orders_view_container, mOrderView,"OrderView")
-            //.addToBackStack(null)
-            .commit();
+                    .add(R.id.orders_view_container, mOrderView,"OrderView")
+                    .commit();
 
         }
 
         //SETEA LA LLAMADA PARA QUE LA ACTIVIDAD TENGA COMUNICACION CON ORDERADAPTER
         mOrderView.setListener(this);
         mOrderView.setActivityListener(this);
+
 
         /**
          * <<create>> Almacénes
@@ -123,20 +142,19 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements 
          */
         //TODO: ACA DEBERIA USAR UNA VARIABLE PARA PONER EL CASO DE USO?
         mGetOrders = new GetOrders(repository, null);
-        mAddOrdersState = new AddOrdersState(repository);
+        //mAddOrdersState = new AddOrdersState(repository);
 
         mGetTipoCuadrilla = new GetTipoCuadrilla(repository);
-        mGetTipoTrabajo = new GetTipoTrabajo(repository);
-        mGetCuadrillaxTipo = new GetCuadrillaxTipo(repository);
-        mGetZona = new GetZonas(repository);
+        //mGetTipoTrabajo = new GetTipoTrabajo(repository);
+        //mGetCuadrillaxTipo = new GetCuadrillaxTipo(repository);
+        //mGetZona = new GetZonas(repository);
 
         /**
          * <<create>> Caso de uso Presenter
          */
-        //TODO: ACA DEBERIA USAR UNA VARIABLE PARA PONER EL CASO DE USO?
-        orderPresenter = new OrdersPresenter(mGetOrders, mAddOrdersState, mGetTipoCuadrilla,mGetCuadrillaxTipo,mGetTipoTrabajo,mGetZona,mOrderView);
+        //orderPresenter = new OrdersPresenter(mGetOrders, mAddOrdersState, mGetTipoCuadrilla,mGetCuadrillaxTipo,mGetTipoTrabajo,mGetZona,mOrderView);
+        orderPresenter = new OrdersPresenter(mGetOrders, mGetTipoCuadrilla, mOrderView);
         mOrderView.setPresenter(orderPresenter);
-        //mOrderMapView.setPresenter(orderPresenter);
 
         mTipoCuadrillaAdapter = new TipoCuadrillaAdapter(this,new ArrayList<Tipo_Cuadrilla>(0));
         mTipoCuadrillaAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -150,13 +168,11 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements 
                 ((TextView)v).setTextColor(Color.WHITE);
                 Tipo_Cuadrilla item = (Tipo_Cuadrilla) spinner.getSelectedItem();
                 mTipoCuadrilla=item.getTipo_cuadrilla();
-                if (mTipoCuadrilla != null && mOrderView != null && mViewMap ){
+                /*if (mTipoCuadrilla != null && mOrderView != null && mViewMap ){
                     mTipoTrabajoSelected = new ArrayList<>();
                     mFechaDesdeSelected = null;
                     mFechaHastaSelected = null;
                     mZonaSelected= new ArrayList<>();
-                    mOrderView.cleanData();
-                    mOrderView.setLoadOrderList(mTipoCuadrilla);
                 }
                 if (mTipoCuadrilla != null && mOrderMapView != null && mViewMap==false ){
                     mTipoTrabajoSelected = new ArrayList<>();
@@ -165,7 +181,7 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements 
                     mZonaSelected= new ArrayList<>();
                     mOrderMapView.cleanData();
                     mOrderMapView.setLoadOrderList(mTipoCuadrilla);
-                }
+                }*/
             }
 
             @Override
@@ -220,7 +236,7 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements 
                     // Search
                 } else {
                     // Do something when there's no input
-                    mOrderView.setLoadOrderList(mTipoCuadrilla);
+                    //mOrderView.setLoadOrderList(mTipoCuadrilla);
                 }
                 return false;
             }
@@ -237,8 +253,8 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements 
         int id = item.getItemId();
         switch (id) {
             case R.id.action_filtrar:
-                mTipoTrabajo = mOrderView.getTipoTrabajo();
-                mZona = mOrderView.getZona();
+                //mTipoTrabajo = mOrderView.getTipoTrabajo();
+                //mZona = mOrderView.getZona();
                 //TODO: LO MISMO TENGO Q HACER CON LAS ZONAS
                 //new OrdersFilter().newInstance((ArrayList<String>) mTipoTrabajo,mEstado,mZona).show(getSupportFragmentManager(), "OrderFilterDialog");
                 Intent intent = new Intent(this, OrdersFilterActivity.class);
@@ -266,7 +282,7 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements 
                     ft.replace(R.id.orders_view_container, mOrderMapView,"OrderViewMap")
                             //.addToBackStack("OrderViewMap")
                             .commit();
-                    orderPresenter = new OrdersPresenter(mGetOrders, mAddOrdersState, mGetTipoCuadrilla,mGetCuadrillaxTipo,mGetTipoTrabajo,mGetZona,mOrderMapView);
+                    //orderPresenter = new OrdersPresenter(mGetOrders, mAddOrdersState, mGetTipoCuadrilla,mGetCuadrillaxTipo,mGetTipoTrabajo,mGetZona,mOrderMapView);
                     mOrderMapView.setPresenter(orderPresenter);
                 }
                 break;
@@ -277,11 +293,11 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements 
                 ft = getSupportFragmentManager().beginTransaction();
                 Fragment fragment1 = fm.findFragmentById(R.id.orders_view_container);
                 if(!(fragment1 instanceof OrdersListFragment)){
-                    mOrderView = OrdersListFragment.newInstance(mTipoCuadrilla,mEstado, new ArrayList<>(), mZona,mFechaDesdeSelected,mFechaHastaSelected);
+                    //mOrderView = OrdersListFragment.newInstance(mTipoCuadrilla,mEstado, new ArrayList<>(), mZona,mFechaDesdeSelected,mFechaHastaSelected);
                     ft.replace(R.id.orders_view_container, mOrderView,"OrderView")
                             //.addToBackStack("OrderView")
                             .commit();
-                    orderPresenter = new OrdersPresenter(mGetOrders, mAddOrdersState, mGetTipoCuadrilla,mGetCuadrillaxTipo,mGetTipoTrabajo,mGetZona,mOrderView);
+                    //orderPresenter = new OrdersPresenter(mGetOrders, mAddOrdersState, mGetTipoCuadrilla,mGetCuadrillaxTipo,mGetTipoTrabajo,mGetZona,mOrderView);
                     mOrderView.setPresenter(orderPresenter);
                 }
                 break;
@@ -299,12 +315,12 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements 
 
     @Override
     protected void onRestart() {
-        super.onRestart();
+       /* super.onRestart();
         if (mViewMap){
             mOrderView.setLoadOrderList(mTipoCuadrilla);
         }else {
             mOrderMapView.setLoadOrderList(mTipoCuadrilla);
-        }
+        }*/
     }
     /*@Override
     public void onPossitiveButtonClick(String estado, ArrayList<String> tipo, String sector, DateTime desde, DateTime hasta, Boolean estadoActual) {
@@ -314,7 +330,7 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements 
 
     @Override
     public void onFilterPossitiveButtonClick(String estado, List<String> tipo, List<String> zona, DateTime desde, DateTime hasta, Boolean estadoActual) {
-        mZona=zona;
+        /*mZona=zona;
         mTipoTrabajo = tipo;
         mFechaDesdeSelected = desde;
         mFechaHastaSelected=hasta;
@@ -325,7 +341,7 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements 
         }else{
             OrdersMapsFragment mOrderMapFragment = (OrdersMapsFragment)getSupportFragmentManager().findFragmentById(R.id.orders_view_container);
             mOrderMapFragment.setOrderFilter(mEstado, mTipoTrabajo, mZona, mFechaDesdeSelected, mFechaHastaSelected, null,estadoActual);
-        }
+        }*/
 
     }
 
@@ -365,7 +381,7 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements 
             if (mViewMap){
                 OrdersListFragment mOrderFragmen = (OrdersListFragment) getSupportFragmentManager().findFragmentById(R.id.orders_view_container);
                 //mOrderFragmen.setOrderFilter(mEstado,mTipoTrabajo, mZona, null, null, query,true);
-                mOrderFragmen.setOrderFilter(mEstado,mTipoTrabajo, mZona, mFechaDesdeSelected, mFechaHastaSelected, query,true);
+                //mOrderFragmen.setOrderFilter(mEstado,mTipoTrabajo, mZona, mFechaDesdeSelected, mFechaHastaSelected, query,true);
             }else{
                 OrdersMapsFragment mOrderMapFragment = (OrdersMapsFragment)getSupportFragmentManager().findFragmentById(R.id.orders_view_container);
                 //mOrderMapFragment.setOrderFilter(mEstado, mTipoTrabajo, mZona, null, null, query,true);
