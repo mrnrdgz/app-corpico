@@ -20,14 +20,15 @@ public class CriteriaTipoTrabajo implements Criteria<Tipo_Trabajo> {
     @Override
     public List<Tipo_Trabajo> match(List<Tipo_Trabajo> tipoTrabajos) {
         List<Tipo_Trabajo> filteredTipoTrabajo = new ArrayList<>();
+        /*if(cuadrilla.equals("")){
+            filteredTipoTrabajo = tipoTrabajos;
+        }*/
         if (!cuadrilla.equals("") || cuadrilla !=null) {
             for (Tipo_Trabajo tipoTrabajo : tipoTrabajos) {
                 if (tipoTrabajo.getTipoCuadrilla().equals(cuadrilla)) {
                     filteredTipoTrabajo.add(tipoTrabajo);
                 }
             }
-        }else{
-            filteredTipoTrabajo = tipoTrabajos;
         }
         return filteredTipoTrabajo;
     }

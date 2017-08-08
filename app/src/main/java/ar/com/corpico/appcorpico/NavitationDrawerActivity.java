@@ -126,8 +126,8 @@ public class NavitationDrawerActivity extends AppCompatActivity {
         if (opcion == R.id.nav_pendientes){
             Intent intent = new Intent(this, OrderPendienteActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            intent.putExtra("estado","Pendiente");
-            intent.putExtra("servicio","Electrico");
+            intent.putExtra("orders.estado","Pendiente");
+            intent.putExtra("orders.servicio","Electrico");
             startActivity(intent);
         }
         if (opcion == R.id.nav_asignadas){

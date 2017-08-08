@@ -120,11 +120,9 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements 
                     .commit();
 
         }
-
         //SETEA LA LLAMADA PARA QUE LA ACTIVIDAD TENGA COMUNICACION CON ORDERADAPTER
         mOrderView.setListener(this);
         mOrderView.setActivityListener(this);
-
 
         /**
          * <<create>> Almacénes
@@ -140,19 +138,22 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements 
         /**
          * <<create>> CaseUser
          */
-        //TODO: ACA DEBERIA USAR UNA VARIABLE PARA PONER EL CASO DE USO?
-        mGetOrders = new GetOrders(repository, null);
-        //mAddOrdersState = new AddOrdersState(repository);
 
         mGetTipoCuadrilla = new GetTipoCuadrilla(repository);
-        //mGetTipoTrabajo = new GetTipoTrabajo(repository);
+        mGetTipoTrabajo = new GetTipoTrabajo(repository);
         //mGetCuadrillaxTipo = new GetCuadrillaxTipo(repository);
         //mGetZona = new GetZonas(repository);
+
+        //TODO: ACA DEBERIA USAR UNA VARIABLE PARA PONER EL CASO DE USO?
+        //mGetOrders = new GetOrders(repository, null);
+        mGetOrders = new GetOrders(repository, mGetTipoTrabajo);
+        //mAddOrdersState = new AddOrdersState(repository);
 
         /**
          * <<create>> Caso de uso Presenter
          */
         //orderPresenter = new OrdersPresenter(mGetOrders, mAddOrdersState, mGetTipoCuadrilla,mGetCuadrillaxTipo,mGetTipoTrabajo,mGetZona,mOrderView);
+
         orderPresenter = new OrdersPresenter(mGetOrders, mGetTipoCuadrilla, mOrderView);
         mOrderView.setPresenter(orderPresenter);
 
@@ -161,6 +162,10 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements 
         spinner.setAdapter(mTipoCuadrillaAdapter);
 
         orderPresenter.loadTipoCuadrilla(mServicio);
+
+        //Tipo_Cuadrilla item = (Tipo_Cuadrilla) spinner.getItemAtPosition(0);
+        //mTipoCuadrilla=item.getTipo_cuadrilla();
+
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -168,6 +173,7 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements 
                 ((TextView)v).setTextColor(Color.WHITE);
                 Tipo_Cuadrilla item = (Tipo_Cuadrilla) spinner.getSelectedItem();
                 mTipoCuadrilla=item.getTipo_cuadrilla();
+                mOrderView = OrdersListFragment.newInstance(mTipoCuadrilla,mEstado, new ArrayList<String>(), new ArrayList<String>(),null,null);
                 /*if (mTipoCuadrilla != null && mOrderView != null && mViewMap ){
                     mTipoTrabajoSelected = new ArrayList<>();
                     mFechaDesdeSelected = null;
@@ -315,8 +321,9 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements 
 
     @Override
     protected void onRestart() {
-       /* super.onRestart();
-        if (mViewMap){
+        super.onRestart();
+        mOrderView = OrdersListFragment.newInstance(mTipoCuadrilla,mEstado, new ArrayList<String>(), new ArrayList<String>(),null,null);
+    /*    if (mViewMap){
             mOrderView.setLoadOrderList(mTipoCuadrilla);
         }else {
             mOrderMapView.setLoadOrderList(mTipoCuadrilla);

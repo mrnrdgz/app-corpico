@@ -302,8 +302,8 @@ public class OrdersListFragment extends Fragment implements OrdersListMvp.View {
     }
 
     @Override
-    public void showTipoCuadrillaList(List<Tipo_Cuadrilla> listorder) {
-        listenerViewActivity.onShowTipoCuadrilla(listorder);
+    public void showTipoCuadrillaList(List<Tipo_Cuadrilla> cuadrillasList) {
+        listenerViewActivity.onShowTipoCuadrilla(cuadrillasList);
     }
 
     @Override
