@@ -28,7 +28,7 @@ public interface IOrdersRepository {
     }
     void findTipoCuadrilla(TipoCuadrillaRepositoryCallBack callback, Criteria filter);
     interface TipoCuadrillaRepositoryCallBack {
-        void onSuccess(List<Tipo_Cuadrilla> tipoCuadrilla);
+        void onSuccess(List<String> tipoCuadrilla);
         void onError(String error);
     }
     void findTipoTrabajo(TipoTrabajoRepositoryCallBack callback, Criteria filter);

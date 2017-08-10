@@ -198,13 +198,13 @@ public class OrdersPresenter implements OrdersListMvp.Presenter {
                 GetTipoCuadrilla.ResponseValue responseValue = (GetTipoCuadrilla.ResponseValue) response;
 
                 // ¿La lista tiene uno o más elementos?
-                List<Tipo_Cuadrilla> tipoCuadrilla = responseValue.getTipoCuadrilla();
+                List<String> tipoCuadrilla = responseValue.getTipoCuadrilla();
                 if (tipoCuadrilla.size() >= 1) {
                     // Mostrar la lista en la vista
-                    mOrdersView.showTipoCuadrillaList(tipoCuadrilla);
+                    //mOrdersView.showTipoCuadrillaList(tipoCuadrilla);
                 } else {
                     // Mostrar estado vacío
-                    mOrdersView.showTipoCuadrillaList(tipoCuadrilla);
+                    //mOrdersView.showTipoCuadrillaList(tipoCuadrilla);
                     mOrdersView.showOrdesEmpty();
                 }
             }

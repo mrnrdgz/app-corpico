@@ -183,17 +183,6 @@ public class OrdersMapsFragment extends SupportMapFragment implements OnMapReady
         LoadOrderMap(listorder);
     }
 
-    @Override
-    public void showTipoCuadrillaList(List<Tipo_Cuadrilla> listorder) {
-
-    }
-
-
-    @Override
-    public void showCuadrillaxTipoList(List<Tipo_Cuadrilla> listcuadrilla) {
-
-    }
-
     public void cleanData() {
         mDesde=null;
         mHasta=null;

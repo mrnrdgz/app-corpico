@@ -248,12 +248,7 @@ public class OrdersListFragment extends Fragment implements OrdersListMvp.View {
     }
 
     public interface OnViewActivityListener {
-        void onShowTipoCuadrilla(List<Tipo_Cuadrilla> listorder);
-
-        //void onShowTipoCuadrilla(List<Tipo_Cuadrilla> listtipocuadrilla);
         void onAsignarCuadrillaContextual(String cuadrilla, ArrayList<String> numeros);
-
-
     }
 
     private OnViewActivityListener listenerViewActivity;
@@ -301,15 +296,10 @@ public class OrdersListFragment extends Fragment implements OrdersListMvp.View {
         mProgressView.setVisibility(show ? View.VISIBLE : GONE);
     }
 
-    @Override
-    public void showTipoCuadrillaList(List<Tipo_Cuadrilla> cuadrillasList) {
-        listenerViewActivity.onShowTipoCuadrilla(cuadrillasList);
-    }
-
-    @Override
+    /*@Override
     public void showCuadrillaxTipoList(List<Tipo_Cuadrilla> listcuadrilla) {
         //TODO: ACA LLAMO A UN LISTERNER QUE ME CONECTE CON LA ACTIVITY Y LE PASO LAS CUADRILLAS
         listenerViewActivity.onShowTipoCuadrilla(listcuadrilla);
-    }
+    }*/
 
 }

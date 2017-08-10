@@ -63,10 +63,10 @@ import ar.com.corpico.appcorpico.orders.presentation.TiposCuadrillasPresenter;
 public class OrderPendienteActivity extends NavitationDrawerActivity implements
         AsignarAConexionesDialog.OnAsignarAConexionesListener,
         OrdersAdapter.OnAsignarListener,
-        DatePickerDialog.OnDateSetListener,
-        OrdersFilter.OnOrdersFilterListener,
+        //DatePickerDialog.OnDateSetListener,
+        //OrdersFilter.OnOrdersFilterListener,
         OrdersListFragment.OnViewActivityListener,
-        TipoTrabajoDialog.TipoTrabajoListener,
+        //TipoTrabajoDialog.TipoTrabajoListener,
         TiposCuadrillaToolbarMvp.View {
 
     //Key Argumentos
@@ -178,7 +178,7 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements
     private void setUpSpinner() {
 
         // Adaptador
-        mTipoCuadrillaAdapter = new TipoCuadrillaAdapter(this, new ArrayList<Tipo_Cuadrilla>(0));
+        mTipoCuadrillaAdapter = new TipoCuadrillaAdapter(this, new ArrayList<String>(0));
         mTipoCuadrillaAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mSpinner.setAdapter(mTipoCuadrillaAdapter);
 
@@ -189,8 +189,7 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 View v = mSpinner.getSelectedView();
                 ((TextView) v).setTextColor(Color.WHITE);
-                Tipo_Cuadrilla item = (Tipo_Cuadrilla) mSpinner.getSelectedItem();
-                mTipoCuadrilla = item.getTipo_cuadrilla();
+                String mTipoCuadrilla = (String) mSpinner.getSelectedItem();
                 mOrderView = OrdersListFragment.newInstance(mTipoCuadrilla, mEstado, new ArrayList<String>(), new ArrayList<String>(), null, null);
             }
 
@@ -328,57 +327,8 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements
     protected void onRestart() {
         super.onRestart();
         mOrderView = OrdersListFragment.newInstance(mTipoCuadrilla, mEstado, new ArrayList<String>(), new ArrayList<String>(), null, null);
-    /*    if (mViewMap){
-            mOrderView.setLoadOrderList(mTipoCuadrilla);
-        }else {
-            mOrderMapView.setLoadOrderList(mTipoCuadrilla);
-        }*/
-    }
-    /*@Override
-    public void onPossitiveButtonClick(String estado, ArrayList<String> tipo, String sector, DateTime desde, DateTime hasta, Boolean estadoActual) {
-        OrdersListFragment mOrderFragmen = (OrdersListFragment) getSupportFragmentManager().findFragmentById(R.id.orders_view_container);
-        mOrderFragmen.setOrderFilter(estado, tipo, sector, desde, hasta, null,estadoActual);
-    }*/
-
-    @Override
-    public void onFilterPossitiveButtonClick(String estado, List<String> tipo, List<String> zona, DateTime desde, DateTime hasta, Boolean estadoActual) {
-        /*mZona=zona;
-        mTipoTrabajo = tipo;
-        mFechaDesdeSelected = desde;
-        mFechaHastaSelected=hasta;
-        //TODO: VER PORQUE NO ANDA PARA EL MAPVIEW
-        if (mViewMap){
-            OrdersListFragment mOrderFragmen = (OrdersListFragment) getSupportFragmentManager().findFragmentById(R.id.orders_view_container);
-            mOrderFragmen.setOrderFilter(mEstado, mTipoTrabajo, mZona, mFechaDesdeSelected, mFechaHastaSelected, null,estadoActual);
-        }else{
-            OrdersMapsFragment mOrderMapFragment = (OrdersMapsFragment)getSupportFragmentManager().findFragmentById(R.id.orders_view_container);
-            mOrderMapFragment.setOrderFilter(mEstado, mTipoTrabajo, mZona, mFechaDesdeSelected, mFechaHastaSelected, null,estadoActual);
-        }*/
-
     }
 
-    @Override
-    public void onNegativeButtonClick() {
-        Toast.makeText(getApplicationContext(), "CHAU", Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void onCargarCuadrillasListner(String tipotrabajo) {
-        orderPresenter.loadCuadrillasXTipo(tipotrabajo);
-    }
-
-    @Override
-    //TODO: ACA LE TENGO Q PASARLE EL QUE ESTA SESTEADO
-    public void onTipoTrabajoTextViewClick(ArrayList<String> tipotrabajo) {
-        TipoTrabajoDialog tipoTrabajoDialog = TipoTrabajoDialog.newInstance(tipotrabajo);
-        tipoTrabajoDialog.show(getSupportFragmentManager(), "TipoTrabajoChk");
-    }
-
-   /* @Override
-    public void onFechaTextViewClick() {
-        DateDialog fechaDialog = new DateDialog();
-        fechaDialog.show(getSupportFragmentManager(),"datePicker");
-    }*/
 
     @Override
     protected void onNewIntent(Intent intent) {
@@ -399,14 +349,6 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements
                 //mOrderMapFragment.setOrderFilter(mEstado, mTipoTrabajo, mZona, null, null, query,true);
                 mOrderMapFragment.setOrderFilter(mEstado, mTipoTrabajo, mZona, mFechaDesdeSelected, mFechaHastaSelected, query, true);
             }
-        }
-    }
-
-    @Override
-    public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
-        OrdersFilterAll fragment = (OrdersFilterAll) getSupportFragmentManager().findFragmentByTag("FilterDialog");
-        if (fragment != null) {
-            fragment.setDateDesdeView(i, i1, i2);
         }
     }
 
@@ -452,13 +394,6 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements
     }
 
     @Override
-    public void onShowTipoCuadrilla(List<Tipo_Cuadrilla> tipoCuadrilla) {
-        mTipoCuadrillaAdapter.clear();
-        mTipoCuadrillaAdapter.addAll(tipoCuadrilla);
-        mTipoCuadrillaAdapter.notifyDataSetChanged();
-    }
-
-    @Override
     public void onAsignarCuadrillaContextual(String cuadrilla, ArrayList<String> numeros) {
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         Fragment prev = getSupportFragmentManager().findFragmentByTag("AsignarconexionDialog");
@@ -469,17 +404,6 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements
 
         DialogFragment newFragment = AsignarAConexionesDialog.newInstance(mTipoCuadrilla, numeros);
         newFragment.show(ft, "AsignarconexionDialog");
-    }
-
-    @Override
-    //TODO: LE TENDER QUE PASAR DOS PARAMETROS? UNA CON EL TIPO Y EL OTRO CON EL SELECCONADO?
-    public void SetTipoTrabajo(ArrayList<String> tipoTrabajoSelected) {
-        //Toast.makeText(this, "TIPOS " + tipoTrabajo , Toast.LENGTH_SHORT).show();
-        mTipoTrabajoSelected = tipoTrabajoSelected;
-        OrdersFilter fragment = (OrdersFilter) getSupportFragmentManager().findFragmentByTag("OrderFilterDialog");
-        if (fragment != null) {
-            fragment.setTipoTrabajoView(tipoTrabajoSelected);
-        }
     }
 
     @Override

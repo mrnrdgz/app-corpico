@@ -16,8 +16,7 @@ public interface OrdersListMvp {
 
     interface View {
         void showOrderList(List<Order> listorder);
-        void showTipoCuadrillaList(List<Tipo_Cuadrilla> listorder);
-        void showCuadrillaxTipoList(List<Tipo_Cuadrilla> listcuadrilla);
+        //void showTipoCuadrillaList(List<String> listorder);
 
         void showOrderError(String error);
         void setPresenter(Presenter presenter);

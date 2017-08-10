@@ -26,8 +26,6 @@ public class CriteriaCuadrilla implements Criteria<Tipo_Cuadrilla> {
                     filteredTipoCuadrillas.add(tipoCuadrilla);
                 }
             }
-        }else{
-            filteredTipoCuadrillas = tipoCuadrillas;
         }
         return filteredTipoCuadrillas;
     }

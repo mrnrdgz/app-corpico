@@ -2,6 +2,7 @@ package ar.com.corpico.appcorpico.orders.presentation;
 
 import com.google.common.base.Preconditions;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import ar.com.corpico.appcorpico.UseCase;
@@ -43,22 +44,26 @@ public class TiposCuadrillasPresenter implements TiposCuadrillaToolbarMvp.Presen
                 GetTipoCuadrilla.ResponseValue responseValue = (GetTipoCuadrilla.ResponseValue) response;
 
                 // ¿La lista tiene uno o más elementos?
-                List<Tipo_Cuadrilla> tipoCuadrilla = responseValue.getTipoCuadrilla();
+                //List<Tipo_Cuadrilla> tipoCuadrilla = responseValue.getTipoCuadrilla();
+                List<String> tipoCuadrilla = responseValue.getTipoCuadrilla();
                 if (tipoCuadrilla.size() >= 1) {
                     // Mostrar la lista en la vista
-                    mView.showTiposCuadrilla(tipoCuadrilla);
+                    List<String> tiposCuadrilla = new ArrayList<>();
+                    for(int i=0;i< tipoCuadrilla.size();i++ ){
+                        tiposCuadrilla.add(tipoCuadrilla.get(1));
+                    }
+                    mView.showTiposCuadrilla(tiposCuadrilla);
                 } else {
                     // Mostrar estado vacío
-                    mView.showTiposCuadrilla(tipoCuadrilla);
-                    mView.showOrdesEmpty();
+                    //mView.showTiposCuadrilla(tipoCuadrilla);
                 }
             }
 
             @Override
             public void onError(String error) {
                 // Ocultar indicador de progreso
-                mView.showProgressIndicator(false);
-                mView.showOrderError(error);
+                //mView.showProgressIndicator(false);
+                //mView.showOrderError(error);
             }
         };
         mGetTiposCuadrillas.execute(requestValues, useCaseCallback);

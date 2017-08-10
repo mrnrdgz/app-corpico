@@ -13,9 +13,9 @@ import ar.com.corpico.appcorpico.R;
 import ar.com.corpico.appcorpico.orders.domain.entity.Tipo_Cuadrilla;
 import ar.com.corpico.appcorpico.orders.domain.entity.Tipo_Trabajo;
 
-public class TipoCuadrillaAdapter extends ArrayAdapter<Tipo_Cuadrilla> {
+public class TipoCuadrillaAdapter extends ArrayAdapter<String> {
 
-    public TipoCuadrillaAdapter(Context context, List<Tipo_Cuadrilla> objects) {
+    public TipoCuadrillaAdapter(Context context, List<String> objects) {
         super(context, 0, objects);
     }
 
@@ -24,7 +24,7 @@ public class TipoCuadrillaAdapter extends ArrayAdapter<Tipo_Cuadrilla> {
        /*
        Obtener el objeto procesado actualmente
         */
-        Tipo_Cuadrilla tipoCuadrilla;
+        String tipoCuadrilla;
 
         /*
         Obtener LayoutInflater de la actividad
@@ -53,7 +53,8 @@ public class TipoCuadrillaAdapter extends ArrayAdapter<Tipo_Cuadrilla> {
         /*
         Asignar valores
          */
-        name.setText(tipoCuadrilla.getTipo_cuadrilla());
+        //name.setText(tipoCuadrilla.getTipo_cuadrilla());
+        name.setText(tipoCuadrilla);
 
         return convertView;
     }
