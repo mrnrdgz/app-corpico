@@ -34,7 +34,7 @@ import ar.com.corpico.appcorpico.orders.domain.usecase.GetZonas;
 public class OrdersPresenter implements OrdersListMvp.Presenter {
     private AddOrdersState maddOrdersState;
     private GetOrders mgetOrders;
-    private GetTipoCuadrilla mGetTipoCuadrilla;
+    //private GetTipoCuadrilla mGetTipoCuadrilla;
     private GetTipoTrabajo mGetTipoTrabajo;
     private GetZonas mGetZona;
     private GetCuadrillaxTipo mgetCuadrillaxTipo;
@@ -46,12 +46,11 @@ public class OrdersPresenter implements OrdersListMvp.Presenter {
                            GetTipoCuadrilla getTipoCuadrilla, GetCuadrillaxTipo getCuadrillaxTipo,
                            GetTipoTrabajo getTipoTrabajo, GetZonas getZona,
                            OrdersListMvp.View ordersView) {*/
-    public OrdersPresenter(GetOrders getOrders, GetTipoCuadrilla getTipoCuadrilla,
-                           OrdersListMvp.View ordersView) {
+    public OrdersPresenter(GetOrders getOrders, OrdersListMvp.View ordersView) {
 
         //maddOrdersState = Preconditions.checkNotNull(addOrdersState, "El presentador no puede ser null");
         mgetOrders = Preconditions.checkNotNull(getOrders, "El presentador no puede ser null");
-        mGetTipoCuadrilla = Preconditions.checkNotNull(getTipoCuadrilla, "El presentador no puede ser null");
+        //mGetTipoCuadrilla = Preconditions.checkNotNull(getTipoCuadrilla, "El presentador no puede ser null");
         //mGetTipoTrabajo = Preconditions.checkNotNull(getTipoTrabajo, "El presentador no puede ser null");
         //mGetZona = Preconditions.checkNotNull(getZona, "El presentador no puede ser null");
         //mgetCuadrillaxTipo = Preconditions.checkNotNull(getCuadrillaxTipo, "El presentador no puede ser null");
@@ -183,77 +182,6 @@ public class OrdersPresenter implements OrdersListMvp.Presenter {
         maddOrdersState.execute(requestValues, useCaseCallback);
     }
 
-    @Override
-    public void loadTipoCuadrilla(String servicio) {
-        CriteriaCuadrilla criteriaTipoCuadrilla = new CriteriaCuadrilla(servicio);
-
-        GetTipoCuadrilla.RequestValues requestValues = new GetTipoCuadrilla.RequestValues(criteriaTipoCuadrilla);
-
-        UseCase.UseCaseCallback useCaseCallback = new UseCase.UseCaseCallback() {
-            @Override
-            public void onSuccess(Object response) {
-                // Ocultar indicador de progreso
-                //mOrdersView.showProgressIndicator(false);
-                // Se obtiene el valor de respuesta del caso de uso
-                GetTipoCuadrilla.ResponseValue responseValue = (GetTipoCuadrilla.ResponseValue) response;
-
-                // ¿La lista tiene uno o más elementos?
-                List<String> tipoCuadrilla = responseValue.getTipoCuadrilla();
-                if (tipoCuadrilla.size() >= 1) {
-                    // Mostrar la lista en la vista
-                    //mOrdersView.showTipoCuadrillaList(tipoCuadrilla);
-                } else {
-                    // Mostrar estado vacío
-                    //mOrdersView.showTipoCuadrillaList(tipoCuadrilla);
-                    mOrdersView.showOrdesEmpty();
-                }
-            }
-
-            @Override
-            public void onError(String error) {
-                // Ocultar indicador de progreso
-                mOrdersView.showProgressIndicator(false);
-                mOrdersView.showOrderError(error);
-            }
-        };
-        mGetTipoCuadrilla.execute(requestValues, useCaseCallback);
-    }
-
-    @Override
-    public void loadCuadrillasXTipo(String tipotrabajo) {
-        CriteriaCuadrillaTipo criteriaCuadrillaTipo = new CriteriaCuadrillaTipo(tipotrabajo);
-
-        GetCuadrillaxTipo.RequestValues requestValues = new GetCuadrillaxTipo.RequestValues(criteriaCuadrillaTipo);
-
-        UseCase.UseCaseCallback useCaseCallback = new UseCase.UseCaseCallback() {
-            @Override
-            public void onSuccess(Object response) {
-                // Ocultar indicador de progreso
-                //mOrdersView.showProgressIndicator(false);
-                // Se obtiene el valor de respuesta del caso de uso
-                GetCuadrillaxTipo.ResponseValue responseValue = (GetCuadrillaxTipo.ResponseValue) response;
-
-                // ¿La lista tiene uno o más elementos?
-                List<Tipo_Trabajo> tipocuadrilla = responseValue.getCuadrilaxTipo();
-                if (tipocuadrilla.size() >= 1) {
-                    // Mostrar la lista en la vista
-                    // mOrdersView.showCuadrillaxTipoList(tipocuadrilla);
-                } else {
-                    // Mostrar estado vacío
-                    // mOrdersView.showCuadrillaxTipoList(tipocuadrilla);
-                    mOrdersView.showOrdesEmpty();
-                }
-            }
-
-            @Override
-            public void onError(String error) {
-                // Ocultar indicador de progreso
-                mOrdersView.showProgressIndicator(false);
-                mOrdersView.showOrderError(error);
-            }
-        };
-        mgetCuadrillaxTipo.execute(requestValues, useCaseCallback);
-    }
 
     @Override
     public void setLoadTipoTrabajos(String cuadrilla) {

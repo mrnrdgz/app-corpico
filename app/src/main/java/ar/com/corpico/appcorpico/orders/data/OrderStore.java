@@ -29,7 +29,7 @@ public interface OrderStore {
     }
     void getTipoCuadrilla(GetTipoCuadrillaStoreCallBack callback, Criteria filter);
     interface GetTipoCuadrillaStoreCallBack{
-        void onSuccess(List<String> tipoCuadrilla);
+        void onSuccess(List<Tipo_Cuadrilla> tipoCuadrilla);
         void onError(String error);
     }
     void getTipoTrabajo(GetTipoTrabajoStoreCallBack callback, Criteria filter);

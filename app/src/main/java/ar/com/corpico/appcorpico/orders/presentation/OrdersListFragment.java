@@ -268,6 +268,14 @@ public class OrdersListFragment extends Fragment implements OrdersListMvp.View {
     }
 
     @Override
+    public void setLoadOrders(String tipoCuadrilla, String estado, List<String> tipoTrabajo,
+                              List<String> zona, DateTime desde, DateTime hasta, String search,
+                              Boolean estadoActual) {
+        mOrdersPresenter.loadOrders(tipoCuadrilla, estado, tipoTrabajo,
+                zona, desde, hasta, null, true);
+    }
+
+    @Override
     public void showOrderList(List<Order> orders) {
         mOrdersAdapter.clear();
         mOrdersAdapter.addAll(orders);

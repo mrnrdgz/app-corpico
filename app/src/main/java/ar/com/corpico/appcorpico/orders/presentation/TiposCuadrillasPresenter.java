@@ -45,12 +45,12 @@ public class TiposCuadrillasPresenter implements TiposCuadrillaToolbarMvp.Presen
 
                 // ¿La lista tiene uno o más elementos?
                 //List<Tipo_Cuadrilla> tipoCuadrilla = responseValue.getTipoCuadrilla();
-                List<String> tipoCuadrilla = responseValue.getTipoCuadrilla();
+                List<Tipo_Cuadrilla> tipoCuadrilla = responseValue.getTipoCuadrilla();
                 if (tipoCuadrilla.size() >= 1) {
                     // Mostrar la lista en la vista
                     List<String> tiposCuadrilla = new ArrayList<>();
                     for(int i=0;i< tipoCuadrilla.size();i++ ){
-                        tiposCuadrilla.add(tipoCuadrilla.get(1));
+                        tiposCuadrilla.add(tipoCuadrilla.get(i).getTipo_cuadrilla());
                     }
                     mView.showTiposCuadrilla(tiposCuadrilla);
                 } else {

@@ -167,11 +167,12 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements
         OrdersRepository repository = OrdersRepository.getInstance(restStore);
 
         // Casos de uso
-        mGetTipoCuadrilla = new GetTipoCuadrilla(repository);
+        //mGetTipoCuadrilla = new GetTipoCuadrilla(repository);
+        mGetTipoTrabajo = new GetTipoTrabajo(repository);
         mGetOrders = new GetOrders(repository, mGetTipoTrabajo);
 
         // Presentador
-        orderPresenter = new OrdersPresenter(mGetOrders, mGetTipoCuadrilla, mOrderView);
+        orderPresenter = new OrdersPresenter(mGetOrders, mOrderView);
         mOrderView.setPresenter(orderPresenter);
     }
 
@@ -190,7 +191,8 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements
                 View v = mSpinner.getSelectedView();
                 ((TextView) v).setTextColor(Color.WHITE);
                 String mTipoCuadrilla = (String) mSpinner.getSelectedItem();
-                mOrderView = OrdersListFragment.newInstance(mTipoCuadrilla, mEstado, new ArrayList<String>(), new ArrayList<String>(), null, null);
+                //mOrderView = OrdersListFragment.newInstance(mTipoCuadrilla, mEstado, new ArrayList<String>(), new ArrayList<String>(), null, null);
+                mOrderView.setLoadOrders(mTipoCuadrilla, mEstado, new ArrayList<String>(), new ArrayList<String>(), null, null,null,true);
             }
 
             @Override

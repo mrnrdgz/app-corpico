@@ -16,18 +16,14 @@ public interface OrdersListMvp {
 
     interface View {
         void showOrderList(List<Order> listorder);
-        //void showTipoCuadrillaList(List<String> listorder);
-
         void showOrderError(String error);
         void setPresenter(Presenter presenter);
-
         void showOrdesEmpty();
         void showProgressIndicator(boolean show);
-
-        // TODO: el parametro "numero" luego lo reemplazare por List<Order>?
-        //public void setAsignarOrder(String cuadrilla, String numero);
         void setAsignarOrder(String cuadrilla, List<String> listorder);
-        // SON FUNCIONES DE MAP
+        void setLoadOrders(String tipoCuadrilla, String estado, List<String> tipoTrabajo,
+                           List<String> zona, DateTime desde, DateTime hasta, String search,
+                           Boolean estadoActual);
     }
 
 
@@ -37,8 +33,6 @@ public interface OrdersListMvp {
                         List<String> zona, DateTime desde, DateTime hasta, String search,
                         Boolean estadoActual);
         void asignarOrder(String cuadrilla, List<String> listorder, String observacion);
-        void loadTipoCuadrilla(String servicio);
-        void loadCuadrillasXTipo(String tipotrabajo);
         void setLoadTipoTrabajos(String cuadrilla);
         void setLoadZonas();
 
