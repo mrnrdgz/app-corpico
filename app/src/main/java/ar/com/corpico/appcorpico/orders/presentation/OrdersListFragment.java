@@ -42,6 +42,7 @@ public class OrdersListFragment extends Fragment implements OrdersListMvp.View {
     public static final String ARG_ZONAS_SELECCIONADAS = "orders.zonas_seleccionadas";
     public static final String ARG_FECHA_INICIO = "orders.fecha_inicio";
     public static final String ARG_FECHA_FIN = "orders.fecha_fin";
+    public static final String ARG_QUERY = "orders.query";
     private static final String ARG_TIPOS_TRABAJO_SELECCIONADOS = "orders.tipos_trabajo_seleccionados";
 
 
@@ -63,6 +64,7 @@ public class OrdersListFragment extends Fragment implements OrdersListMvp.View {
     private List<String> mZonasSeleccionadas;
     private DateTime mFechaInicio;
     private DateTime mFechaFin;
+    private String mQuery;
 
 
     private ArrayList<String> list_items = new ArrayList<>();
@@ -80,7 +82,7 @@ public class OrdersListFragment extends Fragment implements OrdersListMvp.View {
     public static OrdersListFragment newInstance(
             String tipoCuadrilla, String estado,
             ArrayList<String> tiposTrabajoSeleccionados, ArrayList<String> zonasSeleccionadas,
-            DateTime fechaInicio, DateTime fechaFin) {
+            DateTime fechaInicio, DateTime fechaFin, String query) {
 
         OrdersListFragment fragment = new OrdersListFragment();
         Bundle args = new Bundle();
@@ -91,6 +93,7 @@ public class OrdersListFragment extends Fragment implements OrdersListMvp.View {
         args.putStringArrayList(ARG_TIPOS_TRABAJO_SELECCIONADOS, tiposTrabajoSeleccionados);
         args.putSerializable(ARG_FECHA_INICIO, fechaInicio);
         args.putSerializable(ARG_FECHA_FIN, fechaFin);
+        args.putString(ARG_QUERY, query);
 
         fragment.setArguments(args);
         return fragment;
@@ -109,6 +112,8 @@ public class OrdersListFragment extends Fragment implements OrdersListMvp.View {
             mZonasSeleccionadas = arguments.getStringArrayList(ARG_ZONAS_SELECCIONADAS);
             mFechaInicio = (DateTime) arguments.get(ARG_FECHA_INICIO);
             mFechaFin = (DateTime) arguments.get(ARG_FECHA_FIN);
+            mQuery = arguments.getString(ARG_QUERY);
+
         }
     }
 
@@ -244,7 +249,7 @@ public class OrdersListFragment extends Fragment implements OrdersListMvp.View {
     public void onResume() {
         super.onResume();
         mOrdersPresenter.loadOrders(mTipoCuadrilla, mEstado, mTiposTrabajoSeleccionados,
-                mZonasSeleccionadas, mFechaInicio, mFechaFin, null, true);
+                mZonasSeleccionadas, mFechaInicio, mFechaFin, mQuery, true);
     }
 
     public interface OnViewActivityListener {
@@ -272,7 +277,7 @@ public class OrdersListFragment extends Fragment implements OrdersListMvp.View {
                               List<String> zona, DateTime desde, DateTime hasta, String search,
                               Boolean estadoActual) {
         mOrdersPresenter.loadOrders(tipoCuadrilla, estado, tipoTrabajo,
-                zona, desde, hasta, null, true);
+                zona, desde, hasta, search, true);
     }
 
     @Override

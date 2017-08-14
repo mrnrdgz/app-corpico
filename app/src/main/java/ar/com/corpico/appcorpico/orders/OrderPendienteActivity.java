@@ -63,10 +63,7 @@ import ar.com.corpico.appcorpico.orders.presentation.TiposCuadrillasPresenter;
 public class OrderPendienteActivity extends NavitationDrawerActivity implements
         AsignarAConexionesDialog.OnAsignarAConexionesListener,
         OrdersAdapter.OnAsignarListener,
-        //DatePickerDialog.OnDateSetListener,
-        //OrdersFilter.OnOrdersFilterListener,
         OrdersListFragment.OnViewActivityListener,
-        //TipoTrabajoDialog.TipoTrabajoListener,
         TiposCuadrillaToolbarMvp.View {
 
     //Key Argumentos
@@ -103,6 +100,7 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements
     private List<String> mZonaSelected = new ArrayList<>();
     private DateTime mFechaDesdeSelected;
     private DateTime mFechaHastaSelected;
+    private String mQuery;
 
     private ArrayList<String> mOrdenListNumero;
     private Spinner mSpinner;
@@ -148,7 +146,7 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements
         if (mOrderView == null) {
             mOrderView = OrdersListFragment.newInstance(
                     mTipoCuadrilla, mEstado, new ArrayList<String>(),
-                    new ArrayList<String>(), null, null);
+                    new ArrayList<String>(), null, null,mQuery);
 
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.orders_view_container, mOrderView, "OrderView")
@@ -167,13 +165,12 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements
         OrdersRepository repository = OrdersRepository.getInstance(restStore);
 
         // Casos de uso
-        //mGetTipoCuadrilla = new GetTipoCuadrilla(repository);
         mGetTipoTrabajo = new GetTipoTrabajo(repository);
         mGetOrders = new GetOrders(repository, mGetTipoTrabajo);
 
         // Presentador
         orderPresenter = new OrdersPresenter(mGetOrders, mOrderView);
-        mOrderView.setPresenter(orderPresenter);
+        //mOrderView.setPresenter(orderPresenter);
     }
 
     private void setUpSpinner() {
@@ -190,8 +187,9 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 View v = mSpinner.getSelectedView();
                 ((TextView) v).setTextColor(Color.WHITE);
-                String mTipoCuadrilla = (String) mSpinner.getSelectedItem();
-                //mOrderView = OrdersListFragment.newInstance(mTipoCuadrilla, mEstado, new ArrayList<String>(), new ArrayList<String>(), null, null);
+                //String mTipoCuadrilla = (String) mSpinner.getSelectedItem();
+                mTipoCuadrilla = (String) mSpinner.getSelectedItem();
+                //mTipoCuadrilla = (String) mSpinner.getItemAtPosition(0);
                 mOrderView.setLoadOrders(mTipoCuadrilla, mEstado, new ArrayList<String>(), new ArrayList<String>(), null, null,null,true);
             }
 
@@ -328,7 +326,7 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements
     @Override
     protected void onRestart() {
         super.onRestart();
-        mOrderView = OrdersListFragment.newInstance(mTipoCuadrilla, mEstado, new ArrayList<String>(), new ArrayList<String>(), null, null);
+        mOrderView = OrdersListFragment.newInstance(mTipoCuadrilla, mEstado, new ArrayList<String>(), new ArrayList<String>(), null, null,mQuery);
     }
 
 
@@ -339,24 +337,20 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements
 
     private void handleIntent(Intent intent) {
         if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
-            String query = intent.getStringExtra(SearchManager.QUERY);
-            //TODO: VER EN LA BUSQUEDA LA FEHCA...SI PONGO NULL ESTA CONTROLADO...PERO EN EL TIEMPO...PUEDE TRAER.
-            //MUCHOS REGISTROS...COMO PODRIAMOS CONTROLAR ESO?
+            mQuery = intent.getStringExtra(SearchManager.QUERY);
             if (mViewMap) {
-                OrdersListFragment mOrderFragmen = (OrdersListFragment) getSupportFragmentManager().findFragmentById(R.id.orders_view_container);
-                //mOrderFragmen.setOrderFilter(mEstado,mTipoTrabajo, mZona, null, null, query,true);
-                //mOrderFragmen.setOrderFilter(mEstado,mTipoTrabajo, mZona, mFechaDesdeSelected, mFechaHastaSelected, query,true);
+                mOrderView.setLoadOrders(mTipoCuadrilla, mEstado, new ArrayList<String>(), new ArrayList<String>(), null, null,mQuery,true);
             } else {
+                //Todo: ver
                 OrdersMapsFragment mOrderMapFragment = (OrdersMapsFragment) getSupportFragmentManager().findFragmentById(R.id.orders_view_container);
                 //mOrderMapFragment.setOrderFilter(mEstado, mTipoTrabajo, mZona, null, null, query,true);
-                mOrderMapFragment.setOrderFilter(mEstado, mTipoTrabajo, mZona, mFechaDesdeSelected, mFechaHastaSelected, query, true);
+                mOrderMapFragment.setOrderFilter(mEstado, mTipoTrabajo, mZona, mFechaDesdeSelected, mFechaHastaSelected, mQuery, true);
             }
         }
     }
 
     @Override
     public void onButtonClickListner(ArrayList<String> numero) {
-        //TODO: HACER EL DIALOG PARA ASIGNAR EL TRABAJO A LA CUADRILLA ESTO DE ABAJO ES UNA Prueba
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         Fragment prev = getSupportFragmentManager().findFragmentByTag("AsignarconexionDialog");
         if (prev != null) {

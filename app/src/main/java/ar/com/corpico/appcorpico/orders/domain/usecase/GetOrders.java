@@ -31,9 +31,7 @@ public class GetOrders extends UseCase<GetOrders.RequestValues, GetOrders.Respon
 
     public GetOrders(IOrdersRepository ordersRepository, GetTipoTrabajo getTipoTrabajo) {
         this.mOrdersRepository = ordersRepository;
-        //mGetTipoTrabajo = Preconditions.checkNotNull(getTipoTrabajo);
-        //TODO: XQ NECESITAMOS PASARLE A ESTE PASO DE USO LOS TIPOSDETRABAJO SI LO ESTAMOS SACANDO AHI?
-        mGetTipoTrabajo = getTipoTrabajo;
+        mGetTipoTrabajo = Preconditions.checkNotNull(getTipoTrabajo);
     }
 
     @Override
