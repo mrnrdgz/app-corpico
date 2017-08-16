@@ -64,53 +64,6 @@ public class OrdersPresenter implements OrdersListMvp.Presenter {
                            DateTime hasta, String search,
                            Boolean estadoActual) {
 
-        /*CompositeSpec<Order> zoneSpec;
-        Specification<Order> resultadoSpec;
-
-        StateSpec stateSpec = new StateSpec(estado);
-        SearchSpec searchSpec = new SearchSpec(search);
-        FechaSpec fechaSpec = new FechaSpec(estado, desde, hasta, estadoActual);
-
-        if (zona.size() > 0 ){
-            int i=0;
-            zoneSpec= new ZoneSpec(zona.get(i));
-            do{
-                if(i >= 1 && i <= zona.size()){
-                    zoneSpec = (CompositeSpec<Order>) zoneSpec.or(new ZoneSpec(zona.get(i)));
-                }
-                i=i+1;
-            }while(i<zona.size() );
-        }else{
-            zoneSpec=null;
-        }
-
-        int j=0;
-        CompositeSpec<Order> tipoSpec= new TipoTrabajoSpec(tiposTrabajo.get(j));
-        do{
-            if(j >= 1 && j <= tiposTrabajo.size()){
-                tipoSpec = (CompositeSpec<Order>) tipoSpec.or(new TipoTrabajoSpec(tiposTrabajo.get(j)));
-            }
-            j=j+1;
-        }while(j<tiposTrabajo.size() );
-
-        if (zoneSpec == null) {
-            resultadoSpec = stateSpec.and(
-                            searchSpec.and(
-                                    fechaSpec.and(tipoSpec)));
-        }else{
-            resultadoSpec = stateSpec.and(
-                    zoneSpec.and(
-                            searchSpec.and(
-                                    fechaSpec.and(tipoSpec))));
-        }*/
-
-        //Specification<Order> resultadoSpec = spec;
-
-        /**
-         * Luego puedes cambiar el parámetro del caso de uso y el repositorio para que
-         * en la fuente de datos se reciba la especificación y pueda filtrarse con el método
-         * Collections2.filter()
-         */
         mOrdersView.showProgressIndicator(true);
 
         // Parámetro #1

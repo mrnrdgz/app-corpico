@@ -135,6 +135,7 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements
     @Override
     protected void onResume() {
         super.onResume();
+        //Carga el Spinner con los Tipos de Cuadrilla para ese servicio
         mTiposCuadrillasPresenter.loadTiposCuadrilla(mServicio);
     }
 
@@ -319,7 +320,19 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements
     protected void onPause() {
         super.onPause();
     }
+    @Override
+    protected void onStop() {
+        super.onStop();
+    }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+    }
     @Override
     protected void onRestart() {
         super.onRestart();
@@ -336,8 +349,8 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements
         if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
             mQuery = intent.getStringExtra(SearchManager.QUERY);
             if (mViewMap) {
-                //mOrderView.setLoadOrders(mTipoCuadrilla, mEstado, new ArrayList<String>(), new ArrayList<String>(), null, null,mQuery,true);
-                mOrderView = OrdersListFragment.newInstance(mTipoCuadrilla, mEstado, new ArrayList<String>(), new ArrayList<String>(), null, null,mQuery);
+                mOrderView.setLoadOrders(mTipoCuadrilla, mEstado, new ArrayList<String>(), new ArrayList<String>(), null, null,mQuery,true);
+                //mOrderView = OrdersListFragment.newInstance(mTipoCuadrilla, mEstado, new ArrayList<String>(), new ArrayList<String>(), null, null,mQuery);
             } else {
                 //Todo: ver
                 OrdersMapsFragment mOrderMapFragment = (OrdersMapsFragment) getSupportFragmentManager().findFragmentById(R.id.orders_view_container);
@@ -428,11 +441,10 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements
         mTipoCuadrillaAdapter.addAll(tiposCuadrilla);
 
         // Valor inicial
-        mTipoCuadrilla = (String) mSpinner.getItemAtPosition(0);
-
-        iniciarFragmento();
-
-
+        if (mOrderView==null){
+            mTipoCuadrilla = (String) mSpinner.getItemAtPosition(0);
+            iniciarFragmento();
+        }
     }
 
     @Override
