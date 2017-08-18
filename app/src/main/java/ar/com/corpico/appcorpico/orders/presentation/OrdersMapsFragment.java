@@ -35,32 +35,56 @@ import ar.com.corpico.appcorpico.orders.domain.entity.Order;
  * Muestra el mapa
  */
 public class OrdersMapsFragment extends SupportMapFragment implements OnMapReadyCallback, OrdersListMvp.View {
-    private GoogleMap mMap;
-    private String mTipoCuadrilla;
-    private List<String> mTipoTrabajoSelected = new ArrayList();
-    private List<String> mTipoTrabajo = new ArrayList();
-    private List<String> mZona = new ArrayList();
-    private List<String> mZonaSelected = new ArrayList();
-    private String mEstado;
-    private String mSector;
-    private DateTime mDesde = new DateTime();
-    private DateTime mHasta = new DateTime();
-    private OrdersListMvp.Presenter mOrdersMapPresenter;
+    // Keys de argumentos
+    public static final String ARG_TIPO_CUADRILLA = "orders.tipo_cuadrilla";
+    public static final String ARG_ESTADO = "orders.estado";
+    public static final String ARG_ZONAS_SELECCIONADAS = "orders.zonas_seleccionadas";
+    public static final String ARG_FECHA_INICIO = "orders.fecha_inicio";
+    public static final String ARG_FECHA_FIN = "orders.fecha_fin";
+    public static final String ARG_QUERY = "orders.query";
+    private static final String ARG_TIPOS_TRABAJO_SELECCIONADOS = "orders.tipos_trabajo_seleccionados";
+
     private static final int LOCATION_REQUEST_CODE = 1;
+
+
+    // Dependencias
+    private OrdersListMvp.Presenter mOrdersMapPresenter;
+
+    //GoogleMap
+    private GoogleMap mMap;
+
+    // Lógica
     private Marker marker;
+
+    // Argumentos
+    private String mTipoCuadrilla;
+    private String mEstado;
+    private List<String> mTiposTrabajoSeleccionados;
+    private List<String> mZonasSeleccionadas;
+    private DateTime mFechaInicio;
+    private DateTime mFechaFin;
+    private String mQuery;
+
 
     public OrdersMapsFragment() {
     }
 
-    public static OrdersMapsFragment newInstance(String tipoCuadrilla, String estado, List<String> zona,DateTime desde, DateTime hasta) {
+    public static OrdersMapsFragment newInstance(
+            String tipoCuadrilla, String estado,
+            ArrayList<String> tiposTrabajoSeleccionados, ArrayList<String> zonasSeleccionadas,
+            DateTime fechaInicio, DateTime fechaFin, String query) {
+
         OrdersMapsFragment fragment = new OrdersMapsFragment();
         Bundle args = new Bundle();
-        // TODO: Pasar los demás parámetros de la Action Bar
-        args.putString("tipoCuadrilla", tipoCuadrilla);
-        args.putString("estado", estado);
-        args.putStringArrayList("zona", (ArrayList<String>) zona);
-        args.putSerializable("desde", desde);
-        args.putSerializable("hasta", hasta);
+
+        args.putString(ARG_TIPO_CUADRILLA, tipoCuadrilla);
+        args.putString(ARG_ESTADO, estado);
+        args.putStringArrayList(ARG_ZONAS_SELECCIONADAS, (ArrayList<String>) zonasSeleccionadas);
+        args.putStringArrayList(ARG_TIPOS_TRABAJO_SELECCIONADOS, tiposTrabajoSeleccionados);
+        args.putSerializable(ARG_FECHA_INICIO, fechaInicio);
+        args.putSerializable(ARG_FECHA_FIN, fechaFin);
+        args.putString(ARG_QUERY, query);
+
         fragment.setArguments(args);
         return fragment;
     }
@@ -68,24 +92,28 @@ public class OrdersMapsFragment extends SupportMapFragment implements OnMapReady
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Bundle arguments = getArguments();
 
         if (getArguments() != null) {
             // Toman parámetros
-            mTipoCuadrilla = getArguments().getString("tipoCuadrilla");
-            mEstado = getArguments().getString("estado");
-            mZona = getArguments().getStringArrayList("zona");
-            mDesde = (DateTime) getArguments().get("desde");
-            mHasta = (DateTime) getArguments().get("hasta");
-            //Spinner activitySpinner = (Spinner) getActivity().findViewById(R.id.spinner_toolBar);
+            mTipoCuadrilla = arguments.getString(ARG_TIPO_CUADRILLA);
+            mEstado = arguments.getString(ARG_ESTADO);
+            mTiposTrabajoSeleccionados = arguments.getStringArrayList(ARG_TIPOS_TRABAJO_SELECCIONADOS);
+            mZonasSeleccionadas = arguments.getStringArrayList(ARG_ZONAS_SELECCIONADAS);
+            mFechaInicio = (DateTime) arguments.get(ARG_FECHA_INICIO);
+            mFechaFin = (DateTime) arguments.get(ARG_FECHA_FIN);
+            mQuery = arguments.getString(ARG_QUERY);
         }
         getMapAsync(this);
-        //setLoadOrderList(mTipoCuadrilla);
     }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View root = super.onCreateView(inflater, container, savedInstanceState);
-        this.setLoadOrderList(mTipoCuadrilla);
+
+        mOrdersMapPresenter.loadOrders(mTipoCuadrilla, mEstado, mTiposTrabajoSeleccionados,
+                mZonasSeleccionadas, mFechaInicio, mFechaFin, mQuery, true);
+
         return root;
     }
     @Override
@@ -160,18 +188,6 @@ public class OrdersMapsFragment extends SupportMapFragment implements OnMapReady
                     .position(mLatLng)
                     .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW))
                     .title(order.getTitular() + " - " + order.getDomicilio()));
-
-            /*mMap.addMarker(new MarkerOptions()
-                    .position(mLatLng)
-                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW))
-                    .title(order.getTitular() + " - " + order.getDomicilio()));*/
-
-            /*CameraPosition cameraPosition = CameraPosition.builder()
-                    .target(mLatLng)
-                    .zoom(14)
-                    .build();
-
-            mMap.moveCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));*/
         }
     }
 
@@ -183,16 +199,10 @@ public class OrdersMapsFragment extends SupportMapFragment implements OnMapReady
         LoadOrderMap(listorder);
     }
 
-    public void cleanData() {
-        mDesde=null;
-        mHasta=null;
-        mZonaSelected=new ArrayList<>();
-        mTipoTrabajoSelected=new ArrayList<>();
-    }
-
     @Override
     public void showOrderError(String error) {
-
+        Toast.makeText(getActivity(), error, Toast.LENGTH_LONG)
+                .show();
     }
 
     @Override
@@ -210,50 +220,16 @@ public class OrdersMapsFragment extends SupportMapFragment implements OnMapReady
 
     }
 
-    public void setOrderFilter(String estado, List<String> tipo, List<String> zona, DateTime desde, DateTime hasta, String search, Boolean estadoActual) {
-        if (tipo.size() == 0){
-            mTipoTrabajoSelected= mTipoTrabajo;
-        }else{
-            mTipoTrabajoSelected = tipo;
-        }
-        if (zona.size() == 0){
-            mZonaSelected= mZona;
-        }else{
-            mZonaSelected = zona;
-        }
-        mDesde=desde;
-        mHasta=hasta;
-        mOrdersMapPresenter.loadOrders("", mEstado,mTipoTrabajoSelected,mZonaSelected,mDesde,mHasta,search,estadoActual);
-    }
-
-    public void setLoadOrderList(String tipocuadrilla) {
-        mTipoCuadrilla=tipocuadrilla;
-        if (mTipoCuadrilla!=null){
-            mOrdersMapPresenter.setLoadTipoTrabajos(mTipoCuadrilla);
-            mOrdersMapPresenter.setLoadZonas();
-            if(mTipoTrabajoSelected.size()==0 && mZonaSelected.size()==0){
-                mOrdersMapPresenter.loadOrders("", mEstado,mTipoTrabajo,mZona,mDesde,mHasta,null,true);
-            }
-            if(mTipoTrabajoSelected.size()!=0 && mZonaSelected.size()==0){
-                mOrdersMapPresenter.loadOrders("", mEstado,mTipoTrabajoSelected,mZona,mDesde,mHasta,null,true);
-            }
-            if(mTipoTrabajoSelected.size()==0 && mZonaSelected.size()!=0){
-                mOrdersMapPresenter.loadOrders("", mEstado,mTipoTrabajo,mZonaSelected,mDesde,mHasta,null,true);
-            }
-            if(mTipoTrabajoSelected.size()!=0 && mZonaSelected.size()!=0){
-                mOrdersMapPresenter.loadOrders("", mEstado,mTipoTrabajoSelected,mZonaSelected,mDesde,mHasta,null,true);
-            }
-        }
+    @Override
+    public void setLoadOrders(String tipoCuadrilla, String estado, List<String> tipoTrabajo,
+                              List<String> zona, DateTime desde, DateTime hasta, String search,
+                              Boolean estadoActual) {
+        mOrdersMapPresenter.loadOrders(tipoCuadrilla, estado, tipoTrabajo,
+                zona, desde, hasta, search, true);
     }
 
     @Override
     public void setAsignarOrder(String cuadrilla, List<String> listorder) {
 
-    }
-
-    @Override
-    public void setLoadOrders(String tipoCuadrilla, String estado, List<String> tipoTrabajo, List<String> zona, DateTime desde, DateTime hasta, String search, Boolean estadoActual) {
-        mOrdersMapPresenter.loadOrders(tipoCuadrilla, estado, tipoTrabajo,
-                zona, desde, hasta, null, true);
     }
 }

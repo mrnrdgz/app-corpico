@@ -242,14 +242,17 @@ public class OrdersListFragment extends Fragment implements OrdersListMvp.View {
             }
         });
 
+        mOrdersPresenter.loadOrders(mTipoCuadrilla, mEstado, mTiposTrabajoSeleccionados,
+                mZonasSeleccionadas, mFechaInicio, mFechaFin, mQuery, true);
+
         return root;
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        mOrdersPresenter.loadOrders(mTipoCuadrilla, mEstado, mTiposTrabajoSeleccionados,
-                mZonasSeleccionadas, mFechaInicio, mFechaFin, mQuery, true);
+        //mOrdersPresenter.loadOrders(mTipoCuadrilla, mEstado, mTiposTrabajoSeleccionados,
+        //        mZonasSeleccionadas, mFechaInicio, mFechaFin, mQuery, true);
     }
 
     public interface OnViewActivityListener {
