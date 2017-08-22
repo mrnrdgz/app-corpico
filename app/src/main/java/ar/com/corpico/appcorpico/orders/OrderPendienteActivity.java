@@ -133,13 +133,24 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements
         //Carga el Spinner con los Tipos de Cuadrilla para ese servicio
         mTiposCuadrillasPresenter.loadTiposCuadrilla(mServicio);
 
+        // Almacénes
+        FuenteOrdenesServidor restStore = new FuenteOrdenesServidor();
+        OrdersSqliteStore sqliteStore = new OrdersSqliteStore();
+
+        // Casos de uso
+        mGetTipoTrabajo = new GetTipoTrabajo(repository);
+        mGetOrders = new GetOrders(repository, mGetTipoTrabajo);
+
+        // Presentador
+        orderPresenter = new OrdersPresenter(mGetOrders, mOrderView);
+        // Seteo el presentador a la vista
+        mOrderView.setPresenter(orderPresenter);
+
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        //Carga el Spinner con los Tipos de Cuadrilla para ese servicio
-        //mTiposCuadrillasPresenter.loadTiposCuadrilla(mServicio);
     }
 
     private void iniciarFragmento() {
@@ -155,27 +166,11 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.orders_view_container, mOrderView, "OrderView")
                     .commit();
-            }
+
             //SETEA LA LLAMADA PARA QUE LA ACTIVIDAD TENGA COMUNICACION CON ORDERADAPTER
             mOrderView.setListener(this);
             mOrderView.setActivityListener(this);
-
-            // Almacénes
-            FuenteOrdenesServidor restStore = new FuenteOrdenesServidor();
-            OrdersSqliteStore sqliteStore = new OrdersSqliteStore();
-
-            // Repositorios
-            OrdersRepository repository = OrdersRepository.getInstance(restStore);
-
-            // Casos de uso
-            mGetTipoTrabajo = new GetTipoTrabajo(repository);
-            mGetOrders = new GetOrders(repository, mGetTipoTrabajo);
-
-            // Presentador
-            orderPresenter = new OrdersPresenter(mGetOrders, mOrderView);
-        //crear un metodo en el presentador setView...entonces cuando creo el freagmento de mapa
-        //llamo a setView del presentador y le asigno la vista de el mapa
-            mOrderView.setPresenter(orderPresenter);
+        }
     }
 
     private void setUpSpinner() {
@@ -193,7 +188,8 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements
                 View v = mSpinner.getSelectedView();
                 ((TextView) v).setTextColor(Color.WHITE);
                 mTipoCuadrilla = (String) mSpinner.getSelectedItem();
-                mOrderView.setLoadOrders(mTipoCuadrilla, mEstado, new ArrayList<String>(), new ArrayList<String>(), null, null,null,true);
+                orderPresenter.loadOrders(mTipoCuadrilla, mEstado, new ArrayList<String>(),
+                        new ArrayList<String>(), null, null, null, true);
             }
 
             @Override
@@ -222,23 +218,6 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements
         // Personalización del SearchView
         searchView.setSubmitButtonEnabled(true);
 
-        // TODO: Entender y probar este código
-       /* MenuItem searchItem = menu.findItem(R.id.action_search);
-        MenuItemCompat.setOnActionExpandListener(searchItem,
-                new MenuItemCompat.OnActionExpandListener() {
-                    @Override
-                    public boolean onMenuItemActionExpand(MenuItem item) {
-                        return false;
-                    }
-
-                    @Override
-                    public boolean onMenuItemActionCollapse(MenuItem item) {
-                        mOrderView.setLoadOrderList(mCuadrilla);
-                        return false;
-                    }
-                }
-                    );*/
-
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextChange(String newText) {
@@ -246,7 +225,8 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements
                     // Search
                 } else {
                     // Do something when there's no input
-                    mOrderView.setLoadOrders(mTipoCuadrilla, mEstado, new ArrayList<String>(), new ArrayList<String>(), null, null,null,true);
+                    orderPresenter.loadOrders(mTipoCuadrilla, mEstado, new ArrayList<String>(),
+                            new ArrayList<String>(), null, null, null, true);
                 }
                 return false;
             }
@@ -289,12 +269,14 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements
                 FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
                 Fragment fragment = fm.findFragmentById(R.id.orders_view_container);
                 if (!(fragment instanceof OrdersMapsFragment)) {
-                    mOrderMapView = OrdersMapsFragment.newInstance(mTipoCuadrilla, mEstado, new ArrayList<String>(), new ArrayList<String>(), null, null,null);
+                    mOrderMapView = OrdersMapsFragment.newInstance(mTipoCuadrilla, mEstado, new ArrayList<String>(),
+                            new ArrayList<String>(), null, null,null);
                     ft.replace(R.id.orders_view_container, mOrderMapView, "OrderViewMap")
-                            //.addToBackStack("OrderViewMap")
                             .commit();
-                    //orderPresenter = new OrdersPresenter(mGetOrders, mAddOrdersState, mGetTipoCuadrilla,mGetCuadrillaxTipo,mGetTipoTrabajo,mGetZona,mOrderMapView);
-                    //mOrderMapView.setPresenter(orderPresenter);
+                    orderPresenter = new OrdersPresenter(mGetOrders,mOrderMapView);
+                    mOrderMapView.setPresenter(orderPresenter);
+                    //TODO: ESTA BIEN QUE ACA NO LLAME A LOADORDERS...SINO QUE AL HACER UNA INSTANCIA NUEVA DE LA VIEW
+                    //AHI SE EJECUTA LOAD ORDERS (VER LA EXPLICACION CONCEPTUAL
                 }
                 break;
             case R.id.action_list:
@@ -308,8 +290,8 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements
                     ft.replace(R.id.orders_view_container, mOrderView, "OrderView")
                             //.addToBackStack("OrderView")
                             .commit();
-                    //orderPresenter = new OrdersPresenter(mGetOrders, mAddOrdersState, mGetTipoCuadrilla,mGetCuadrillaxTipo,mGetTipoTrabajo,mGetZona,mOrderView);
-                    //mOrderView.setPresenter(orderPresenter);
+                    orderPresenter = new OrdersPresenter(mGetOrders, mOrderView);
+                    mOrderView.setPresenter(orderPresenter);
                 }
                 break;
             case R.id.action_settings:
@@ -339,7 +321,6 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements
     @Override
     protected void onRestart() {
         super.onRestart();
-        //mOrderView = OrdersListFragment.newInstance(mTipoCuadrilla, mEstado, new ArrayList<String>(), new ArrayList<String>(), null, null,mQuery);
     }
 
 
@@ -351,15 +332,9 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements
     private void handleIntent(Intent intent) {
         if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
             mQuery = intent.getStringExtra(SearchManager.QUERY);
-            if (mViewMap) {
-                orderPresenter.loadOrders(mTipoCuadrilla, mEstado, new ArrayList<String>(), new ArrayList<String>(), null, null,mQuery,true);
-                //mOrderView.setLoadOrders(mTipoCuadrilla, mEstado, new ArrayList<String>(), new ArrayList<String>(), null, null,mQuery,true);
-                //mOrderView = OrdersListFragment.newInstance(mTipoCuadrilla, mEstado, new ArrayList<String>(), new ArrayList<String>(), null, null,mQuery);
-            } else {
-                //Todo: ver
-                OrdersMapsFragment mOrderMapView = (OrdersMapsFragment) getSupportFragmentManager().findFragmentById(R.id.orders_view_container);
-                mOrderMapView.setLoadOrders(mTipoCuadrilla, mEstado, new ArrayList<String>(), new ArrayList<String>(), null, null,mQuery,true);
-            }
+
+            orderPresenter.loadOrders(mTipoCuadrilla, mEstado, new ArrayList<String>(), new ArrayList<String>(),
+                        null, null,mQuery,true);
         }
     }
 
@@ -446,8 +421,9 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements
         // Valor inicial
         if (mOrderView==null) {
             mTipoCuadrilla = (String) mSpinner.getItemAtPosition(0);
+            iniciarFragmento();
         }
-        iniciarFragmento(); // llamarlo en oncreate....aca llamar al gettransaccion linea 155
+
     }
 
     @Override
