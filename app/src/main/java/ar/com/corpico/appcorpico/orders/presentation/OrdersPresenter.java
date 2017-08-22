@@ -55,7 +55,7 @@ public class OrdersPresenter implements OrdersListMvp.Presenter {
         //mGetZona = Preconditions.checkNotNull(getZona, "El presentador no puede ser null");
         //mgetCuadrillaxTipo = Preconditions.checkNotNull(getCuadrillaxTipo, "El presentador no puede ser null");
         mOrdersView = Preconditions.checkNotNull(ordersView, "La vista no puede ser null");
-        mOrdersView.setPresenter(this);
+        //mOrdersView.setPresenter(this);
     }
 
     @Override

@@ -155,7 +155,7 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.orders_view_container, mOrderView, "OrderView")
                     .commit();
-            //}
+            }
             //SETEA LA LLAMADA PARA QUE LA ACTIVIDAD TENGA COMUNICACION CON ORDERADAPTER
             mOrderView.setListener(this);
             mOrderView.setActivityListener(this);
@@ -173,8 +173,9 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements
 
             // Presentador
             orderPresenter = new OrdersPresenter(mGetOrders, mOrderView);
-            //mOrderView.setPresenter(orderPresenter);
-        }
+        //crear un metodo en el presentador setView...entonces cuando creo el freagmento de mapa
+        //llamo a setView del presentador y le asigno la vista de el mapa
+            mOrderView.setPresenter(orderPresenter);
     }
 
     private void setUpSpinner() {
@@ -351,7 +352,8 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements
         if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
             mQuery = intent.getStringExtra(SearchManager.QUERY);
             if (mViewMap) {
-                mOrderView.setLoadOrders(mTipoCuadrilla, mEstado, new ArrayList<String>(), new ArrayList<String>(), null, null,mQuery,true);
+                orderPresenter.loadOrders(mTipoCuadrilla, mEstado, new ArrayList<String>(), new ArrayList<String>(), null, null,mQuery,true);
+                //mOrderView.setLoadOrders(mTipoCuadrilla, mEstado, new ArrayList<String>(), new ArrayList<String>(), null, null,mQuery,true);
                 //mOrderView = OrdersListFragment.newInstance(mTipoCuadrilla, mEstado, new ArrayList<String>(), new ArrayList<String>(), null, null,mQuery);
             } else {
                 //Todo: ver
@@ -445,7 +447,7 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements
         if (mOrderView==null) {
             mTipoCuadrilla = (String) mSpinner.getItemAtPosition(0);
         }
-        iniciarFragmento();
+        iniciarFragmento(); // llamarlo en oncreate....aca llamar al gettransaccion linea 155
     }
 
     @Override
