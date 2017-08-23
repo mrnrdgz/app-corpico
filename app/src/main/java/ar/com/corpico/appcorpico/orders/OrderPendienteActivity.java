@@ -188,6 +188,11 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements
                 View v = mSpinner.getSelectedView();
                 ((TextView) v).setTextColor(Color.WHITE);
                 mTipoCuadrilla = (String) mSpinner.getSelectedItem();
+                //TODO: ACA TENDRIA QUE CREAR UNA INSTANCIA XQ SINO ME QUEDA LA VIEW CON VALORES DE VARIABLES VIEJOS
+                //TODO: HACER UN RESPOSITORIO X CADA ENTIDAD....UN ENTIDAD PUEDE TENER VARIAS FUENTES DE DATOS
+                //TODO: BUSCAR EJEMPLOS DE COMPARATOR JAVA PARA VER COMO FUNCIONA EL ORDENAMIENTO
+                //TODO: AGREGAR LA CLASE QUERY Y LA CLASE SELECTOR (ORDER) MODIFICAR Y PROBAR
+                //TODO: LEER LOS LINKS QUE ME PASO EN HANGOUST
                 orderPresenter.loadOrders(mTipoCuadrilla, mEstado, new ArrayList<String>(),
                         new ArrayList<String>(), null, null, null, true);
             }

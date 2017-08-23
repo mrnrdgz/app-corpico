@@ -114,7 +114,7 @@ public class OrdersPresenter implements OrdersListMvp.Presenter {
                 //como debo hacer q llame a una instancia en vez de load del presentador ?
                 //o que aca devuelva la cuadrilla y que llame al load de la vista pasandole esa cuadrilla?
 
-                mOrdersView.close();
+                mOrdersView.close(); //refreshListUI
 
                 // loadOrders();
             }
