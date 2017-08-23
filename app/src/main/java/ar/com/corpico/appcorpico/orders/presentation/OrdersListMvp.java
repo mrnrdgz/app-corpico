@@ -21,9 +21,7 @@ public interface OrdersListMvp {
         void showOrdesEmpty();
         void showProgressIndicator(boolean show);
         void setAsignarOrder(String cuadrilla, List<String> listorder);
-        void setLoadOrders(String tipoCuadrilla, String estado, List<String> tipoTrabajo,
-                           List<String> zona, DateTime desde, DateTime hasta, String search,
-                           Boolean estadoActual);
+        void close();
     }
 
 
@@ -33,8 +31,5 @@ public interface OrdersListMvp {
                         List<String> zona, DateTime desde, DateTime hasta, String search,
                         Boolean estadoActual);
         void asignarOrder(String cuadrilla, List<String> listorder, String observacion);
-        void setLoadTipoTrabajos(String cuadrilla);
-        void setLoadZonas();
-
     }
 }

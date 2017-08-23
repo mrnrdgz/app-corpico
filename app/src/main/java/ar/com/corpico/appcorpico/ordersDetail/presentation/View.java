@@ -8,6 +8,6 @@ import java.util.List;
 
 public interface View {
     void setPresenter(Presenter presenter);
-    void setAsignarOrder(String cuadrilla, List<String> listorder,String observacion);
-    void closeDetail(String cuadrilla);
+    void closeDetail();
+    void showOrderError(String error);
 }

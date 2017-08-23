@@ -23,22 +23,16 @@ import ar.com.corpico.appcorpico.orders.domain.usecase.AddOrdersState;
 public class AsignarAConexionesDetailDialog extends DialogFragment {
     private ArrayList<String> mNumeroOT = new ArrayList<>();
     private String mTipoCuadrilla;
-    private String mObservation;
-    private AddOrdersState mAddOrdersState;
-    private OrdersDetailPresenter presenter;
 
     public interface OnAsignarAConexionesDetailListener {
         void onPossitiveButtonAsignarClick(String cuadrilla, ArrayList<String> numero, String observacion);// Eventos Botón Positivo
-        //LO DEJO X SI MAS ADELANTE LO TENGO QUE DEFINIR
-        void onNegativeButtonAsignarClick();// Eventos Botón Negativo
     }
 
     OnAsignarAConexionesDetailListener listener;
 
     public AsignarAConexionesDetailDialog() {
     }
-    //TODO: HAGO CON ESTE ARGUNTO PARA PROBAR...LUEGO EL ARGUMENTO CREO Q
-    // DEBERIA SER ORDER PARA CUANDO USE MAS DE UNA SELLECCION
+
     public static AsignarAConexionesDetailDialog newInstance(String tipoCuadrilla, ArrayList<String> numero) {
         AsignarAConexionesDetailDialog f = new AsignarAConexionesDetailDialog();
 
@@ -69,7 +63,6 @@ public class AsignarAConexionesDetailDialog extends DialogFragment {
 
         mNumeroOT.add(getArguments().getString("NUMERO"));
         mTipoCuadrilla = (getArguments().getString("TIPO_CUADRILLA"));
-        //TODO: AGREGAR OBSERVACION?
 
         android.view.View v = inflater.inflate(R.layout.dialog_asignar_conexiones, null);
         builder.setView(v);
@@ -78,6 +71,7 @@ public class AsignarAConexionesDetailDialog extends DialogFragment {
 
         final TextView mObservation = (TextView) v.findViewById(R.id.observacion_text);
         TextInputLayout mFloatLabelObservacion = (TextInputLayout) v.findViewById(R.id.float_label_observacion);
+
         Button asignar = (Button) v.findViewById(R.id.aplicar_boton);
         Button cancelar = (Button) v.findViewById(R.id.cancelar_boton);
 

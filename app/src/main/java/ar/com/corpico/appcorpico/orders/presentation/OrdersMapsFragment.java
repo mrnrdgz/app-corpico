@@ -221,15 +221,12 @@ public class OrdersMapsFragment extends SupportMapFragment implements OnMapReady
     }
 
     @Override
-    public void setLoadOrders(String tipoCuadrilla, String estado, List<String> tipoTrabajo,
-                              List<String> zona, DateTime desde, DateTime hasta, String search,
-                              Boolean estadoActual) {
-        mOrdersMapPresenter.loadOrders(tipoCuadrilla, estado, tipoTrabajo,
-                zona, desde, hasta, search, true);
+    public void setAsignarOrder(String cuadrilla, List<String> listorder) {
+
     }
 
     @Override
-    public void setAsignarOrder(String cuadrilla, List<String> listorder) {
+    public void close() {
 
     }
 }

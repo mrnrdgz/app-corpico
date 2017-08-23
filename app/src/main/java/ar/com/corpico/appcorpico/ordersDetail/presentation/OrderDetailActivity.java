@@ -39,6 +39,8 @@ import ar.com.corpico.appcorpico.orders.data.OrdersSqliteStore;
 import ar.com.corpico.appcorpico.orders.domain.usecase.AddOrdersState;
 import ar.com.corpico.appcorpico.orders.presentation.AsignarAConexionesDialog;
 
+import static android.view.View.GONE;
+
 
 public class OrderDetailActivity extends AppCompatActivity implements AsignarAConexionesDetailDialog.OnAsignarAConexionesDetailListener,ar.com.corpico.appcorpico.ordersDetail.presentation.View, OnMapReadyCallback {
     private GoogleMap mMap;
@@ -51,17 +53,6 @@ public class OrderDetailActivity extends AppCompatActivity implements AsignarACo
     private AddOrdersState mAddOrdersState;
     private ar.com.corpico.appcorpico.ordersDetail.presentation.OrdersDetailPresenter mOrdersDetailPresenter;
 
-
-    @Override
-    public void setPresenter(Presenter presenterDetail) {
-        mOrdersDetailPresenter = (OrdersDetailPresenter) presenterDetail;
-    }
-
-    @Override
-    public void setAsignarOrder(String cuadrilla, List<String> listorder, String observacion) {
-        mOrdersDetailPresenter.asignarOrder(cuadrilla,listorder,observacion);
-
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -201,22 +192,7 @@ public class OrderDetailActivity extends AppCompatActivity implements AsignarACo
         uiSettings.setTiltGesturesEnabled(true);
 
         mMap.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
-        /*if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
-                == PackageManager.PERMISSION_GRANTED) {
-            mMap.setMyLocationEnabled(true);
-        } else {
-            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
-                    Manifest.permission.ACCESS_FINE_LOCATION)) {
-                // Mostrar diálogo explicativo
-            } else {
-                // Solicitar permiso
-                ActivityCompat.requestPermissions(
-                        this,
-                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
-                        LOCATION_REQUEST_CODE);
-            }
-        }
-        //mMap.getUiSettings().setZoomControlsEnabled(true);*/
+
         Double mLt,mLn;
 
         mLt = new Double(mLat.substring(0,7)).doubleValue()*-1;
@@ -226,7 +202,6 @@ public class OrderDetailActivity extends AppCompatActivity implements AsignarACo
         mMap.addMarker(new MarkerOptions()
                 .position(mLatLng)
                 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW)));
-        //.title(order.getTitular() + " - " + order.getDomicilio()));
 
         CameraPosition cameraPosition = CameraPosition.builder()
                 .target(mLatLng)
@@ -262,18 +237,22 @@ public class OrderDetailActivity extends AppCompatActivity implements AsignarACo
 
     @Override
     public void onPossitiveButtonAsignarClick(String cuadrilla, ArrayList<String> numero,String observacion) {
-        //this.setAsignarOrder(cuadrilla,numero);
         mOrdersDetailPresenter.asignarOrder(cuadrilla,numero,observacion);
     }
 
     @Override
-    public void onNegativeButtonAsignarClick() {
-
+    public void closeDetail() {
+        this.finish();
     }
 
     @Override
-    public void closeDetail(String cuadrilla) {
-        this.finish();
-
+    public void showOrderError(String error) {
+        Toast.makeText(this, error, Toast.LENGTH_LONG)
+                .show();
     }
+    @Override
+    public void setPresenter(Presenter presenterDetail) {
+        mOrdersDetailPresenter = (OrdersDetailPresenter) presenterDetail;
+    }
+
 }

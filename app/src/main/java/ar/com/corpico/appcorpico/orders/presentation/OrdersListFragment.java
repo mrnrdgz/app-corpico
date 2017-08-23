@@ -186,10 +186,8 @@ public class OrdersListFragment extends Fragment implements OrdersListMvp.View {
                         }
                         return true;
                     case R.id.action_asignaracuadrilla:
-                        listenerViewActivity.onAsignarCuadrillaContextual(mTipoCuadrilla, list_items);
-                        /*mOrdersPresenter.asignarOrder(mTipoCuadrilla,list_items,"");
-                        count=0;
-                        mOrdersAdapter.clearSelection();*/
+                        //listenerViewActivity.onAsignarCuadrillaContextual(mTipoCuadrilla, list_items);
+                        mOrdersPresenter.asignarOrder(mTipoCuadrilla, list_items,"");
                         mode.finish();
                         return true;
                     default:
@@ -251,8 +249,6 @@ public class OrdersListFragment extends Fragment implements OrdersListMvp.View {
     @Override
     public void onResume() {
         super.onResume();
-        //mOrdersPresenter.loadOrders(mTipoCuadrilla, mEstado, mTiposTrabajoSeleccionados,
-        //        mZonasSeleccionadas, mFechaInicio, mFechaFin, mQuery, true);
     }
 
     public interface OnViewActivityListener {
@@ -274,13 +270,10 @@ public class OrdersListFragment extends Fragment implements OrdersListMvp.View {
     public void setAsignarOrder(String cuadrilla, List<String> listorder) {
         mOrdersPresenter.asignarOrder(cuadrilla, listorder, "");
     }
-
     @Override
-    public void setLoadOrders(String tipoCuadrilla, String estado, List<String> tipoTrabajo,
-                              List<String> zona, DateTime desde, DateTime hasta, String search,
-                              Boolean estadoActual) {
-        mOrdersPresenter.loadOrders(tipoCuadrilla, estado, tipoTrabajo,
-                zona, desde, hasta, search, true);
+    public void close() {
+        mOrdersPresenter.loadOrders(mTipoCuadrilla, mEstado, mTiposTrabajoSeleccionados,
+                mZonasSeleccionadas, mFechaInicio, mFechaFin, mQuery, true);
     }
 
     @Override
@@ -301,7 +294,6 @@ public class OrdersListFragment extends Fragment implements OrdersListMvp.View {
         mOrdersPresenter = Preconditions.checkNotNull(presenter, "mOrdersPresenter no puede ser null");
     }
 
-
     @Override
     public void showOrdesEmpty() {
         mOrderList.setEmptyView(mEmptyView);
@@ -311,11 +303,4 @@ public class OrdersListFragment extends Fragment implements OrdersListMvp.View {
     public void showProgressIndicator(boolean show) {
         mProgressView.setVisibility(show ? View.VISIBLE : GONE);
     }
-
-    /*@Override
-    public void showCuadrillaxTipoList(List<Tipo_Cuadrilla> listcuadrilla) {
-        //TODO: ACA LLAMO A UN LISTERNER QUE ME CONECTE CON LA ACTIVITY Y LE PASO LAS CUADRILLAS
-        listenerViewActivity.onShowTipoCuadrilla(listcuadrilla);
-    }*/
-
 }

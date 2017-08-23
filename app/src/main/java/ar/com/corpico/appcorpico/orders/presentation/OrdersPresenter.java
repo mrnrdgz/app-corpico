@@ -42,20 +42,11 @@ public class OrdersPresenter implements OrdersListMvp.Presenter {
     private OrdersListMvp.View mOrdersView;
     private String mCuadrilla;
 
-    /*public OrdersPresenter(GetOrders getOrders, AddOrdersState addOrdersState,
-                           GetTipoCuadrilla getTipoCuadrilla, GetCuadrillaxTipo getCuadrillaxTipo,
-                           GetTipoTrabajo getTipoTrabajo, GetZonas getZona,
-                           OrdersListMvp.View ordersView) {*/
-    public OrdersPresenter(GetOrders getOrders, OrdersListMvp.View ordersView) {
 
-        //maddOrdersState = Preconditions.checkNotNull(addOrdersState, "El presentador no puede ser null");
+    public OrdersPresenter(GetOrders getOrders, OrdersListMvp.View ordersView) {
         mgetOrders = Preconditions.checkNotNull(getOrders, "El presentador no puede ser null");
-        //mGetTipoCuadrilla = Preconditions.checkNotNull(getTipoCuadrilla, "El presentador no puede ser null");
-        //mGetTipoTrabajo = Preconditions.checkNotNull(getTipoTrabajo, "El presentador no puede ser null");
-        //mGetZona = Preconditions.checkNotNull(getZona, "El presentador no puede ser null");
-        //mgetCuadrillaxTipo = Preconditions.checkNotNull(getCuadrillaxTipo, "El presentador no puede ser null");
         mOrdersView = Preconditions.checkNotNull(ordersView, "La vista no puede ser null");
-        //mOrdersView.setPresenter(this);
+        mOrdersView.setPresenter(this);
     }
 
     @Override
@@ -85,7 +76,6 @@ public class OrdersPresenter implements OrdersListMvp.Presenter {
                 if (orders.size() >= 1) {
                     // Mostrar la lista en la vista
                     mOrdersView.showOrderList(orders);
-                    //mOrdersMapView.LoadOrderMap(orders);
 
                 } else {
                     // Mostrar estado vacío
@@ -120,6 +110,11 @@ public class OrdersPresenter implements OrdersListMvp.Presenter {
                 // Se obtiene el valor de respuesta del caso de uso
                 AddOrdersState.ResponseValue responseValue = (AddOrdersState.ResponseValue) response;
                 // Actualiza la lista luego de hacer el cambio
+                //TODO VER ESTO XQ NO TIENE ACTUALIZADO EL VALOR DE mTipoCuadrilla
+                //como debo hacer q llame a una instancia en vez de load del presentador ?
+                //o que aca devuelva la cuadrilla y que llame al load de la vista pasandole esa cuadrilla?
+
+                mOrdersView.close();
 
                 // loadOrders();
             }
@@ -135,8 +130,8 @@ public class OrdersPresenter implements OrdersListMvp.Presenter {
         maddOrdersState.execute(requestValues, useCaseCallback);
     }
 
-
-    @Override
+//TODO: PARA EL FILTRO
+    /*@Override
     public void setLoadTipoTrabajos(String cuadrilla) {
         CriteriaTipoTrabajo criteriaTipoTrabajo = new CriteriaTipoTrabajo(cuadrilla);
 
@@ -173,9 +168,9 @@ public class OrdersPresenter implements OrdersListMvp.Presenter {
             }
         };
         mGetTipoTrabajo.execute(requestValues, useCaseCallback);
-    }
+    }*/
 
-    @Override
+    /*@Override
     public void setLoadZonas() {
         //CriteriaZona criteriaZona = new CriteriaZona();
 
@@ -211,6 +206,6 @@ public class OrdersPresenter implements OrdersListMvp.Presenter {
             }
         };
         mGetZona.execute(requestValues, useCaseCallback);
-    }
+    }*/
 
 }
