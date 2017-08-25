@@ -193,8 +193,19 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements
                 //TODO: BUSCAR EJEMPLOS DE COMPARATOR JAVA PARA VER COMO FUNCIONA EL ORDENAMIENTO
                 //TODO: AGREGAR LA CLASE QUERY Y LA CLASE SELECTOR (ORDER) MODIFICAR Y PROBAR
                 //TODO: LEER LOS LINKS QUE ME PASO EN HANGOUST
-                orderPresenter.loadOrders(mTipoCuadrilla, mEstado, new ArrayList<String>(),
-                        new ArrayList<String>(), null, null, null, true);
+                /*orderPresenter.loadOrders(mTipoCuadrilla, mEstado, new ArrayList<String>(),
+                        new ArrayList<String>(), null, null, null, true);*/
+                FragmentManager fm = getSupportFragmentManager();
+                FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+                Fragment fragment1 = fm.findFragmentById(R.id.orders_view_container);
+                if ((fragment1 instanceof OrdersListFragment)) {
+                    mOrderView = OrdersListFragment.newInstance(mTipoCuadrilla, mEstado, new ArrayList<String>(), new ArrayList<String>(), null, null, null);
+                    ft.replace(R.id.orders_view_container, mOrderView, "OrderView")
+                            //.addToBackStack("OrderView")
+                            .commit();
+                    orderPresenter = new OrdersPresenter(mGetOrders, mOrderView);
+                    mOrderView.setPresenter(orderPresenter);
+                }
             }
 
             @Override
@@ -327,7 +338,7 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements
     protected void onRestart() {
         super.onRestart();
         orderPresenter.loadOrders(mTipoCuadrilla, mEstado, new ArrayList<String>(), new ArrayList<String>(),
-                null, null,mQuery,true);
+                null, null,null,true);
     }
 
 
