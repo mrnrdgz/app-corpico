@@ -221,11 +221,6 @@ public class OrdersMapsFragment extends SupportMapFragment implements OnMapReady
     }
 
     @Override
-    public void setAsignarOrder(String cuadrilla, List<String> listorder) {
-
-    }
-
-    @Override
     public void close() {
 
     }

@@ -1,25 +1,15 @@
-package ar.com.corpico.appcorpico.orders.presentation;
+package ar.com.corpico.appcorpico.orders.ordersFilter;
 
 import android.app.DatePickerDialog;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.ColorStateList;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-import android.os.Build;
-import android.support.annotation.ColorInt;
-import android.support.annotation.ColorRes;
-import android.support.v4.widget.CompoundButtonCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.AppCompatCheckBox;
 import android.support.v7.widget.Toolbar;
-import android.util.AttributeSet;
 import android.view.*;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -29,19 +19,12 @@ import org.joda.time.DateTime;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
-import java.util.Locale;
 
 import ar.com.corpico.appcorpico.R;
-import ar.com.corpico.appcorpico.orders.OrderPendienteActivity;
-import ar.com.corpico.appcorpico.orders.domain.entity.Zona;
-
-import static java.security.AccessController.getContext;
 
 public class OrdersFilterActivity extends AppCompatActivity {
-        //implements DatePickerDialog.OnDateSetListener{
     private List<String> mTipoTrabajo = new ArrayList<>();
     private List<String> mTipoTrabajoSelected = new ArrayList<>();
     private List<Integer> mTipoTrabajoId = new ArrayList<>();
@@ -49,43 +32,51 @@ public class OrdersFilterActivity extends AppCompatActivity {
     private List<String> mZonaSelected = new ArrayList<>();
     private List<Integer> mZonaId = new ArrayList<>();
     private String mEstado;
-    private DateTime mFechaDesdeSelected;
-    private DateTime mFechaHastaSelected;
+    private String mTipoCuadrilla;
+    private DateTime mFechaInicioSeleccionada;
+    private DateTime mFechaFinSeleccionada;
     private AppCompatCheckBox[] TipoTrabajoChk;
     private AppCompatCheckBox[] ZonaChk;
     private LinearLayout seccionZona;
     private LinearLayout seccionTiposTrabajo;
-    private TextView mDesdeFecha;
-    private TextView mHastaFecha;
+    private TextView mFechaInicio;
+    private TextView mFechaFin;
     private DatePickerDialog.OnDateSetListener dpd;
     private DatePickerDialog.OnDateSetListener dph;
     private Calendar cal = Calendar.getInstance();
+
+    public static final String ARG_ESTADO = "orders.estado";
+    public static final String ARG_TIPO_CUADRILLA = "orders.tipo_cuadrilla";
+    private static final String ARG_TIPOS_TRABAJO_SELECCIONADOS = "orders.tipos_trabajo_seleccionados";
+    public static final String ARG_ZONAS_SELECCIONADAS = "orders.zonas_seleccionadas";
+    public static final String ARG_FECHA_INICIO = "orders.fecha_inicio";
+    public static final String ARG_FECHA_FIN = "orders.fecha_fin";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_orders_filters);
 
-        Bundle bundle = getIntent().getExtras();
-        mEstado = bundle.getString("ESTADO");
-        mTipoTrabajo= bundle.getStringArrayList("TIPO_TRABAJO");
-        mTipoTrabajoSelected= bundle.getStringArrayList("TIPO_TRABAJO_SELECTED");
-        mZona= bundle.getStringArrayList("ZONA");
-        mZonaSelected= bundle.getStringArrayList("ZONA_SELECTED");
-        mFechaDesdeSelected= (DateTime) bundle.getSerializable("FECHA_DESDE_SELECTED");
-        mFechaHastaSelected= (DateTime) bundle.getSerializable("FECHA_HASTA_SELECTED");
+        Bundle args = getIntent().getExtras();
+        mEstado = args.getString(ARG_ESTADO);
+        mTipoCuadrilla = args.getString(ARG_TIPO_CUADRILLA);
+        mTipoTrabajoSelected = args.getStringArrayList(ARG_TIPOS_TRABAJO_SELECCIONADOS);
+        mZonaSelected = args.getStringArrayList(ARG_ZONAS_SELECCIONADAS);
+        mFechaInicioSeleccionada = (DateTime) args.getSerializable(ARG_FECHA_INICIO);
+        mFechaFinSeleccionada = (DateTime) args.getSerializable(ARG_FECHA_FIN);
 
-        mDesdeFecha = (TextView) this.findViewById(R.id.desde_text);
-        if(mFechaDesdeSelected!=null){
-            Calendar c = mFechaDesdeSelected.toGregorianCalendar();
+        mFechaInicio = (TextView) this.findViewById(R.id.desde_text);
+        if(mFechaInicioSeleccionada!=null){
+            Calendar c = mFechaInicioSeleccionada.toGregorianCalendar();
             SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
-            mDesdeFecha.setText(format.format(c.getTime()));
+            mFechaInicio.setText(format.format(c.getTime()));
         }else{
             Calendar c = Calendar.getInstance();
             SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
-            mDesdeFecha.setText(format.format(c.getTime()));
+            mFechaInicio.setText(format.format(c.getTime()));
         }
-        mDesdeFecha.setOnClickListener(
+        mFechaInicio.setOnClickListener(
                 new android.view.View.OnClickListener() {
                     @Override
                     public void onClick(android.view.View v) {
@@ -104,17 +95,17 @@ public class OrdersFilterActivity extends AppCompatActivity {
 
             }
         };
-        mHastaFecha = (TextView) this.findViewById(R.id.hasta_text);
-        if(mFechaHastaSelected!=null){
-            Calendar c = mFechaHastaSelected.toGregorianCalendar();
+        mFechaFin = (TextView) this.findViewById(R.id.hasta_text);
+        if(mFechaFinSeleccionada!=null){
+            Calendar c = mFechaFinSeleccionada.toGregorianCalendar();
             SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
-            mHastaFecha.setText(format.format(c.getTime()));
+            mFechaFin.setText(format.format(c.getTime()));
         }else{
             Calendar c = Calendar.getInstance();
             SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
-            mHastaFecha.setText(format.format(c.getTime()));
+            mFechaFin.setText(format.format(c.getTime()));
         }
-        mHastaFecha.setOnClickListener(
+        mFechaFin.setOnClickListener(
                 new android.view.View.OnClickListener() {
                     @Override
                     public void onClick(android.view.View v) {
@@ -134,11 +125,11 @@ public class OrdersFilterActivity extends AppCompatActivity {
 
             }
         };
-        if(mFechaDesdeSelected==null){
-            mFechaDesdeSelected=new DateTime(DateTime.now());
+        if(mFechaInicioSeleccionada==null){
+            mFechaInicioSeleccionada=new DateTime(DateTime.now());
         }
-        if(mFechaHastaSelected==null){
-            mFechaHastaSelected=new DateTime(DateTime.now());
+        if(mFechaFinSeleccionada==null){
+            mFechaFinSeleccionada=new DateTime(DateTime.now());
         }
         //LAYOUT para los CheckBox Tipos de Trabajos
         seccionTiposTrabajo = (LinearLayout) findViewById(R.id.Seccion_TipoTrabajo);
@@ -266,10 +257,10 @@ private void setToolbar() {
                 break;
             case R.id.action_aplicar:
                 Intent databack = new Intent();
-                databack.putStringArrayListExtra("TIPO_TRABAJO_SELECTED", (ArrayList<String>) mTipoTrabajoSelected);
-                databack.putStringArrayListExtra("ZONA_SELECTED", (ArrayList<String>) mZonaSelected);
-                databack.putExtra("FECHA_DESDE_SELECTED", mFechaDesdeSelected);
-                databack.putExtra("FECHA_HASTA_SELECTED", mFechaHastaSelected);
+                databack.putStringArrayListExtra(ARG_TIPOS_TRABAJO_SELECCIONADOS, (ArrayList<String>) mTipoTrabajoSelected);
+                databack.putStringArrayListExtra(ARG_ZONAS_SELECCIONADAS, (ArrayList<String>) mZonaSelected);
+                databack.putExtra(ARG_FECHA_INICIO, mFechaInicioSeleccionada);
+                databack.putExtra(ARG_FECHA_FIN, mFechaFinSeleccionada);
                 setResult(RESULT_OK,databack);
                 finish();
                 break;
@@ -282,10 +273,10 @@ private void setToolbar() {
                     ZonaChk[i].setChecked(false);
                 }
                 mZonaSelected =new ArrayList<>();
-                Calendar c = mFechaHastaSelected.toGregorianCalendar();
+                Calendar c = mFechaFinSeleccionada.toGregorianCalendar();
                 SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
-                mDesdeFecha.setText(format.format(c.getTime()));
-                mHastaFecha.setText(format.format(c.getTime()));
+                mFechaInicio.setText(format.format(c.getTime()));
+                mFechaFin.setText(format.format(c.getTime()));
                 break;
         }
         return super.onOptionsItemSelected(item);
@@ -313,17 +304,17 @@ private void setToolbar() {
         Calendar c = Calendar.getInstance();
         c.set(year, monthOfYear, dayOfMonth);
         SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
-        mDesdeFecha.setText(format.format(c.getTime()));
+        mFechaInicio.setText(format.format(c.getTime()));
         //mFechaDesdeSelected= new  DateTime(year, monthOfYear, dayOfMonth, 0, 0, 0, 0);
-        mFechaDesdeSelected= new DateTime(c);
+        mFechaInicioSeleccionada= new DateTime(c);
     }
 
     public void setDateHastaView(int year, int monthOfYear, int dayOfMonth) {
         Calendar c = Calendar.getInstance();
         c.set(year, monthOfYear, dayOfMonth);
         SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
-        mHastaFecha.setText(format.format(c.getTime()));
+        mFechaFin.setText(format.format(c.getTime()));
         //mFechaHastaSelected=new  DateTime(year, monthOfYear, dayOfMonth, 0, 0, 0, 0);
-        mFechaHastaSelected = new DateTime(c);
+        mFechaFinSeleccionada = new DateTime(c);
     }
 }

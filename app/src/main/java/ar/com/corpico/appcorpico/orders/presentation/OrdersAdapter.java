@@ -20,7 +20,7 @@ import ar.com.corpico.appcorpico.orders.domain.entity.Order;
  */
 
 public class OrdersAdapter extends ArrayAdapter<Order> {
-    OnAsignarListener listenerAdapter;
+
     //TODO ESTA BIEN QUE DEBLARE ORDER ACA? XQ SINO NO LO VEIA DENTRO DEL ONCLICK DEL IMAGEBUTTON
     private Order order;
     private ArrayList<Integer> mSelection = new ArrayList<Integer>();
@@ -30,13 +30,6 @@ public class OrdersAdapter extends ArrayAdapter<Order> {
         super(context,0,objects);
     }
 
-    public interface OnAsignarListener {
-        void onButtonClickListner(ArrayList<String> numero);
-    }
-
-    public void setCustomButtonListner(OnAsignarListener listener) {
-        this.listenerAdapter = listener;
-    }
 
     public void setNewSelection(int position) {
         mSelection.add(position);
@@ -80,41 +73,21 @@ public class OrdersAdapter extends ArrayAdapter<Order> {
         }
 
         // Referencias UI.
-        //TextView numero = (TextView) convertView.findViewById(R.id.tv_numero);
         android.view.View indicator = convertView.findViewById(R.id.indicator);
         final TextView titular = (TextView) convertView.findViewById(R.id.titular_text);
         TextView domicilio = (TextView) convertView.findViewById(R.id.domicilio_text);
         TextView tipo = (TextView) convertView.findViewById(R.id.tipo_text);
         TextView fecha = (TextView) convertView.findViewById(R.id.fechaSolicitud_text);
-        //ImageButton imageButton = (ImageButton) convertView.findViewById(R.id.button);
 
         indicator.setFocusable(false);
         titular.setFocusable(false);
         domicilio.setFocusable(false);
         tipo.setFocusable(false);
         fecha.setFocusable(false);
-        /*imageButton.setFocusable(true);
-
-        if (hideAsignarButton){
-            imageButton.setVisibility(View.INVISIBLE);
-        }else{
-            imageButton.setVisibility(View.VISIBLE);
-        }
-        imageButton.setOnClickListener(new android.view.View.OnClickListener() {
-            @Override
-            public void onClick(android.view.View view) {
-            if (listenerAdapter != null) {
-                ArrayList<String> aux = new ArrayList();
-                aux.add(0,getItem(position).getNumero());
-                listenerAdapter.onButtonClickListner(aux);
-            }
-            }
-        });*/
 
         // Orden actual..
         order =  getItem(position);
 
-        //numero.setText(order.getNumero());
         titular.setText(order.getTitular());
         domicilio.setText(order.getDomicilio());
         tipo.setText(order.getTipo_Trabajo());

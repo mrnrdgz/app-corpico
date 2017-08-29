@@ -20,7 +20,6 @@ public interface OrdersListMvp {
         void setPresenter(Presenter presenter);
         void showOrdesEmpty();
         void showProgressIndicator(boolean show);
-        void setAsignarOrder(String cuadrilla, List<String> listorder);
         void close();
     }
 

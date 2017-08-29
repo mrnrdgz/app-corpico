@@ -72,9 +72,6 @@ public class OrdersListFragment extends Fragment implements OrdersListMvp.View {
     // Lógica
     private int count;
 
-    private OrdersAdapter.OnAsignarListener listener;
-
-
     public OrdersListFragment() {
         // Required empty public constructor
     }
@@ -131,9 +128,6 @@ public class OrdersListFragment extends Fragment implements OrdersListMvp.View {
         mOrdersAdapter = new OrdersAdapter(getActivity(), new ArrayList<Order>(0));
         mOrderList.setAdapter(mOrdersAdapter);
 
-        //SETEA LA ESCUCHA PARA EL BOTON ASIGNAR A CUADRILLA
-        mOrdersAdapter.setCustomButtonListner(listener);
-
         mOrderList.setFocusable(false);
 
 
@@ -186,7 +180,6 @@ public class OrdersListFragment extends Fragment implements OrdersListMvp.View {
                         }
                         return true;
                     case R.id.action_asignaracuadrilla:
-                        //listenerViewActivity.onAsignarCuadrillaContextual(mTipoCuadrilla, list_items);
                         mOrdersPresenter.asignarOrder(mTipoCuadrilla, list_items,"");
                         mode.finish();
                         return true;
@@ -251,25 +244,7 @@ public class OrdersListFragment extends Fragment implements OrdersListMvp.View {
         super.onResume();
     }
 
-    public interface OnViewActivityListener {
-        void onAsignarCuadrillaContextual(String cuadrilla, ArrayList<String> numeros);
-    }
 
-    private OnViewActivityListener listenerViewActivity;
-
-    public void setActivityListener(OnViewActivityListener listener) {
-        this.listenerViewActivity = listener;
-    }
-
-    public void setListener(OrdersAdapter.OnAsignarListener listener) {
-        this.listener = listener;
-    }
-
-
-    @Override
-    public void setAsignarOrder(String cuadrilla, List<String> listorder) {
-        mOrdersPresenter.asignarOrder(cuadrilla, listorder, "");
-    }
     @Override
     public void close() {
         mOrdersPresenter.loadOrders(mTipoCuadrilla, mEstado, mTiposTrabajoSeleccionados,

@@ -43,8 +43,9 @@ public class OrdersPresenter implements OrdersListMvp.Presenter {
     private String mCuadrilla;
 
 
-    public OrdersPresenter(GetOrders getOrders, OrdersListMvp.View ordersView) {
+    public OrdersPresenter(GetOrders getOrders, AddOrdersState addOrdersState, OrdersListMvp.View ordersView) {
         mgetOrders = Preconditions.checkNotNull(getOrders, "El presentador no puede ser null");
+        maddOrdersState=Preconditions.checkNotNull(addOrdersState, "El presentador no puede ser null");
         mOrdersView = Preconditions.checkNotNull(ordersView, "La vista no puede ser null");
         mOrdersView.setPresenter(this);
     }
