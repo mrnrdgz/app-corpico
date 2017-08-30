@@ -23,13 +23,23 @@ import java.util.Calendar;
 import java.util.List;
 
 import ar.com.corpico.appcorpico.R;
+import ar.com.corpico.appcorpico.orders.data.FuenteOrdenesServidor;
+import ar.com.corpico.appcorpico.orders.data.OrdersRepository;
+import ar.com.corpico.appcorpico.orders.data.OrdersSqliteStore;
+import ar.com.corpico.appcorpico.orders.domain.usecase.GetTipoTrabajo;
+import ar.com.corpico.appcorpico.orders.domain.usecase.GetZonas;
 
-public class OrdersFilterActivity extends AppCompatActivity {
-    private List<String> mTipoTrabajo = new ArrayList<>();
-    private List<String> mTipoTrabajoSelected = new ArrayList<>();
+public class OrdersFilterActivity extends AppCompatActivity implements View{
+    public static final String ARG_ESTADO = "orders.estado";
+    public static final String ARG_TIPO_CUADRILLA = "orders.tipo_cuadrilla";
+    private static final String ARG_TIPOS_TRABAJO_SELECCIONADOS = "orders.tipos_trabajo_seleccionados";
+    public static final String ARG_ZONAS_SELECCIONADAS = "orders.zonas_seleccionadas";
+    public static final String ARG_FECHA_INICIO = "orders.fecha_inicio";
+    public static final String ARG_FECHA_FIN = "orders.fecha_fin";
+
+    private List<String> mTiposTrabajoSeleccionados = new ArrayList<>();
     private List<Integer> mTipoTrabajoId = new ArrayList<>();
-    private List<String> mZona = new ArrayList<>();
-    private List<String> mZonaSelected = new ArrayList<>();
+    private List<String> mZonasSeleccionadas = new ArrayList<>();
     private List<Integer> mZonaId = new ArrayList<>();
     private String mEstado;
     private String mTipoCuadrilla;
@@ -45,13 +55,9 @@ public class OrdersFilterActivity extends AppCompatActivity {
     private DatePickerDialog.OnDateSetListener dph;
     private Calendar cal = Calendar.getInstance();
 
-    public static final String ARG_ESTADO = "orders.estado";
-    public static final String ARG_TIPO_CUADRILLA = "orders.tipo_cuadrilla";
-    private static final String ARG_TIPOS_TRABAJO_SELECCIONADOS = "orders.tipos_trabajo_seleccionados";
-    public static final String ARG_ZONAS_SELECCIONADAS = "orders.zonas_seleccionadas";
-    public static final String ARG_FECHA_INICIO = "orders.fecha_inicio";
-    public static final String ARG_FECHA_FIN = "orders.fecha_fin";
-
+    private OrdersFilterPresenter mPresenter;
+    private GetTipoTrabajo mGetTiposTrabajo;
+    private GetZonas mGetZonas;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,8 +67,8 @@ public class OrdersFilterActivity extends AppCompatActivity {
         Bundle args = getIntent().getExtras();
         mEstado = args.getString(ARG_ESTADO);
         mTipoCuadrilla = args.getString(ARG_TIPO_CUADRILLA);
-        mTipoTrabajoSelected = args.getStringArrayList(ARG_TIPOS_TRABAJO_SELECCIONADOS);
-        mZonaSelected = args.getStringArrayList(ARG_ZONAS_SELECCIONADAS);
+        mTiposTrabajoSeleccionados = args.getStringArrayList(ARG_TIPOS_TRABAJO_SELECCIONADOS);
+        mZonasSeleccionadas = args.getStringArrayList(ARG_ZONAS_SELECCIONADAS);
         mFechaInicioSeleccionada = (DateTime) args.getSerializable(ARG_FECHA_INICIO);
         mFechaFinSeleccionada = (DateTime) args.getSerializable(ARG_FECHA_FIN);
 
@@ -134,58 +140,32 @@ public class OrdersFilterActivity extends AppCompatActivity {
         //LAYOUT para los CheckBox Tipos de Trabajos
         seccionTiposTrabajo = (LinearLayout) findViewById(R.id.Seccion_TipoTrabajo);
 
-        //CHECKBOX para Tipos de Trabajo
-        TipoTrabajoChk= new AppCompatCheckBox[mTipoTrabajo.size()];
-
-        for (int i=0; i< mTipoTrabajo.size(); i++) {
-            TipoTrabajoChk[i]= new AppCompatCheckBox(this);
-            TipoTrabajoChk[i].setText(mTipoTrabajo.get(i));
-            TipoTrabajoChk[i].setId(Integer.valueOf(i));
-            TipoTrabajoChk[i].setOnClickListener(ckListenerTipo);
-            //Marca los Tipos de Trabajo que estan seleccionados previamente
-            if(mTipoTrabajoSelected!=null){
-                for(int j=0; j< mTipoTrabajoSelected.size(); j++) {
-                    if(TipoTrabajoChk[i].getText().equals(mTipoTrabajoSelected.get(j))){
-                        TipoTrabajoChk[i].setChecked(true);
-                    }
-                }
-            }
-            //Define Layout
-            TipoTrabajoChk[i].setLayoutParams(
-                    new LinearLayout.LayoutParams(
-                            LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
-            TipoTrabajoChk[i].setPadding(16,16,16,16);
-            //Agrega los CHECBBOX al Layout
-            seccionTiposTrabajo.addView(TipoTrabajoChk[i]);
-        }
-
         //LAYOUT para los CheckBox Zona
         seccionZona = (LinearLayout) findViewById(R.id.Seccion_Zona);
 
-        //CHECKBOX para Zona
-        ZonaChk = new AppCompatCheckBox[mZona.size()];
-        for (int i=0; i< mZona.size(); i++) {
-            ZonaChk[i] = new AppCompatCheckBox(this);
-            //setAppCompatCheckBoxColors((AppCompatCheckBox) Zona,Color.BLACK,Color.GREEN);
-            ZonaChk[i].setText(mZona.get(i));
-            ZonaChk[i].setId(Integer.valueOf(i));
-            ZonaChk[i].setOnClickListener(ckListenerZona);
-            //Marca las Zonas que estan seleccionados previamente
-            if(mZonaSelected!=null){
-                for(int j=0; j< mZonaSelected.size(); j++) {
-                    if(ZonaChk[i].getText().equals(mZonaSelected.get(j))){
-                        ZonaChk[i].setChecked(true);
-                    }
-                }
-            }
-            //Define Layout
-            ZonaChk[i].setLayoutParams(
-                    new LinearLayout.LayoutParams(
-                            LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
-            ZonaChk[i].setPadding(16,16,16,16);
-            //Agrega los CHECBBOX al Layout
-            seccionZona.addView(ZonaChk[i]);
-        }
+
+        /**
+         * <<create>> Almacénes
+         */
+        FuenteOrdenesServidor restStore = new FuenteOrdenesServidor();
+        OrdersSqliteStore sqliteStore = new OrdersSqliteStore();
+
+        /**
+         * <<create>> SessionsRepository
+         */
+        OrdersRepository repository = OrdersRepository.getInstance(restStore);
+
+        /**
+         * <<create>> CaseUser
+         */
+
+        mGetTiposTrabajo = new GetTipoTrabajo(repository);
+        mGetZonas = new GetZonas(repository);
+        mPresenter = new OrdersFilterPresenter(mGetTiposTrabajo,mGetZonas,this);
+        this.setPresenter(mPresenter);
+
+        mPresenter.loadTiposTrabajo(mTipoCuadrilla);
+        mPresenter.loadZonas();
 
         setToolbar();
     }
@@ -203,10 +183,10 @@ public class OrdersFilterActivity extends AppCompatActivity {
             boolean checked = ((CheckBox) v).isChecked();
             if(checked){
                 mTipoTrabajoId.add(id);
-                mTipoTrabajoSelected.add(mTipoTrabajo.get(id).toString());
+                mTiposTrabajoSeleccionados.add(((CheckBox) v).getText().toString());
             }else{
+                mTiposTrabajoSeleccionados.remove(mTipoTrabajoId.get(id));
                 mTipoTrabajoId.remove(new Integer(id));
-                mTipoTrabajoSelected.remove(mTipoTrabajo.get(id));
                 ((CheckBox) v).setChecked(false);
             }
         }
@@ -219,17 +199,17 @@ public class OrdersFilterActivity extends AppCompatActivity {
             boolean checked = ((CheckBox) v).isChecked();
             if(checked){
                 mZonaId.add(id);
-                mZonaSelected.add(mZona.get(id).toString());
+                mZonasSeleccionadas.add(mZonaId.get(id).toString());
             }else{
+                mZonasSeleccionadas.remove(mZonaId.get(id));
                 mZonaId.remove(new Integer(id));
-                mZonaSelected.remove(mZona.get(id));
                 ((CheckBox) v).setChecked(false);
                  v.invalidate();
             }
         }
     };
 
-private void setToolbar() {
+    private void setToolbar() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         final ActionBar ab = getSupportActionBar();
@@ -257,22 +237,22 @@ private void setToolbar() {
                 break;
             case R.id.action_aplicar:
                 Intent databack = new Intent();
-                databack.putStringArrayListExtra(ARG_TIPOS_TRABAJO_SELECCIONADOS, (ArrayList<String>) mTipoTrabajoSelected);
-                databack.putStringArrayListExtra(ARG_ZONAS_SELECCIONADAS, (ArrayList<String>) mZonaSelected);
+                databack.putStringArrayListExtra(ARG_TIPOS_TRABAJO_SELECCIONADOS, (ArrayList<String>) mTiposTrabajoSeleccionados);
+                databack.putStringArrayListExtra(ARG_ZONAS_SELECCIONADAS, (ArrayList<String>) mZonasSeleccionadas);
                 databack.putExtra(ARG_FECHA_INICIO, mFechaInicioSeleccionada);
                 databack.putExtra(ARG_FECHA_FIN, mFechaFinSeleccionada);
                 setResult(RESULT_OK,databack);
                 finish();
                 break;
             case R.id.action_limpiar:
-                for (int i=0; i< mTipoTrabajo.size(); i++) {
+                for (int i=0; i< mTipoTrabajoId.size(); i++) {
                     TipoTrabajoChk[i].setChecked(false);
                 }
-                mTipoTrabajoSelected = new ArrayList<>();
-                for (int i=0; i< mZona.size(); i++) {
+                mTiposTrabajoSeleccionados = new ArrayList<>();
+                for (int i=0; i< mZonaId.size(); i++) {
                     ZonaChk[i].setChecked(false);
                 }
-                mZonaSelected =new ArrayList<>();
+                mZonasSeleccionadas =new ArrayList<>();
                 Calendar c = mFechaFinSeleccionada.toGregorianCalendar();
                 SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
                 mFechaInicio.setText(format.format(c.getTime()));
@@ -281,14 +261,14 @@ private void setToolbar() {
         }
         return super.onOptionsItemSelected(item);
     }
-    private ArrayList<String> SetTipoSelected(){
+   /* private ArrayList<String> SetTipoSelected(){
         for(int i= 0; i< mTipoTrabajoId.size();i++){
             int pos = mTipoTrabajoId.get(i);
             String mTipoT= mTipoTrabajo.get(pos);
-            mTipoTrabajoSelected.add(mTipoT);
+            mTiposTrabajoSeleccionados.add(mTipoT);
         }
-        return (ArrayList<String>) mTipoTrabajoSelected;
-    }
+        return (ArrayList<String>) mTiposTrabajoSeleccionados;
+    }*/
 
    /* @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
@@ -316,5 +296,77 @@ private void setToolbar() {
         mFechaFin.setText(format.format(c.getTime()));
         //mFechaHastaSelected=new  DateTime(year, monthOfYear, dayOfMonth, 0, 0, 0, 0);
         mFechaFinSeleccionada = new DateTime(c);
+    }
+
+    @Override
+    public void setPresenter(Presenter presenter) {
+        mPresenter = (OrdersFilterPresenter) presenter;
+    }
+
+    @Override
+    public void showTiposTrabajo(List<String> listTiposTrabajo) {
+        //CHECKBOX para Tipos de Trabajo
+        TipoTrabajoChk= new AppCompatCheckBox[listTiposTrabajo.size()];
+
+        for (int i=0; i< listTiposTrabajo.size(); i++) {
+            TipoTrabajoChk[i]= new AppCompatCheckBox(this);
+            TipoTrabajoChk[i].setText(listTiposTrabajo.get(i));
+            TipoTrabajoChk[i].setId(Integer.valueOf(i));
+            TipoTrabajoChk[i].setOnClickListener(ckListenerTipo);
+            //Marca los Tipos de Trabajo que estan seleccionados previamente
+            if(mTiposTrabajoSeleccionados !=null){
+                for(int j = 0; j< mTiposTrabajoSeleccionados.size(); j++) {
+                    if(TipoTrabajoChk[i].getText().equals(mTiposTrabajoSeleccionados.get(j))){
+                        TipoTrabajoChk[i].setChecked(true);
+                    }
+                }
+            }
+            //Define Layout
+            TipoTrabajoChk[i].setLayoutParams(
+                    new LinearLayout.LayoutParams(
+                            LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+            TipoTrabajoChk[i].setPadding(16,16,16,16);
+            //Agrega los CHECBBOX al Layout
+            seccionTiposTrabajo.addView(TipoTrabajoChk[i]);
+        }
+
+    }
+
+    @Override
+    public void showZonas(List<String> listZonas) {
+        //CHECKBOX para Zona
+        ZonaChk = new AppCompatCheckBox[listZonas.size()];
+        for (int i=0; i< listZonas.size(); i++) {
+            ZonaChk[i] = new AppCompatCheckBox(this);
+            //setAppCompatCheckBoxColors((AppCompatCheckBox) Zona,Color.BLACK,Color.GREEN);
+            ZonaChk[i].setText(listZonas.get(i));
+            ZonaChk[i].setId(Integer.valueOf(i));
+            ZonaChk[i].setOnClickListener(ckListenerZona);
+            //Marca las Zonas que estan seleccionados previamente
+            if(mZonasSeleccionadas !=null){
+                for(int j = 0; j< mZonasSeleccionadas.size(); j++) {
+                    if(ZonaChk[i].getText().equals(mZonasSeleccionadas.get(j))){
+                        ZonaChk[i].setChecked(true);
+                    }
+                }
+            }
+            //Define Layout
+            ZonaChk[i].setLayoutParams(
+                    new LinearLayout.LayoutParams(
+                            LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+            ZonaChk[i].setPadding(16,16,16,16);
+            //Agrega los CHECBBOX al Layout
+            seccionZona.addView(ZonaChk[i]);
+        }
+    }
+
+    @Override
+    public void showOrderError(String error) {
+
+    }
+
+    @Override
+    public void showOrdesEmpty() {
+
     }
 }
