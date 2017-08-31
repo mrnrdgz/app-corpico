@@ -1,4 +1,4 @@
-package ar.com.corpico.appcorpico.orders.ordersFilter;
+package ar.com.corpico.appcorpico.ordersFilter;
 
 import java.util.List;
 

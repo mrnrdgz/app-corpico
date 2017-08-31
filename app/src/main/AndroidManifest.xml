@@ -70,7 +70,7 @@
             android:launchMode="singleTop"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".orders.ordersFilter.OrdersFilterActivity"
+            android:name=".ordersFilter.OrdersFilterActivity"
             android:label=""
             android:launchMode="singleTop"
             android:theme="@style/AppTheme.NoActionBar" />

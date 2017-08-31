@@ -1,4 +1,4 @@
-package ar.com.corpico.appcorpico.orders.ordersFilter;
+package ar.com.corpico.appcorpico.ordersFilter;
 import ar.com.corpico.appcorpico.orders.domain.filter.CriteriaTipoTrabajo;
 import ar.com.corpico.appcorpico.orders.domain.usecase.GetTipoTrabajo;
 import com.google.common.base.Preconditions;

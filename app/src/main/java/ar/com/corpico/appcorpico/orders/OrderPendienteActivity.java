@@ -37,7 +37,7 @@ import ar.com.corpico.appcorpico.orders.domain.usecase.GetTipoCuadrilla;
 import ar.com.corpico.appcorpico.orders.domain.usecase.GetOrders;
 import ar.com.corpico.appcorpico.orders.domain.usecase.GetTipoTrabajo;
 import ar.com.corpico.appcorpico.orders.presentation.AsignarAConexionesDialog;
-import ar.com.corpico.appcorpico.orders.ordersFilter.OrdersFilterActivity;
+import ar.com.corpico.appcorpico.ordersFilter.OrdersFilterActivity;
 import ar.com.corpico.appcorpico.orders.presentation.TipoCuadrillaAdapter;
 import ar.com.corpico.appcorpico.orders.presentation.OrdersListFragment;
 import ar.com.corpico.appcorpico.orders.presentation.OrdersPresenter;
@@ -90,8 +90,8 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements
     private String mTipoCuadrilla;
     //private List<String> mTipoTrabajo = new ArrayList<>();
     //private List<String> mZona = new ArrayList<>();
-    private List<String> mTiposTrabajoSeleccionados = new ArrayList<>();
-    private List<String> mZonasSeleccionadas = new ArrayList<>();
+    private ArrayList<String> mTiposTrabajoSeleccionados = new ArrayList<>();
+    private ArrayList<String> mZonasSeleccionadas = new ArrayList<>();
     private DateTime mFechaInicioSeleccionada;
     private DateTime mFechaFinSeleccionada;
     private String mQuery;
@@ -396,6 +396,27 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements
                     OrdersMapsFragment mOrderMapFragment = (OrdersMapsFragment)getSupportFragmentManager().findFragmentById(R.id.orders_view_container);
                     mOrderMapFragment.setOrderFilter(mEstado, mTipoTrabajoSelected, mZonaSelected, mFechaDesdeSelected, mFechaFinSeleccionada, null,true);
                 }*/
+                FragmentManager fm = getSupportFragmentManager();
+                FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+                Fragment fragment = fm.findFragmentById(R.id.orders_view_container);
+                if (!(fragment instanceof OrdersMapsFragment)) {
+                    mOrderMapView = OrdersMapsFragment.newInstance(mTipoCuadrilla, mEstado, new ArrayList<String>(),
+                            new ArrayList<String>(), null, null,null);
+                    ft.replace(R.id.orders_view_container, mOrderMapView, "OrderViewMap")
+                            .commit();
+                    orderPresenter = new OrdersPresenter(mGetOrders,mAddOrdersState,mOrderMapView);
+                    mOrderMapView.setPresenter(orderPresenter);
+                }
+                fm = getSupportFragmentManager();
+                ft = getSupportFragmentManager().beginTransaction();
+                Fragment fragment1 = fm.findFragmentById(R.id.orders_view_container);
+                if (!(fragment1 instanceof OrdersListFragment)) {
+                    mOrderView = OrdersListFragment.newInstance(mTipoCuadrilla, mEstado, mTiposTrabajoSeleccionados,mZonasSeleccionadas, mFechaInicioSeleccionada, mFechaFinSeleccionada,null);
+                    ft.replace(R.id.orders_view_container, mOrderView, "OrderView")
+                            .commit();
+                    orderPresenter = new OrdersPresenter(mGetOrders, mAddOrdersState,mOrderView);
+                    mOrderView.setPresenter(orderPresenter);
+                }
             }
         }
     }

@@ -1,4 +1,4 @@
-package ar.com.corpico.appcorpico.orders.ordersFilter;
+package ar.com.corpico.appcorpico.ordersFilter;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
@@ -185,7 +185,7 @@ public class OrdersFilterActivity extends AppCompatActivity implements View{
                 mTipoTrabajoId.add(id);
                 mTiposTrabajoSeleccionados.add(((CheckBox) v).getText().toString());
             }else{
-                mTiposTrabajoSeleccionados.remove(mTipoTrabajoId.get(id));
+                mTiposTrabajoSeleccionados.remove(id);
                 mTipoTrabajoId.remove(new Integer(id));
                 ((CheckBox) v).setChecked(false);
             }
@@ -199,9 +199,9 @@ public class OrdersFilterActivity extends AppCompatActivity implements View{
             boolean checked = ((CheckBox) v).isChecked();
             if(checked){
                 mZonaId.add(id);
-                mZonasSeleccionadas.add(mZonaId.get(id).toString());
+                mZonasSeleccionadas.add(((CheckBox) v).getText().toString());
             }else{
-                mZonasSeleccionadas.remove(mZonaId.get(id));
+                mZonasSeleccionadas.remove(id);
                 mZonaId.remove(new Integer(id));
                 ((CheckBox) v).setChecked(false);
                  v.invalidate();
@@ -253,6 +253,7 @@ public class OrdersFilterActivity extends AppCompatActivity implements View{
                     ZonaChk[i].setChecked(false);
                 }
                 mZonasSeleccionadas =new ArrayList<>();
+
                 Calendar c = mFechaFinSeleccionada.toGregorianCalendar();
                 SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
                 mFechaInicio.setText(format.format(c.getTime()));
