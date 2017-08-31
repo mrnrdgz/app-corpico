@@ -185,7 +185,7 @@ public class OrdersFilterActivity extends AppCompatActivity implements View{
                 mTipoTrabajoId.add(id);
                 mTiposTrabajoSeleccionados.add(((CheckBox) v).getText().toString());
             }else{
-                mTiposTrabajoSeleccionados.remove(id);
+                mTiposTrabajoSeleccionados.remove(((CheckBox) v).getText().toString());
                 mTipoTrabajoId.remove(new Integer(id));
                 ((CheckBox) v).setChecked(false);
             }
@@ -201,7 +201,7 @@ public class OrdersFilterActivity extends AppCompatActivity implements View{
                 mZonaId.add(id);
                 mZonasSeleccionadas.add(((CheckBox) v).getText().toString());
             }else{
-                mZonasSeleccionadas.remove(id);
+                mZonasSeleccionadas.remove(((CheckBox) v).getText().toString());
                 mZonaId.remove(new Integer(id));
                 ((CheckBox) v).setChecked(false);
                  v.invalidate();
@@ -246,14 +246,15 @@ public class OrdersFilterActivity extends AppCompatActivity implements View{
                 break;
             case R.id.action_limpiar:
                 for (int i=0; i< mTipoTrabajoId.size(); i++) {
-                    TipoTrabajoChk[i].setChecked(false);
+                    TipoTrabajoChk[mTipoTrabajoId.get(i)].setChecked(false);
+                    mTiposTrabajoSeleccionados.remove(TipoTrabajoChk[mTipoTrabajoId.get(i)].getText());
+                    mTipoTrabajoId.remove(i);
                 }
-                mTiposTrabajoSeleccionados = new ArrayList<>();
                 for (int i=0; i< mZonaId.size(); i++) {
-                    ZonaChk[i].setChecked(false);
+                    ZonaChk[mZonaId.get(i)].setChecked(false);
+                    mZonasSeleccionadas.remove(ZonaChk[mZonaId.get(i)].getText());
+                    mZonaId.remove(i);
                 }
-                mZonasSeleccionadas =new ArrayList<>();
-
                 Calendar c = mFechaFinSeleccionada.toGregorianCalendar();
                 SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
                 mFechaInicio.setText(format.format(c.getTime()));

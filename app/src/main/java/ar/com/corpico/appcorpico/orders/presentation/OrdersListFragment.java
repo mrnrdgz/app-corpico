@@ -276,6 +276,8 @@ public class OrdersListFragment extends Fragment implements OrdersListMvp.View {
 
     @Override
     public void showProgressIndicator(boolean show) {
-        mProgressView.setVisibility(show ? View.VISIBLE : GONE);
+        if (mProgressView!=null){
+            mProgressView.setVisibility(show ? View.VISIBLE : GONE);
+        }
     }
 }

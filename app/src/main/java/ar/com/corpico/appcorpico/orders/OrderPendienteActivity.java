@@ -332,8 +332,8 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements
     @Override
     protected void onRestart() {
         super.onRestart();
-        orderPresenter.loadOrders(mTipoCuadrilla, mEstado, new ArrayList<String>(), new ArrayList<String>(),
-                null, null,mQuery,true);
+        orderPresenter.loadOrders(mTipoCuadrilla, mEstado,mTiposTrabajoSeleccionados, mZonasSeleccionadas,
+                mFechaInicioSeleccionada, mFechaFinSeleccionada,mQuery,true);
     }
 
 
@@ -383,10 +383,10 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements
 
         if (requestCode == OPINION_REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
-                mTiposTrabajoSeleccionados = data.getStringArrayListExtra("TIPO_TRABAJO_SELECTED");
-                mZonasSeleccionadas = data.getStringArrayListExtra("ZONA_SELECTED");
-                mFechaInicioSeleccionada = (DateTime) data.getSerializableExtra("FECHA_DESDE_SELECTED");
-                mFechaFinSeleccionada = (DateTime) data.getSerializableExtra("FECHA_HASTA_SELECTED");
+                mTiposTrabajoSeleccionados = data.getStringArrayListExtra(ARG_TIPOS_TRABAJO_SELECCIONADOS);
+                mZonasSeleccionadas = data.getStringArrayListExtra(ARG_ZONAS_SELECCIONADAS);
+                mFechaInicioSeleccionada = (DateTime) data.getSerializableExtra(ARG_FECHA_INICIO);
+                mFechaFinSeleccionada = (DateTime) data.getSerializableExtra(ARG_FECHA_FIN);
 
                 //TODO: VER ACA XQ ESTO PUEDE QUE FUNCIONE PERO DEBO ACTUALIZAR EL VALOR DE LAS VARIABLES DE LA VISTA
                 /*if (mViewMap){
@@ -399,7 +399,7 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements
                 FragmentManager fm = getSupportFragmentManager();
                 FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
                 Fragment fragment = fm.findFragmentById(R.id.orders_view_container);
-                if (!(fragment instanceof OrdersMapsFragment)) {
+                if ((fragment instanceof OrdersMapsFragment)) {
                     mOrderMapView = OrdersMapsFragment.newInstance(mTipoCuadrilla, mEstado, new ArrayList<String>(),
                             new ArrayList<String>(), null, null,null);
                     ft.replace(R.id.orders_view_container, mOrderMapView, "OrderViewMap")
@@ -410,7 +410,7 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements
                 fm = getSupportFragmentManager();
                 ft = getSupportFragmentManager().beginTransaction();
                 Fragment fragment1 = fm.findFragmentById(R.id.orders_view_container);
-                if (!(fragment1 instanceof OrdersListFragment)) {
+                if ((fragment1 instanceof OrdersListFragment)) {
                     mOrderView = OrdersListFragment.newInstance(mTipoCuadrilla, mEstado, mTiposTrabajoSeleccionados,mZonasSeleccionadas, mFechaInicioSeleccionada, mFechaFinSeleccionada,null);
                     ft.replace(R.id.orders_view_container, mOrderView, "OrderView")
                             .commit();
