@@ -16,7 +16,6 @@ import static android.R.attr.order;
 public class CriteriaZona implements Criteria<Zona> {
     private final String zona;
 
-
     public CriteriaZona(String zona) {
         this.zona = zona;
     }

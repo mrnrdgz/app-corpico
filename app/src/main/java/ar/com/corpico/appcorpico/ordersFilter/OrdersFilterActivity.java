@@ -245,16 +245,17 @@ public class OrdersFilterActivity extends AppCompatActivity implements View{
                 finish();
                 break;
             case R.id.action_limpiar:
-                for (int i=0; i< mTipoTrabajoId.size(); i++) {
+                for (int i=0; i<  mTipoTrabajoId.size(); i++) {
                     TipoTrabajoChk[mTipoTrabajoId.get(i)].setChecked(false);
-                    mTiposTrabajoSeleccionados.remove(TipoTrabajoChk[mTipoTrabajoId.get(i)].getText());
-                    mTipoTrabajoId.remove(i);
                 }
+                mTiposTrabajoSeleccionados.clear();
+                mTipoTrabajoId.clear();
                 for (int i=0; i< mZonaId.size(); i++) {
                     ZonaChk[mZonaId.get(i)].setChecked(false);
-                    mZonasSeleccionadas.remove(ZonaChk[mZonaId.get(i)].getText());
-                    mZonaId.remove(i);
                 }
+                mZonasSeleccionadas.clear();
+                mZonaId.clear();
+
                 Calendar c = mFechaFinSeleccionada.toGregorianCalendar();
                 SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
                 mFechaInicio.setText(format.format(c.getTime()));
@@ -263,25 +264,7 @@ public class OrdersFilterActivity extends AppCompatActivity implements View{
         }
         return super.onOptionsItemSelected(item);
     }
-   /* private ArrayList<String> SetTipoSelected(){
-        for(int i= 0; i< mTipoTrabajoId.size();i++){
-            int pos = mTipoTrabajoId.get(i);
-            String mTipoT= mTipoTrabajo.get(pos);
-            mTiposTrabajoSeleccionados.add(mTipoT);
-        }
-        return (ArrayList<String>) mTiposTrabajoSeleccionados;
-    }*/
 
-   /* @Override
-    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-        if(view.getTag().equals("datePickerDesde")){
-            setDateDesdeView(year, month,dayOfMonth );
-
-        }
-        if(view.getTag().equals("datePickerHasta")){
-            setDateHastaView(year, month,dayOfMonth );
-        }
-    }*/
     public void setDateDesdeView(int year, int monthOfYear, int dayOfMonth) {
         Calendar c = Calendar.getInstance();
         c.set(year, monthOfYear, dayOfMonth);
@@ -296,7 +279,6 @@ public class OrdersFilterActivity extends AppCompatActivity implements View{
         c.set(year, monthOfYear, dayOfMonth);
         SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
         mFechaFin.setText(format.format(c.getTime()));
-        //mFechaHastaSelected=new  DateTime(year, monthOfYear, dayOfMonth, 0, 0, 0, 0);
         mFechaFinSeleccionada = new DateTime(c);
     }
 

@@ -24,7 +24,10 @@ import com.google.common.base.Preconditions;
 
 import org.joda.time.DateTime;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import ar.com.corpico.appcorpico.NavitationDrawerActivity;
@@ -180,7 +183,14 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements
                 View v = mSpinner.getSelectedView();
                 ((TextView) v).setTextColor(Color.WHITE);
                 mTipoCuadrilla = (String) mSpinner.getSelectedItem();
-                //mQuery = "";
+                mTiposTrabajoSeleccionados.clear();
+                mZonasSeleccionadas.clear();
+                mQuery="";
+                Calendar c = Calendar.getInstance();
+                c.setTime(new Date());
+                mFechaInicioSeleccionada = new DateTime(c);
+                mFechaFinSeleccionada = new DateTime(c);
+
                 //TODO: ACA TENDRIA QUE CREAR UNA INSTANCIA XQ SINO ME QUEDA LA VIEW CON VALORES DE VARIABLES VIEJOS
                 //TODO: HACER UN RESPOSITORIO X CADA ENTIDAD....UN ENTIDAD PUEDE TENER VARIAS FUENTES DE DATOS
                 //TODO: BUSCAR EJEMPLOS DE COMPARATOR JAVA PARA VER COMO FUNCIONA EL ORDENAMIENTO
@@ -246,7 +256,7 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements
                     // Do something when there's no input
                     mQuery = "";
                     orderPresenter.loadOrders(mTipoCuadrilla, mEstado, new ArrayList<String>(),
-                            new ArrayList<String>(), null, null, null, true);
+                            new ArrayList<String>(), null, null, mQuery, true);
                 }
                 return false;
             }
@@ -345,7 +355,7 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements
     private void handleIntent(Intent intent) {
         if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
             mQuery = intent.getStringExtra(SearchManager.QUERY);
-
+            //TODO: VER SI ACA NO TENGO QUE PONER LAS VARIABLES DE SELECCION --TRABAJO Y ZONAS Y FECHAS....
             orderPresenter.loadOrders(mTipoCuadrilla, mEstado, new ArrayList<String>(), new ArrayList<String>(),
                         null, null,mQuery,true);
         }
@@ -400,8 +410,8 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements
                 FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
                 Fragment fragment = fm.findFragmentById(R.id.orders_view_container);
                 if ((fragment instanceof OrdersMapsFragment)) {
-                    mOrderMapView = OrdersMapsFragment.newInstance(mTipoCuadrilla, mEstado, new ArrayList<String>(),
-                            new ArrayList<String>(), null, null,null);
+                    mOrderMapView = OrdersMapsFragment.newInstance(mTipoCuadrilla, mEstado, mTiposTrabajoSeleccionados,
+                            mZonasSeleccionadas, mFechaInicioSeleccionada, mFechaFinSeleccionada,mQuery);
                     ft.replace(R.id.orders_view_container, mOrderMapView, "OrderViewMap")
                             .commit();
                     orderPresenter = new OrdersPresenter(mGetOrders,mAddOrdersState,mOrderMapView);
@@ -411,7 +421,10 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements
                 ft = getSupportFragmentManager().beginTransaction();
                 Fragment fragment1 = fm.findFragmentById(R.id.orders_view_container);
                 if ((fragment1 instanceof OrdersListFragment)) {
-                    mOrderView = OrdersListFragment.newInstance(mTipoCuadrilla, mEstado, mTiposTrabajoSeleccionados,mZonasSeleccionadas, mFechaInicioSeleccionada, mFechaFinSeleccionada,null);
+                    //TODO: VER SI ACA LLAMO CON QUERY O CON NULL (XQ SI APRETA EL FILTRAR PODER HACER UN FILTRADO CON BUSCAR....
+                    //mOrderView = OrdersListFragment.newInstance(mTipoCuadrilla, mEstado, mTiposTrabajoSeleccionados,mZonasSeleccionadas, mFechaInicioSeleccionada, mFechaFinSeleccionada,null);
+                    mOrderView = OrdersListFragment.newInstance(mTipoCuadrilla, mEstado, mTiposTrabajoSeleccionados,
+                            mZonasSeleccionadas, mFechaInicioSeleccionada, mFechaFinSeleccionada,mQuery);
                     ft.replace(R.id.orders_view_container, mOrderView, "OrderView")
                             .commit();
                     orderPresenter = new OrdersPresenter(mGetOrders, mAddOrdersState,mOrderView);

@@ -11,12 +11,14 @@ import ar.com.corpico.appcorpico.orders.data.IOrdersRepository;
 import ar.com.corpico.appcorpico.orders.domain.entity.Order;
 import ar.com.corpico.appcorpico.orders.domain.filter.Criteria;
 import ar.com.corpico.appcorpico.orders.domain.filter.CriteriaTipoTrabajo;
+import ar.com.corpico.appcorpico.orders.domain.filter.CriteriaZona;
 import ar.com.corpico.appcorpico.orders.domain.filter.Specifications.CompositeSpec;
 import ar.com.corpico.appcorpico.orders.domain.filter.Specifications.FechaSpec;
 import ar.com.corpico.appcorpico.orders.domain.filter.Specifications.SearchSpec;
 import ar.com.corpico.appcorpico.orders.domain.filter.Specifications.Specification;
 import ar.com.corpico.appcorpico.orders.domain.filter.Specifications.StateSpec;
 import ar.com.corpico.appcorpico.orders.domain.filter.Specifications.TipoTrabajoSpec;
+import ar.com.corpico.appcorpico.orders.domain.filter.Specifications.ZoneSpec;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -28,6 +30,7 @@ public class GetOrders extends UseCase<GetOrders.RequestValues, GetOrders.Respon
     private IOrdersRepository mOrdersRepository;
 
     private GetTipoTrabajo mGetTipoTrabajo;
+    private CompositeSpec<Order> zonaSpec;
 
     public GetOrders(IOrdersRepository ordersRepository, GetTipoTrabajo getTipoTrabajo) {
         this.mOrdersRepository = ordersRepository;
@@ -36,67 +39,126 @@ public class GetOrders extends UseCase<GetOrders.RequestValues, GetOrders.Respon
 
     @Override
     public void execute(RequestValues requestValues, final UseCaseCallback callback) {
-        // TODO: Obtener filtros del paquete de entrada y formar especificación total
         String estado = requestValues.getEstado();
         String tipoCuadrilla = requestValues.getTipoCuadrilla();
-        //TODO: Ver la definicion de Zona
+
         DateTime desde = requestValues.getDesde();
         DateTime hasta = requestValues.getHasta();
         String search = requestValues.getSearch();
         Boolean estadoActual = requestValues.getEstadoActual();
-
+        final List<String> zonasSeleccionadas = requestValues.getZona();
+        final List<String> tiposTrabajosSeleccionados = requestValues.getTiposTrabajo();
         //Especificacion
         final StateSpec estadoSpec = new StateSpec(estado);
         final SearchSpec busquedaSpec = new SearchSpec(search);
         final FechaSpec fechasSpec = new FechaSpec(estado, desde, hasta, estadoActual);
 
-        // TODO: Consultar tipos de trabajo
-        CriteriaTipoTrabajo criteriaTipoTrabajo = new CriteriaTipoTrabajo(tipoCuadrilla);
-        mGetTipoTrabajo.execute(new GetTipoTrabajo.RequestValues(criteriaTipoTrabajo), new UseCaseCallback() {
-            @Override
-            public void onSuccess(Object response) {
-                GetTipoTrabajo.ResponseValue responseValue = (GetTipoTrabajo.ResponseValue) response;
+        if (tiposTrabajosSeleccionados.size() == 0 ){
+            CriteriaTipoTrabajo criteriaTipoTrabajo = new CriteriaTipoTrabajo(tipoCuadrilla);
+            mGetTipoTrabajo.execute(new GetTipoTrabajo.RequestValues(criteriaTipoTrabajo), new UseCaseCallback() {
+                @Override
+                public void onSuccess(Object response) {
+                    GetTipoTrabajo.ResponseValue responseValue = (GetTipoTrabajo.ResponseValue) response;
 
-                List<String> tiposTrabajo = responseValue.getTipoTrabajo();
-                // TODO: Crear especificacion de tipos de trabajo
+                    List<String> tiposTrabajo = responseValue.getTipoTrabajo();
+                    int j=0;
+                    CompositeSpec<Order> tipoSpec= new TipoTrabajoSpec(tiposTrabajo.get(j));
+                    do{
+                        if(j >= 1 && j <= tiposTrabajo.size()){
+                            tipoSpec = (CompositeSpec<Order>) tipoSpec.or(new TipoTrabajoSpec(tiposTrabajo.get(j)));
+                        }
+                        j=j+1;
+                    }while(j<tiposTrabajo.size() );
 
-                int j=0;
-                CompositeSpec<Order> tipoSpec= new TipoTrabajoSpec(tiposTrabajo.get(j));
-                do{
-                    if(j >= 1 && j <= tiposTrabajo.size()){
-                        tipoSpec = (CompositeSpec<Order>) tipoSpec.or(new TipoTrabajoSpec(tiposTrabajo.get(j)));
+                    //Especificacion general
+                    final Specification<Order> resultadoSpec;
+
+                    int i=0;
+                    if(zonasSeleccionadas.size()> 0) {
+                        CompositeSpec<Order> zonaSpec = new ZoneSpec(zonasSeleccionadas.get(i));
+                        do {
+                            if (i >= 1 && i <= zonasSeleccionadas.size()) {
+                                zonaSpec = (CompositeSpec<Order>) zonaSpec.or(new ZoneSpec(zonasSeleccionadas.get(i)));
+                            }
+                            i = i + 1;
+                        } while (i < zonasSeleccionadas.size());
+                        resultadoSpec = estadoSpec.and(
+                                busquedaSpec.and(
+                                        fechasSpec.and(tipoSpec.and(zonaSpec))));
+                    }else{
+                        resultadoSpec = estadoSpec.and(
+                                busquedaSpec.and(
+                                        fechasSpec.and(tipoSpec)));
                     }
-                    j=j+1;
-                }while(j<tiposTrabajo.size() );
+                    // TODO: Cargar ordenes
+                    mOrdersRepository.findOrder(
+                            new IOrdersRepository.OrdersRepositoryCallback() {
+                                @Override
+                                public void onSuccess(List<Order> orders) {
+                                    ResponseValue responseValue = new ResponseValue(orders);
+                                    callback.onSuccess(responseValue);
+                                }
 
-                //Especificacion general
-                final Specification<Order> resultadoSpec;
+                                @Override
+                                public void onError(String error) {
+                                    callback.onError(error);
+                                }
+                            },
+                            resultadoSpec); // TODO : Cambiar por espeicficacion total
+                }
+
+                @Override
+                public void onError(String error) {
+
+                }
+            });
+        }else{
+            int j=0;
+            CompositeSpec<Order> tipoSpec= new TipoTrabajoSpec(tiposTrabajosSeleccionados.get(j));
+            do{
+                if(j >= 1 && j <= tiposTrabajosSeleccionados.size()){
+                    tipoSpec = (CompositeSpec<Order>) tipoSpec.or(new TipoTrabajoSpec(tiposTrabajosSeleccionados.get(j)));
+                }
+                j=j+1;
+            }while(j<tiposTrabajosSeleccionados.size() );
+
+            //Especificacion general
+            final Specification<Order> resultadoSpec;
+
+            int i=0;
+            if(zonasSeleccionadas.size()> 0) {
+                CompositeSpec<Order> zonaSpec = new ZoneSpec(zonasSeleccionadas.get(i));
+                do {
+                    if (i >= 1 && i <= zonasSeleccionadas.size()) {
+                        zonaSpec = (CompositeSpec<Order>) zonaSpec.or(new ZoneSpec(zonasSeleccionadas.get(i)));
+                    }
+                    i = i + 1;
+                } while (i < zonasSeleccionadas.size());
+
+                resultadoSpec = estadoSpec.and(
+                        busquedaSpec.and(
+                                fechasSpec.and(tipoSpec.and(zonaSpec))));
+            }else{
                 resultadoSpec = estadoSpec.and(
                         busquedaSpec.and(
                                 fechasSpec.and(tipoSpec)));
-                // TODO: Cargar ordenes
-                mOrdersRepository.findOrder(
-                        new IOrdersRepository.OrdersRepositoryCallback() {
-                            @Override
-                            public void onSuccess(List<Order> orders) {
-                                ResponseValue responseValue = new ResponseValue(orders);
-                                callback.onSuccess(responseValue);
-                            }
-
-                            @Override
-                            public void onError(String error) {
-                                callback.onError(error);
-                            }
-                        },
-                        resultadoSpec); // TODO : Cambiar por espeicficacion total
             }
+            // TODO: Cargar ordenes
+            mOrdersRepository.findOrder(
+                    new IOrdersRepository.OrdersRepositoryCallback() {
+                        @Override
+                        public void onSuccess(List<Order> orders) {
+                            ResponseValue responseValue = new ResponseValue(orders);
+                            callback.onSuccess(responseValue);
+                        }
 
-            @Override
-            public void onError(String error) {
-
-            }
-        });
-
+                        @Override
+                        public void onError(String error) {
+                            callback.onError(error);
+                        }
+                    },
+                    resultadoSpec);
+        }
     }
 
     public static final class RequestValues implements UseCase.RequestValues {
