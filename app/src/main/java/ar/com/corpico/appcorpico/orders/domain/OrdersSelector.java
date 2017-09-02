@@ -45,10 +45,20 @@ public class OrdersSelector {
                 case "FechaSolicitud":
                     comparator = mFechaSolicitudComparator;
                     break;
-                // TODO: Añade un caso por cada comparador
+                //TODO: VER EL TEMA DEL ORDENAMIENTO COMPUESTO EJ: RUTA,ORDEN
                 case "Turno":
                     comparator = mTurnoComparator;
                     break;
+                case "Grupo":
+                    comparator = mGrupoComparator;
+                    break;
+                case "Ruta":
+                    comparator = mRutaComparator;
+                    break;
+                case "Orden":
+                    comparator = mOrdenComparator;
+                    break;
+                // TODO: Añade un caso por cada comparador
             }
         }
         Collections.sort(affectedOrders, comparator);
@@ -82,6 +92,36 @@ public class OrdersSelector {
             }
         }
     };
+    private Comparator<Order> mRutaComparator = new Comparator<Order>() {
+        @Override
+        public int compare(Order o1, Order o2) {
+            if (mQuery.getSortOrder() == Query.ASC_ORDER) {
+                return o1.getRuta().compareTo(o2.getRuta());
+            } else {
+                return o2.getRuta().compareTo(o1.getRuta());
+            }
+        }
+    };
 
+    private Comparator<Order> mGrupoComparator = new Comparator<Order>() {
+        @Override
+        public int compare(Order o1, Order o2) {
+            if (mQuery.getSortOrder() == Query.ASC_ORDER) {
+                return o1.getGrupo().compareTo(o2.getGrupo());
+            } else {
+                return o2.getGrupo().compareTo(o1.getGrupo());
+            }
+        }
+    };
+    private Comparator<Order> mOrdenComparator = new Comparator<Order>() {
+        @Override
+        public int compare(Order o1, Order o2) {
+            if (mQuery.getSortOrder() == Query.ASC_ORDER) {
+                return o1.getOrden().compareTo(o2.getOrden());
+            } else {
+                return o2.getOrden().compareTo(o1.getOrden());
+            }
+        }
+    };
     // TODO: Agrega más comparadores si los necesitas
 }

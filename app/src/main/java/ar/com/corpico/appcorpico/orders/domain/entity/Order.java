@@ -41,13 +41,16 @@ public class Order {
     private Etapa mCurrentEtapa;
     //private DateTime mTurno;
     private String mTurno;
+    private String mGrupo;
+    private String mRuta;
+    private String mOrden;
 
     private DetalleMedidor mDetalleMedidor;
 
     public Order(String FechaSolicitud, String Numero, String Zona, String Tipo_Trabajo, String Motivo, ArrayList<Etapa> Etapas, String Asociado,
                  String Suministro, String Titular, String Domicilio, String Localidad, String Anexo, String Tipo_Usuario,
                  String Tarifa,String Potencia_Declarada, String Medidor, String Marca, String Modelo, String FactorM, String Capacidad,
-                 String Tension, String Latitud, String Longitud,String Observacion,String Turno) {
+                 String Tension, String Latitud, String Longitud,String Observacion,String Turno, String Grupo, String Ruta, String Orden) {
         this.mFechaSolicitud = FechaSolicitud;
         this.mNumero = Numero;
         this.mZona = Zona;
@@ -72,11 +75,46 @@ public class Order {
         this.mLatitud = Latitud;
         this.mLongitud = Longitud;
         this.mObservacion = Observacion;
-        this.mTurno=Turno;
+        this.mTurno = Turno;
+        this.mGrupo = Grupo;
+        this.mRuta = Ruta;
+        this.mOrden = Orden;
     }
 
     public String getTurno() {
         return mTurno;
+    }
+
+    public String getmFechaSolicitud() {
+        return mFechaSolicitud;
+    }
+
+    public void setmFechaSolicitud(String mFechaSolicitud) {
+        this.mFechaSolicitud = mFechaSolicitud;
+    }
+
+    public String getGrupo() {
+        return mGrupo;
+    }
+
+    public void setGrupo(String Grupo) {
+        this.mGrupo = Grupo;
+    }
+
+    public String getRuta() {
+        return mRuta;
+    }
+
+    public void setmRuta(String Ruta) {
+        this.mRuta = Ruta;
+    }
+
+    public String getOrden() {
+        return mOrden;
+    }
+
+    public void setmOrden(String Orden) {
+        this.mOrden = Orden;
     }
     /*public DateTime getTurno() {
         return mTurno;
@@ -324,6 +362,9 @@ public class Order {
                 "Longitud = '" + mLongitud + '\'' +
                 "Observacion = '" + mObservacion + '\'' +
                 "Turno = '" + mTurno + '\'' +
+                "Grupo = '" + mGrupo + '\'' +
+                "Ruta = '" + mRuta + '\'' +
+                "Orden = '" + mOrden + '\'' +
                 '}';
     }
 

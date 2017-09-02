@@ -30,15 +30,21 @@
         app:showAsAction="collapseActionView|always"
         app:actionViewClass="android.support.v7.widget.SearchView" />
     <item
-        android:id="@+id/action_settings"
+        android:id="@+id/action_ordenar"
         android:orderInCategory="100"
         android:title="Ordenar"
         app:showAsAction="never">
         <menu>
             <item android:id="@+id/ordenar_fecha_solicitud"
-                android:title="Fecha solicitud" />
+                android:title="Solicitud" />
+            <item android:id="@+id/ordenar_turno"
+                android:title="Turno" />
             <item android:id="@+id/ordenar_ruta"
                 android:title="Ruta" />
+            <!--<item android:id="@+id/ordenar_grupo"
+                android:title="Grupo" />
+            <item android:id="@+id/ordenar_orden"
+                android:title="Orden" />-->
         </menu>
     </item>
 </menu>

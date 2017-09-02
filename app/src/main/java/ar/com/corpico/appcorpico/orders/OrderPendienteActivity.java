@@ -24,7 +24,6 @@ import com.google.common.base.Preconditions;
 
 import org.joda.time.DateTime;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -97,7 +96,7 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements
     private ArrayList<String> mZonasSeleccionadas = new ArrayList<>();
     private DateTime mFechaInicioSeleccionada;
     private DateTime mFechaFinSeleccionada;
-    private String mQuery;
+    private String mSearch;
 
     private ArrayList<String> mOrdenListNumero;
     private Spinner mSpinner;
@@ -159,7 +158,7 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements
         if (mOrderView == null) {
             mOrderView = OrdersListFragment.newInstance(
                     mTipoCuadrilla, mEstado, new ArrayList<String>(),
-                    new ArrayList<String>(), null, null, mQuery);
+                    new ArrayList<String>(), null, null, mSearch);
 
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.orders_view_container, mOrderView, "OrderView")
@@ -185,7 +184,7 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements
                 mTipoCuadrilla = (String) mSpinner.getSelectedItem();
                 mTiposTrabajoSeleccionados.clear();
                 mZonasSeleccionadas.clear();
-                mQuery="";
+                mSearch ="";
                 Calendar c = Calendar.getInstance();
                 c.setTime(new Date());
                 mFechaInicioSeleccionada = new DateTime(c);
@@ -254,9 +253,9 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements
                     // Search
                 } else {
                     // Do something when there's no input
-                    mQuery = "";
+                    mSearch = "";
                     orderPresenter.loadOrders(mTipoCuadrilla, mEstado, new ArrayList<String>(),
-                            new ArrayList<String>(), null, null, mQuery, true);
+                            new ArrayList<String>(), null, null, mSearch, true);
                 }
                 return false;
             }
@@ -343,7 +342,7 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements
     protected void onRestart() {
         super.onRestart();
         orderPresenter.loadOrders(mTipoCuadrilla, mEstado,mTiposTrabajoSeleccionados, mZonasSeleccionadas,
-                mFechaInicioSeleccionada, mFechaFinSeleccionada,mQuery,true);
+                mFechaInicioSeleccionada, mFechaFinSeleccionada, mSearch,true);
     }
 
 
@@ -354,10 +353,10 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements
 
     private void handleIntent(Intent intent) {
         if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
-            mQuery = intent.getStringExtra(SearchManager.QUERY);
+            mSearch = intent.getStringExtra(SearchManager.QUERY);
             //TODO: VER SI ACA NO TENGO QUE PONER LAS VARIABLES DE SELECCION --TRABAJO Y ZONAS Y FECHAS....
             orderPresenter.loadOrders(mTipoCuadrilla, mEstado, new ArrayList<String>(), new ArrayList<String>(),
-                        null, null,mQuery,true);
+                        null, null, mSearch,true);
         }
     }
 
@@ -411,7 +410,7 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements
                 Fragment fragment = fm.findFragmentById(R.id.orders_view_container);
                 if ((fragment instanceof OrdersMapsFragment)) {
                     mOrderMapView = OrdersMapsFragment.newInstance(mTipoCuadrilla, mEstado, mTiposTrabajoSeleccionados,
-                            mZonasSeleccionadas, mFechaInicioSeleccionada, mFechaFinSeleccionada,mQuery);
+                            mZonasSeleccionadas, mFechaInicioSeleccionada, mFechaFinSeleccionada, mSearch);
                     ft.replace(R.id.orders_view_container, mOrderMapView, "OrderViewMap")
                             .commit();
                     orderPresenter = new OrdersPresenter(mGetOrders,mAddOrdersState,mOrderMapView);
@@ -424,7 +423,7 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements
                     //TODO: VER SI ACA LLAMO CON QUERY O CON NULL (XQ SI APRETA EL FILTRAR PODER HACER UN FILTRADO CON BUSCAR....
                     //mOrderView = OrdersListFragment.newInstance(mTipoCuadrilla, mEstado, mTiposTrabajoSeleccionados,mZonasSeleccionadas, mFechaInicioSeleccionada, mFechaFinSeleccionada,null);
                     mOrderView = OrdersListFragment.newInstance(mTipoCuadrilla, mEstado, mTiposTrabajoSeleccionados,
-                            mZonasSeleccionadas, mFechaInicioSeleccionada, mFechaFinSeleccionada,mQuery);
+                            mZonasSeleccionadas, mFechaInicioSeleccionada, mFechaFinSeleccionada, mSearch);
                     ft.replace(R.id.orders_view_container, mOrderView, "OrderView")
                             .commit();
                     orderPresenter = new OrdersPresenter(mGetOrders, mAddOrdersState,mOrderView);

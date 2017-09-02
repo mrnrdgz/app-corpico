@@ -27,7 +27,6 @@ import org.joda.time.DateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import ar.com.corpico.appcorpico.orders.domain.entity.Tipo_Cuadrilla;
 import ar.com.corpico.appcorpico.orders.domain.entity.Order;
 
 
@@ -41,7 +40,7 @@ public class OrdersMapsFragment extends SupportMapFragment implements OnMapReady
     public static final String ARG_ZONAS_SELECCIONADAS = "orders.zonas_seleccionadas";
     public static final String ARG_FECHA_INICIO = "orders.fecha_inicio";
     public static final String ARG_FECHA_FIN = "orders.fecha_fin";
-    public static final String ARG_QUERY = "orders.query";
+    public static final String ARG_SEARCH = "orders.search";
     private static final String ARG_TIPOS_TRABAJO_SELECCIONADOS = "orders.tipos_trabajo_seleccionados";
 
     private static final int LOCATION_REQUEST_CODE = 1;
@@ -63,7 +62,7 @@ public class OrdersMapsFragment extends SupportMapFragment implements OnMapReady
     private List<String> mZonasSeleccionadas;
     private DateTime mFechaInicio;
     private DateTime mFechaFin;
-    private String mQuery;
+    private String mSearch;
 
 
     public OrdersMapsFragment() {
@@ -83,7 +82,7 @@ public class OrdersMapsFragment extends SupportMapFragment implements OnMapReady
         args.putStringArrayList(ARG_TIPOS_TRABAJO_SELECCIONADOS, tiposTrabajoSeleccionados);
         args.putSerializable(ARG_FECHA_INICIO, fechaInicio);
         args.putSerializable(ARG_FECHA_FIN, fechaFin);
-        args.putString(ARG_QUERY, query);
+        args.putString(ARG_SEARCH, query);
 
         fragment.setArguments(args);
         return fragment;
@@ -102,7 +101,7 @@ public class OrdersMapsFragment extends SupportMapFragment implements OnMapReady
             mZonasSeleccionadas = arguments.getStringArrayList(ARG_ZONAS_SELECCIONADAS);
             mFechaInicio = (DateTime) arguments.get(ARG_FECHA_INICIO);
             mFechaFin = (DateTime) arguments.get(ARG_FECHA_FIN);
-            mQuery = arguments.getString(ARG_QUERY);
+            mSearch = arguments.getString(ARG_SEARCH);
         }
         getMapAsync(this);
     }
@@ -112,7 +111,7 @@ public class OrdersMapsFragment extends SupportMapFragment implements OnMapReady
         View root = super.onCreateView(inflater, container, savedInstanceState);
 
         mOrdersMapPresenter.loadOrders(mTipoCuadrilla, mEstado, mTiposTrabajoSeleccionados,
-                mZonasSeleccionadas, mFechaInicio, mFechaFin, mQuery, true);
+                mZonasSeleccionadas, mFechaInicio, mFechaFin, mSearch, true);
 
         return root;
     }
