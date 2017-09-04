@@ -32,6 +32,7 @@
     <item
         android:id="@+id/action_ordenar"
         android:orderInCategory="100"
+
         android:title="Ordenar"
         app:showAsAction="never">
         <menu>
@@ -41,8 +42,10 @@
                 android:title="Turno" />
             <item android:id="@+id/ordenar_ruta"
                 android:title="Ruta" />
+
             <!--<item android:id="@+id/ordenar_grupo"
                 android:title="Grupo" />
+                actionLayout
             <item android:id="@+id/ordenar_orden"
                 android:title="Orden" />-->
         </menu>

@@ -13,7 +13,7 @@ import static android.R.attr.order;
  * Created by Administrador on 07/01/2017.
  */
 public class Order {
-    private String mFechaSolicitud;
+    private DateTime mFechaSolicitud;
     private String mNumero;
     private String mZona;
     private String mTipo_Trabajo;
@@ -47,7 +47,7 @@ public class Order {
 
     private DetalleMedidor mDetalleMedidor;
 
-    public Order(String FechaSolicitud, String Numero, String Zona, String Tipo_Trabajo, String Motivo, ArrayList<Etapa> Etapas, String Asociado,
+    public Order(DateTime FechaSolicitud, String Numero, String Zona, String Tipo_Trabajo, String Motivo, ArrayList<Etapa> Etapas, String Asociado,
                  String Suministro, String Titular, String Domicilio, String Localidad, String Anexo, String Tipo_Usuario,
                  String Tarifa,String Potencia_Declarada, String Medidor, String Marca, String Modelo, String FactorM, String Capacidad,
                  String Tension, String Latitud, String Longitud,String Observacion,String Turno, String Grupo, String Ruta, String Orden) {
@@ -85,11 +85,11 @@ public class Order {
         return mTurno;
     }
 
-    public String getmFechaSolicitud() {
+    public DateTime getmFechaSolicitud() {
         return mFechaSolicitud;
     }
 
-    public void setmFechaSolicitud(String mFechaSolicitud) {
+    public void setmFechaSolicitud(DateTime mFechaSolicitud) {
         this.mFechaSolicitud = mFechaSolicitud;
     }
 
@@ -200,11 +200,11 @@ public class Order {
         this.mTarifa = Tarifa;
     }
 
-    public String getFechaSolicitud() {
+    public DateTime getFechaSolicitud() {
         return mFechaSolicitud;
     }
 
-    public void setFechaSolicitud(String mFechaSolicitud) {
+    public void setFechaSolicitud(DateTime mFechaSolicitud) {
         this.mFechaSolicitud = mFechaSolicitud;
     }
 

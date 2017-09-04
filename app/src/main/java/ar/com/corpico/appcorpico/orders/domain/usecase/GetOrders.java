@@ -39,6 +39,8 @@ public class GetOrders extends UseCase<GetOrders.RequestValues, GetOrders.Respon
 
     @Override
     public void execute(RequestValues requestValues, final UseCaseCallback callback) {
+        //TODO: AGREGAR LAS CARACTERISTICAS QUE NECESITA EL QUERY
+        //TODO: Y PASARLE EN VEZ DE SPECIFICACIO UN QUERY
         String estado = requestValues.getEstado();
         String tipoCuadrilla = requestValues.getTipoCuadrilla();
 
