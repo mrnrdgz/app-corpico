@@ -8,6 +8,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -92,9 +93,9 @@ public class OrdersAdapter extends ArrayAdapter<Order> {
         domicilio.setText(order.getDomicilio());
         tipo.setText(order.getTipo_Trabajo());
 
-        String dia = order.getFechaSolicitud().substring(8,10);
-        String mes = order.getFechaSolicitud().substring(5,7);
-        String ano = order.getFechaSolicitud().substring(0,4);
+        int dia = order.getFechaSolicitud().getDayOfMonth();
+        int mes = order.getFechaSolicitud().getMonthOfYear();
+        int ano = order.getFechaSolicitud().getYear();
         fecha.setText(dia + "/" + mes + "/" + ano);
 
         String estado = order.getCurrentState(order.getEtapas());

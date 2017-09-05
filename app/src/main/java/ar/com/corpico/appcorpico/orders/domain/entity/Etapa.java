@@ -11,12 +11,12 @@ import java.util.Comparator;
  */
 
 public class Etapa {
-    private String mFecha;
+    private DateTime mFecha;
     private String mEstado;
     private String mObservacion;
     private String mUsuario;
 
-    public Etapa(String Fecha, String Estado, String Observacion, String Usuario) {
+    public Etapa(DateTime Fecha, String Estado, String Observacion, String Usuario) {
         mFecha = Fecha;
         mEstado = Estado;
         mObservacion = Observacion;
@@ -30,11 +30,11 @@ public class Etapa {
     public void setUsuario(String Usuario) {
         this.mUsuario = Usuario;
     }
-    public String getFecha() {
+    public DateTime getFecha() {
         return mFecha;
     }
 
-    public void setFecha(String Fecha) {
+    public void setFecha(DateTime Fecha) {
         mFecha = Fecha;
     }
 

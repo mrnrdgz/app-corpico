@@ -148,6 +148,8 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements
     @Override
     protected void onResume() {
         super.onResume();
+        orderPresenter.loadOrders(mTipoCuadrilla, mEstado,mTiposTrabajoSeleccionados, mZonasSeleccionadas,
+                mFechaInicioSeleccionada, mFechaFinSeleccionada, mSearch,true);
     }
 
     private void iniciarFragmento() {
@@ -341,8 +343,6 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements
     @Override
     protected void onRestart() {
         super.onRestart();
-        orderPresenter.loadOrders(mTipoCuadrilla, mEstado,mTiposTrabajoSeleccionados, mZonasSeleccionadas,
-                mFechaInicioSeleccionada, mFechaFinSeleccionada, mSearch,true);
     }
 
 

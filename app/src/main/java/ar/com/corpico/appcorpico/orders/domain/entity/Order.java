@@ -40,17 +40,17 @@ public class Order {
     private String mState;
     private Etapa mCurrentEtapa;
     //private DateTime mTurno;
-    private String mTurno;
-    private String mGrupo;
-    private String mRuta;
-    private String mOrden;
+    private DateTime mTurno;
+    private Integer mGrupo;
+    private Integer mRuta;
+    private Integer mOrden;
 
     private DetalleMedidor mDetalleMedidor;
 
     public Order(DateTime FechaSolicitud, String Numero, String Zona, String Tipo_Trabajo, String Motivo, ArrayList<Etapa> Etapas, String Asociado,
                  String Suministro, String Titular, String Domicilio, String Localidad, String Anexo, String Tipo_Usuario,
                  String Tarifa,String Potencia_Declarada, String Medidor, String Marca, String Modelo, String FactorM, String Capacidad,
-                 String Tension, String Latitud, String Longitud,String Observacion,String Turno, String Grupo, String Ruta, String Orden) {
+                 String Tension, String Latitud, String Longitud,String Observacion,DateTime Turno, Integer Grupo, Integer Ruta, Integer Orden) {
         this.mFechaSolicitud = FechaSolicitud;
         this.mNumero = Numero;
         this.mZona = Zona;
@@ -81,52 +81,45 @@ public class Order {
         this.mOrden = Orden;
     }
 
-    public String getTurno() {
-        return mTurno;
-    }
-
-    public DateTime getmFechaSolicitud() {
+    public DateTime getFechaSolicitud() {
         return mFechaSolicitud;
     }
 
-    public void setmFechaSolicitud(DateTime mFechaSolicitud) {
-        this.mFechaSolicitud = mFechaSolicitud;
+    public void setFechaSolicitud(DateTime FechaSolicitud) {
+        this.mFechaSolicitud = FechaSolicitud;
     }
 
-    public String getGrupo() {
+    public Integer getGrupo() {
         return mGrupo;
     }
 
-    public void setGrupo(String Grupo) {
+    public void setGrupo(Integer Grupo) {
         this.mGrupo = Grupo;
     }
 
-    public String getRuta() {
+    public Integer getRuta() {
         return mRuta;
     }
 
-    public void setmRuta(String Ruta) {
+    public void setRuta(Integer Ruta) {
         this.mRuta = Ruta;
     }
 
-    public String getOrden() {
+    public Integer getOrden() {
         return mOrden;
     }
 
-    public void setmOrden(String Orden) {
+    public void setOrden(Integer Orden) {
         this.mOrden = Orden;
     }
-    /*public DateTime getTurno() {
+    public DateTime getTurno() {
         return mTurno;
     }
 
     public void setTurno(DateTime Turno) {
         this.mTurno = Turno;
-    }*/
-
-    public void setTurno(String Turno) {
-        this.mTurno = Turno;
     }
+
     public String getPotencia_Declarada() {
         return mPotencia_Declarada;
     }
@@ -198,14 +191,6 @@ public class Order {
 
     public void setTarifa(String Tarifa) {
         this.mTarifa = Tarifa;
-    }
-
-    public DateTime getFechaSolicitud() {
-        return mFechaSolicitud;
-    }
-
-    public void setFechaSolicitud(DateTime mFechaSolicitud) {
-        this.mFechaSolicitud = mFechaSolicitud;
     }
 
     public String getNumero() {
