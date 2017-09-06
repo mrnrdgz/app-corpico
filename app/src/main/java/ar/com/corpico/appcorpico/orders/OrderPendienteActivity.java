@@ -316,7 +316,8 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements
                     mOrderView.setPresenter(orderPresenter);
                 }
                 break;
-            case R.id.action_settings:
+            case R.id.action_ordenar:
+
                 break;
         }
 

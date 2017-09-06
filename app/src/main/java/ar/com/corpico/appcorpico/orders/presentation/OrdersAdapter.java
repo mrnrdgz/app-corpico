@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import ar.com.corpico.appcorpico.R;
@@ -93,17 +94,20 @@ public class OrdersAdapter extends ArrayAdapter<Order> {
         domicilio.setText(order.getDomicilio());
         tipo.setText(order.getTipo_Trabajo());
 
+        Calendar c = Calendar.getInstance();
         int dia = order.getFechaSolicitud().getDayOfMonth();
         int mes = order.getFechaSolicitud().getMonthOfYear();
-        int ano = order.getFechaSolicitud().getYear();
-        fecha.setText(dia + "/" + mes + "/" + ano);
+        int anio = order.getFechaSolicitud().getYear();
+        c.set(anio, mes, dia);
+        SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
+        fecha.setText(format.format(c.getTime()));
+
 
         String estado = order.getCurrentState(order.getEtapas());
 
         switch (estado) {
             case "Pendiente":
                 indicator.setBackgroundResource(R.drawable.pendientes_indicator);
-                //imageButton.setBackgroundResource(R.drawable.ic_orders);
                 break;
             case "Asignada":
                 indicator.setBackgroundResource(R.drawable.asignadas_indicator);

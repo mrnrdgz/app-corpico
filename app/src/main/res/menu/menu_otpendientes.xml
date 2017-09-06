@@ -4,6 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="ar.com.corpico.appcorpico.orders.OrderPendienteActivity">
     <item
+        android:id="@+id/action_search"
+        android:icon="@drawable/ic_search"
+        android:orderInCategory="1"
+        android:title="@string/action_buscar"
+        app:showAsAction="collapseActionView|always"
+        app:actionViewClass="android.support.v7.widget.SearchView" />
+    <item
         android:id="@+id/action_filtrar"
         android:icon="@drawable/ic_filtrar"
         android:orderInCategory="2"
@@ -23,12 +30,17 @@
         android:title="@string/action_map"
         app:showAsAction="always" />
     <item
-        android:id="@+id/action_search"
-        android:icon="@drawable/ic_search"
-        android:orderInCategory="1"
-        android:title="@string/action_buscar"
-        app:showAsAction="collapseActionView|always"
-        app:actionViewClass="android.support.v7.widget.SearchView" />
+        android:id="@+id/action_ordenar"
+        android:icon="@drawable/ic_sort"
+        android:orderInCategory="4"
+        android:title="Ordenar"
+        app:showAsAction="always"/>
+    <!--<group android:checkableBehavior="single">
+        <item android:id="@+id/red"
+            android:title="red" />
+        <item android:id="@+id/blue"
+            android:title="blue" />
+    </group>
     <item
         android:id="@+id/action_ordenar"
         android:orderInCategory="100"
@@ -41,10 +53,10 @@
                 android:title="Turno" />
             <item android:id="@+id/ordenar_ruta"
                 android:title="Ruta" />
-            <!--<item android:id="@+id/ordenar_grupo"
+            <item android:id="@+id/ordenar_grupo"
                 android:title="Grupo" />
             <item android:id="@+id/ordenar_orden"
-                android:title="Orden" />-->
+                android:title="Orden" />
         </menu>
-    </item>
+    </item>-->
 </menu>
