@@ -58,7 +58,7 @@ public class FuenteOrdenesServidor implements OrderStore {
         mFakeRestEtapa7.add(new Etapa(new DateTime("2017-02-23T00:00:00.000-03:00"), "Pendiente", "zzzz",""));
         mFakeRestEtapa8.add(new Etapa(new DateTime("2017-01-23T00:00:00.000-03:00"), "Pendiente", "www",""));
         mFakeRestEtapa9.add(new Etapa(new DateTime("2017-03-23T00:00:00.000-03:00"), "Pendiente", "sss",""));
-        mFakeRestEtapa10.add(new Etapa(new DateTime("2017-01-23T00:00:00.000-03:00"), "Culminada", "yyy",""));
+        mFakeRestEtapa10.add(new Etapa(new DateTime("2017-01-23T00:00:00.000-03:00"), "Pendiente", "yyy",""));
 
         mFakeRestEtapa1.add(new Etapa(new DateTime("2017-01-23T00:00:00.000-03:00"), "Pendiente", "Nada",""));
         mFakeRestEtapa1.add(new Etapa(new DateTime("2017-01-25T00:00:00.000-03:00"), "Culminada", "Todo",""));
@@ -81,16 +81,16 @@ public class FuenteOrdenesServidor implements OrderStore {
 
     static {
 
-        mFakeRestOrder.add(new Order(new DateTime("2017-01-24T00:00:00.000-03:00"), "839127", "Zona 2", "Retiro de Medidor", "Por Morosidad", mFakeRestEtapa3, "000015514", "001", "Luisa Gonzalez", "Pasaje Rivero 957", "General Pico", "", "Residencial", "Residencial", "1100 Watts","2585054","ELESTER","A150","","Rango 005/060 A","Monofásico 220 vo", "35.6630S", "63.7608W", "Nada",null,1,200,1));
+        mFakeRestOrder.add(new Order(new DateTime("2017-01-24T00:00:00.000-03:00"), "839127", "Zona 2", "Retiro de Medidor", "Por Morosidad", mFakeRestEtapa3, "000015514", "001", "Luisa Gonzalez", "Pasaje Rivero 957", "General Pico", "", "Residencial", "Residencial", "1100 Watts","2585054","ELESTER","A150","","Rango 005/060 A","Monofásico 220 vo", "35.6630S", "63.7608W", "Nada",new DateTime(),1,200,1));
         mFakeRestOrder.add(new Order(new DateTime("2017-01-24T00:00:00.000-03:00"),"839128", "Zona 3", "Cambio de Medidor", "Trabado", mFakeRestEtapa, "000022814", "001", "Jorgelina Rodriguez", "Calle 531", "General Pico", "", "Residencial", "Residencial", "1100 Watts","2585054","ELESTER","A150","","Rango 005/060 A","Monofásico 220 vo","35.6562S", "63.7537W", "Algo",null,1,200,2));
-        mFakeRestOrder.add(new Order(new DateTime("2017-01-24T00:00:00.000-03:00"),"839129", "Zona 3", "Colocacion de Medidor", "Suministro Nuevo", mFakeRestEtapa6, "000024429", "007", "Gustavo Turienzo", "Calle 29", "General Pico", "", "Residencial", "Residencial","1100 Watts","2585054","ELESTER","A150","","Rango 005/060 A","Monofásico 220 vo","35.6657S", "63.7494W", "Todo",new DateTime("2017-08-24T00:00:00.000-03:00"),1,200,3));
-        mFakeRestOrder.add(new Order(new DateTime("2017-01-26T00:00:00.000-03:00"),"839130", "Zona 4", "Retiro de Medidor", "Solicitud del Cliente", mFakeRestEtapa7, "000055472", "001", "Gonzalo Fernandez", "Calle 18", "General Pico", "", "Residencial", "Residencial","1100 Watts","2585054","ELESTER","A150","","Rango 005/060 A","Monofásico 220 vo","35.6601S", "63.7690W", "Siempre",null,1,200,4));
-        mFakeRestOrder.add(new Order(new DateTime("2017-01-24T00:00:00.000-03:00"),"839131", "Zona 1", "Retiro de Medidor", "Por Morosidad", mFakeRestEtapa8, "000040462", "002", "Antonella Privitera", "Calle 28", "General Pico", "", "Residencial", "Residencial","1100 Watts","2585054","ELESTER","A150","","Rango 005/060 A","Monofásico 220 vo","35.6538S", "63.7528W", "Nunca",null,1,200,5));
-        mFakeRestOrder.add(new Order(new DateTime("2017-01-25T00:00:00.000-03:00"),"839132", "Zona 2", "Retiro de Medidor", "Por Morosidad", mFakeRestEtapa9, "000017495", "001", "Juan Perez", "Pasaje Rivero 957", "General Pico", "", "Residencial", "Residencial","1100 Watts","2585054","ELESTER","A150","","Rango 005/060 A","Monofásico 220 vo","35.6629S", "63.7476W", "Nada",null,1,200,6));
-        mFakeRestOrder.add(new Order(new DateTime("2017-01-24T00:00:00.000-03:00"),"839133", "Zona 3", "Cambio de Medidor", "Solic. Energia Prepaga", mFakeRestEtapa4, "000006377", "001", "Rodrigo Nieto", "Calle 531", "General Pico", "", "Residencial", "Residencial","1100 Watts","2585054","ELESTER","A150","","Rango 005/060 A","Monofásico 220 vo","35.6788S", "63.7530W", "Algo",null,1,200,7));
-        mFakeRestOrder.add(new Order(new DateTime("2017-01-24T00:00:00.000-03:00"),"839134", "Zona 4", "Colocacion de Medidor", "Regularizacion de Deuda", mFakeRestEtapa10, "000044345", "001", "Jose Ferrando", "Calle 29", "General Pico", "", "Residencial", "Residencial","1100 Watts","2585054","ELESTER","A150","","Rango 005/060 A","Monofásico 220 vo","35.6678S", "63.7555W", "Todo",new DateTime("2017-08-24T00:00:00.000-03:00"),1,200,8));
-        mFakeRestOrder.add(new Order(new DateTime("2017-01-24T00:00:00.000-03:00"),"839135", "Zona 4", "Retiro de Medidor", "Solicitud del Cliente", mFakeRestEtapa5, "000042352", "001", "Fabio Gomez", "Calle 18", "General Pico", "", "Residencial", "Residencial","1100 Watts","2585054","ELESTER","A150","","Rango 005/060 A","Monofásico 220 vo","35.6810S", "63.7491W", "Siempre",null,1,200,9));
-        mFakeRestOrder.add(new Order(new DateTime("2017-01-24T00:00:00.000-03:00"),"839136", "Zona 1", "Retiro de Medidor", "Por Morosidad", mFakeRestEtapa2, "000020484", "001", "Maria Gallo", "Calle 28", "General Pico", "", "Residencial", "Residencial","1100 Watts","2585054","ELESTER","A150","","Rango 005/060 A","Monofásico 220 vo","35.6598S", "63.7498W", "Nunca",null,1,200,10));
+        mFakeRestOrder.add(new Order(new DateTime("2017-01-24T00:00:00.000-03:00"),"839129", "Zona 3", "Colocacion de Medidor", "Suministro Nuevo", mFakeRestEtapa6, "000024429", "007", "Gustavo Turienzo", "Calle 29", "General Pico", "", "Residencial", "Residencial","1100 Watts","2585054","ELESTER","A150","","Rango 005/060 A","Monofásico 220 vo","35.6657S", "63.7494W", "Todo",new DateTime("2017-08-29T00:00:00.000-03:00"),1,200,3));
+        mFakeRestOrder.add(new Order(new DateTime("2017-01-26T00:00:00.000-03:00"),"839130", "Zona 4", "Retiro de Medidor", "Solicitud del Cliente", mFakeRestEtapa7, "000055472", "001", "Gonzalo Fernandez", "Calle 18", "General Pico", "", "Residencial", "Residencial","1100 Watts","2585054","ELESTER","A150","","Rango 005/060 A","Monofásico 220 vo","35.6601S", "63.7690W", "Siempre",new DateTime(),1,400,4));
+        mFakeRestOrder.add(new Order(new DateTime("2017-01-24T00:00:00.000-03:00"),"839131", "Zona 1", "Retiro de Medidor", "Por Morosidad", mFakeRestEtapa8, "000040462", "002", "Antonella Privitera", "Calle 28", "General Pico", "", "Residencial", "Residencial","1100 Watts","2585054","ELESTER","A150","","Rango 005/060 A","Monofásico 220 vo","35.6538S", "63.7528W", "Nunca",new DateTime(),1,500,5));
+        mFakeRestOrder.add(new Order(new DateTime("2017-01-25T00:00:00.000-03:00"),"839132", "Zona 2", "Retiro de Medidor", "Por Morosidad", mFakeRestEtapa9, "000017495", "001", "Juan Perez", "Pasaje Rivero 957", "General Pico", "", "Residencial", "Residencial","1100 Watts","2585054","ELESTER","A150","","Rango 005/060 A","Monofásico 220 vo","35.6629S", "63.7476W", "Nada",new DateTime(),1,200,6));
+        mFakeRestOrder.add(new Order(new DateTime("2017-01-24T00:00:00.000-03:00"),"839133", "Zona 3", "Cambio de Medidor", "Solic. Energia Prepaga", mFakeRestEtapa4, "000006377", "001", "Rodrigo Nieto", "Calle 531", "General Pico", "", "Residencial", "Residencial","1100 Watts","2585054","ELESTER","A150","","Rango 005/060 A","Monofásico 220 vo","35.6788S", "63.7530W", "Algo",new DateTime(),1,200,7));
+        mFakeRestOrder.add(new Order(new DateTime("2017-01-26T00:00:00.000-03:00"),"839134", "Zona 4", "Colocacion de Medidor", "Regularizacion de Deuda", mFakeRestEtapa10, "000044345", "001", "Jose Ferrando", "Calle 29", "General Pico", "", "Residencial", "Residencial","1100 Watts","2585054","ELESTER","A150","","Rango 005/060 A","Monofásico 220 vo","35.6678S", "63.7555W", "Todo",new DateTime("2017-08-28T00:00:00.000-03:00"),1,200,8));
+        mFakeRestOrder.add(new Order(new DateTime("2017-01-24T00:00:00.000-03:00"),"839135", "Zona 4", "Retiro de Medidor", "Solicitud del Cliente", mFakeRestEtapa5, "000042352", "001", "Fabio Gomez", "Calle 18", "General Pico", "", "Residencial", "Residencial","1100 Watts","2585054","ELESTER","A150","","Rango 005/060 A","Monofásico 220 vo","35.6810S", "63.7491W", "Siempre",new DateTime(),1,200,9));
+        mFakeRestOrder.add(new Order(new DateTime("2017-01-24T00:00:00.000-03:00"),"839136", "Zona 1", "Retiro de Medidor", "Por Morosidad", mFakeRestEtapa2, "000020484", "001", "Maria Gallo", "Calle 28", "General Pico", "", "Residencial", "Residencial","1100 Watts","2585054","ELESTER","A150","","Rango 005/060 A","Monofásico 220 vo","35.6598S", "63.7498W", "Nunca",new DateTime(),1,200,10));
     }
 
     static {
@@ -143,7 +143,7 @@ public class FuenteOrdenesServidor implements OrderStore {
 
     }
     @Override
-    public void getOrders(final GetCallback callback, final Specification filter) {
+    public void getOrders(final GetCallback callback, final Query query) {
         Handler handler = new Handler();
 
         handler.postDelayed(new Runnable() {
@@ -157,8 +157,8 @@ public class FuenteOrdenesServidor implements OrderStore {
                         return filter.isSatisfiedBy(input);
                     }
                 })));*/
-                Query mQuery = new Query(filter,"FechaSolicitud",1,0,0);
-                OrdersSelector ordersSelector = new OrdersSelector(mQuery);
+                //Query mQuery = new Query(filter,"FechaSolicitud",1,0,0);
+                OrdersSelector ordersSelector = new OrdersSelector(query);
                 callback.onSuccess(ordersSelector.selectListRows(mFakeRestOrder));
             }
         }, 2000);

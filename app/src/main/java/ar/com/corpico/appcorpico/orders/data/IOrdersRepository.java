@@ -3,6 +3,7 @@ package ar.com.corpico.appcorpico.orders.data;
 import java.util.ArrayList;
 import java.util.List;
 
+import ar.com.corpico.appcorpico.orders.domain.Query;
 import ar.com.corpico.appcorpico.orders.domain.entity.Tipo_Cuadrilla;
 import ar.com.corpico.appcorpico.orders.domain.entity.Order;
 import ar.com.corpico.appcorpico.orders.domain.entity.Tipo_Trabajo;
@@ -15,7 +16,8 @@ import ar.com.corpico.appcorpico.orders.domain.filter.Specifications.Specificati
  */
 
 public interface IOrdersRepository {
-    void findOrder(OrdersRepositoryCallback callback, Specification filter);
+    //void findOrder(OrdersRepositoryCallback callback, Specification filter);
+    void findOrder(OrdersRepositoryCallback callback, Query query);
     interface OrdersRepositoryCallback {
         void onSuccess(List<Order> orders);
         void onError(String error);

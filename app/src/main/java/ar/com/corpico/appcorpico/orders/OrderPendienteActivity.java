@@ -2,15 +2,18 @@ package ar.com.corpico.appcorpico.orders;
 
 import android.app.SearchManager;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.MenuItemCompat;
 
 
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.SearchView;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -39,6 +42,8 @@ import ar.com.corpico.appcorpico.orders.domain.usecase.GetTipoCuadrilla;
 import ar.com.corpico.appcorpico.orders.domain.usecase.GetOrders;
 import ar.com.corpico.appcorpico.orders.domain.usecase.GetTipoTrabajo;
 import ar.com.corpico.appcorpico.orders.presentation.AsignarAConexionesDialog;
+import ar.com.corpico.appcorpico.orders.presentation.SortDialog;
+import ar.com.corpico.appcorpico.ordersDetail.presentation.AsignarAConexionesDetailDialog;
 import ar.com.corpico.appcorpico.ordersFilter.OrdersFilterActivity;
 import ar.com.corpico.appcorpico.orders.presentation.TipoCuadrillaAdapter;
 import ar.com.corpico.appcorpico.orders.presentation.OrdersListFragment;
@@ -54,7 +59,8 @@ import ar.com.corpico.appcorpico.orders.presentation.TiposCuadrillasPresenter;
 
 public class OrderPendienteActivity extends NavitationDrawerActivity implements
         AsignarAConexionesDialog.OnAsignarAConexionesListener,
-        TiposCuadrillaToolbarMvp.View {
+        TiposCuadrillaToolbarMvp.View,
+        SortDialog.SortDialogListener{
 
     //Key Argumentos
     public static final String ARG_ESTADO = "orders.estado";
@@ -68,6 +74,7 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements
     //Argumentos
     private String mEstado;
     private String mServicio;
+    private String mFieldSort = "FechaSolicitud";
 
     //Views
     private TipoCuadrillaAdapter mTipoCuadrillaAdapter;
@@ -148,8 +155,10 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements
     @Override
     protected void onResume() {
         super.onResume();
+        //TODO: COMO HAGO ACA CON LA FECHA SELECCIONADA
+        //TODO: ESTA VINIENDO DEL BOTON ATRAS DEL DETALLE...NO SE SELLECCOINO NINGUN RANGO DE FECHA
         orderPresenter.loadOrders(mTipoCuadrilla, mEstado,mTiposTrabajoSeleccionados, mZonasSeleccionadas,
-                mFechaInicioSeleccionada, mFechaFinSeleccionada, mSearch,true);
+                mFechaInicioSeleccionada, mFechaFinSeleccionada, mSearch,true,mFieldSort);
     }
 
     private void iniciarFragmento() {
@@ -160,7 +169,7 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements
         if (mOrderView == null) {
             mOrderView = OrdersListFragment.newInstance(
                     mTipoCuadrilla, mEstado, new ArrayList<String>(),
-                    new ArrayList<String>(), null, null, mSearch);
+                    new ArrayList<String>(), null, null, mSearch,mFieldSort);
 
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.orders_view_container, mOrderView, "OrderView")
@@ -187,10 +196,10 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements
                 mTiposTrabajoSeleccionados.clear();
                 mZonasSeleccionadas.clear();
                 mSearch ="";
-                Calendar c = Calendar.getInstance();
+                /*Calendar c = Calendar.getInstance();
                 c.setTime(new Date());
                 mFechaInicioSeleccionada = new DateTime(c);
-                mFechaFinSeleccionada = new DateTime(c);
+                mFechaFinSeleccionada = new DateTime(c);*/
 
                 //TODO: ACA TENDRIA QUE CREAR UNA INSTANCIA XQ SINO ME QUEDA LA VIEW CON VALORES DE VARIABLES VIEJOS
                 //TODO: HACER UN RESPOSITORIO X CADA ENTIDAD....UN ENTIDAD PUEDE TENER VARIAS FUENTES DE DATOS
@@ -203,7 +212,7 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements
                 FragmentTransaction ftList = getSupportFragmentManager().beginTransaction();
                 Fragment fragmentList = fmList.findFragmentById(R.id.orders_view_container);
                 if ((fragmentList instanceof OrdersListFragment)) {
-                    mOrderView = OrdersListFragment.newInstance(mTipoCuadrilla, mEstado, new ArrayList<String>(), new ArrayList<String>(), null, null, null);
+                    mOrderView = OrdersListFragment.newInstance(mTipoCuadrilla, mEstado, new ArrayList<String>(), new ArrayList<String>(), null, null, null,mFieldSort);
                     ftList.replace(R.id.orders_view_container, mOrderView, "OrderView")
                             //.addToBackStack("OrderView")
                             .commit();
@@ -215,7 +224,7 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements
                 Fragment fragmentMap = fmMap.findFragmentById(R.id.orders_view_container);
                 if ((fragmentMap instanceof OrdersMapsFragment)) {
                     mOrderMapView = OrdersMapsFragment.newInstance(mTipoCuadrilla, mEstado, new ArrayList<String>(),
-                            new ArrayList<String>(), null, null, null);
+                            new ArrayList<String>(), null, null, null,mFieldSort);
                     ftMap.replace(R.id.orders_view_container, mOrderMapView, "OrderViewMap")
                             .commit();
                     orderPresenter = new OrdersPresenter(mGetOrders, mAddOrdersState, mOrderMapView);
@@ -257,7 +266,7 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements
                     // Do something when there's no input
                     mSearch = "";
                     orderPresenter.loadOrders(mTipoCuadrilla, mEstado, new ArrayList<String>(),
-                            new ArrayList<String>(), null, null, mSearch, true);
+                            new ArrayList<String>(), null, null, mSearch, true,mFieldSort);
                 }
                 return false;
             }
@@ -295,7 +304,7 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements
                 Fragment fragment = fm.findFragmentById(R.id.orders_view_container);
                 if (!(fragment instanceof OrdersMapsFragment)) {
                     mOrderMapView = OrdersMapsFragment.newInstance(mTipoCuadrilla, mEstado, new ArrayList<String>(),
-                            new ArrayList<String>(), null, null,null);
+                            new ArrayList<String>(), null, null,null,mFieldSort);
                     ft.replace(R.id.orders_view_container, mOrderMapView, "OrderViewMap")
                             .commit();
                     orderPresenter = new OrdersPresenter(mGetOrders,mAddOrdersState,mOrderMapView);
@@ -309,7 +318,7 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements
                 ft = getSupportFragmentManager().beginTransaction();
                 Fragment fragment1 = fm.findFragmentById(R.id.orders_view_container);
                 if (!(fragment1 instanceof OrdersListFragment)) {
-                    mOrderView = OrdersListFragment.newInstance(mTipoCuadrilla, mEstado, new ArrayList<String>(), new ArrayList<String>(), null, null,null);
+                    mOrderView = OrdersListFragment.newInstance(mTipoCuadrilla, mEstado, new ArrayList<String>(), new ArrayList<String>(), null, null,null,mFieldSort);
                     ft.replace(R.id.orders_view_container, mOrderView, "OrderView")
                             .commit();
                     orderPresenter = new OrdersPresenter(mGetOrders, mAddOrdersState,mOrderView);
@@ -317,7 +326,8 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements
                 }
                 break;
             case R.id.action_ordenar:
-
+                FragmentManager fragmentManager =  getSupportFragmentManager();
+                new SortDialog().show(fragmentManager, "SortDialog");
                 break;
         }
 
@@ -357,7 +367,7 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements
             mSearch = intent.getStringExtra(SearchManager.QUERY);
             //TODO: VER SI ACA NO TENGO QUE PONER LAS VARIABLES DE SELECCION --TRABAJO Y ZONAS Y FECHAS....
             orderPresenter.loadOrders(mTipoCuadrilla, mEstado, new ArrayList<String>(), new ArrayList<String>(),
-                        null, null, mSearch,true);
+                        null, null, mSearch,true,mFieldSort);
         }
     }
 
@@ -411,7 +421,7 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements
                 Fragment fragment = fm.findFragmentById(R.id.orders_view_container);
                 if ((fragment instanceof OrdersMapsFragment)) {
                     mOrderMapView = OrdersMapsFragment.newInstance(mTipoCuadrilla, mEstado, mTiposTrabajoSeleccionados,
-                            mZonasSeleccionadas, mFechaInicioSeleccionada, mFechaFinSeleccionada, mSearch);
+                            mZonasSeleccionadas, mFechaInicioSeleccionada, mFechaFinSeleccionada, mSearch,mFieldSort);
                     ft.replace(R.id.orders_view_container, mOrderMapView, "OrderViewMap")
                             .commit();
                     orderPresenter = new OrdersPresenter(mGetOrders,mAddOrdersState,mOrderMapView);
@@ -424,7 +434,7 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements
                     //TODO: VER SI ACA LLAMO CON QUERY O CON NULL (XQ SI APRETA EL FILTRAR PODER HACER UN FILTRADO CON BUSCAR....
                     //mOrderView = OrdersListFragment.newInstance(mTipoCuadrilla, mEstado, mTiposTrabajoSeleccionados,mZonasSeleccionadas, mFechaInicioSeleccionada, mFechaFinSeleccionada,null);
                     mOrderView = OrdersListFragment.newInstance(mTipoCuadrilla, mEstado, mTiposTrabajoSeleccionados,
-                            mZonasSeleccionadas, mFechaInicioSeleccionada, mFechaFinSeleccionada, mSearch);
+                            mZonasSeleccionadas, mFechaInicioSeleccionada, mFechaFinSeleccionada, mSearch,mFieldSort);
                     ft.replace(R.id.orders_view_container, mOrderView, "OrderView")
                             .commit();
                     orderPresenter = new OrdersPresenter(mGetOrders, mAddOrdersState,mOrderView);
@@ -447,5 +457,12 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements
     @Override
     public void setPresenter(TiposCuadrillaToolbarMvp.Presenter presenter) {
         mTiposCuadrillasPresenter = Preconditions.checkNotNull(presenter);
+    }
+
+    @Override
+    public void onDialogSortClick(String fieldSort) {
+        mFieldSort = fieldSort;
+        orderPresenter.loadOrders(mTipoCuadrilla, mEstado, new ArrayList<String>(), new ArrayList<String>(),
+                null, null, mSearch,true,mFieldSort);
     }
 }

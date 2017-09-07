@@ -28,7 +28,7 @@ public interface OrdersListMvp {
     interface Presenter {
         void loadOrders(String tipoCuadrilla, String estado, List<String> tipoTrabajo,
                         List<String> zona, DateTime desde, DateTime hasta, String search,
-                        Boolean estadoActual);
+                        Boolean estadoActual,String fieldSort);
         void asignarOrder(String cuadrilla, List<String> listorder, String observacion);
     }
 }

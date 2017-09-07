@@ -8,6 +8,7 @@ import java.util.List;
 
 import ar.com.corpico.appcorpico.UseCase;
 import ar.com.corpico.appcorpico.orders.data.IOrdersRepository;
+import ar.com.corpico.appcorpico.orders.domain.Query;
 import ar.com.corpico.appcorpico.orders.domain.entity.Order;
 import ar.com.corpico.appcorpico.orders.domain.filter.Criteria;
 import ar.com.corpico.appcorpico.orders.domain.filter.CriteriaTipoTrabajo;
@@ -48,6 +49,8 @@ public class GetOrders extends UseCase<GetOrders.RequestValues, GetOrders.Respon
         DateTime hasta = requestValues.getHasta();
         String search = requestValues.getSearch();
         Boolean estadoActual = requestValues.getEstadoActual();
+        final String fieldSort = requestValues.getFieldSort();
+
         final List<String> zonasSeleccionadas = requestValues.getZona();
         final List<String> tiposTrabajosSeleccionados = requestValues.getTiposTrabajo();
         //Especificacion
@@ -93,6 +96,7 @@ public class GetOrders extends UseCase<GetOrders.RequestValues, GetOrders.Respon
                                         fechasSpec.and(tipoSpec)));
                     }
                     // TODO: Cargar ordenes
+                    Query mQuery = new Query(resultadoSpec,fieldSort,1,0,0);
                     mOrdersRepository.findOrder(
                             new IOrdersRepository.OrdersRepositoryCallback() {
                                 @Override
@@ -106,7 +110,7 @@ public class GetOrders extends UseCase<GetOrders.RequestValues, GetOrders.Respon
                                     callback.onError(error);
                                 }
                             },
-                            resultadoSpec); // TODO : Cambiar por espeicficacion total
+                            mQuery); // TODO : Cambiar por espeicficacion total
                 }
 
                 @Override
@@ -146,6 +150,7 @@ public class GetOrders extends UseCase<GetOrders.RequestValues, GetOrders.Respon
                                 fechasSpec.and(tipoSpec)));
             }
             // TODO: Cargar ordenes
+            Query mQuery = new Query(resultadoSpec,fieldSort,1,0,0);
             mOrdersRepository.findOrder(
                     new IOrdersRepository.OrdersRepositoryCallback() {
                         @Override
@@ -159,7 +164,7 @@ public class GetOrders extends UseCase<GetOrders.RequestValues, GetOrders.Respon
                             callback.onError(error);
                         }
                     },
-                    resultadoSpec);
+                    mQuery);
         }
     }
 
@@ -172,6 +177,7 @@ public class GetOrders extends UseCase<GetOrders.RequestValues, GetOrders.Respon
         private List<String> tiposTrabajo;
         private String estado;
         private String tipoCuadrilla;
+        private String fieldSort;
 
         //private Criteria filter;
         private Specification filter;
@@ -186,7 +192,7 @@ public class GetOrders extends UseCase<GetOrders.RequestValues, GetOrders.Respon
         public RequestValues(String tipoCuadrilla, String estado,
                              List<String> tiposTrabajo, List<String> zona,
                              DateTime desde, DateTime hasta,
-                             String search, Boolean estadoActual) {
+                             String search, Boolean estadoActual, String fieldSort) {
             this.tipoCuadrilla = tipoCuadrilla;
             this.estado = estado;
             this.tiposTrabajo = checkNotNull(tiposTrabajo, "tiposTrabajo no puede ser null");
@@ -195,6 +201,7 @@ public class GetOrders extends UseCase<GetOrders.RequestValues, GetOrders.Respon
             this.hasta = hasta;
             this.search = search;
             this.estadoActual = estadoActual;
+            this.fieldSort = fieldSort;
         }
 
         public Specification getFilter() {
@@ -231,6 +238,9 @@ public class GetOrders extends UseCase<GetOrders.RequestValues, GetOrders.Respon
 
         public String getTipoCuadrilla() {
             return tipoCuadrilla;
+        }
+        public String getFieldSort() {
+            return fieldSort;
         }
     }
 

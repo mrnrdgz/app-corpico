@@ -5,6 +5,7 @@ import com.google.common.base.Preconditions;
 import java.util.ArrayList;
 import java.util.List;
 
+import ar.com.corpico.appcorpico.orders.domain.Query;
 import ar.com.corpico.appcorpico.orders.domain.entity.Order;
 import ar.com.corpico.appcorpico.orders.domain.entity.Tipo_Cuadrilla;
 import ar.com.corpico.appcorpico.orders.domain.entity.Tipo_Trabajo;
@@ -35,7 +36,7 @@ public class OrdersRepository implements IOrdersRepository {
     }
 
     @Override
-    public void findOrder(final OrdersRepositoryCallback callback, Specification filter) {
+    public void findOrder(final OrdersRepositoryCallback callback, Query query) {
         /**
          * Estrategia:
          * 1. Se consuta primero el servicio REST
@@ -56,7 +57,7 @@ public class OrdersRepository implements IOrdersRepository {
             }
         };
 
-        mOrdersRestStore.getOrders(callback1, filter);
+        mOrdersRestStore.getOrders(callback1, query);
     }
 
     @Override

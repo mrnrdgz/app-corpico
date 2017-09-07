@@ -54,13 +54,13 @@ public class OrdersPresenter implements OrdersListMvp.Presenter {
     public void loadOrders(String tipoCuadrilla, String estado, List<String> tiposTrabajo,
                            List<String> zona, DateTime desde,
                            DateTime hasta, String search,
-                           Boolean estadoActual) {
+                           Boolean estadoActual,String fieldSort) {
 
         mOrdersView.showProgressIndicator(true);
 
         // Parámetro #1
         GetOrders.RequestValues requestValues = new GetOrders.RequestValues(
-                tipoCuadrilla, estado, tiposTrabajo, zona, desde, hasta, search, estadoActual
+                tipoCuadrilla, estado, tiposTrabajo, zona, desde, hasta, search, estadoActual,fieldSort
         );
 
         // Parámetro #2

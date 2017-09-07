@@ -43,6 +43,7 @@ public class OrdersListFragment extends Fragment implements OrdersListMvp.View {
     public static final String ARG_FECHA_FIN = "orders.fecha_fin";
     public static final String ARG_SEARCH = "orders.search";
     private static final String ARG_TIPOS_TRABAJO_SELECCIONADOS = "orders.tipos_trabajo_seleccionados";
+    private static final String ARG_FIELD_SORT = "orders.field_sort";
 
 
     // Dependencias
@@ -64,6 +65,7 @@ public class OrdersListFragment extends Fragment implements OrdersListMvp.View {
     private DateTime mFechaInicio;
     private DateTime mFechaFin;
     private String mSearch;
+    private String mFieldSort;
 
 
     private ArrayList<String> list_items = new ArrayList<>();
@@ -78,7 +80,7 @@ public class OrdersListFragment extends Fragment implements OrdersListMvp.View {
     public static OrdersListFragment newInstance(
             String tipoCuadrilla, String estado,
             ArrayList<String> tiposTrabajoSeleccionados, ArrayList<String> zonasSeleccionadas,
-            DateTime fechaInicio, DateTime fechaFin, String query) {
+            DateTime fechaInicio, DateTime fechaFin, String search,String fieldSort) {
 
         OrdersListFragment fragment = new OrdersListFragment();
         Bundle args = new Bundle();
@@ -89,7 +91,8 @@ public class OrdersListFragment extends Fragment implements OrdersListMvp.View {
         args.putStringArrayList(ARG_TIPOS_TRABAJO_SELECCIONADOS, tiposTrabajoSeleccionados);
         args.putSerializable(ARG_FECHA_INICIO, fechaInicio);
         args.putSerializable(ARG_FECHA_FIN, fechaFin);
-        args.putString(ARG_SEARCH, query);
+        args.putString(ARG_SEARCH, search);
+        args.putString(ARG_FIELD_SORT,fieldSort);
 
         fragment.setArguments(args);
         return fragment;
@@ -109,6 +112,7 @@ public class OrdersListFragment extends Fragment implements OrdersListMvp.View {
             mFechaInicio = (DateTime) arguments.get(ARG_FECHA_INICIO);
             mFechaFin = (DateTime) arguments.get(ARG_FECHA_FIN);
             mSearch = arguments.getString(ARG_SEARCH);
+            mFieldSort = arguments.getString(ARG_FIELD_SORT);
 
         }
     }
@@ -233,7 +237,7 @@ public class OrdersListFragment extends Fragment implements OrdersListMvp.View {
         });
 
         mOrdersPresenter.loadOrders(mTipoCuadrilla, mEstado, mTiposTrabajoSeleccionados,
-                mZonasSeleccionadas, mFechaInicio, mFechaFin, mSearch, true);
+                mZonasSeleccionadas, mFechaInicio, mFechaFin, mSearch, true,mFieldSort);
 
         return root;
     }
@@ -247,7 +251,7 @@ public class OrdersListFragment extends Fragment implements OrdersListMvp.View {
     @Override
     public void close() {
         mOrdersPresenter.loadOrders(mTipoCuadrilla, mEstado, mTiposTrabajoSeleccionados,
-                mZonasSeleccionadas, mFechaInicio, mFechaFin, mSearch, true);
+                mZonasSeleccionadas, mFechaInicio, mFechaFin, mSearch, true,mFieldSort);
     }
 
     @Override

@@ -2,6 +2,7 @@ package ar.com.corpico.appcorpico.orders.data;
 
 import java.util.ArrayList;
 
+import ar.com.corpico.appcorpico.orders.domain.Query;
 import ar.com.corpico.appcorpico.orders.domain.filter.Criteria;
 import ar.com.corpico.appcorpico.orders.domain.filter.Specifications.Specification;
 
@@ -11,7 +12,7 @@ import ar.com.corpico.appcorpico.orders.domain.filter.Specifications.Specificati
 
 public class OrdersSqliteStore implements OrderStore {
     @Override
-    public void getOrders(GetCallback callback, Specification filter) {
+    public void getOrders(GetCallback callback, Query query) {
 
     }
 
