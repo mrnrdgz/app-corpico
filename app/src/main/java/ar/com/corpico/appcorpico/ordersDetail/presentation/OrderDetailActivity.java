@@ -178,7 +178,8 @@ public class OrderDetailActivity extends AppCompatActivity implements AsignarACo
                 DialogFragment newFragment = AsignarAConexionesDetailDialog.newInstance(mTipoCuadrilla,mNumero);
                 newFragment.show(ft, "AsignarconexionDialog");
                 break;
-            case R.id.action_settings:
+            case R.id.action_turno:
+                //Todo: el caso de uso y Ui para el turno
                 break;
         }
         return super.onOptionsItemSelected(item);

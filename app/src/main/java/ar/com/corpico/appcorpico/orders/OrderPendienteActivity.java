@@ -196,6 +196,8 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements
                 mTiposTrabajoSeleccionados.clear();
                 mZonasSeleccionadas.clear();
                 mSearch ="";
+                mFechaInicioSeleccionada= null;
+                mFechaFinSeleccionada=null;
                 /*Calendar c = Calendar.getInstance();
                 c.setTime(new Date());
                 mFechaInicioSeleccionada = new DateTime(c);
@@ -212,7 +214,8 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements
                 FragmentTransaction ftList = getSupportFragmentManager().beginTransaction();
                 Fragment fragmentList = fmList.findFragmentById(R.id.orders_view_container);
                 if ((fragmentList instanceof OrdersListFragment)) {
-                    mOrderView = OrdersListFragment.newInstance(mTipoCuadrilla, mEstado, new ArrayList<String>(), new ArrayList<String>(), null, null, null,mFieldSort);
+                    mOrderView = OrdersListFragment.newInstance(mTipoCuadrilla, mEstado, mTiposTrabajoSeleccionados,
+                            mZonasSeleccionadas, mFechaInicioSeleccionada, mFechaFinSeleccionada,mSearch,mFieldSort);
                     ftList.replace(R.id.orders_view_container, mOrderView, "OrderView")
                             //.addToBackStack("OrderView")
                             .commit();
@@ -223,8 +226,8 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements
                 FragmentTransaction ftMap = getSupportFragmentManager().beginTransaction();
                 Fragment fragmentMap = fmMap.findFragmentById(R.id.orders_view_container);
                 if ((fragmentMap instanceof OrdersMapsFragment)) {
-                    mOrderMapView = OrdersMapsFragment.newInstance(mTipoCuadrilla, mEstado, new ArrayList<String>(),
-                            new ArrayList<String>(), null, null, null,mFieldSort);
+                    mOrderMapView = OrdersMapsFragment.newInstance(mTipoCuadrilla, mEstado, mTiposTrabajoSeleccionados,
+                            mZonasSeleccionadas, mFechaInicioSeleccionada, mFechaFinSeleccionada,mSearch,mFieldSort);
                     ftMap.replace(R.id.orders_view_container, mOrderMapView, "OrderViewMap")
                             .commit();
                     orderPresenter = new OrdersPresenter(mGetOrders, mAddOrdersState, mOrderMapView);
@@ -265,8 +268,8 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements
                 } else {
                     // Do something when there's no input
                     mSearch = "";
-                    orderPresenter.loadOrders(mTipoCuadrilla, mEstado, new ArrayList<String>(),
-                            new ArrayList<String>(), null, null, mSearch, true,mFieldSort);
+                    orderPresenter.loadOrders(mTipoCuadrilla, mEstado, mTiposTrabajoSeleccionados,
+                            mZonasSeleccionadas, mFechaInicioSeleccionada, mFechaFinSeleccionada, mSearch, true,mFieldSort);
                 }
                 return false;
             }
@@ -303,8 +306,8 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements
                 FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
                 Fragment fragment = fm.findFragmentById(R.id.orders_view_container);
                 if (!(fragment instanceof OrdersMapsFragment)) {
-                    mOrderMapView = OrdersMapsFragment.newInstance(mTipoCuadrilla, mEstado, new ArrayList<String>(),
-                            new ArrayList<String>(), null, null,null,mFieldSort);
+                    mOrderMapView = OrdersMapsFragment.newInstance(mTipoCuadrilla, mEstado, mTiposTrabajoSeleccionados,
+                            mZonasSeleccionadas, mFechaInicioSeleccionada, mFechaFinSeleccionada,mSearch,mFieldSort);
                     ft.replace(R.id.orders_view_container, mOrderMapView, "OrderViewMap")
                             .commit();
                     orderPresenter = new OrdersPresenter(mGetOrders,mAddOrdersState,mOrderMapView);
@@ -318,7 +321,8 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements
                 ft = getSupportFragmentManager().beginTransaction();
                 Fragment fragment1 = fm.findFragmentById(R.id.orders_view_container);
                 if (!(fragment1 instanceof OrdersListFragment)) {
-                    mOrderView = OrdersListFragment.newInstance(mTipoCuadrilla, mEstado, new ArrayList<String>(), new ArrayList<String>(), null, null,null,mFieldSort);
+                    mOrderView = OrdersListFragment.newInstance(mTipoCuadrilla, mEstado, mTiposTrabajoSeleccionados,
+                            mZonasSeleccionadas, mFechaInicioSeleccionada, mFechaFinSeleccionada,mSearch,mFieldSort);
                     ft.replace(R.id.orders_view_container, mOrderView, "OrderView")
                             .commit();
                     orderPresenter = new OrdersPresenter(mGetOrders, mAddOrdersState,mOrderView);
@@ -366,8 +370,8 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements
         if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
             mSearch = intent.getStringExtra(SearchManager.QUERY);
             //TODO: VER SI ACA NO TENGO QUE PONER LAS VARIABLES DE SELECCION --TRABAJO Y ZONAS Y FECHAS....
-            orderPresenter.loadOrders(mTipoCuadrilla, mEstado, new ArrayList<String>(), new ArrayList<String>(),
-                        null, null, mSearch,true,mFieldSort);
+            orderPresenter.loadOrders(mTipoCuadrilla, mEstado, mTiposTrabajoSeleccionados, mZonasSeleccionadas,
+                        mFechaInicioSeleccionada, mFechaFinSeleccionada, mSearch,true,mFieldSort);
         }
     }
 
@@ -462,7 +466,7 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements
     @Override
     public void onDialogSortClick(String fieldSort) {
         mFieldSort = fieldSort;
-        orderPresenter.loadOrders(mTipoCuadrilla, mEstado, new ArrayList<String>(), new ArrayList<String>(),
-                null, null, mSearch,true,mFieldSort);
+        orderPresenter.loadOrders(mTipoCuadrilla, mEstado,mTiposTrabajoSeleccionados, mZonasSeleccionadas,
+                mFechaInicioSeleccionada, mFechaFinSeleccionada, mSearch,true,mFieldSort);
     }
 }

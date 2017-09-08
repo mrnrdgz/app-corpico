@@ -256,10 +256,14 @@ public class OrdersFilterActivity extends AppCompatActivity implements View{
                 mZonasSeleccionadas.clear();
                 mZonaId.clear();
 
-                Calendar c = mFechaFinSeleccionada.toGregorianCalendar();
+                /*Calendar c = mFechaFinSeleccionada.toGregorianCalendar();
                 SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
                 mFechaInicio.setText(format.format(c.getTime()));
-                mFechaFin.setText(format.format(c.getTime()));
+                mFechaFin.setText(format.format(c.getTime()));*/
+                mFechaInicio.setText("");
+                mFechaFin.setText("");
+                mFechaInicioSeleccionada = null;
+                mFechaFinSeleccionada = null;
                 break;
         }
         return super.onOptionsItemSelected(item);
