@@ -9,13 +9,15 @@ import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
 import ar.com.corpico.appcorpico.ordersDetail.presentation.AsignarAConexionesDetailDialog;
 
 /**
  * Fragmento con un diálogo que muestra radio buttons
  */
 public class SortDialog extends DialogFragment {
-
+    private String mfieldSort;
     public SortDialog() {
     }
 
@@ -23,12 +25,30 @@ public class SortDialog extends DialogFragment {
         public void onDialogSortClick(String sort);
     }
 
+    public static SortDialog newInstance (String fieldSorto){
+        SortDialog f = new SortDialog();
+
+        // Supply num input as an argument.
+        Bundle args = new Bundle();
+        args.putString("FIELD_SORT", fieldSorto);
+        f.setArguments(args);
+
+        return f;
+    }
+
     // Use this instance of the interface to deliver action events
     SortDialogListener mListener;
     @NonNull
     @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mfieldSort = getArguments().getString("FIELD_SORT");
+    }
+
+    @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         return createRadioListDialog();
+
     }
 
     /**
@@ -39,21 +59,22 @@ public class SortDialog extends DialogFragment {
     public AlertDialog createRadioListDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
+        int selected=0;
         final CharSequence[] items = new CharSequence[3];
 
         items[0] = "Fecha Solicitud";
         items[1] = "Ruta";
         items[2] = "Turno";
 
+        for(int i =0; items.length > i ; i++){
+            if (items[i].equals(mfieldSort) ){
+                selected = i;
+            }
+        }
         builder.setTitle("Ordenar por:")
-                .setSingleChoiceItems(items, 0, new DialogInterface.OnClickListener() {
+                .setSingleChoiceItems(items, selected, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        /*Toast.makeText(
-                                getActivity(),
-                                "Seleccionaste: " + items[which],
-                                Toast.LENGTH_SHORT)
-                                .show();*/
                         String s = (String) items[which];
                         mListener.onDialogSortClick(s);
                         dismiss();

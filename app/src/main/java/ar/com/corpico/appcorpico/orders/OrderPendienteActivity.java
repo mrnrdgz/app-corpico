@@ -74,7 +74,7 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements
     //Argumentos
     private String mEstado;
     private String mServicio;
-    private String mFieldSort = "FechaSolicitud";
+    private String mFieldSort = "Fecha Solicitud";
 
     //Views
     private TipoCuadrillaAdapter mTipoCuadrillaAdapter;
@@ -331,7 +331,7 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements
                 break;
             case R.id.action_ordenar:
                 FragmentManager fragmentManager =  getSupportFragmentManager();
-                new SortDialog().show(fragmentManager, "SortDialog");
+                new SortDialog().newInstance(mFieldSort).show(fragmentManager, "SortDialog");
                 break;
         }
 

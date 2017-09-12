@@ -42,7 +42,7 @@ public class OrdersSelector {
         // Ordenar Por...
         if (mQuery.getFieldSort() != null) {
             switch (mQuery.getFieldSort()) {
-                case "FechaSolicitud":
+                case "Fecha Solicitud":
                     comparator = mFechaSolicitudComparator;
                     break;
                 //TODO: VER EL TEMA DEL ORDENAMIENTO COMPUESTO EJ: RUTA,ORDEN
@@ -95,11 +95,30 @@ public class OrdersSelector {
     private Comparator<Order> mRutaComparator = new Comparator<Order>() {
         @Override
         public int compare(Order o1, Order o2) {
+            int resultado = 0;
             if (mQuery.getSortOrder() == Query.ASC_ORDER) {
-                return o1.getRuta().compareTo(o2.getRuta());
+                if ((o1.getRuta().compareTo(o2.getRuta())==0) && (o1.getOrden().compareTo(o2.getOrden())>=0)){
+                    resultado = 1;
+                }if ((o1.getRuta().compareTo(o2.getRuta())== 0) && (o1.getOrden().compareTo(o2.getOrden())<0)) {
+                    resultado = -1;
+                }if ((o1.getRuta().compareTo(o2.getRuta()) > 0) ){
+                    resultado = 1;
+                }if ((o1.getRuta().compareTo(o2.getRuta()) < 0)) {
+                    resultado = -1;
+                }
+
             } else {
-                return o2.getRuta().compareTo(o1.getRuta());
+                if ((o1.getRuta().compareTo(o2.getRuta())==0) && (o1.getOrden().compareTo(o2.getOrden())<=0)){
+                    resultado = 1;
+                }if ((o1.getRuta().compareTo(o2.getRuta())== 0) && (o1.getOrden().compareTo(o2.getOrden())>0)) {
+                    resultado = -1;
+                }if ((o1.getRuta().compareTo(o2.getRuta()) < 0) ){
+                    resultado = 1;
+                }if ((o1.getRuta().compareTo(o2.getRuta()) > 0)) {
+                    resultado = -1;
+                }
             }
+            return resultado;
         }
     };
 
