@@ -16,6 +16,15 @@ import ar.com.corpico.appcorpico.ordersDetail.presentation.AsignarAConexionesDet
 /**
  * Fragmento con un diálogo que muestra radio buttons
  */
+
+/**Todo: escribo un comentario para ver si funciona
+ * separar conceptualmente las fuentes de datos (datos orden, datos asociado,detalle medidor,
+ * agregar la grupo, ruta, orden y acomodar el detalle...
+ * hacer un respositorio x cada caracteristica
+ * hacer el caso de uso asignar turno...
+ * ver si de aca puedo hacer el web service y probar todo el circuito
+ */
+
 public class SortDialog extends DialogFragment {
     private String mfieldSort;
     public SortDialog() {
