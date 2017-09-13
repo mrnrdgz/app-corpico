@@ -123,8 +123,8 @@
                          android:id="@+id/fecha_label"
                          android:layout_width="wrap_content"
                          android:layout_height="wrap_content"
-                         android:layout_alignParentEnd="true"
-                         android:layout_alignParentRight="true"
+                         android:layout_alignParentStart="true"
+                         android:layout_alignParentLeft="true"
                          android:layout_below="@+id/orden_titulo"
                          android:text="Fecha Solicitud"
                          android:textAppearance="?android:attr/textAppearanceSmall" />
@@ -133,9 +133,29 @@
                          android:id="@+id/fecha_text"
                          android:layout_width="wrap_content"
                          android:layout_height="wrap_content"
+                         android:layout_alignParentStart="true"
+                         android:layout_alignParentLeft="true"
+                         android:layout_below="@+id/fecha_label"
+                         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                         android:textIsSelectable="true" />
+                     <!-- Label Fecha Solicitud-->
+                     <TextView
+                         android:id="@+id/turno_label"
+                         android:layout_width="wrap_content"
+                         android:layout_height="wrap_content"
                          android:layout_alignParentEnd="true"
                          android:layout_alignParentRight="true"
-                         android:layout_below="@+id/fecha_label"
+                         android:layout_below="@+id/orden_titulo"
+                         android:text="Turno"
+                         android:textAppearance="?android:attr/textAppearanceSmall" />
+                     <!-- Texto Fecha Solicitud-->
+                     <TextView
+                         android:id="@+id/turno_text"
+                         android:layout_width="wrap_content"
+                         android:layout_height="wrap_content"
+                         android:layout_alignParentEnd="true"
+                         android:layout_alignParentRight="true"
+                         android:layout_below="@+id/turno_label"
                          android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                          android:textIsSelectable="true" />
                      <!-- Etiqueta Tipo de Trabajo-->

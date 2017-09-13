@@ -23,6 +23,7 @@ import ar.com.corpico.appcorpico.ordersDetail.presentation.AsignarAConexionesDet
  * hacer un respositorio x cada caracteristica
  * hacer el caso de uso asignar turno...
  * ver si de aca puedo hacer el web service y probar todo el circuito
+ * Donde voy a mostrar las etpas?
  */
 
 public class SortDialog extends DialogFragment {

@@ -26,6 +26,8 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import org.joda.time.DateTime;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -62,6 +64,7 @@ public class OrderDetailActivity extends AppCompatActivity implements AsignarACo
         // Obtención de views
         TextView numero = (TextView)this.findViewById(R.id.numero_text);
         TextView fecha = (TextView)this.findViewById(R.id.fecha_text);
+        TextView turno = (TextView)this.findViewById(R.id.turno_text);
         TextView motivo = (TextView)this.findViewById(R.id.motivo_text);
         TextView tipoTrabajo = (TextView)this.findViewById(R.id.tipotrabajo_text);
         TextView titular = (TextView)this.findViewById(R.id.titular_text);
@@ -89,11 +92,25 @@ public class OrderDetailActivity extends AppCompatActivity implements AsignarACo
             mNumero.add((String)extras.get("NUMERO"));
             mTipoCuadrilla= (String)extras.get("TIPO_CUADRILLA");
 
-            String mFecha = (String)extras.get("FECHA");
-            String dia = mFecha.substring(8,10);
-            String mes = mFecha.substring(5,7);
-            String ano = mFecha.substring(0,4);
-            fecha.setText(dia + "/" + mes + "/" + ano);
+            DateTime mFecha = (DateTime)extras.get("FECHA");
+            Calendar c = mFecha.toCalendar(Locale.ENGLISH);
+                    //mFecha.toGregorianCalendar();
+
+            int dia = mFecha.getDayOfMonth();
+            int mes = mFecha.getMonthOfYear();
+            int anio = mFecha.getYear();
+            c.set(anio, mes, dia);
+            SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
+            fecha.setText(format.format(c.getTime()));
+            //fecha.setText(mFecha.toString());
+
+            DateTime mTurno = (DateTime)extras.get("TURNO");
+            Calendar d = mTurno.toGregorianCalendar();
+            int diaTurno = mTurno.getDayOfMonth();
+            int mesTurno = mTurno.getMonthOfYear();
+            int anioTurno = mTurno.getYear();
+            d.set(anioTurno, mesTurno, diaTurno);
+            turno.setText(format.format(d.getTime()));
 
             //TODO: HACER VARIABLE EL ESTADO PARA QUE ME SIRVA EL DETALLE EN OTRAS ACTIVITYS (EL ESTADO ME REFLEJA EL COLOR DE EL ICON DE LA UBICACION)
             //estado.setText((String)extras.get("ESTADO"));

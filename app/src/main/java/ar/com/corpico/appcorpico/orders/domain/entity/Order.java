@@ -12,39 +12,48 @@ import static android.R.attr.order;
 /**
  * Created by Administrador on 07/01/2017.
  */
+
+/**
+ * Todo: como implemento la division conceptual de los datos?
+ * DetallleMedidor, DetalleAsociado
+ */
 public class Order {
+    //Datos Orden
     private DateTime mFechaSolicitud;
     private String mNumero;
-    private String mZona;
     private String mTipo_Trabajo;
     private String mMotivo;
+    private DateTime mTurno;
     private ArrayList<Etapa> mEtapas;
+    private String mObservacion;
+    //Detalle Asociado
     private String mAsociado;
     private String mSuministro;
     private String mTitular;
     private String mDomicilio;
     private String mLocalidad;
     private String mAnexo;
+    private String mZona;
+    private String mLatitud;
+    private String mLongitud;
+    private Integer mGrupo;
+    private Integer mRuta;
+    private Integer mOrden;
     private String mTipo_Usuario;
     private String mTarifa;
     private String mPotencia_Declarada;
+    //Detalle Medidor
     private String mMedidor;
     private String mMarca;
     private String mModelo;
     private String mFactorM;
     private String mCapacidad;
     private String mTension;
-    private String mLatitud;
-    private String mLongitud;
-    private String mObservacion;
+
     private String mState;
     private Etapa mCurrentEtapa;
-    //private DateTime mTurno;
-    private DateTime mTurno;
-    private Integer mGrupo;
-    private Integer mRuta;
-    private Integer mOrden;
 
+    private DetalleAsociado mDetalleAsociado;
     private DetalleMedidor mDetalleMedidor;
 
     public Order(DateTime FechaSolicitud, String Numero, String Zona, String Tipo_Trabajo, String Motivo, ArrayList<Etapa> Etapas, String Asociado,

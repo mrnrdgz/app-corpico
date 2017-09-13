@@ -211,7 +211,8 @@ public class OrdersListFragment extends Fragment implements OrdersListMvp.View {
 
                 intent.putExtra("TIPO_CUADRILLA", mTipoCuadrilla);
                 intent.putExtra("NUMERO", currentOrder.getNumero().toString());
-                intent.putExtra("FECHA", currentOrder.getFechaSolicitud().toString());
+                intent.putExtra("FECHA", currentOrder.getFechaSolicitud());
+                intent.putExtra("TURNO", currentOrder.getTurno());
                 intent.putExtra("ETAPA", currentOrder.getEtapas().toString());
                 intent.putExtra("TIPO_TRABAJO", currentOrder.getTipo_Trabajo().toString());
                 intent.putExtra("MOTIVO", currentOrder.getMotivo().toString());
