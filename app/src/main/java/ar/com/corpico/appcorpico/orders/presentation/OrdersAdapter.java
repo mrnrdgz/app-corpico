@@ -93,15 +93,7 @@ public class OrdersAdapter extends ArrayAdapter<Order> {
         titular.setText(order.getTitular());
         domicilio.setText(order.getDomicilio());
         tipo.setText(order.getTipo_Trabajo());
-
-        Calendar c = Calendar.getInstance();
-        int dia = order.getFechaSolicitud().getDayOfMonth();
-        int mes = order.getFechaSolicitud().getMonthOfYear();
-        int anio = order.getFechaSolicitud().getYear();
-        c.set(anio, mes, dia);
-        SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
-        fecha.setText(format.format(c.getTime()));
-
+        fecha.setText(order.getFechaSolicitud().toString("dd-MM-yyyy"));
 
         String estado = order.getCurrentState(order.getEtapas());
 

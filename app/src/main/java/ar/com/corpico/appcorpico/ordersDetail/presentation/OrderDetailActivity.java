@@ -71,6 +71,9 @@ public class OrderDetailActivity extends AppCompatActivity implements AsignarACo
         TextView asociado = (TextView)this.findViewById(R.id.asociado_text);
         TextView domicilio = (TextView)this.findViewById(R.id.domicilio_text);
         TextView anexo = (TextView)this.findViewById(R.id.anexo_text);
+        TextView grupo = (TextView)this.findViewById(R.id.grupo_text);
+        TextView ruta = (TextView)this.findViewById(R.id.ruta_text);
+        TextView orden = (TextView)this.findViewById(R.id.orden_text);
         TextView tipousuario = (TextView)this.findViewById(R.id.tipousuario_text);
         TextView tarifa = (TextView)this.findViewById(R.id.tarifa_text);
         TextView potenciadeclarada = (TextView)this.findViewById(R.id.potenciadeclarada_text);
@@ -93,24 +96,14 @@ public class OrderDetailActivity extends AppCompatActivity implements AsignarACo
             mTipoCuadrilla= (String)extras.get("TIPO_CUADRILLA");
 
             DateTime mFecha = (DateTime)extras.get("FECHA");
-            Calendar c = mFecha.toCalendar(Locale.ENGLISH);
-                    //mFecha.toGregorianCalendar();
-
-            int dia = mFecha.getDayOfMonth();
-            int mes = mFecha.getMonthOfYear();
-            int anio = mFecha.getYear();
-            c.set(anio, mes, dia);
-            SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
-            fecha.setText(format.format(c.getTime()));
-            //fecha.setText(mFecha.toString());
+            fecha.setText(mFecha.toString("dd-MM-yyyy"));
 
             DateTime mTurno = (DateTime)extras.get("TURNO");
-            Calendar d = mTurno.toGregorianCalendar();
-            int diaTurno = mTurno.getDayOfMonth();
-            int mesTurno = mTurno.getMonthOfYear();
-            int anioTurno = mTurno.getYear();
-            d.set(anioTurno, mesTurno, diaTurno);
-            turno.setText(format.format(d.getTime()));
+            if (mTurno != null){
+                turno.setText(mTurno.toString("dd-MM-yyyy"));
+            }else{
+                turno.setText("");
+            }
 
             //TODO: HACER VARIABLE EL ESTADO PARA QUE ME SIRVA EL DETALLE EN OTRAS ACTIVITYS (EL ESTADO ME REFLEJA EL COLOR DE EL ICON DE LA UBICACION)
             //estado.setText((String)extras.get("ESTADO"));
@@ -120,6 +113,9 @@ public class OrderDetailActivity extends AppCompatActivity implements AsignarACo
             asociado.setText((String)extras.get("ASOCIADO"));
             domicilio.setText((String)extras.get("DOMICILIO"));
             anexo.setText((String)extras.get("ANEXO"));
+            grupo.setText((String)extras.get("GRUPO"));
+            ruta.setText((String)extras.get("RUTA"));
+            orden.setText((String)extras.get("ORDEN"));
             tipousuario.setText((String)extras.get("TIPO_USUARIO"));
             tarifa.setText((String)extras.get("TARIFA"));
             potenciadeclarada.setText((String)extras.get("POTENCIA_DECLARADA"));

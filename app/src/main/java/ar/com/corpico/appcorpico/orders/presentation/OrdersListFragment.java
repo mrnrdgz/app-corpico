@@ -220,6 +220,9 @@ public class OrdersListFragment extends Fragment implements OrdersListMvp.View {
                 intent.putExtra("ASOCIADO", currentOrder.getAsociado().toString() + "/" + currentOrder.getSuministro().toString());
                 intent.putExtra("DOMICILIO", currentOrder.getDomicilio().toString());
                 intent.putExtra("ANEXO", currentOrder.getAnexo().toString());
+                intent.putExtra("GRUPO", currentOrder.getGrupo().toString());
+                intent.putExtra("RUTA", currentOrder.getRuta().toString());
+                intent.putExtra("ORDEN", currentOrder.getOrden().toString());
                 intent.putExtra("TIPO_USUARIO", currentOrder.getTipo_Usuario().toString());
                 intent.putExtra("TARIFA", currentOrder.getTarifa().toString());
                 intent.putExtra("POTENCIA_DECLARADA", currentOrder.getPotencia_Declarada().toString());

@@ -53,44 +53,44 @@ public class FuenteOrdenesServidor implements OrderStore {
 
     static {
         //TODO: PONER LAS ACCIONES REALIZADAS COMO UNA LISTA DE STRING
-        mFakeRestEtapa.add(new Etapa(new DateTime("2017-01-23T00:00:00.000-03:00"), "Pendiente", "Nada",""));
-        mFakeRestEtapa6.add(new Etapa(new DateTime("2017-01-23T00:00:00.000-03:00"), "Pendiente", "xxx",""));
-        mFakeRestEtapa7.add(new Etapa(new DateTime("2017-02-23T00:00:00.000-03:00"), "Pendiente", "zzzz",""));
-        mFakeRestEtapa8.add(new Etapa(new DateTime("2017-03-23T00:00:00.000-03:00"), "Pendiente", "www",""));
-        mFakeRestEtapa9.add(new Etapa(new DateTime("2017-03-23T00:00:00.000-03:00"), "Pendiente", "sss",""));
-        mFakeRestEtapa10.add(new Etapa(new DateTime("2017-03-23T00:00:00.000-03:00"), "Pendiente", "yyy",""));
+        mFakeRestEtapa.add(new Etapa(new DateTime(2017,1,23,10,30), "Pendiente", "Nada",""));
+        mFakeRestEtapa6.add(new Etapa(new DateTime(2017,1,23,7,42), "Pendiente", "xxx",""));
+        mFakeRestEtapa7.add(new Etapa(new DateTime(2017,2,23,6,15), "Pendiente", "zzzz",""));
+        mFakeRestEtapa8.add(new Etapa(new DateTime(2017,3,23,3,20), "Pendiente", "www",""));
+        mFakeRestEtapa9.add(new Etapa(new DateTime(2017,3,23,11,15), "Pendiente", "sss",""));
+        mFakeRestEtapa10.add(new Etapa(new DateTime(2017,3,23,8,45), "Pendiente", "yyy",""));
 
-        mFakeRestEtapa1.add(new Etapa(new DateTime("2017-01-23T00:00:00.000-03:00"), "Pendiente", "Nada",""));
-        mFakeRestEtapa1.add(new Etapa(new DateTime("2017-01-25T00:00:00.000-03:00"), "Culminada", "Todo",""));
-        mFakeRestEtapa1.add(new Etapa(new DateTime("2017-01-26T00:00:00.000-03:00"), "Cerrada", "Algo",""));
+        mFakeRestEtapa1.add(new Etapa(new DateTime(2017,1,23,3,27), "Pendiente", "Nada",""));
+        mFakeRestEtapa1.add(new Etapa(new DateTime(2017,1,25,4,28), "Culminada", "Todo",""));
+        mFakeRestEtapa1.add(new Etapa(new DateTime(2017,1,26,2,35), "Cerrada", "Algo",""));
 
-        mFakeRestEtapa2.add(new Etapa(new DateTime("2017-01-23T00:00:00.000-03:00"), "Pendiente", "Nada",""));
-        mFakeRestEtapa2.add(new Etapa(new DateTime("2017-01-24T00:00:00.000-03:00"), "No Culminada", "Siempre",""));
+        mFakeRestEtapa2.add(new Etapa(new DateTime(2017,1,23,1,25), "Pendiente", "Nada",""));
+        mFakeRestEtapa2.add(new Etapa(new DateTime(2017,1,24,2,30), "No Culminada", "Siempre",""));
 
-        mFakeRestEtapa3.add(new Etapa(new DateTime("2017-01-23T00:00:00.000-03:00"), "Pendiente", "",""));
-        mFakeRestEtapa3.add(new Etapa(new DateTime("2017-01-25T00:00:00.000-03:00"), "Culminada", "Todo",""));
+        mFakeRestEtapa3.add(new Etapa(new DateTime(2017,1,23,8,22), "Pendiente", "",""));
+        mFakeRestEtapa3.add(new Etapa(new DateTime(2017,1,25,9,0), "Culminada", "Todo",""));
 
-        mFakeRestEtapa4.add(new Etapa(new DateTime("2017-01-24T00:00:00.000-03:00"), "Pendiente", "",""));
-        mFakeRestEtapa4.add(new Etapa(new DateTime("2017-01-24T00:30:00.000-03:00"), "Culminada", "Todo",""));
-        mFakeRestEtapa4.add(new Etapa(new DateTime("2017-01-24T00:20:00.000-03:00"), "Cerrada", "Algo",""));
+        mFakeRestEtapa4.add(new Etapa(new DateTime(2017,1,24,6,50), "Pendiente", "",""));
+        mFakeRestEtapa4.add(new Etapa(new DateTime(2017,1,24,8,55), "Culminada", "Todo",""));
+        mFakeRestEtapa4.add(new Etapa(new DateTime(2017,1,24,12,48), "Cerrada", "Algo",""));
 
-        mFakeRestEtapa5.add(new Etapa(new DateTime("2017-01-22T00:00:00.000-03:00"), "Pendiente", "Nunca",""));
-        mFakeRestEtapa5.add(new Etapa(new DateTime("2017-01-25T00:00:00.000-03:00"), "No Culminada", "Siempre",""));
-        mFakeRestEtapa5.add(new Etapa(new DateTime("2017-01-25T00:10:00.000-03:00"), "Cerrada", "Algo",""));
+        mFakeRestEtapa5.add(new Etapa(new DateTime(2017,1,22,11,21), "Pendiente", "Nunca",""));
+        mFakeRestEtapa5.add(new Etapa(new DateTime(2017,1,25,3,55), "No Culminada", "Siempre",""));
+        mFakeRestEtapa5.add(new Etapa(new DateTime(2017,1,25,9,26), "Cerrada", "Algo",""));
     }
 
     static {
 
-        mFakeRestOrder.add(new Order(new DateTime("2017-01-24T00:00:00.000-03:00"), "839127", "Zona 2", "Retiro de Medidor", "Por Morosidad", mFakeRestEtapa3, "000015514", "001", "Luisa Gonzalez", "Pasaje Rivero 957", "General Pico", "", "Residencial", "Residencial", "1100 Watts","2585054","ELESTER","A150","","Rango 005/060 A","Monofásico 220 vo", "35.6630S", "63.7608W", "Nada",new DateTime(),1,200,1));
-        mFakeRestOrder.add(new Order(new DateTime("2017-01-24T00:00:00.000-03:00"),"839128", "Zona 3", "Cambio de Medidor", "Trabado", mFakeRestEtapa, "000022814", "001", "Jorgelina Rodriguez", "Calle 531", "General Pico", "", "Residencial", "Residencial", "1100 Watts","2585054","ELESTER","A150","","Rango 005/060 A","Monofásico 220 vo","35.6562S", "63.7537W", "Algo",null,1,200,2));
-        mFakeRestOrder.add(new Order(new DateTime("2017-01-24T00:00:00.000-03:00"),"839129", "Zona 3", "Colocacion de Medidor", "Suministro Nuevo", mFakeRestEtapa6, "000024429", "007", "Gustavo Turienzo", "Calle 29", "General Pico", "", "Residencial", "Residencial","1100 Watts","2585054","ELESTER","A150","","Rango 005/060 A","Monofásico 220 vo","35.6657S", "63.7494W", "Todo",new DateTime("2017-08-29T00:00:00.000-03:00"),1,100,15));
-        mFakeRestOrder.add(new Order(new DateTime("2017-01-26T00:00:00.000-03:00"),"839130", "Zona 4", "Retiro de Medidor", "Solicitud del Cliente", mFakeRestEtapa7, "000055472", "001", "Gonzalo Fernandez", "Calle 18", "General Pico", "", "Residencial", "Residencial","1100 Watts","2585054","ELESTER","A150","","Rango 005/060 A","Monofásico 220 vo","35.6601S", "63.7690W", "Siempre",new DateTime(),1,400,4));
-        mFakeRestOrder.add(new Order(new DateTime("2017-01-24T00:00:00.000-03:00"),"839131", "Zona 1", "Retiro de Medidor", "Por Morosidad", mFakeRestEtapa8, "000040462", "002", "Antonella Privitera", "Calle 28", "General Pico", "", "Residencial", "Residencial","1100 Watts","2585054","ELESTER","A150","","Rango 005/060 A","Monofásico 220 vo","35.6538S", "63.7528W", "Nunca",new DateTime(),1,500,5));
-        mFakeRestOrder.add(new Order(new DateTime("2017-01-25T00:00:00.000-03:00"),"839132", "Zona 2", "Retiro de Medidor", "Por Morosidad", mFakeRestEtapa9, "000017495", "001", "Juan Perez", "Pasaje Rivero 957", "General Pico", "", "Residencial", "Residencial","1100 Watts","2585054","ELESTER","A150","","Rango 005/060 A","Monofásico 220 vo","35.6629S", "63.7476W", "Nada",new DateTime(),1,200,6));
-        mFakeRestOrder.add(new Order(new DateTime("2017-01-24T00:00:00.000-03:00"),"839133", "Zona 3", "Cambio de Medidor", "Solic. Energia Prepaga", mFakeRestEtapa4, "000006377", "001", "Rodrigo Nieto", "Calle 531", "General Pico", "", "Residencial", "Residencial","1100 Watts","2585054","ELESTER","A150","","Rango 005/060 A","Monofásico 220 vo","35.6788S", "63.7530W", "Algo",new DateTime(),1,200,7));
-        mFakeRestOrder.add(new Order(new DateTime("2017-01-26T00:00:00.000-03:00"),"839134", "Zona 4", "Colocacion de Medidor", "Regularizacion de Deuda", mFakeRestEtapa10, "000044345", "001", "Jose Ferrando", "Calle 29", "General Pico", "", "Residencial", "Residencial","1100 Watts","2585054","ELESTER","A150","","Rango 005/060 A","Monofásico 220 vo","35.6678S", "63.7555W", "Todo",new DateTime("2017-08-28T00:00:00.000-03:00"),1,200,8));
-        mFakeRestOrder.add(new Order(new DateTime("2017-01-24T00:00:00.000-03:00"),"839135", "Zona 4", "Retiro de Medidor", "Solicitud del Cliente", mFakeRestEtapa5, "000042352", "001", "Fabio Gomez", "Calle 18", "General Pico", "", "Residencial", "Residencial","1100 Watts","2585054","ELESTER","A150","","Rango 005/060 A","Monofásico 220 vo","35.6810S", "63.7491W", "Siempre",new DateTime(),1,200,9));
-        mFakeRestOrder.add(new Order(new DateTime("2017-01-24T00:00:00.000-03:00"),"839136", "Zona 1", "Retiro de Medidor", "Por Morosidad", mFakeRestEtapa2, "000020484", "001", "Maria Gallo", "Calle 28", "General Pico", "", "Residencial", "Residencial","1100 Watts","2585054","ELESTER","A150","","Rango 005/060 A","Monofásico 220 vo","35.6598S", "63.7498W", "Nunca",new DateTime(),1,200,10));
+        mFakeRestOrder.add(new Order(new DateTime(2017,1,24,8,40), "839127", "Zona 2", "Retiro de Medidor", "Por Morosidad", mFakeRestEtapa3, "000015514", "001", "Luisa Gonzalez", "Pasaje Rivero 957", "General Pico", "", "Residencial", "Residencial", "1100 Watts","2585054","ELESTER","A150","","Rango 005/060 A","Monofásico 220 vo", "35.6630S", "63.7608W", "Nada",null,1,200,1));
+        mFakeRestOrder.add(new Order(new DateTime(2017,1,24,1,20),"839128", "Zona 3", "Cambio de Medidor", "Trabado", mFakeRestEtapa, "000022814", "001", "Jorgelina Rodriguez", "Calle 531", "General Pico", "", "Residencial", "Residencial", "1100 Watts","2585054","ELESTER","A150","","Rango 005/060 A","Monofásico 220 vo","35.6562S", "63.7537W", "Algo",null,1,200,2));
+        mFakeRestOrder.add(new Order(new DateTime(2017,1,24,10,50),"839129", "Zona 3", "Colocacion de Medidor", "Suministro Nuevo", mFakeRestEtapa6, "000024429", "007", "Gustavo Turienzo", "Calle 29", "General Pico", "", "Residencial", "Residencial","1100 Watts","2585054","ELESTER","A150","","Rango 005/060 A","Monofásico 220 vo","35.6657S", "63.7494W", "Todo",new DateTime(2017,8,29,1,30),1,100,15));
+        mFakeRestOrder.add(new Order(new DateTime(2017,1,26,9,10),"839130", "Zona 4", "Retiro de Medidor", "Solicitud del Cliente", mFakeRestEtapa7, "000055472", "001", "Gonzalo Fernandez", "Calle 18", "General Pico", "", "Residencial", "Residencial","1100 Watts","2585054","ELESTER","A150","","Rango 005/060 A","Monofásico 220 vo","35.6601S", "63.7690W", "Siempre",null,1,400,4));
+        mFakeRestOrder.add(new Order(new DateTime(2017,1,24,11,25),"839131", "Zona 1", "Retiro de Medidor", "Por Morosidad", mFakeRestEtapa8, "000040462", "002", "Antonella Privitera", "Calle 28", "General Pico", "", "Residencial", "Residencial","1100 Watts","2585054","ELESTER","A150","","Rango 005/060 A","Monofásico 220 vo","35.6538S", "63.7528W", "Nunca",null,1,500,5));
+        mFakeRestOrder.add(new Order(new DateTime(2017,1,25,15,18),"839132", "Zona 2", "Retiro de Medidor", "Por Morosidad", mFakeRestEtapa9, "000017495", "001", "Juan Perez", "Pasaje Rivero 957", "General Pico", "", "Residencial", "Residencial","1100 Watts","2585054","ELESTER","A150","","Rango 005/060 A","Monofásico 220 vo","35.6629S", "63.7476W", "Nada",null,1,200,6));
+        mFakeRestOrder.add(new Order(new DateTime(2017,1,24,6,30),"839133", "Zona 3", "Cambio de Medidor", "Solic. Energia Prepaga", mFakeRestEtapa4, "000006377", "001", "Rodrigo Nieto", "Calle 531", "General Pico", "", "Residencial", "Residencial","1100 Watts","2585054","ELESTER","A150","","Rango 005/060 A","Monofásico 220 vo","35.6788S", "63.7530W", "Algo",null,1,200,7));
+        mFakeRestOrder.add(new Order(new DateTime(2017,1,26,7,30),"839134", "Zona 4", "Colocacion de Medidor", "Regularizacion de Deuda", mFakeRestEtapa10, "000044345", "001", "Jose Ferrando", "Calle 29", "General Pico", "", "Residencial", "Residencial","1100 Watts","2585054","ELESTER","A150","","Rango 005/060 A","Monofásico 220 vo","35.6678S", "63.7555W", "Todo",new DateTime(2017,8,28,7,19),1,200,8));
+        mFakeRestOrder.add(new Order(new DateTime(2017,1,24,9,25),"839135", "Zona 4", "Retiro de Medidor", "Solicitud del Cliente", mFakeRestEtapa5, "000042352", "001", "Fabio Gomez", "Calle 18", "General Pico", "", "Residencial", "Residencial","1100 Watts","2585054","ELESTER","A150","","Rango 005/060 A","Monofásico 220 vo","35.6810S", "63.7491W", "Siempre",null,1,200,9));
+        mFakeRestOrder.add(new Order(new DateTime(2017,1,24,12,10),"839136", "Zona 1", "Retiro de Medidor", "Por Morosidad", mFakeRestEtapa2, "000020484", "001", "Maria Gallo", "Calle 28", "General Pico", "", "Residencial", "Residencial","1100 Watts","2585054","ELESTER","A150","","Rango 005/060 A","Monofásico 220 vo","35.6598S", "63.7498W", "Nunca",null,1,200,10));
     }
 
     static {
@@ -167,15 +167,15 @@ public class FuenteOrdenesServidor implements OrderStore {
 
     @Override
     public void addOrderEtape(String estado, ArrayList<String> numero, String observacion) {
-        final Calendar c = Calendar.getInstance();
+        /*final Calendar c = Calendar.getInstance();
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ");
-        String date = df.format(Calendar.getInstance().getTime());
+        String date = df.format(Calendar.getInstance().getTime());*/
 
         for (String number : numero) {
             for (Order order : mFakeRestOrder) {
                 if (order.getNumero().equals(number)) {
                     //TODO: PONER EL DATO DEL USUARIO QUE HIZO ESTA ETAPA.
-                    Etapa etapa = new Etapa(new DateTime(date), estado, observacion,"");
+                    Etapa etapa = new Etapa(new DateTime(DateTime.now()), estado, observacion,"");
                     order.addEtapas(etapa);
                 }
             }

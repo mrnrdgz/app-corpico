@@ -74,9 +74,10 @@ public class OrdersFilterActivity extends AppCompatActivity implements View{
 
         mFechaInicio = (TextView) this.findViewById(R.id.desde_text);
         if(mFechaInicioSeleccionada!=null){
-            Calendar c = mFechaInicioSeleccionada.toGregorianCalendar();
+            /*Calendar c = mFechaInicioSeleccionada.toGregorianCalendar();
             SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
-            mFechaInicio.setText(format.format(c.getTime()));
+            mFechaInicio.setText(format.format(c.getTime()));*/
+            mFechaInicio.setText(mFechaInicioSeleccionada.toString("dd-MM-yyyy"));
         }else{
             Calendar c = Calendar.getInstance();
             SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
@@ -103,13 +104,16 @@ public class OrdersFilterActivity extends AppCompatActivity implements View{
         };
         mFechaFin = (TextView) this.findViewById(R.id.hasta_text);
         if(mFechaFinSeleccionada!=null){
-            Calendar c = mFechaFinSeleccionada.toGregorianCalendar();
+            /*Calendar c = mFechaFinSeleccionada.toGregorianCalendar();
             SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
-            mFechaFin.setText(format.format(c.getTime()));
+            FechaFin.setText(format.format(c.getTime()));*/
+            mFechaFin.setText(mFechaFinSeleccionada.toString("dd-MM-yyyy"));
+
         }else{
-            Calendar c = Calendar.getInstance();
+            /*Calendar c = Calendar.getInstance();
             SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
-            mFechaFin.setText(format.format(c.getTime()));
+            mFechaFin.setText(format.format(c.getTime()));*/
+            mFechaFin.setText(DateTime.now().toString("dd-MM-yyyy"));
         }
         mFechaFin.setOnClickListener(
                 new android.view.View.OnClickListener() {

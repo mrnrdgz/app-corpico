@@ -100,7 +100,7 @@
             <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
                  android:id="@+id/card1"
                  android:layout_width="match_parent"
-                 android:layout_height="150dp"
+                 android:layout_height="170dp"
                  card_view:cardElevation="4dp"
                  card_view:cardUseCompatPadding="true">
 
@@ -108,7 +108,7 @@
                      android:id="@+id/content1"
                      android:layout_width="match_parent"
                      android:layout_height="match_parent"
-                     android:padding="@dimen/activity_horizontal_margin">
+                     android:padding="@dimen/activity_horizontal_margin">>
                      <!-- Texto Titulo-->
                      <TextView
                          android:id="@+id/orden_titulo"
@@ -117,6 +117,7 @@
                          android:layout_alignParentLeft="true"
                          android:text="Orden"
                          android:textColor="@color/colorPrimary"
+                         android:paddingBottom="5dp"
                          android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
                      <!-- Label Fecha Solicitud-->
                      <TextView
@@ -136,6 +137,7 @@
                          android:layout_alignParentStart="true"
                          android:layout_alignParentLeft="true"
                          android:layout_below="@+id/fecha_label"
+                         android:paddingBottom="5dp"
                          android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                          android:textIsSelectable="true" />
                      <!-- Label Fecha Solicitud-->
@@ -156,6 +158,7 @@
                          android:layout_alignParentEnd="true"
                          android:layout_alignParentRight="true"
                          android:layout_below="@+id/turno_label"
+                         android:paddingBottom="5dp"
                          android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                          android:textIsSelectable="true" />
                      <!-- Etiqueta Tipo de Trabajo-->
@@ -206,7 +209,7 @@
             <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/card2"
                 android:layout_width="match_parent"
-                android:layout_height="170dp"
+                android:layout_height="270dp"
                 android:layout_below="@+id/card1"
                 card_view:cardElevation="4dp"
                 card_view:cardUseCompatPadding="true">
@@ -241,6 +244,7 @@
                         android:layout_alignParentLeft="true"
                         android:layout_below="@+id/titular_label"
                         android:text="Titular"
+                        android:paddingBottom="5dp"
                         android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
                     <!-- Label Asociado-->
@@ -261,6 +265,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
                         android:layout_alignParentRight="true"
+                        android:paddingBottom="5dp"
                         android:layout_alignTop="@+id/titular_text"
                         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                         android:text="Asociado" />
@@ -280,6 +285,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentLeft="true"
                         android:layout_below="@+id/domicilio_label"
+                        android:paddingBottom="5dp"
                         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                         android:text="Domicilio"/>
 
@@ -300,10 +306,69 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
                         android:layout_alignParentRight="true"
+                        android:paddingBottom="5dp"
                         android:layout_alignTop="@+id/domicilio_text"
                         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                         android:text="Anexo" />
 
+                    <!-- Etiqueta Grupo  -->
+                    <TextView
+                        android:id="@+id/grupo_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/domicilio_text"
+                        android:text="Grupo"
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
+                    <!-- Texto Grupo -->
+                    <TextView
+                        android:id="@+id/grupo_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_below="@+id/grupo_label"
+                        android:paddingBottom="5dp"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                        android:text="Grupo"/>
+
+                    <!-- Label Ruta-->
+                    <TextView
+                        android:id="@+id/ruta_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignTop="@+id/grupo_label"
+                        android:text="Ruta"
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
+                    <!-- Texto Ruta-->
+                    <TextView
+                        android:id="@+id/ruta_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:paddingBottom="5dp"
+                        android:layout_alignTop="@+id/grupo_text"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                        android:text="Ruta" />
+                    <!-- Etiqueta Orden de Lectura  -->
+                    <TextView
+                        android:id="@+id/orden_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/grupo_text"
+                        android:text="Orden de Lectura"
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
+                    <!-- Texto Orden de Lectura -->
+                    <TextView
+                        android:id="@+id/orden_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_below="@+id/orden_label"
+                        android:paddingBottom="5dp"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                        android:text="Orden de Lectura"/>
                 </RelativeLayout>
             </android.support.v7.widget.CardView>
 
@@ -337,9 +402,9 @@
                         android:id="@+id/potenciadeclarada_label"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
-                        android:layout_alignParentRight="true"
-                        android:layout_below="@+id/servicio_titulo"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentLeft="true"
+                        android:layout_below="@+id/tipousuario_text"
                         android:text="Potencia Declarada"
                         android:textAppearance="?android:attr/textAppearanceSmall" />
                     <!-- Texto Potencia Declarada  -->
@@ -347,8 +412,8 @@
                         android:id="@+id/potenciadeclarada_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
-                        android:layout_alignParentRight="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentLeft="true"
                         android:layout_below="@+id/potenciadeclarada_label"
                         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                         android:text="Modelo" />
@@ -358,7 +423,7 @@
                         android:id="@+id/tipousuario_label"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_below="@+id/potenciadeclarada_text"
+                        android:layout_below="@+id/servicio_titulo"
                         android:layout_alignParentLeft="true"
                         android:text="Tipo de Usuario"
                         android:textAppearance="?android:attr/textAppearanceSmall" />
@@ -369,6 +434,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentLeft="true"
                         android:layout_below="@+id/tipousuario_label"
+                        android:paddingBottom="5dp"
                         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                         android:text="Tipo de Usuario" />
 
@@ -436,6 +502,7 @@
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/medidor_label"
                         android:layout_alignParentLeft="true"
+                        android:paddingBottom="5dp"
                         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                         android:text="Medidor"/>
 
@@ -457,6 +524,7 @@
                         android:layout_alignParentEnd="true"
                         android:layout_alignParentRight="true"
                         android:layout_alignTop="@+id/medidor_text"
+                        android:paddingBottom="5dp"
                         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                         android:text="Marca"/>
 
@@ -476,6 +544,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentLeft="true"
                         android:layout_below="@+id/modelo_label"
+                        android:paddingBottom="5dp"
                         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                         android:text="Modelo" />
 
@@ -499,6 +568,7 @@
                         android:layout_alignParentRight="true"
                         android:layout_alignTop="@+id/modelo_text"
                         android:layout_below="@+id/marca_label"
+                        android:paddingBottom="5dp"
                         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                         android:text="Factor H" />
 
