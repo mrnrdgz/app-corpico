@@ -44,7 +44,11 @@ import ar.com.corpico.appcorpico.orders.presentation.AsignarAConexionesDialog;
 import static android.view.View.GONE;
 
 
-public class OrderDetailActivity extends AppCompatActivity implements AsignarAConexionesDetailDialog.OnAsignarAConexionesDetailListener,ar.com.corpico.appcorpico.ordersDetail.presentation.View, OnMapReadyCallback {
+public class OrderDetailActivity extends AppCompatActivity implements
+        AsignarAConexionesDetailDialog.OnAsignarAConexionesDetailListener,
+        ar.com.corpico.appcorpico.ordersDetail.presentation.View,
+        OnMapReadyCallback,
+        AsignarTurnoDialog.OnAsignarTurnoDialogListener{
     private GoogleMap mMap;
     private static final int LOCATION_REQUEST_CODE = 1;
     private SupportMapFragment mMapFragment;
@@ -192,7 +196,12 @@ public class OrderDetailActivity extends AppCompatActivity implements AsignarACo
                 newFragment.show(ft, "AsignarconexionDialog");
                 break;
             case R.id.action_turno:
-                //Todo: el caso de uso y Ui para el turno
+                FragmentTransaction turnoTransaccion = getSupportFragmentManager().beginTransaction();
+                turnoTransaccion.addToBackStack(null);
+                DateTime turno = DateTime.now();
+                DialogFragment asignarTurnoDialog = AsignarTurnoDialog.newInstance(turno.getDayOfMonth(), turno.getMonthOfYear(),
+                        turno.getYear(),turno.getHourOfDay(),turno.getMinuteOfDay() );
+                asignarTurnoDialog.show(turnoTransaccion, "AsignarTurnoDialog");
                 break;
         }
         return super.onOptionsItemSelected(item);
@@ -269,4 +278,8 @@ public class OrderDetailActivity extends AppCompatActivity implements AsignarACo
         mOrdersDetailPresenter = (OrdersDetailPresenter) presenterDetail;
     }
 
+    @Override
+    public void onPossitiveButtonClick(DateTime turno) {
+        Toast.makeText(this, "TURNO " + turno, Toast.LENGTH_SHORT).show();
+    }
 }
