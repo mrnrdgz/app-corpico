@@ -1,9 +1,12 @@
 package ar.com.corpico.appcorpico.ordersDetail.presentation;
 
+import android.annotation.TargetApi;
 import android.app.Dialog;
 import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
 import android.view.*;
@@ -82,7 +85,7 @@ public class AsignarTurnoDialog extends DialogFragment implements
     }
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        return onCreateAsignarTurnoDialog();
+            return onCreateAsignarTurnoDialog();
     }
     public AlertDialog onCreateAsignarTurnoDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.datePicker);
@@ -95,6 +98,13 @@ public class AsignarTurnoDialog extends DialogFragment implements
         final DatePicker mDatePicker = (DatePicker) v.findViewById(R.id.datePicker);
         final TimePicker mTimePicker = (TimePicker) v.findViewById(R.id.timePicker);
 
+        Calendar c = Calendar.getInstance();
+        c.set(mAnio, mMes, mDia,mHora,mMinutos);
+
+        mDatePicker.init(c.get(Calendar.YEAR),c.get(Calendar.MONTH),c.get(Calendar.DAY_OF_MONTH),null);
+        mTimePicker.setIs24HourView(true);
+        mTimePicker.setHour(mHora);
+        mTimePicker.setMinute(mMinutos);
 
         Button asignar = (Button) v.findViewById(R.id.asignar_boton);
         Button cancelar = (Button) v.findViewById(R.id.cancelar_boton);

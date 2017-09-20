@@ -54,6 +54,7 @@ public class OrderDetailActivity extends AppCompatActivity implements
     private SupportMapFragment mMapFragment;
     private String mLat;
     private String mLng;
+    private DateTime mTurno;
     private ArrayList<String> mNumero = new ArrayList<>();
     private String mTipoCuadrilla;
     private AddOrdersState mAddOrdersState;
@@ -102,7 +103,7 @@ public class OrderDetailActivity extends AppCompatActivity implements
             DateTime mFecha = (DateTime)extras.get("FECHA");
             fecha.setText(mFecha.toString("dd-MM-yyyy"));
 
-            DateTime mTurno = (DateTime)extras.get("TURNO");
+            mTurno = (DateTime)extras.get("TURNO");
             if (mTurno != null){
                 turno.setText(mTurno.toString("dd-MM-yyyy"));
             }else{
@@ -198,9 +199,10 @@ public class OrderDetailActivity extends AppCompatActivity implements
             case R.id.action_turno:
                 FragmentTransaction turnoTransaccion = getSupportFragmentManager().beginTransaction();
                 turnoTransaccion.addToBackStack(null);
-                DateTime turno = DateTime.now();
-                DialogFragment asignarTurnoDialog = AsignarTurnoDialog.newInstance(turno.getDayOfMonth(), turno.getMonthOfYear(),
-                        turno.getYear(),turno.getHourOfDay(),turno.getMinuteOfDay() );
+                Calendar c = Calendar.getInstance();
+                c.set(mTurno.getYear(), mTurno.getMonthOfYear(), mTurno.getDayOfMonth(),mTurno.getHourOfDay(),mTurno.getMinuteOfHour());
+                                DialogFragment asignarTurnoDialog = AsignarTurnoDialog.newInstance(c.get(Calendar.DAY_OF_MONTH),  c.get(Calendar.MONTH),
+                        c.get(Calendar.YEAR),c.get(Calendar.HOUR_OF_DAY),c.get(Calendar.MINUTE) );
                 asignarTurnoDialog.show(turnoTransaccion, "AsignarTurnoDialog");
                 break;
         }
