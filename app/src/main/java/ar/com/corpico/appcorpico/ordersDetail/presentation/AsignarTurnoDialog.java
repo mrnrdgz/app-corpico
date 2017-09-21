@@ -27,7 +27,7 @@ import ar.com.corpico.appcorpico.R;
 public class AsignarTurnoDialog extends DialogFragment implements
         TimePicker.OnTimeChangedListener,
         DatePicker.OnDateChangedListener{
-    private DateTime mTurno;
+    private TimePicker mTimePicker;
     private int mDia;
     private int mMes;
     private int mAnio;
@@ -96,31 +96,25 @@ public class AsignarTurnoDialog extends DialogFragment implements
         builder.setTitle("Asignar Turno");
 
         final DatePicker mDatePicker = (DatePicker) v.findViewById(R.id.datePicker);
-        final TimePicker mTimePicker = (TimePicker) v.findViewById(R.id.timePicker);
+        mTimePicker = (TimePicker) v.findViewById(R.id.timePicker);
 
         Calendar c = Calendar.getInstance();
         c.set(mAnio, mMes, mDia,mHora,mMinutos);
 
         mDatePicker.init(c.get(Calendar.YEAR),c.get(Calendar.MONTH),c.get(Calendar.DAY_OF_MONTH),null);
         mTimePicker.setIs24HourView(true);
-        mTimePicker.setHour(mHora);
-        mTimePicker.setMinute(mMinutos);
 
         Button asignar = (Button) v.findViewById(R.id.asignar_boton);
         Button cancelar = (Button) v.findViewById(R.id.cancelar_boton);
 
-        /*iniciarFecha(v);
-        iniciarHora(v);*/
+        setTime(mHora,mMinutos);
 
         asignar.setOnClickListener(
                 new android.view.View.OnClickListener() {
                     @Override
                     public void onClick(android.view.View v) {
-                        /*String mDesdeString = mDesdeFecha.getText().toString();
-                        String mHastaString = mHastaFecha.getText().toString();
-                        DateTime mDesde = DateTime.parse(mDesdeString, DateTimeFormat.forPattern("dd-MM-yyyy"));
-                        DateTime mHasta = DateTime.parse(mHastaString, DateTimeFormat.forPattern("dd-MM-yyyy"));*/
-                        listener.onPossitiveButtonClick(DateTime.now());
+                        DateTime mTurno = new DateTime(mAnio,mMes,mDia,mHora,mMinutos);
+                        listener.onPossitiveButtonClick(mTurno);
                         dismiss();
                     }
                 }
@@ -136,6 +130,15 @@ public class AsignarTurnoDialog extends DialogFragment implements
         );
 
         return builder.create();
+    }
+    private void setTime(int hour, int minute) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            mTimePicker.setHour(hour);
+            mTimePicker.setMinute(minute);
+        } else {
+            mTimePicker.setCurrentHour(hour);
+            mTimePicker.setCurrentMinute(minute);
+        }
     }
     @Override
     public void onAttach(Context context) {
@@ -156,45 +159,4 @@ public class AsignarTurnoDialog extends DialogFragment implements
         super.onViewCreated(view, savedInstanceState);
 
     }
-
-    /*private void iniciarFecha(android.view.View v) {
-        mDesdeFecha = (TextView) v.findViewById(R.id.desde_text);
-        Calendar c = Calendar.getInstance();
-        SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
-        mDesdeFecha.setText(format.format(c.getTime()));
-        mDesdeFecha.setOnClickListener(
-                new android.view.View.OnClickListener() {
-                    @Override
-                    public void onClick(android.view.View v) {
-                        listener.onFechaTextViewClick();
-                    }
-                }
-        );
-    }
-    private void iniciarHora(android.view.View v) {
-        mHastaFecha = (TextView) v.findViewById(R.id.hasta_text);
-        Calendar c = Calendar.getInstance();
-        SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
-        mHastaFecha.setText(format.format(c.getTime()));
-        mHastaFecha.setOnClickListener(
-                new android.view.View.OnClickListener() {
-                    @Override
-                    public void onClick(android.view.View v) {
-                        listener.onFechaTextViewClick();
-                    }
-                }
-        );
-    }
-    public void setDateView(int year, int monthOfYear, int dayOfMonth) {
-        Calendar c = Calendar.getInstance();
-        c.set(year, monthOfYear, dayOfMonth);
-        SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
-        mDesdeFecha.setText(format.format(c.getTime()));
-    }
-    public void setHoraView(int year, int monthOfYear, int dayOfMonth) {
-        Calendar c = Calendar.getInstance();
-        c.set(year, monthOfYear, dayOfMonth);
-        SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
-        mHastaFecha.setText(format.format(c.getTime()));
-    }*/
 }
