@@ -10,4 +10,5 @@ public interface View {
     void setPresenter(Presenter presenter);
     void closeDetail();
     void showOrderError(String error);
+    void setTurno(String turno);
 }

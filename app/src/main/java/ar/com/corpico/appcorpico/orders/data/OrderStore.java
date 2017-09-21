@@ -1,5 +1,7 @@
 package ar.com.corpico.appcorpico.orders.data;
 
+import org.joda.time.DateTime;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,6 +26,7 @@ public interface OrderStore {
         void onError(String error);
     }
     void addOrderEtape(String estado, ArrayList<String> numero,String observacion);
+    void addTurno(String numero,DateTime turno);
     void getCuadrillaxTipo(GetCuadrillaxTipoStoreCallBack callback, Criteria filter);
     interface GetCuadrillaxTipoStoreCallBack{
         void onSuccess(List<Tipo_Trabajo> tipoCuadrilla);

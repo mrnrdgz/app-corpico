@@ -17,6 +17,7 @@ import android.widget.TimePicker;
 import org.joda.time.DateTime;
 
 import java.util.Calendar;
+import java.util.Locale;
 
 import ar.com.corpico.appcorpico.R;
 
@@ -24,9 +25,7 @@ import ar.com.corpico.appcorpico.R;
  * Created by sistemas on 15/09/2017.
  */
 
-public class AsignarTurnoDialog extends DialogFragment implements
-        TimePicker.OnTimeChangedListener,
-        DatePicker.OnDateChangedListener{
+public class AsignarTurnoDialog extends DialogFragment {
     private TimePicker mTimePicker;
     private int mDia;
     private int mMes;
@@ -36,25 +35,9 @@ public class AsignarTurnoDialog extends DialogFragment implements
     private int mMinutos;
     public AsignarTurnoDialog(){
     }
-    @Override
-    public void onDateChanged(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-        Calendar mFecha = Calendar.getInstance();
-
-        mFecha.set(Calendar.YEAR, year);
-        mFecha.set(Calendar.MONTH, monthOfYear);
-        mFecha.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-    }
-    @Override
-    public void onTimeChanged(TimePicker view, int hourOfDay, int minute) {
-        Calendar mHora =Calendar.getInstance();
-
-        mHora.set(Calendar.HOUR_OF_DAY, hourOfDay);
-        mHora.set(Calendar.MINUTE, minute);
-        mHora.set(Calendar.SECOND, 0);
-    }
 
     public interface OnAsignarTurnoDialogListener {
-        void onPossitiveButtonClick(DateTime turno);// Eventos Botón Positivo
+        void onPossitiveButtonTurnoClick(DateTime turno);// Eventos Botón Positivo
     }
 
     OnAsignarTurnoDialogListener listener;
@@ -98,23 +81,43 @@ public class AsignarTurnoDialog extends DialogFragment implements
         final DatePicker mDatePicker = (DatePicker) v.findViewById(R.id.datePicker);
         mTimePicker = (TimePicker) v.findViewById(R.id.timePicker);
 
-        Calendar c = Calendar.getInstance();
-        c.set(mAnio, mMes, mDia,mHora,mMinutos);
+        DateTime d = new DateTime(mAnio, mMes, mDia,mHora,mMinutos);
+        Calendar c = d.toCalendar(Locale.getDefault());
 
-        mDatePicker.init(c.get(Calendar.YEAR),c.get(Calendar.MONTH),c.get(Calendar.DAY_OF_MONTH),null);
+        mDatePicker.init(c.get(Calendar.YEAR),c.get(Calendar.MONTH),c.get(Calendar.DAY_OF_MONTH),new DatePicker.OnDateChangedListener() {
+            @Override
+            public void onDateChanged(DatePicker datePicker, int year, int month, int dayOfMonth) {
+                Calendar c = Calendar.getInstance();
+                c.set(year,month,dayOfMonth);
+
+                DateTime mFecha = new DateTime(c);
+
+                mAnio = mFecha.getYear();
+                mMes = mFecha.getMonthOfYear();
+                mDia = mFecha.getDayOfMonth();
+            }
+        });
+
         mTimePicker.setIs24HourView(true);
+        setTime(mHora,mMinutos);
+        mTimePicker.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
+
+            public void onTimeChanged(TimePicker view, int hourOfDay, int minute) {
+                //updateDisplay(hourOfDay, minute);
+                mHora = hourOfDay;
+                mMinutos = minute;
+            }
+        });
 
         Button asignar = (Button) v.findViewById(R.id.asignar_boton);
         Button cancelar = (Button) v.findViewById(R.id.cancelar_boton);
-
-        setTime(mHora,mMinutos);
 
         asignar.setOnClickListener(
                 new android.view.View.OnClickListener() {
                     @Override
                     public void onClick(android.view.View v) {
                         DateTime mTurno = new DateTime(mAnio,mMes,mDia,mHora,mMinutos);
-                        listener.onPossitiveButtonClick(mTurno);
+                        listener.onPossitiveButtonTurnoClick(mTurno);
                         dismiss();
                     }
                 }

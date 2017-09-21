@@ -1,5 +1,7 @@
 package ar.com.corpico.appcorpico.ordersDetail.presentation;
 
+import org.joda.time.DateTime;
+
 import java.util.List;
 
 /**
@@ -8,4 +10,5 @@ import java.util.List;
 
 public interface Presenter {
     void asignarOrder(String cuadrilla, List<String> listorder,String observacion);
+    void asignarTurno(String numero, DateTime turno);
 }

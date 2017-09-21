@@ -21,11 +21,11 @@ import ar.com.corpico.appcorpico.orders.domain.usecase.AddOrdersState;
  */
 
 public class AsignarAConexionesDetailDialog extends DialogFragment {
-    private ArrayList<String> mNumeroOT = new ArrayList<>();
+    private String mNumeroOT;
     private String mTipoCuadrilla;
 
     public interface OnAsignarAConexionesDetailListener {
-        void onPossitiveButtonAsignarClick(String cuadrilla, ArrayList<String> numero, String observacion);// Eventos Botón Positivo
+        void onPossitiveButtonAsignarDetailClick(String cuadrilla, String numero, String observacion);// Eventos Botón Positivo
     }
 
     OnAsignarAConexionesDetailListener listener;
@@ -33,11 +33,11 @@ public class AsignarAConexionesDetailDialog extends DialogFragment {
     public AsignarAConexionesDetailDialog() {
     }
 
-    public static AsignarAConexionesDetailDialog newInstance(String tipoCuadrilla, ArrayList<String> numero) {
+    public static AsignarAConexionesDetailDialog newInstance(String tipoCuadrilla, String numero) {
         AsignarAConexionesDetailDialog f = new AsignarAConexionesDetailDialog();
 
         Bundle args = new Bundle();
-        args.putString("NUMERO", numero.get(0));
+        args.putString("NUMERO", numero);
         args.putString("TIPO_CUADRILLA", tipoCuadrilla);
 
         f.setArguments(args);
@@ -61,7 +61,7 @@ public class AsignarAConexionesDetailDialog extends DialogFragment {
         final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = getActivity().getLayoutInflater();
 
-        mNumeroOT.add(getArguments().getString("NUMERO"));
+        mNumeroOT = getArguments().getString("NUMERO");
         mTipoCuadrilla = (getArguments().getString("TIPO_CUADRILLA"));
 
         android.view.View v = inflater.inflate(R.layout.dialog_asignar_conexiones, null);
@@ -79,7 +79,7 @@ public class AsignarAConexionesDetailDialog extends DialogFragment {
                 new android.view.View.OnClickListener() {
                     @Override
                     public void onClick(android.view.View v) {
-                        listener.onPossitiveButtonAsignarClick(mTipoCuadrilla,mNumeroOT,mObservation.getText().toString());
+                        listener.onPossitiveButtonAsignarDetailClick(mTipoCuadrilla,mNumeroOT,mObservation.getText().toString());
                         dismiss();
                     }
                 }

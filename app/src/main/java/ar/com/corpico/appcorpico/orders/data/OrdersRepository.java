@@ -2,6 +2,8 @@ package ar.com.corpico.appcorpico.orders.data;
 
 import com.google.common.base.Preconditions;
 
+import org.joda.time.DateTime;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -135,5 +137,10 @@ public class OrdersRepository implements IOrdersRepository {
         };
 
         mOrdersRestStore.getZona(callback1);
+    }
+
+    @Override
+    public void addTurno(String numero,DateTime turno) {
+        mOrdersRestStore.addTurno(numero,turno);
     }
 }

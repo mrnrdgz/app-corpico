@@ -200,4 +200,13 @@ public class FuenteOrdenesServidor implements OrderStore {
     public void getZona(GetZonaStoreCallBack callback) {
         callback.onSuccess(mFakeRestZona);
     }
+
+    @Override
+    public void addTurno(String numero, DateTime turno) {
+            for (Order order : mFakeRestOrder) {
+                if (order.getNumero().equals(numero)) {
+                    order.setTurno(turno);
+                }
+            }
+    }
 }

@@ -1,5 +1,7 @@
 package ar.com.corpico.appcorpico.orders.data;
 
+import org.joda.time.DateTime;
+
 import java.util.ArrayList;
 
 import ar.com.corpico.appcorpico.orders.domain.Query;
@@ -18,6 +20,11 @@ public class OrdersSqliteStore implements OrderStore {
 
     @Override
     public void addOrderEtape( String estado,ArrayList<String> numero, String observacion) {
+
+    }
+
+    @Override
+    public void addTurno(String numero, DateTime turno) {
 
     }
 

@@ -39,6 +39,7 @@ import ar.com.corpico.appcorpico.orders.data.FuenteOrdenesServidor;
 import ar.com.corpico.appcorpico.orders.data.OrdersRepository;
 import ar.com.corpico.appcorpico.orders.data.OrdersSqliteStore;
 import ar.com.corpico.appcorpico.orders.domain.usecase.AddOrdersState;
+import ar.com.corpico.appcorpico.orders.domain.usecase.AddTurno;
 import ar.com.corpico.appcorpico.orders.presentation.AsignarAConexionesDialog;
 
 import static android.view.View.GONE;
@@ -55,9 +56,10 @@ public class OrderDetailActivity extends AppCompatActivity implements
     private String mLat;
     private String mLng;
     private DateTime mTurno;
-    private ArrayList<String> mNumero = new ArrayList<>();
+    private String mNumero;
     private String mTipoCuadrilla;
     private AddOrdersState mAddOrdersState;
+    private AddTurno mAddTurno;
     private ar.com.corpico.appcorpico.ordersDetail.presentation.OrdersDetailPresenter mOrdersDetailPresenter;
 
 
@@ -97,7 +99,7 @@ public class OrderDetailActivity extends AppCompatActivity implements
         Bundle extras =intent.getExtras();
         if (extras != null) {
             numero.setText("Orden Nº " + (String)extras.get("NUMERO"));
-            mNumero.add((String)extras.get("NUMERO"));
+            mNumero= (String)extras.get("NUMERO");
             mTipoCuadrilla= (String)extras.get("TIPO_CUADRILLA");
 
             DateTime mFecha = (DateTime)extras.get("FECHA");
@@ -105,7 +107,7 @@ public class OrderDetailActivity extends AppCompatActivity implements
 
             mTurno = (DateTime)extras.get("TURNO");
             if (mTurno != null){
-                turno.setText(mTurno.toString("dd-MM-yyyy"));
+                turno.setText(mTurno.toString("dd-MM-yyyy HH:mm"));
             }else{
                 turno.setText("");
             }
@@ -152,14 +154,21 @@ public class OrderDetailActivity extends AppCompatActivity implements
          */
         //TODO: ACA DEBERIA USAR UNA VARIABLE PARA PONER EL CASO DE USO?
         mAddOrdersState = new AddOrdersState(repository);
+        mAddTurno = new AddTurno(repository);
 
-        mOrdersDetailPresenter = new OrdersDetailPresenter(mAddOrdersState,this);
+        mOrdersDetailPresenter = new OrdersDetailPresenter(mAddOrdersState,mAddTurno,this);
         this.setPresenter(mOrdersDetailPresenter);
 
         mMapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mMapFragment.getMapAsync(this);
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
 
     private void setToolbar() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -201,8 +210,8 @@ public class OrderDetailActivity extends AppCompatActivity implements
                 turnoTransaccion.addToBackStack(null);
                 Calendar c = Calendar.getInstance();
                 c.set(mTurno.getYear(), mTurno.getMonthOfYear(), mTurno.getDayOfMonth(),mTurno.getHourOfDay(),mTurno.getMinuteOfHour());
-                                DialogFragment asignarTurnoDialog = AsignarTurnoDialog.newInstance(c.get(Calendar.DAY_OF_MONTH),  c.get(Calendar.MONTH),
-                        c.get(Calendar.YEAR),c.get(Calendar.HOUR_OF_DAY),c.get(Calendar.MINUTE) );
+                DialogFragment asignarTurnoDialog = AsignarTurnoDialog.newInstance(c.get(Calendar.DAY_OF_MONTH),  c.get(Calendar.MONTH),
+                c.get(Calendar.YEAR),c.get(Calendar.HOUR_OF_DAY),c.get(Calendar.MINUTE) );
                 asignarTurnoDialog.show(turnoTransaccion, "AsignarTurnoDialog");
                 break;
         }
@@ -261,8 +270,10 @@ public class OrderDetailActivity extends AppCompatActivity implements
     }
 
     @Override
-    public void onPossitiveButtonAsignarClick(String cuadrilla, ArrayList<String> numero,String observacion) {
-        mOrdersDetailPresenter.asignarOrder(cuadrilla,numero,observacion);
+    public void onPossitiveButtonAsignarDetailClick(String cuadrilla, String numero,String observacion) {
+        ArrayList<String> mNumeroOT = new ArrayList<>();
+        mNumeroOT.add(numero);
+        mOrdersDetailPresenter.asignarOrder(cuadrilla,mNumeroOT,observacion);
     }
 
     @Override
@@ -281,7 +292,12 @@ public class OrderDetailActivity extends AppCompatActivity implements
     }
 
     @Override
-    public void onPossitiveButtonClick(DateTime turno) {
-        Toast.makeText(this, "TURNO " + turno, Toast.LENGTH_SHORT).show();
+    public void onPossitiveButtonTurnoClick(DateTime turno) {
+        mOrdersDetailPresenter.asignarTurno(mNumero, turno);
+    }
+
+    @Override
+    public void setTurno(String turno) {
+        //turno.setText(mTurno.toString("dd-MM-yyyy HH:mm"));
     }
 }
