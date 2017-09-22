@@ -214,6 +214,15 @@ public class OrderDetailActivity extends AppCompatActivity implements
                 c.get(Calendar.YEAR),c.get(Calendar.HOUR_OF_DAY),c.get(Calendar.MINUTE) );
                 asignarTurnoDialog.show(turnoTransaccion, "AsignarTurnoDialog");
                 break;
+            case R.id.anular_turno:
+                FragmentTransaction anularTurnoTransaccion = getSupportFragmentManager().beginTransaction();
+                anularTurnoTransaccion.addToBackStack(null);
+                Calendar cal = Calendar.getInstance();
+                cal.set(mTurno.getYear(), mTurno.getMonthOfYear(), mTurno.getDayOfMonth(),mTurno.getHourOfDay(),mTurno.getMinuteOfHour());
+                DialogFragment anularTurnoDialog = AnularTurnoDialog.newInstance(cal.get(Calendar.DAY_OF_MONTH),  cal.get(Calendar.MONTH),
+                        cal.get(Calendar.YEAR),cal.get(Calendar.HOUR_OF_DAY),cal.get(Calendar.MINUTE) );
+                anularTurnoDialog.show(anularTurnoTransaccion, "AnularTurnoDialog");
+                break;
         }
         return super.onOptionsItemSelected(item);
     }
@@ -298,6 +307,9 @@ public class OrderDetailActivity extends AppCompatActivity implements
 
     @Override
     public void setTurno(String turno) {
-        //turno.setText(mTurno.toString("dd-MM-yyyy HH:mm"));
+        //TODO: Lo hace..me cambia el valor del campo de texto...pero esta bien q lo haga asi?
+        // o debe mostrar el valor que toma de la orden?
+        TextView mTurno = (TextView)this.findViewById(R.id.turno_text);
+        mTurno.setText(turno);
     }
 }
