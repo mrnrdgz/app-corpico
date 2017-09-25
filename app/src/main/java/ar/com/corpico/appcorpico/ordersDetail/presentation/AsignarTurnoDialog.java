@@ -41,17 +41,19 @@ public class AsignarTurnoDialog extends DialogFragment {
     }
 
     OnAsignarTurnoDialogListener listener;
-    public static AsignarTurnoDialog newInstance (int day, int month, int year, int hour, int minute){
+    public static AsignarTurnoDialog newInstance (Integer day, Integer month, Integer year, Integer hour, Integer minute){
         AsignarTurnoDialog f = new AsignarTurnoDialog();
 
         // Supply num input as an argument.
         Bundle args = new Bundle();
-        args.putInt("DIA", day);
-        args.putInt("MES", month);
-        args.putInt("ANIO", year);
+        if (args != null) {
+            args.putInt("DIA", day);
+            args.putInt("MES", month);
+            args.putInt("ANIO", year);
 
-        args.putInt("HORA", hour);
-        args.putInt("MINUTOS", minute);
+            args.putInt("HORA", hour);
+            args.putInt("MINUTOS", minute);
+        }
         f.setArguments(args);
 
         return f;

@@ -60,8 +60,11 @@ public class OrdersDetailPresenter implements Presenter{
             public void onSuccess(Object response) {
                 // Se obtiene el valor de respuesta del caso de uso
                 AddTurno.ResponseValue responseValue = (AddTurno.ResponseValue) response;
-                // Cierra el detalle
-                mOrdersView.setTurno(mTurno.toString("dd-MM-yyyy HH:mm"));
+                if (mTurno != null){
+                    mOrdersView.refreshTurno(mTurno.toString("dd-MM-yyyy HH:mm"));
+                }else{
+                    mOrdersView.refreshTurno("");
+                }
             }
 
             @Override

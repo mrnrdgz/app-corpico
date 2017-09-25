@@ -208,11 +208,18 @@ public class OrderDetailActivity extends AppCompatActivity implements
             case R.id.action_turno:
                 FragmentTransaction turnoTransaccion = getSupportFragmentManager().beginTransaction();
                 turnoTransaccion.addToBackStack(null);
-                Calendar c = Calendar.getInstance();
-                c.set(mTurno.getYear(), mTurno.getMonthOfYear(), mTurno.getDayOfMonth(),mTurno.getHourOfDay(),mTurno.getMinuteOfHour());
-                DialogFragment asignarTurnoDialog = AsignarTurnoDialog.newInstance(c.get(Calendar.DAY_OF_MONTH),  c.get(Calendar.MONTH),
-                c.get(Calendar.YEAR),c.get(Calendar.HOUR_OF_DAY),c.get(Calendar.MINUTE) );
-                asignarTurnoDialog.show(turnoTransaccion, "AsignarTurnoDialog");
+                if (mTurno.toString()!=""){
+                    Calendar c = Calendar.getInstance();
+                    c.set(mTurno.getYear(), mTurno.getMonthOfYear(), mTurno.getDayOfMonth(),mTurno.getHourOfDay(),mTurno.getMinuteOfHour());
+                    DialogFragment asignarTurnoDialog = AsignarTurnoDialog.newInstance(c.get(Calendar.DAY_OF_MONTH),  c.get(Calendar.MONTH),
+                            c.get(Calendar.YEAR),c.get(Calendar.HOUR_OF_DAY),c.get(Calendar.MINUTE) );
+                    asignarTurnoDialog.show(turnoTransaccion, "AsignarTurnoDialog");
+                }else{
+                    DialogFragment asignarTurnoDialog = AsignarTurnoDialog.newInstance(null,null,null,null,null);
+                    asignarTurnoDialog.show(turnoTransaccion, "AsignarTurnoDialog");
+                }
+
+
                 break;
             case R.id.anular_turno:
                 FragmentTransaction anularTurnoTransaccion = getSupportFragmentManager().beginTransaction();
@@ -306,7 +313,7 @@ public class OrderDetailActivity extends AppCompatActivity implements
     }
 
     @Override
-    public void setTurno(String turno) {
+    public void refreshTurno(String turno) {
         //TODO: Lo hace..me cambia el valor del campo de texto...pero esta bien q lo haga asi?
         // o debe mostrar el valor que toma de la orden?
         TextView mTurno = (TextView)this.findViewById(R.id.turno_text);

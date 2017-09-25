@@ -82,10 +82,10 @@ public class AnularTurnoDialog extends DialogFragment {
         final DateTime mTurno = new DateTime(mAnio,mMes,mDia,mHora,mMinutos);
         turno.setText(mTurno.toString("dd-MM-yyyy HH:mm"));
 
-        Button asignar = (Button) v.findViewById(R.id.asignar_boton);
+        Button anular = (Button) v.findViewById(R.id.anular_boton);
         Button cancelar = (Button) v.findViewById(R.id.cancelar_boton);
 
-        asignar.setOnClickListener(
+        anular.setOnClickListener(
                 new android.view.View.OnClickListener() {
                     @Override
                     public void onClick(android.view.View v) {
