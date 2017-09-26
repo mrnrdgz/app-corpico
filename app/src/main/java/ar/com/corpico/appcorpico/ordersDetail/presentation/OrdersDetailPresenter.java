@@ -26,8 +26,6 @@ public class OrdersDetailPresenter implements Presenter{
         mOrdersView.setPresenter(this);
     }
 
-
-
     @Override
     public void asignarOrder(String cuadrilla, List<String> listorder, String observacion) {
 
@@ -61,7 +59,7 @@ public class OrdersDetailPresenter implements Presenter{
                 // Se obtiene el valor de respuesta del caso de uso
                 AddTurno.ResponseValue responseValue = (AddTurno.ResponseValue) response;
                 if (mTurno != null){
-                    mOrdersView.refreshTurno(mTurno.toString("dd-MM-yyyy HH:mm"));
+                    mOrdersView.refreshTurno(mTurno.toString());
                 }else{
                     mOrdersView.refreshTurno("");
                 }
@@ -73,7 +71,6 @@ public class OrdersDetailPresenter implements Presenter{
                 //mOrdersView.showOrderError(error);
             }
         };
-
         mAddTurno.execute(requestValues, useCaseCallback);
     }
 }

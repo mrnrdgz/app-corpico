@@ -46,14 +46,12 @@ public class AsignarTurnoDialog extends DialogFragment {
 
         // Supply num input as an argument.
         Bundle args = new Bundle();
-        if (args != null) {
-            args.putInt("DIA", day);
-            args.putInt("MES", month);
-            args.putInt("ANIO", year);
+        args.putInt("DIA", day);
+        args.putInt("MES", month);
+        args.putInt("ANIO", year);
 
-            args.putInt("HORA", hour);
-            args.putInt("MINUTOS", minute);
-        }
+        args.putInt("HORA", hour);
+        args.putInt("MINUTOS", minute);
         f.setArguments(args);
 
         return f;
