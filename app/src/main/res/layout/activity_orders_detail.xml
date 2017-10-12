@@ -625,7 +625,7 @@
             <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/card6"
                 android:layout_width="match_parent"
-                android:layout_height="180dp"
+                android:layout_height="wrap_content"
                 android:layout_below="@+id/card5"
                 android:layout_marginTop="@dimen/margin_top_between_cards"
                 card_view:cardElevation="4dp"

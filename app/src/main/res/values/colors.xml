@@ -5,7 +5,8 @@
     <color name="colorPrimaryDark">#2E7D32</color>
     <color name="colorAccent">#4CAF50</color>
     <color name="colorMark">#C8E6C9</color>
-    <color name="window_background">#FFF5F5F5</color>
+    <!--<color name="window_background">#FFF5F5F5</color>-->
+    <color name="window_background">#FFFFFF</color>
     <!-- Indicador circular -->
     <color name="culminadas_indicator">#61C08C</color>
     <color name="noculminadas_indicator">#EF6955</color>
