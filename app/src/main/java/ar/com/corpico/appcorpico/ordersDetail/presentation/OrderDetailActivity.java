@@ -13,6 +13,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.*;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,14 +30,19 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import org.joda.time.DateTime;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
+import java.util.List;
 
 import ar.com.corpico.appcorpico.R;
 import ar.com.corpico.appcorpico.orders.data.FuenteOrdenesServidor;
 import ar.com.corpico.appcorpico.orders.data.OrdersRepository;
 import ar.com.corpico.appcorpico.orders.data.OrdersSqliteStore;
+import ar.com.corpico.appcorpico.orders.domain.entity.Etapa;
+import ar.com.corpico.appcorpico.orders.domain.entity.Order;
 import ar.com.corpico.appcorpico.orders.domain.usecase.AddOrdersState;
 import ar.com.corpico.appcorpico.orders.domain.usecase.AddTurno;
+import ar.com.corpico.appcorpico.orders.presentation.OrdersAdapter;
 
 
 public class OrderDetailActivity extends AppCompatActivity implements
@@ -56,6 +62,8 @@ public class OrderDetailActivity extends AppCompatActivity implements
     private AddTurno mAddTurno;
     private ar.com.corpico.appcorpico.ordersDetail.presentation.OrdersDetailPresenter mOrdersDetailPresenter;
     private TextView mTxtTurno;
+    //private ListView mEtapaList;
+    //private EtapasAdapter mEtapasAdapter;
 
 
     @Override
@@ -85,6 +93,7 @@ public class OrderDetailActivity extends AppCompatActivity implements
         TextView factorM = (TextView)this.findViewById(R.id.factorm_text);
         TextView capacidad = (TextView)this.findViewById(R.id.capacidad_text);
         TextView tension = (TextView)this.findViewById(R.id.tension_text);
+        ListView mEtapaList = (ListView) this.findViewById(R.id.etapas_list);
 
         TextView observacion = (TextView)this.findViewById(R.id.observacion_text);
         //Gallery simpleGallery = (Gallery) findViewById(R.id.simpleGallery);
@@ -109,6 +118,7 @@ public class OrderDetailActivity extends AppCompatActivity implements
 
             //TODO: HACER VARIABLE EL ESTADO PARA QUE ME SIRVA EL DETALLE EN OTRAS ACTIVITYS (EL ESTADO ME REFLEJA EL COLOR DE EL ICON DE LA UBICACION)
             //estado.setText((String)extras.get("ESTADO"));
+
             tipoTrabajo.setText((String)extras.get("TIPO_TRABAJO"));
             motivo.setText((String)extras.get("MOTIVO"));
             titular.setText((String)extras.get("TITULAR"));
@@ -127,6 +137,11 @@ public class OrderDetailActivity extends AppCompatActivity implements
             factorM.setText((String)extras.get("FACTOR_M"));
             capacidad.setText((String)extras.get("CAPACIDAD"));
             tension.setText((String)extras.get("TENSION"));
+            //TODO: VER
+            List<String> lista = extras.getStringArrayList("ETAPAS");
+            mEtapaList = (ListView) Arrays.asList(lista);
+            EtapasAdapter mEtapasAdapter = new EtapasAdapter(this, (List<Etapa>) mEtapaList);
+            mEtapaList.setAdapter(mEtapasAdapter);
 
             mLat=(String)extras.get("LAT");
             mLng=(String)extras.get("LNG");

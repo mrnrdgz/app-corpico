@@ -2,6 +2,7 @@ package ar.com.corpico.appcorpico.orders.presentation;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v4.app.Fragment;
 import android.view.ActionMode;
 import android.view.LayoutInflater;
@@ -24,6 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ar.com.corpico.appcorpico.R;
+import ar.com.corpico.appcorpico.orders.domain.entity.Etapa;
 import ar.com.corpico.appcorpico.orders.domain.entity.Order;
 import ar.com.corpico.appcorpico.ordersDetail.presentation.OrderDetailActivity;
 
@@ -232,10 +234,12 @@ public class OrdersListFragment extends Fragment implements OrdersListMvp.View {
                 intent.putExtra("FACTOR_M", currentOrder.getFactorM().toString());
                 intent.putExtra("CAPACIDAD", currentOrder.getCapacidad().toString());
                 intent.putExtra("TENSION", currentOrder.getTension().toString());
-
                 intent.putExtra("LAT", currentOrder.getLatitud().toString());
                 intent.putExtra("LNG", currentOrder.getLongitud().toString());
                 intent.putExtra("OBSERVACION", currentOrder.getObservacion().toString());
+                List<Etapa> mEtapasList = new ArrayList<>();
+                mEtapasList = currentOrder.getEtapas();
+                intent.putExtra("ETAPAS", mEtapasList.toString());
                 startActivity(intent);
             }
         });

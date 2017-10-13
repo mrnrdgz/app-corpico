@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:padding="@dimen/activity_horizontal_margin"
+    android:minHeight="?android:attr/listPreferredItemHeight"
+    android:descendantFocusability="blocksDescendants">
+
+    <!-- Indicador circular -->
+    <View android:layout_width="@dimen/indicator_size"
+        android:layout_height="@dimen/indicator_size"
+        android:id="@+id/indicator"
+        android:background="@drawable/asignadas_indicator"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="28dp"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:layout_marginLeft="12dp" />
+
+    <!-- fecha  -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Fecha Etapa"
+        android:id="@+id/fechaEtapa_text"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:layout_toRightOf="@+id/indicator" />
+
+    <!-- Observacion Etapa -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Observacion Etapa"
+        android:id="@+id/observacionEtapa_text"
+        android:layout_below="@+id/fechaEtapa_text"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:textStyle="italic" />
+
+    <!-- Operario Etapa -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Operario Etapa"
+        android:id="@+id/operarioEtapa_text"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignStart="@+id/fechaEtapa_text" />
+
+</RelativeLayout>
