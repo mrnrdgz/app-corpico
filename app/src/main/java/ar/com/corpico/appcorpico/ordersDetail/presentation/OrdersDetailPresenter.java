@@ -1,5 +1,7 @@
 package ar.com.corpico.appcorpico.ordersDetail.presentation;
 
+import android.support.annotation.Nullable;
+
 import com.google.common.base.Preconditions;
 
 import org.joda.time.DateTime;
@@ -49,8 +51,14 @@ public class OrdersDetailPresenter implements Presenter{
         maddOrdersState.execute(requestValues, useCaseCallback);
     }
 
+    /**
+     *
+     * @param numero
+     * @param turno Recibe el turno nevo seleccionado por el usuario.
+     *              Puede ser null para eliminar el turno
+     */
     @Override
-    public void asignarTurno(String numero, final DateTime turno) {
+    public void asignarTurno(String numero, @Nullable final DateTime turno) {
         final DateTime mTurno = turno;
         AddTurno.RequestValues requestValues = new AddTurno.RequestValues(numero, turno);
         UseCase.UseCaseCallback useCaseCallback = new UseCase.UseCaseCallback() {

@@ -20,7 +20,7 @@
         android:icon="@drawable/ic_search"
         android:orderInCategory="1"
         android:title="@string/action_buscar"
-        app:showAsAction="collapseActionView|always"
+        app:showAsAction="collapseActionView|ifRoom"
         app:actionViewClass="android.support.v7.widget.SearchView" />
     <item
         android:id="@+id/action_settings"

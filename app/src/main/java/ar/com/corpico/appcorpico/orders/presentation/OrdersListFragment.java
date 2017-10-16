@@ -30,6 +30,7 @@ import ar.com.corpico.appcorpico.orders.domain.entity.Order;
 import ar.com.corpico.appcorpico.ordersDetail.presentation.OrderDetailActivity;
 
 import static android.view.View.GONE;
+import static android.view.View.VISIBLE;
 
 /**
  * Fragmento para lista de ordenes
@@ -82,7 +83,7 @@ public class OrdersListFragment extends Fragment implements OrdersListMvp.View {
     public static OrdersListFragment newInstance(
             String tipoCuadrilla, String estado,
             ArrayList<String> tiposTrabajoSeleccionados, ArrayList<String> zonasSeleccionadas,
-            DateTime fechaInicio, DateTime fechaFin, String search,String fieldSort) {
+            DateTime fechaInicio, DateTime fechaFin, String search, String fieldSort) {
 
         OrdersListFragment fragment = new OrdersListFragment();
         Bundle args = new Bundle();
@@ -94,7 +95,7 @@ public class OrdersListFragment extends Fragment implements OrdersListMvp.View {
         args.putSerializable(ARG_FECHA_INICIO, fechaInicio);
         args.putSerializable(ARG_FECHA_FIN, fechaFin);
         args.putString(ARG_SEARCH, search);
-        args.putString(ARG_FIELD_SORT,fieldSort);
+        args.putString(ARG_FIELD_SORT, fieldSort);
 
         fragment.setArguments(args);
         return fragment;
@@ -185,7 +186,7 @@ public class OrdersListFragment extends Fragment implements OrdersListMvp.View {
                         }
                         return true;
                     case R.id.action_asignaracuadrilla:
-                        mOrdersPresenter.asignarOrder(mTipoCuadrilla, list_items,"");
+                        mOrdersPresenter.asignarOrder(mTipoCuadrilla, list_items, "");
                         mode.finish();
                         return true;
                     default:
@@ -245,7 +246,7 @@ public class OrdersListFragment extends Fragment implements OrdersListMvp.View {
         });
 
         mOrdersPresenter.loadOrders(mTipoCuadrilla, mEstado, mTiposTrabajoSeleccionados,
-                mZonasSeleccionadas, mFechaInicio, mFechaFin, mSearch, true,mFieldSort);
+                mZonasSeleccionadas, mFechaInicio, mFechaFin, mSearch, true, mFieldSort);
 
         return root;
     }
@@ -259,14 +260,7 @@ public class OrdersListFragment extends Fragment implements OrdersListMvp.View {
     @Override
     public void close() {
         mOrdersPresenter.loadOrders(mTipoCuadrilla, mEstado, mTiposTrabajoSeleccionados,
-                mZonasSeleccionadas, mFechaInicio, mFechaFin, mSearch, true,mFieldSort);
-    }
-
-    @Override
-    public void showOrderList(List<Order> orders) {
-        mOrdersAdapter.clear();
-        mOrdersAdapter.addAll(orders);
-        mOrdersAdapter.notifyDataSetChanged();
+                mZonasSeleccionadas, mFechaInicio, mFechaFin, mSearch, true, mFieldSort);
     }
 
     @Override
@@ -281,14 +275,28 @@ public class OrdersListFragment extends Fragment implements OrdersListMvp.View {
     }
 
     @Override
+    public void showOrderList(List<Order> orders) {
+        mOrdersAdapter.clear();
+        mOrdersAdapter.addAll(orders);
+        mOrdersAdapter.notifyDataSetChanged();
+        showList(true);
+    }
+
+    @Override
     public void showOrdesEmpty() {
         mOrderList.setEmptyView(mEmptyView);
     }
 
     @Override
     public void showProgressIndicator(boolean show) {
-        if (mProgressView!=null){
-            mProgressView.setVisibility(show ? View.VISIBLE : GONE);
+        if (mProgressView != null) {
+            showList(!show);
+            mProgressView.setVisibility(show ? VISIBLE : GONE);
         }
+    }
+
+    public void showList(boolean show) {
+        mOrderList.setVisibility(show ? VISIBLE : GONE);
+        // todo: visibility de mas views
     }
 }
