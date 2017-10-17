@@ -238,6 +238,13 @@ public class OrdersFilterActivity extends AppCompatActivity implements View{
         switch (id) {
             case android.R.id.home:
                 onBackPressed();
+                /*Intent databack1 = new Intent();
+                databack1.putStringArrayListExtra(ARG_TIPOS_TRABAJO_SELECCIONADOS, (ArrayList<String>) mTiposTrabajoSeleccionados);
+                databack1.putStringArrayListExtra(ARG_ZONAS_SELECCIONADAS, (ArrayList<String>) mZonasSeleccionadas);
+                databack1.putExtra(ARG_FECHA_INICIO, mFechaInicioSeleccionada);
+                databack1.putExtra(ARG_FECHA_FIN, mFechaFinSeleccionada);
+                setResult(RESULT_OK,databack1);
+                finish();*/
                 break;
             case R.id.action_aplicar:
                 Intent databack = new Intent();
@@ -250,6 +257,7 @@ public class OrdersFilterActivity extends AppCompatActivity implements View{
                 break;
             case R.id.action_limpiar:
                 for (int i=0; i<  mTipoTrabajoId.size(); i++) {
+                    String s = mTipoTrabajoId.get(i).toString();
                     TipoTrabajoChk[mTipoTrabajoId.get(i)].setChecked(false);
                 }
                 mTiposTrabajoSeleccionados.clear();
@@ -260,12 +268,12 @@ public class OrdersFilterActivity extends AppCompatActivity implements View{
                 mZonasSeleccionadas.clear();
                 mZonaId.clear();
 
-                /*Calendar c = mFechaFinSeleccionada.toGregorianCalendar();
+                Calendar c = mFechaFinSeleccionada.toGregorianCalendar();
                 SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
                 mFechaInicio.setText(format.format(c.getTime()));
-                mFechaFin.setText(format.format(c.getTime()));*/
-                mFechaInicio.setText("");
-                mFechaFin.setText("");
+                mFechaFin.setText(format.format(c.getTime()));
+                //mFechaInicio.setText("");
+                //mFechaFin.setText("");
                 mFechaInicioSeleccionada = null;
                 mFechaFinSeleccionada = null;
                 break;
@@ -310,6 +318,7 @@ public class OrdersFilterActivity extends AppCompatActivity implements View{
                 for(int j = 0; j< mTiposTrabajoSeleccionados.size(); j++) {
                     if(TipoTrabajoChk[i].getText().equals(mTiposTrabajoSeleccionados.get(j))){
                         TipoTrabajoChk[i].setChecked(true);
+                        mTipoTrabajoId.add(i);
                     }
                 }
             }
@@ -339,6 +348,7 @@ public class OrdersFilterActivity extends AppCompatActivity implements View{
                 for(int j = 0; j< mZonasSeleccionadas.size(); j++) {
                     if(ZonaChk[i].getText().equals(mZonasSeleccionadas.get(j))){
                         ZonaChk[i].setChecked(true);
+                        mZonaId.add(i);
                     }
                 }
             }

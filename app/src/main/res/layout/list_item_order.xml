@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent" android:layout_height="match_parent"
     android:padding="@dimen/activity_horizontal_margin"
     android:minHeight="?android:attr/listPreferredItemHeight"
@@ -39,6 +40,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:focusable="false"
+        android:padding="5dp"
         android:focusableInTouchMode="false"
         android:textStyle="italic" />
 
@@ -51,6 +53,7 @@
         android:id="@+id/titular_text"
         android:focusable="false"
         android:focusableInTouchMode="false"
+        android:padding="5dp"
         android:layout_below="@+id/domicilio_text"
         android:layout_toRightOf="@+id/indicator" />
 
@@ -75,7 +78,53 @@
         android:focusable="false"
         android:focusableInTouchMode="false"
         android:layout_above="@+id/tipo_text"
+        android:padding="5dp"
         android:layout_alignParentEnd="true" />
-
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/layoutRuta"
+        android:layout_below="@+id/titular_text"
+        android:layout_toRightOf="@+id/indicator"
+        android:orientation="horizontal">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:paddingRight="3dp"
+            app:srcCompat="@drawable/ic_ruta" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="Ruta"
+            android:id="@+id/ruta_text"
+            android:focusable="false"
+            android:layout_gravity="center_vertical"
+            android:focusableInTouchMode="false" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tipo_text"
+        android:layout_alignParentEnd="true"
+        android:orientation="horizontal">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:paddingRight="3dp"
+            app:srcCompat="@drawable/ic_turno_black" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="TURNO"
+            android:id="@+id/turno_text"
+            android:layout_gravity="center_vertical"
+            android:focusable="false"
+            android:layout_alignParentEnd="true"
+            android:focusableInTouchMode="false" />
+    </LinearLayout>
 
 </RelativeLayout>

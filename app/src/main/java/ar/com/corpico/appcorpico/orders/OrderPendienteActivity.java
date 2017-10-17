@@ -248,8 +248,7 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements
 
         // Associate searchable configuratio with the SearchView
         MenuItem menuItem = menu.findItem(R.id.action_search);
-        SearchView searchView =
-                (SearchView) MenuItemCompat.getActionView(menuItem);
+        SearchView searchView = (SearchView) MenuItemCompat.getActionView(menuItem);
 
         // Conexión entre SearchView y searchable.xml
         SearchManager searchManager =
@@ -260,7 +259,7 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements
         // Personalización del SearchView
         searchView.setSubmitButtonEnabled(true);
 
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+        /*searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextChange(String newText) {
                 if (newText.length() > 0) {
@@ -280,9 +279,23 @@ public class OrderPendienteActivity extends NavitationDrawerActivity implements
             }
         });
 
+        return true;*/
+        MenuItemCompat.setOnActionExpandListener(menuItem, new MenuItemCompat.OnActionExpandListener() {
+            @Override
+            public boolean onMenuItemActionExpand(MenuItem item) {
+                return true;
+            }
+
+            @Override
+            public boolean onMenuItemActionCollapse(MenuItem item) {
+                mSearch = "";
+                orderPresenter.loadOrders(mTipoCuadrilla, mEstado, mTiposTrabajoSeleccionados,
+                        mZonasSeleccionadas, mFechaInicioSeleccionada, mFechaFinSeleccionada, mSearch, true, mFieldSort);
+                return true;
+            }
+        });
         return true;
     }
-
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

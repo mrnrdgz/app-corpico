@@ -80,6 +80,8 @@ public class OrdersAdapter extends ArrayAdapter<Order> {
         TextView domicilio = (TextView) convertView.findViewById(R.id.domicilio_text);
         TextView tipo = (TextView) convertView.findViewById(R.id.tipo_text);
         TextView fecha = (TextView) convertView.findViewById(R.id.fechaSolicitud_text);
+        TextView ruta = (TextView) convertView.findViewById(R.id.ruta_text);
+        TextView  turno = (TextView) convertView.findViewById(R.id.turno_text);
 
         indicator.setFocusable(false);
         titular.setFocusable(false);
@@ -94,6 +96,12 @@ public class OrdersAdapter extends ArrayAdapter<Order> {
         domicilio.setText(order.getDomicilio());
         tipo.setText(order.getTipo_Trabajo());
         fecha.setText(order.getFechaSolicitud().toString("dd-MM-yyyy"));
+        ruta.setText(order.getRuta().toString());
+        if (order.getTurno() != null){
+            turno.setText(order.getTurno().toString("dd-MM-yyyy HH:mm"));
+        }else{
+            turno.setText("Sin Turno");
+        }
 
         String estado = order.getCurrentState(order.getEtapas());
 

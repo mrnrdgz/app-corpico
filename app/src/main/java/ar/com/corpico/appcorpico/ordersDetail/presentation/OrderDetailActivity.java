@@ -109,7 +109,7 @@ public class OrderDetailActivity extends AppCompatActivity implements
             if (mTurno != null){
                 turno.setText(mTurno.toString("dd-MM-yyyy HH:mm"));
             }else{
-                turno.setText("");
+                turno.setText("Sin Turno");
             }
 
             //TODO: HACER VARIABLE EL ESTADO PARA QUE ME SIRVA EL DETALLE EN OTRAS ACTIVITYS (EL ESTADO ME REFLEJA EL COLOR DE EL ICON DE LA UBICACION)
@@ -314,8 +314,6 @@ public class OrderDetailActivity extends AppCompatActivity implements
 
     @Override
     public void refreshTurno(String turno) {
-        //TODO: Lo hace..me cambia el valor del campo de texto...pero esta bien q lo haga asi?
-        // o debe mostrar el valor que toma de la orden?
         TextView mTurno = (TextView)this.findViewById(R.id.turno_text);
         mTurno.setText(turno);
     }

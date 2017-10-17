@@ -85,11 +85,28 @@ public class OrdersSelector {
     private Comparator<Order> mTurnoComparator = new Comparator<Order>() {
         @Override
         public int compare(Order o1, Order o2) {
+            int resultado = 0;
             if (mQuery.getSortOrder() == Query.ASC_ORDER) {
-                return o1.getTurno().compareTo(o2.getTurno());
+                if ( o1.getTurno()!= null && o2.getTurno()!= null ){
+                    resultado = o1.getTurno().compareTo(o2.getTurno());
+                    //return o1.getTurno().compareTo(o2.getTurno());
+                }
+                if ( o1.getTurno() == null && o2.getTurno()!= null ){
+                    resultado =  1;
+                }
+                if ( o1.getTurno() != null && o2.getTurno() == null ){
+                    resultado =  -1;
+                }
+                if ( o1.getTurno() == null && o2.getTurno() == null ){
+                    resultado =  0;
+                }
             } else {
-                return o2.getTurno().compareTo(o1.getTurno());
+                if ( o1.getTurno()!= null && o2.getTurno()!= null ){
+                    //return o2.getTurno().compareTo(o1.getTurno());
+                    resultado = o2.getTurno().compareTo(o1.getTurno());
+                }
             }
+            return resultado;
         }
     };
     private Comparator<Order> mRutaComparator = new Comparator<Order>() {

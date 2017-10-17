@@ -69,7 +69,8 @@ public class OrdersDetailPresenter implements Presenter{
                 if (mTurno != null){
                     mOrdersView.refreshTurno(mTurno.toString());
                 }else{
-                    mOrdersView.refreshTurno("");
+                    mOrdersView.refreshTurno("Sin Turno");
+
                 }
             }
 
