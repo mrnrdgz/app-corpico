@@ -8,19 +8,20 @@
         android:icon="@drawable/ic_filtrar"
         android:orderInCategory="2"
         android:title="@string/action_filtrar"
-        app:showAsAction="always" />
+        app:showAsAction="ifRoom|collapseActionView"/>
     <item
         android:id="@+id/action_map"
         android:icon="@drawable/ic_map"
-        android:orderInCategory="3"
+        android:orderInCategory="1"
         android:title="@string/action_map"
-        app:showAsAction="always" />
+        app:showAsAction="ifRoom|collapseActionView"/>
     <item
         android:id="@+id/action_search"
         android:icon="@drawable/ic_search"
-        android:orderInCategory="1"
+        android:orderInCategory="3"
         android:title="@string/action_buscar"
-        app:showAsAction="collapseActionView|ifRoom"
+        android:actionLayout="@layout/my_search_view"
+        app:showAsAction="always|collapseActionView"
         app:actionViewClass="android.support.v7.widget.SearchView" />
     <item
         android:id="@+id/action_settings"

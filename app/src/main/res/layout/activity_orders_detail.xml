@@ -65,108 +65,108 @@
 
             <!-- Card Orden-->
             <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
-                 android:id="@+id/card1"
-                 android:layout_width="match_parent"
-                 android:layout_height="180dp"
-                 card_view:cardElevation="4dp"
-                 card_view:cardUseCompatPadding="true">
+                android:id="@+id/card1"
+                android:layout_width="match_parent"
+                android:layout_height="180dp"
+                card_view:cardElevation="4dp"
+                card_view:cardUseCompatPadding="true">
 
-                 <RelativeLayout
-                     android:id="@+id/content1"
-                     android:layout_width="match_parent"
-                     android:layout_height="match_parent"
-                     android:padding="@dimen/activity_horizontal_margin">>
-                     <!-- Texto Titulo-->
-                     <TextView
-                         android:id="@+id/orden_titulo"
-                         android:layout_width="wrap_content"
-                         android:layout_height="wrap_content"
-                         android:layout_alignParentLeft="true"
-                         android:text="Orden"
-                         android:textColor="@color/colorPrimary"
-                         android:paddingBottom="12dp"
-                         android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
-                     <!-- Label Fecha Solicitud-->
-                     <TextView
-                         android:id="@+id/fecha_label"
-                         android:layout_width="wrap_content"
-                         android:layout_height="wrap_content"
-                         android:layout_alignParentStart="true"
-                         android:layout_alignParentLeft="true"
-                         android:layout_below="@+id/orden_titulo"
-                         android:text="Fecha Solicitud"
-                         android:textAppearance="?android:attr/textAppearanceSmall" />
-                     <!-- Texto Fecha Solicitud-->
-                     <TextView
-                         android:id="@+id/fecha_text"
-                         android:layout_width="wrap_content"
-                         android:layout_height="wrap_content"
-                         android:layout_alignParentStart="true"
-                         android:layout_alignParentLeft="true"
-                         android:layout_below="@+id/fecha_label"
-                         android:paddingBottom="12dp"
-                         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                         android:textIsSelectable="true" />
-                     <!-- Label Fecha Solicitud-->
-                     <TextView
-                         android:id="@+id/turno_label"
-                         android:layout_width="wrap_content"
-                         android:layout_height="wrap_content"
-                         android:layout_alignParentEnd="true"
-                         android:layout_alignParentRight="true"
-                         android:layout_below="@+id/orden_titulo"
-                         android:text="Turno"
-                         android:textAppearance="?android:attr/textAppearanceSmall" />
-                     <!-- Texto Fecha Solicitud-->
-                     <TextView
-                         android:id="@+id/turno_text"
-                         android:layout_width="wrap_content"
-                         android:layout_height="wrap_content"
-                         android:layout_alignParentEnd="true"
-                         android:layout_alignParentRight="true"
-                         android:layout_below="@+id/turno_label"
-                         android:paddingBottom="12dp"
-                         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                         android:textIsSelectable="true" />
-                     <!-- Etiqueta Tipo de Trabajo-->
-                     <TextView
-                         android:id="@+id/tipotrabajo_label"
-                         android:layout_width="wrap_content"
-                         android:layout_height="wrap_content"
-                         android:layout_below="@+id/fecha_text"
-                         android:text="Tipo de Trabajo"
-                         android:textAppearance="?android:attr/textAppearanceSmall" />
-                     <!-- Texto Tipo de Trabajo-->
-                     <TextView
-                         android:id="@+id/tipotrabajo_text"
-                         android:layout_width="wrap_content"
-                         android:layout_height="wrap_content"
-                         android:layout_alignParentLeft="true"
-                         android:layout_below="@+id/tipotrabajo_label"
-                         android:text="Tipo de Trabajo"
-                         android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+                <RelativeLayout
+                    android:id="@+id/content1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="@dimen/activity_horizontal_margin">>
+                    <!-- Texto Titulo-->
+                    <TextView
+                        android:id="@+id/orden_titulo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:text="Orden"
+                        android:textColor="@color/colorPrimary"
+                        android:paddingBottom="12dp"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
+                    <!-- Label Fecha Solicitud-->
+                    <TextView
+                        android:id="@+id/fecha_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentLeft="true"
+                        android:layout_below="@+id/orden_titulo"
+                        android:text="Fecha Solicitud"
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
+                    <!-- Texto Fecha Solicitud-->
+                    <TextView
+                        android:id="@+id/fecha_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentLeft="true"
+                        android:layout_below="@+id/fecha_label"
+                        android:paddingBottom="12dp"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                        android:textIsSelectable="true" />
+                    <!-- Label Fecha Solicitud-->
+                    <TextView
+                        android:id="@+id/turno_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_below="@+id/orden_titulo"
+                        android:text="Turno"
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
+                    <!-- Texto Fecha Solicitud-->
+                    <TextView
+                        android:id="@+id/turno_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_below="@+id/turno_label"
+                        android:paddingBottom="12dp"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                        android:textIsSelectable="true" />
+                    <!-- Etiqueta Tipo de Trabajo-->
+                    <TextView
+                        android:id="@+id/tipotrabajo_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/fecha_text"
+                        android:text="Tipo de Trabajo"
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
+                    <!-- Texto Tipo de Trabajo-->
+                    <TextView
+                        android:id="@+id/tipotrabajo_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_below="@+id/tipotrabajo_label"
+                        android:text="Tipo de Trabajo"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
-                     <!-- Label Motivo-->
-                     <TextView
-                         android:id="@+id/motivo_label"
-                         android:layout_width="wrap_content"
-                         android:layout_height="wrap_content"
-                         android:layout_alignParentEnd="true"
-                         android:layout_alignParentRight="true"
-                         android:layout_alignTop="@+id/tipotrabajo_label"
-                         android:text="Motivo"
-                         android:textAppearance="?android:attr/textAppearanceSmall"/>
+                    <!-- Label Motivo-->
+                    <TextView
+                        android:id="@+id/motivo_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignTop="@+id/tipotrabajo_label"
+                        android:text="Motivo"
+                        android:textAppearance="?android:attr/textAppearanceSmall"/>
 
                     <!-- Texto de Motivo-->
-                     <TextView
-                         android:id="@+id/motivo_text"
-                         android:layout_width="wrap_content"
-                         android:layout_height="wrap_content"
-                         android:layout_alignParentEnd="true"
-                         android:layout_alignParentRight="true"
-                         android:layout_alignTop="@+id/tipotrabajo_text"
-                         android:text="Motivo"
-                         android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+                    <TextView
+                        android:id="@+id/motivo_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignTop="@+id/tipotrabajo_text"
+                        android:text="Motivo"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
 
                 </RelativeLayout>
@@ -653,7 +653,7 @@
                         android:layout_height="match_parent"
                         android:layout_alignParentStart="true"
                         android:layout_alignParentTop="true"
-                        tools:listitem="@layout/list_item_etapa" />
+                        tools:listitem="@layout/list_item_etapas" />
 
                 </RelativeLayout>
             </android.support.v7.widget.CardView>
