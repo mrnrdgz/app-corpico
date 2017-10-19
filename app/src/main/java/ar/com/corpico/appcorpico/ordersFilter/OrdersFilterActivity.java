@@ -13,6 +13,7 @@ import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import org.joda.time.DateTime;
@@ -81,6 +82,7 @@ public class OrdersFilterActivity extends AppCompatActivity implements View{
         }else{
             Calendar c = Calendar.getInstance();
             SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
+            c.add(Calendar.MONTH,-2);
             mFechaInicio.setText(format.format(c.getTime()));
         }
         mFechaInicio.setOnClickListener(
@@ -136,7 +138,7 @@ public class OrdersFilterActivity extends AppCompatActivity implements View{
             }
         };
         if(mFechaInicioSeleccionada==null){
-            mFechaInicioSeleccionada=new DateTime(DateTime.now());
+            mFechaInicioSeleccionada=new DateTime(DateTime.now().minusMonths(2));
         }
         if(mFechaFinSeleccionada==null){
             mFechaFinSeleccionada=new DateTime(DateTime.now());
@@ -247,13 +249,19 @@ public class OrdersFilterActivity extends AppCompatActivity implements View{
                 finish();*/
                 break;
             case R.id.action_aplicar:
-                Intent databack = new Intent();
-                databack.putStringArrayListExtra(ARG_TIPOS_TRABAJO_SELECCIONADOS, (ArrayList<String>) mTiposTrabajoSeleccionados);
-                databack.putStringArrayListExtra(ARG_ZONAS_SELECCIONADAS, (ArrayList<String>) mZonasSeleccionadas);
-                databack.putExtra(ARG_FECHA_INICIO, mFechaInicioSeleccionada);
-                databack.putExtra(ARG_FECHA_FIN, mFechaFinSeleccionada);
-                setResult(RESULT_OK,databack);
-                finish();
+                int a = mFechaInicioSeleccionada.compareTo(mFechaFinSeleccionada);
+                if (a !=1){
+                    Intent databack = new Intent();
+                    databack.putStringArrayListExtra(ARG_TIPOS_TRABAJO_SELECCIONADOS, (ArrayList<String>) mTiposTrabajoSeleccionados);
+                    databack.putStringArrayListExtra(ARG_ZONAS_SELECCIONADAS, (ArrayList<String>) mZonasSeleccionadas);
+                    databack.putExtra(ARG_FECHA_INICIO, mFechaInicioSeleccionada);
+                    databack.putExtra(ARG_FECHA_FIN, mFechaFinSeleccionada);
+                    setResult(RESULT_OK,databack);
+                    finish();
+                }else{
+                    Toast.makeText(this, "La Fecha de Inicio debe ser Menor a la Fecha Fin", Toast.LENGTH_SHORT).show();
+                }
+
                 break;
             case R.id.action_limpiar:
                 for (int i=0; i<  mTipoTrabajoId.size(); i++) {
@@ -268,14 +276,17 @@ public class OrdersFilterActivity extends AppCompatActivity implements View{
                 mZonasSeleccionadas.clear();
                 mZonaId.clear();
 
-                Calendar c = mFechaFinSeleccionada.toGregorianCalendar();
+                //Calendar c = mFechaFinSeleccionada.toGregorianCalendar();
+                Calendar c = Calendar.getInstance();
+                c.add(Calendar.MONTH,-2);
                 SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
                 mFechaInicio.setText(format.format(c.getTime()));
-                mFechaFin.setText(format.format(c.getTime()));
+                Calendar d = Calendar.getInstance();
+                mFechaFin.setText(format.format(d.getTime()));
                 //mFechaInicio.setText("");
                 //mFechaFin.setText("");
-                mFechaInicioSeleccionada = null;
-                mFechaFinSeleccionada = null;
+                mFechaInicioSeleccionada = new DateTime(c);;
+                mFechaFinSeleccionada = new DateTime(d);;
                 break;
         }
         return super.onOptionsItemSelected(item);
