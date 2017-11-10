@@ -5,6 +5,10 @@ import android.os.Handler;
 import java.util.UUID;
 
 import ar.com.corpico.appcorpico.login.domain.entity.Session;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
+import static android.icu.lang.UCharacter.GraphemeClusterBreak.T;
 
 /**
  * Creado por Hermosa Programación.
@@ -19,6 +23,17 @@ public class SessionsCloudStore implements SessionsStore {
     public void getSessionByUserCredentials(final String userCode,
                                             final String password,
                                             final GetCallback callback) {
+
+        /*String loginText = "name=ajaj&asswor";
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://api.github.com")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        GitHubService service = retrofit.create(GitHubService.class);
+        service.metododelogin(llamar con la callback enqueue(Callback<T> callback))*/
+        //en la callback controlar si la respuesta fue exitosa mapeo el resultado del post en la entidad q defini para recibir
 
         new Handler().postDelayed(new Runnable() {
             @Override
