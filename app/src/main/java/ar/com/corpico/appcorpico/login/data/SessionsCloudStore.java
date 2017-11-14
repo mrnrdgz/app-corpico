@@ -4,7 +4,11 @@ import android.os.Handler;
 
 import java.util.UUID;
 
+import ar.com.corpico.appcorpico.login.domain.entity.PostLogin;
 import ar.com.corpico.appcorpico.login.domain.entity.Session;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -24,15 +28,29 @@ public class SessionsCloudStore implements SessionsStore {
                                             final String password,
                                             final GetCallback callback) {
 
-        /*String loginText = "name=ajaj&asswor";
+        String loginText = "username=mrodriguez&password=280776&grant_type=password";
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://api.github.com")
+                .baseUrl("http://localhost:25772/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
-        GitHubService service = retrofit.create(GitHubService.class);
-        service.metododelogin(llamar con la callback enqueue(Callback<T> callback))*/
+        ApiServiceLogin service = retrofit.create(ApiServiceLogin.class);
+        service.getToken(loginText).enqueue(new Callback<PostLogin>() {
+            @Override
+            public void onResponse(Call<PostLogin> call, Response<PostLogin> response) {
+
+                if(response.isSuccessful()) {
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<PostLogin> call, Throwable t) {
+
+            }
+        });
+        //service.metododelogin(llamar con la callback enqueue(Callback<T> callback))
         //en la callback controlar si la respuesta fue exitosa mapeo el resultado del post en la entidad q defini para recibir
 
         new Handler().postDelayed(new Runnable() {
