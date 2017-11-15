@@ -36,12 +36,14 @@ public class SessionsCloudStore implements SessionsStore {
                 .build();
 
         ApiServiceLogin service = retrofit.create(ApiServiceLogin.class);
-        service.getToken(loginText).enqueue(new Callback<PostLogin>() {
+        final Call<PostLogin> postLogin = service.getToken(loginText);
+        postLogin.enqueue(new Callback<PostLogin>() {
             @Override
             public void onResponse(Call<PostLogin> call, Response<PostLogin> response) {
 
                 if(response.isSuccessful()) {
-
+                    Session newSession = new Session(response.body().getUserName(), response.body().getUserName(), response.body().getAccessToken());
+                    callback.onSucess(newSession);
                 }
             }
 
@@ -53,7 +55,7 @@ public class SessionsCloudStore implements SessionsStore {
         //service.metododelogin(llamar con la callback enqueue(Callback<T> callback))
         //en la callback controlar si la respuesta fue exitosa mapeo el resultado del post en la entidad q defini para recibir
 
-        new Handler().postDelayed(new Runnable() {
+       /* new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
                 if (!DUMMY_USER_CODE.equals(userCode)) {
@@ -71,7 +73,7 @@ public class SessionsCloudStore implements SessionsStore {
 
                 callback.onSucess(newSession);
             }
-        }, 2000);
+        }, 2000);*/
 
     }
 
