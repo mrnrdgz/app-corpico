@@ -1,6 +1,7 @@
 package ar.com.corpico.appcorpico.login.data;
 
 import android.os.Handler;
+import android.widget.Toast;
 
 import java.util.UUID;
 
@@ -31,12 +32,13 @@ public class SessionsCloudStore implements SessionsStore {
         String loginText = "username=mrodriguez&password=280776&grant_type=password";
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://localhost:25772/")
+                //.baseUrl("http://172.16.14.24:25772/")
+                .baseUrl("http://10.0.2.2:8080/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
         ApiServiceLogin service = retrofit.create(ApiServiceLogin.class);
-        final Call<PostLogin> postLogin = service.getToken(loginText);
+        final Call<PostLogin> postLogin = service.getToken("mrodriguez","280776","password");
         postLogin.enqueue(new Callback<PostLogin>() {
             @Override
             public void onResponse(Call<PostLogin> call, Response<PostLogin> response) {
@@ -49,7 +51,7 @@ public class SessionsCloudStore implements SessionsStore {
 
             @Override
             public void onFailure(Call<PostLogin> call, Throwable t) {
-
+                callback.onError("El código de usuario no está registrado");
             }
         });
         //service.metododelogin(llamar con la callback enqueue(Callback<T> callback))
@@ -64,7 +66,7 @@ public class SessionsCloudStore implements SessionsStore {
                 }
 
                 if (!DUMMY_PASSWORD.equals(password)) {
-                    callback.onError("Password incorrecto");
+                    String
                     return;
                 }
 
