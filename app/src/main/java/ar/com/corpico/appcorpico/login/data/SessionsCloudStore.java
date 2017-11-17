@@ -33,7 +33,7 @@ public class SessionsCloudStore implements SessionsStore {
 
         Retrofit retrofit = new Retrofit.Builder()
                 //.baseUrl("http://172.16.14.24:25772/")
-                .baseUrl("http://10.0.2.2:8080/")
+                .baseUrl("http://172.16.14.24/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
