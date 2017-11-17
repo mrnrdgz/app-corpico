@@ -56,7 +56,7 @@ public class SessionsCloudStore implements SessionsStore {
         });
         //service.metododelogin(llamar con la callback enqueue(Callback<T> callback))
         //en la callback controlar si la respuesta fue exitosa mapeo el resultado del post en la entidad q defini para recibir
-
+                ///
        /* new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
