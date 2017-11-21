@@ -29,11 +29,11 @@ public class SessionsCloudStore implements SessionsStore {
                                             final String password,
                                             final GetCallback callback) {
 
-        String loginText = "username=mrodriguez&password=280776&grant_type=password";
+        //String loginText = "username=mrodriguez&password=280776&grant_type=password";
 
         Retrofit retrofit = new Retrofit.Builder()
                 //.baseUrl("http://172.16.14.24:25772/")
-                .baseUrl("http://172.16.14.24/")
+                .baseUrl("http://192.168.1.34:25772/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
@@ -47,6 +47,7 @@ public class SessionsCloudStore implements SessionsStore {
                     Session newSession = new Session(response.body().getUserName(), response.body().getUserName(), response.body().getAccessToken());
                     callback.onSucess(newSession);
                 }
+                //response.errorBody()
             }
 
             @Override
