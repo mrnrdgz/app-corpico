@@ -46,7 +46,7 @@ public class SessionsCloudStore implements SessionsStore {
                 if(response.isSuccessful()) {
                     Session newSession = new Session(response.body().getUserName(), response.body().getUserName(), response.body().getAccessToken());
                     callback.onSucess(newSession);
-                }
+                }//else para el response.issuccessfull distninto de 0 es para evaluar el error del servicio
                 //response.errorBody()
             }
 
